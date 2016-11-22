@@ -1,0 +1,27 @@
+HTTrack3.48-22+htsswf+htsjava launched on Tue, 22 Nov 2016 18:14:11 at http://altair_html.tzdthemes.com/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" http://altair_html.tzdthemes.com/ -O1 "D:\WORKSPACE\web\Altair" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+18:17:53	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/pages_mailbox.html (from altair_html.tzdthemes.com/)
+18:19:36	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/scrum_board.html (from altair_html.tzdthemes.com/)
+18:19:36	Warning: 	Link altair_html.tzdthemes.com/cdn-cgi/l/email-protection not scanned (follow robots meta tag)
+18:19:36	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/bower_components/dense/src/dense.js (from altair_html.tzdthemes.com/)
+18:19:44	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/assets/assets/img/spinners/spinner.gif (from altair_html.tzdthemes.com/assets/css/main.min.css)
+18:19:47	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/'assets/img/spinners/spinner.gif/' (from altair_html.tzdthemes.com/components_modal.html)
+18:20:09	Warning: 	Retry after error -4 (Incorrect length (551470 Bytes, 690467 expected)) at link altair_html.tzdthemes.com/assets/img/gallery/image_cropp.jpg (from altair_html.tzdthemes.com/plugins_image_cropper.html)
+18:20:09	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/cropped_image.jpg (from altair_html.tzdthemes.com/plugins_image_cropper.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/envato_ico.png (from altair_html.tzdthemes.com/plugins_tree.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/ic_wallpaper_black_18px.svg (from altair_html.tzdthemes.com/plugins_tree.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/ic_code_black_18px.svg (from altair_html.tzdthemes.com/plugins_tree.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/ic_audiotrack_black_18px.svg (from altair_html.tzdthemes.com/plugins_tree.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/ic_attachment_black_18px.svg (from altair_html.tzdthemes.com/plugins_tree.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/ic_bug_report_black_18px.svg (from altair_html.tzdthemes.com/plugins_tree.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/ic_file_download_black_18px.svg (from altair_html.tzdthemes.com/plugins_tree.html)
+18:20:10	Error: 	"Not Found" (404) at link altair_html.tzdthemes.com/ic_insert_emoticon_black_18px.svg (from altair_html.tzdthemes.com/plugins_tree.html)
+
+HTTrack Website Copier/3.48-22 mirror complete in 6 minutes 3 seconds : 460 links scanned, 444 files written (20129578 bytes overall) [8734886 bytes received at 24063 bytes/sec], 15144652 bytes transferred using HTTP compression in 273 files, ratio 23%, 13.9 requests per connection
+(14 errors, 2 warnings, 0 messages)
