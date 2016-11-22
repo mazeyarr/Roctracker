@@ -84,9 +84,9 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
       return null;
     }
     if (numberStart.test(ch)) {
-      stream.backUp(1)
-      if (stream.match(number)) return "number"
-      stream.next()
+        stream.backUp(1);
+        if (stream.match(number)) return "number";
+        stream.next()
     }
     if (ch == "/") {
       if (stream.eat("*")) {
@@ -218,16 +218,16 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
       if (ctx.type == "statement" && firstChar == "}") ctx = ctx.prev;
       if (parserConfig.dontIndentStatements)
         while (ctx.type == "statement" && parserConfig.dontIndentStatements.test(ctx.info))
-          ctx = ctx.prev
-      if (hooks.indent) {
+            ctx = ctx.prev;
+        if (hooks.indent) {
         var hook = hooks.indent(state, ctx, textAfter);
         if (typeof hook == "number") return hook
       }
       var closing = firstChar == ctx.type;
       var switchBlock = ctx.prev && ctx.prev.info == "switch";
       if (parserConfig.allmanIndentation && /[{(]/.test(firstChar)) {
-        while (ctx.type != "top" && ctx.type != "}") ctx = ctx.prev
-        return ctx.indented
+          while (ctx.type != "top" && ctx.type != "}") ctx = ctx.prev;
+          return ctx.indented
       }
       if (ctx.type == "statement")
         return ctx.indented + (firstChar == "{" ? 0 : statementIndentUnit);
@@ -265,18 +265,18 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
   var cTypes = "int long char short double float unsigned signed void size_t ptrdiff_t";
 
   function cppHook(stream, state) {
-    if (!state.startOfLine) return false
-    for (var ch, next = null; ch = stream.peek();) {
+      if (!state.startOfLine) return false;
+      for (var ch, next = null; ch = stream.peek();) {
       if (ch == "\\" && stream.match(/^.$/)) {
-        next = cppHook
-        break
+          next = cppHook;
+          break
       } else if (ch == "/" && stream.match(/^\/[\/\*]/, false)) {
         break
       }
       stream.next()
     }
-    state.tokenize = next
-    return "meta"
+      state.tokenize = next;
+      return "meta"
   }
 
   function pointerHook(_stream, state) {
@@ -534,10 +534,10 @@ CodeMirror.defineMode("clike", function(config, parserConfig) {
         return "atom";
       },
       "=": function(stream, state) {
-        var cx = state.context
-        if (cx.type == "}" && cx.align && stream.eat(">")) {
-          state.context = new Context(cx.indented, cx.column, cx.type, cx.info, null, cx.prev)
-          return "operator"
+          var cx = state.context;
+          if (cx.type == "}" && cx.align && stream.eat(">")) {
+              state.context = new Context(cx.indented, cx.column, cx.type, cx.info, null, cx.prev);
+              return "operator"
         } else {
           return false
         }

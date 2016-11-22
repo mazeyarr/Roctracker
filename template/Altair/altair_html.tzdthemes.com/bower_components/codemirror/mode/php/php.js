@@ -160,8 +160,8 @@
       if (!isPHP) {
         if (stream.match(/^<\?\w*/)) {
           state.curMode = phpMode;
-          if (!state.php) state.php = CodeMirror.startState(phpMode, htmlMode.indent(state.html, ""))
-          state.curState = state.php;
+            if (!state.php) state.php = CodeMirror.startState(phpMode, htmlMode.indent(state.html, ""));
+            state.curState = state.php;
           return "meta";
         }
         if (state.pending == '"' || state.pending == "'") {
@@ -193,9 +193,10 @@
 
     return {
       startState: function() {
-        var html = CodeMirror.startState(htmlMode)
-        var php = parserConfig.startOpen ? CodeMirror.startState(phpMode) : null
-        return {html: html,
+          var html = CodeMirror.startState(htmlMode);
+          var php = parserConfig.startOpen ? CodeMirror.startState(phpMode) : null;
+          return {
+              html: html,
                 php: php,
                 curMode: parserConfig.startOpen ? phpMode : htmlMode,
                 curState: parserConfig.startOpen ? php : html,

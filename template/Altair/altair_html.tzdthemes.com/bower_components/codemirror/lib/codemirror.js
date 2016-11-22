@@ -544,9 +544,8 @@
 
     d.sizer.style.paddingRight = (d.barWidth = sizes.right) + "px";
     d.sizer.style.paddingBottom = (d.barHeight = sizes.bottom) + "px";
-    d.heightForcer.style.borderBottom = sizes.bottom + "px solid transparent"
-
-    if (sizes.right && sizes.bottom) {
+      d.heightForcer.style.borderBottom = sizes.bottom + "px solid transparent";
+      if (sizes.right && sizes.bottom) {
       d.scrollbarFiller.style.display = "block";
       d.scrollbarFiller.style.height = sizes.bottom + "px";
       d.scrollbarFiller.style.width = sizes.right + "px";
@@ -1111,8 +1110,8 @@
     if (!sel) sel = doc.sel;
 
     var paste = cm.state.pasteIncoming || origin == "paste";
-    var textLines = doc.splitLines(inserted), multiPaste = null
-    // When pasing N lines into N selections, insert one line per selection
+      var textLines = doc.splitLines(inserted), multiPaste = null;
+      // When pasing N lines into N selections, insert one line per selection
     if (paste && sel.ranges.length > 1) {
       if (lastCopied && lastCopied.text.join("\n") == inserted) {
         if (sel.ranges.length % lastCopied.text.length == 0) {
@@ -1222,9 +1221,9 @@
     // Used to work around IE issue with selection being forgotten when focus moves away from textarea
     this.hasSelection = false;
     this.composing = null;
-  };
+  }
 
-  function hiddenTextarea() {
+    function hiddenTextarea() {
     var te = elt("textarea", null, null, "position: absolute; bottom: -1em; padding: 0; width: 1px; height: 1em; outline: none");
     var div = elt("div", [te], null, "overflow: hidden; position: relative; width: 3px; height: 0px;");
     // The textarea is kept positioned near the cursor to prevent the
@@ -1259,15 +1258,14 @@
       });
 
       on(te, "paste", function(e) {
-        if (signalDOMEvent(cm, e) || handlePaste(e, cm)) return
-
-        cm.state.pasteIncoming = true;
+          if (signalDOMEvent(cm, e) || handlePaste(e, cm)) return;
+          cm.state.pasteIncoming = true;
         input.fastPoll();
       });
 
       function prepareCopyCut(e) {
-        if (signalDOMEvent(cm, e)) return
-        if (cm.somethingSelected()) {
+          if (signalDOMEvent(cm, e)) return;
+          if (cm.somethingSelected()) {
           lastCopied = {lineWise: false, text: cm.getSelections()};
           if (input.inaccurateSelection) {
             input.prevInput = "";
@@ -1306,8 +1304,8 @@
 
       on(te, "compositionstart", function() {
         var start = cm.getCursor("from");
-        if (input.composing) input.composing.range.clear()
-        input.composing = {
+          if (input.composing) input.composing.range.clear();
+          input.composing = {
           start: start,
           range: cm.markText(start, cm.getCursor("to"), {className: "CodeMirror-composing"})
         };
@@ -1491,9 +1489,9 @@
         operation(cm, setSelection)(cm.doc, simpleSelection(pos), sel_dontScroll);
 
       var oldCSS = te.style.cssText, oldWrapperCSS = input.wrapper.style.cssText;
-      input.wrapper.style.cssText = "position: absolute"
-      var wrapperBox = input.wrapper.getBoundingClientRect()
-      te.style.cssText = "position: absolute; width: 30px; height: 30px; top: " + (e.clientY - wrapperBox.top - 5) +
+        input.wrapper.style.cssText = "position: absolute";
+        var wrapperBox = input.wrapper.getBoundingClientRect();
+        te.style.cssText = "position: absolute; width: 30px; height: 30px; top: " + (e.clientY - wrapperBox.top - 5) +
         "px; left: " + (e.clientX - wrapperBox.left - 5) + "px; z-index: 1000; background: " +
         (ie ? "rgba(255, 255, 255, .05)" : "transparent") +
         "; outline: none; border-width: 0; outline: none; overflow: hidden; opacity: .05; filter: alpha(opacity=5);";
@@ -1525,8 +1523,8 @@
       }
       function rehide() {
         input.contextMenuPending = false;
-        input.wrapper.style.cssText = oldWrapperCSS
-        te.style.cssText = oldCSS;
+          input.wrapper.style.cssText = oldWrapperCSS;
+          te.style.cssText = oldCSS;
         if (ie && ie_version < 9) display.scrollbars.setScrollTop(display.scroller.scrollTop = scrollPos);
 
         // Try to detect the user choosing select-all
@@ -1581,14 +1579,13 @@
       disableBrowserMagic(div, cm.options.spellcheck);
 
       on(div, "paste", function(e) {
-        if (signalDOMEvent(cm, e) || handlePaste(e, cm)) return
-        // IE doesn't fire input events, so we schedule a read for the pasted content in this way
+          if (signalDOMEvent(cm, e) || handlePaste(e, cm)) return;
+          // IE doesn't fire input events, so we schedule a read for the pasted content in this way
         if (ie_version <= 11) setTimeout(operation(cm, function() {
           if (!input.pollContent()) regChange(cm);
         }), 20)
-      })
-
-      on(div, "compositionstart", function(e) {
+      });
+        on(div, "compositionstart", function (e) {
         var data = e.data;
         input.composing = {sel: cm.doc.sel, data: data, startData: data};
         if (!data) return;
@@ -1629,8 +1626,8 @@
       });
 
       function onCopyCut(e) {
-        if (signalDOMEvent(cm, e)) return
-        if (cm.somethingSelected()) {
+          if (signalDOMEvent(cm, e)) return;
+          if (cm.somethingSelected()) {
           lastCopied = {lineWise: false, text: cm.getSelections()};
           if (e.type == "cut") cm.replaceSelection("", null, "cut");
         } else if (!cm.options.lineWiseCopyCut) {
@@ -1647,8 +1644,8 @@
         }
         if (e.clipboardData) {
           e.clipboardData.clearData();
-          var content = lastCopied.text.join("\n")
-          // iOS exposes the clipboard API, but seems to discard content inserted into it
+            var content = lastCopied.text.join("\n");
+            // iOS exposes the clipboard API, but seems to discard content inserted into it
           e.clipboardData.setData("Text", content);
           if (e.clipboardData.getData("Text") == content) {
             e.preventDefault();
@@ -1860,7 +1857,7 @@
     },
     applyComposition: function(composing) {
       if (this.cm.isReadOnly())
-        operation(this.cm, regChange)(this.cm)
+          operation(this.cm, regChange)(this.cm);
       else if (composing.data && composing.data != composing.startData)
         operation(this.cm, applyTextInput)(this.cm, composing.data, 0, composing.sel);
     },
@@ -2701,8 +2698,8 @@
   }
 
   function getUsefulRect(rects, bias) {
-    var rect = nullRect
-    if (bias == "left") for (var i = 0; i < rects.length; i++) {
+      var rect = nullRect;
+      if (bias == "left") for (var i = 0; i < rects.length; i++) {
       if ((rect = rects[i]).left != rect.right) break
     } else for (var i = rects.length - 1; i >= 0; i--) {
       if ((rect = rects[i]).left != rect.right) break
@@ -2722,8 +2719,8 @@
         if (ie && ie_version < 9 && start == 0 && end == place.coverEnd - place.coverStart)
           rect = node.parentNode.getBoundingClientRect();
         else
-          rect = getUsefulRect(range(node, start, end).getClientRects(), bias)
-        if (rect.left || rect.right || start == 0) break;
+            rect = getUsefulRect(range(node, start, end).getClientRects(), bias);
+          if (rect.left || rect.right || start == 0) break;
         end = start;
         start = start - 1;
         collapse = "right";
@@ -2948,8 +2945,8 @@
     for (;;) {
       if (bidi ? to == from || to == moveVisually(lineObj, from, 1) : to - from <= 1) {
         var ch = x < fromX || x - fromX <= toX - x ? from : to;
-        var outside = ch == from ? fromOutside : toOutside
-        var xDiff = x - (ch == from ? fromX : toX);
+          var outside = ch == from ? fromOutside : toOutside;
+          var xDiff = x - (ch == from ? fromX : toX);
         // This is a kludge to handle the case where the coordinates
         // are after a line-wrapped line. We should replace it with a
         // more general handling of cursor positions around line
@@ -2958,9 +2955,9 @@
             ch < lineObj.text.length && preparedMeasure.view.measure.heights.length > 1) {
           var charSize = measureCharPrepared(cm, preparedMeasure, ch, "right");
           if (innerOff <= charSize.bottom && innerOff >= charSize.top && Math.abs(x - charSize.right) < xDiff) {
-            outside = false
-            ch++
-            xDiff = x - charSize.right
+              outside = false;
+              ch++;
+              xDiff = x - charSize.right
           }
         }
         while (isExtendingChar(lineObj.text.charAt(ch))) ++ch;
@@ -3144,8 +3141,8 @@
       cm.display.maxLineChanged = false;
     }
 
-    var takeFocus = op.focus && op.focus == activeElt() && (!document.hasFocus || document.hasFocus())
-    if (op.preparedSelection)
+      var takeFocus = op.focus && op.focus == activeElt() && (!document.hasFocus || document.hasFocus());
+      if (op.preparedSelection)
       cm.display.input.showSelection(op.preparedSelection, takeFocus);
     if (op.updatedDisplay || op.startHeight != cm.doc.height)
       updateScrollbars(cm, op.barMeasure);
@@ -3459,8 +3456,9 @@
         prevTouch = d.activeTouch;
         prevTouch.end = +new Date;
       }
-    };
-    function isMouseLikeTouchEvent(e) {
+    }
+
+      function isMouseLikeTouchEvent(e) {
       if (e.touches.length != 1) return false;
       var touch = e.touches[0];
       return touch.radiusX <= 1 && touch.radiusY <= 1;
@@ -3688,8 +3686,8 @@
     // Let the drag handler handle this.
     if (webkit) display.scroller.draggable = true;
     cm.state.draggingText = dragEnd;
-    dragEnd.copy = mac ? e.altKey : e.ctrlKey
-    // IE's approach to draggable
+      dragEnd.copy = mac ? e.altKey : e.ctrlKey;
+      // IE's approach to draggable
     if (display.scroller.dragDrop) display.scroller.dragDrop();
     on(document, "mouseup", dragEnd);
     on(display.scroller, "drop", dragEnd);
@@ -3937,9 +3935,8 @@
     if (signalDOMEvent(cm, e) || eventInWidget(cm.display, e)) return;
 
     e.dataTransfer.setData("Text", cm.getSelection());
-    e.dataTransfer.effectAllowed = "copyMove"
-
-    // Use dummy image instead of default browsers image.
+      e.dataTransfer.effectAllowed = "copyMove";
+      // Use dummy image instead of default browsers image.
     // Recent Safari (~6.0.2) have a tendency to segfault when this happens, so we don't do it there.
     if (e.dataTransfer.setDragImage && !safari) {
       var img = elt("img", null, null, "position: fixed; left: 0; top: 0;");
@@ -4856,8 +4853,8 @@
     var lineObj = getLine(doc, line);
     function findNextLine() {
       var l = line + dir;
-      if (l < doc.first || l >= doc.first + doc.size) return false
-      line = l;
+        if (l < doc.first || l >= doc.first + doc.size) return false;
+        line = l;
       return lineObj = getLine(doc, l);
     }
     function moveOnce(boundToLine) {
@@ -4964,8 +4961,10 @@
       insertSorted(this.state.overlays,
                    {mode: mode, modeSpec: spec, opaque: options && options.opaque,
                     priority: (options && options.priority) || 0},
-                   function(overlay) { return overlay.priority })
-      this.state.modeGen++;
+          function (overlay) {
+              return overlay.priority
+          });
+        this.state.modeGen++;
       regChange(this);
     }),
     removeOverlay: methodOp(function(spec) {
@@ -6340,8 +6339,10 @@
 
   function detachSharedMarkers(markers) {
     for (var i = 0; i < markers.length; i++) {
-      var marker = markers[i], linked = [marker.primary.doc];;
-      linkedDocs(marker.primary.doc, function(d) { linked.push(d); });
+        var marker = markers[i], linked = [marker.primary.doc];
+        linkedDocs(marker.primary.doc, function (d) {
+            linked.push(d);
+        });
       for (var j = 0; j < marker.markers.length; j++) {
         var subMarker = marker.markers[j];
         if (indexOf(linked, subMarker.doc) == -1) {
@@ -7009,8 +7010,8 @@
 
     // See issue #2901
     if (webkit) {
-      var last = builder.content.lastChild
-      if (/\bcm-tab\b/.test(last.className) || (last.querySelector && last.querySelector(".cm-tab")))
+        var last = builder.content.lastChild;
+        if (/\bcm-tab\b/.test(last.className) || (last.querySelector && last.querySelector(".cm-tab")))
         builder.content.className = "cm-tab-wrap-hack";
     }
 
@@ -7032,8 +7033,8 @@
   // the line map. Takes care to render special characters separately.
   function buildToken(builder, text, style, startStyle, endStyle, title, css) {
     if (!text) return;
-    var displayText = builder.splitSpaces ? splitSpaces(text, builder.trailingSpace) : text
-    var special = builder.cm.state.specialChars, mustWrap = false;
+      var displayText = builder.splitSpaces ? splitSpaces(text, builder.trailingSpace) : text;
+      var special = builder.cm.state.specialChars, mustWrap = false;
     if (!special.test(text)) {
       builder.col += text.length;
       var content = document.createTextNode(displayText);
@@ -7077,8 +7078,8 @@
         builder.pos++;
       }
     }
-    builder.trailingSpace = displayText.charCodeAt(text.length - 1) == 32
-    if (style || startStyle || endStyle || mustWrap || css) {
+      builder.trailingSpace = displayText.charCodeAt(text.length - 1) == 32;
+      if (style || startStyle || endStyle || mustWrap || css) {
       var fullStyle = style || "";
       if (startStyle) fullStyle += startStyle;
       if (endStyle) fullStyle += endStyle;
@@ -7090,14 +7091,14 @@
   }
 
   function splitSpaces(text, trailingBefore) {
-    if (text.length > 1 && !/  /.test(text)) return text
-    var spaceBefore = trailingBefore, result = ""
-    for (var i = 0; i < text.length; i++) {
-      var ch = text.charAt(i)
-      if (ch == " " && spaceBefore && (i == text.length - 1 || text.charCodeAt(i + 1) == 32))
-        ch = "\u00a0"
-      result += ch
-      spaceBefore = ch == " "
+      if (text.length > 1 && !/  /.test(text)) return text;
+      var spaceBefore = trailingBefore, result = "";
+      for (var i = 0; i < text.length; i++) {
+          var ch = text.charAt(i);
+          if (ch == " " && spaceBefore && (i == text.length - 1 || text.charCodeAt(i + 1) == 32))
+              ch = "\u00a0";
+          result += ch;
+          spaceBefore = ch == " "
     }
     return result
   }
@@ -7155,8 +7156,8 @@
       if (nextChange == pos) { // Update current marker set
         spanStyle = spanEndStyle = spanStartStyle = title = css = "";
         collapsed = null; nextChange = Infinity;
-        var foundBookmarks = [], endStyles
-        for (var j = 0; j < spans.length; ++j) {
+          var foundBookmarks = [], endStyles;
+          for (var j = 0; j < spans.length; ++j) {
           var sp = spans[j], m = sp.marker;
           if (m.type == "bookmark" && sp.from == pos && m.widgetNode) {
             foundBookmarks.push(m);
@@ -7168,8 +7169,8 @@
             if (m.className) spanStyle += " " + m.className;
             if (m.css) css = (css ? css + ";" : "") + m.css;
             if (m.startStyle && sp.from == pos) spanStartStyle += " " + m.startStyle;
-            if (m.endStyle && sp.to == nextChange) (endStyles || (endStyles = [])).push(m.endStyle, sp.to)
-            if (m.title && !title) title = m.title;
+              if (m.endStyle && sp.to == nextChange) (endStyles || (endStyles = [])).push(m.endStyle, sp.to);
+              if (m.title && !title) title = m.title;
             if (m.collapsed && (!collapsed || compareCollapsedMarkers(collapsed.marker, m) < 0))
               collapsed = sp;
           } else if (sp.from > pos && nextChange > sp.from) {
@@ -7177,9 +7178,8 @@
           }
         }
         if (endStyles) for (var j = 0; j < endStyles.length; j += 2)
-          if (endStyles[j + 1] == nextChange) spanEndStyle += " " + endStyles[j]
-
-        if (!collapsed || collapsed.from == pos) for (var j = 0; j < foundBookmarks.length; ++j)
+            if (endStyles[j + 1] == nextChange) spanEndStyle += " " + endStyles[j];
+          if (!collapsed || collapsed.from == pos) for (var j = 0; j < foundBookmarks.length; ++j)
           buildCollapsedSpan(builder, 0, foundBookmarks[j]);
         if (collapsed && (collapsed.from || 0) == pos) {
           buildCollapsedSpan(builder, (collapsed.to == null ? len + 1 : collapsed.to) - pos,
@@ -7374,8 +7374,8 @@
           if (child.lines && child.lines.length > 50) {
             // To avoid memory thrashing when child.lines is huge (e.g. first view of a large file), it's never spliced.
             // Instead, small slices are taken. They're taken in order because sequential memory accesses are fastest.
-            var remaining = child.lines.length % 25 + 25
-            for (var pos = remaining; pos < child.lines.length;) {
+              var remaining = child.lines.length % 25 + 25;
+              for (var pos = remaining; pos < child.lines.length;) {
               var leaf = new LeafChunk(child.lines.slice(pos, pos += 25));
               child.height -= leaf.height;
               this.children.splice(++i, 0, leaf);
@@ -8220,11 +8220,12 @@
     }
   };
 
-  var noHandlers = []
-  function getHandlers(emitter, type, copy) {
-    var arr = emitter._handlers && emitter._handlers[type]
-    if (copy) return arr && arr.length > 0 ? arr.slice() : noHandlers
-    else return arr || noHandlers
+    var noHandlers = [];
+
+    function getHandlers(emitter, type, copy) {
+        var arr = emitter._handlers && emitter._handlers[type];
+        if (copy) return arr && arr.length > 0 ? arr.slice() : noHandlers;
+        else return arr || noHandlers
   }
 
   var off = CodeMirror.off = function(emitter, type, f) {
@@ -8233,15 +8234,15 @@
     else if (emitter.detachEvent)
       emitter.detachEvent("on" + type, f);
     else {
-      var handlers = getHandlers(emitter, type, false)
-      for (var i = 0; i < handlers.length; ++i)
+        var handlers = getHandlers(emitter, type, false);
+        for (var i = 0; i < handlers.length; ++i)
         if (handlers[i] == f) { handlers.splice(i, 1); break; }
     }
   };
 
   var signal = CodeMirror.signal = function(emitter, type /*, values...*/) {
-    var handlers = getHandlers(emitter, type, true)
-    if (!handlers.length) return;
+      var handlers = getHandlers(emitter, type, true);
+      if (!handlers.length) return;
     var args = Array.prototype.slice.call(arguments, 2);
     for (var i = 0; i < handlers.length; ++i) handlers[i].apply(null, args);
   };
@@ -8256,8 +8257,8 @@
   // them to be executed when the last operation ends, or, if no
   // operation is active, when a timeout fires.
   function signalLater(emitter, type /*, values...*/) {
-    var arr = getHandlers(emitter, type, false)
-    if (!arr.length) return;
+      var arr = getHandlers(emitter, type, false);
+      if (!arr.length) return;
     var args = Array.prototype.slice.call(arguments, 2), list;
     if (operationGroup) {
       list = operationGroup.delayedCallbacks;
@@ -8267,8 +8268,13 @@
       list = orphanDelayedCallbacks = [];
       setTimeout(fireOrphanDelayed, 0);
     }
-    function bnd(f) {return function(){f.apply(null, args);};};
-    for (var i = 0; i < arr.length; ++i)
+      function bnd(f) {
+          return function () {
+              f.apply(null, args);
+          };
+      }
+
+      for (var i = 0; i < arr.length; ++i)
       list.push(bnd(arr[i]));
   }
 
@@ -8356,9 +8362,8 @@
       pos = nextTab + 1;
       if (col >= goal) return pos;
     }
-  }
-
-  var spaceStrs = [""];
+  };
+    var spaceStrs = [""];
   function spaceStr(n) {
     while (spaceStrs.length <= n)
       spaceStrs.push(lst(spaceStrs) + " ");
@@ -8385,9 +8390,9 @@
   }
 
   function insertSorted(array, value, score) {
-    var pos = 0, priority = score(value)
-    while (pos < array.length && score(array[pos]) <= priority) pos++
-    array.splice(pos, 0, value)
+      var pos = 0, priority = score(value);
+      while (pos < array.length && score(array[pos]) <= priority) pos++;
+      array.splice(pos, 0, value)
   }
 
   function nothing() {}
@@ -8402,9 +8407,9 @@
     }
     if (props) copyObj(props, inst);
     return inst;
-  };
+  }
 
-  function copyObj(obj, target, overwrite) {
+    function copyObj(obj, target, overwrite) {
     if (!target) target = {};
     for (var prop in obj)
       if (obj.hasOwnProperty(prop) && (overwrite !== false || !target.hasOwnProperty(prop)))
