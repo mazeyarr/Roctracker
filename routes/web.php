@@ -13,4 +13,13 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
