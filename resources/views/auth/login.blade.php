@@ -31,19 +31,36 @@
 <section id="wrapper" class="login-register">
     <div class="login-box login-sidebar">
         <div class="white-box">
-            <form class="form-horizontal form-material" id="loginform" action="http://eliteadmin.themedesigner.in/demos/eliteadmin-dark/index.html">
-                <a href="javascript:void(0)" class="text-center db"><h1>RocTracker</h1></a>
+            {!! Form::open(['url' => 'login', 'class' => 'form-horizontal form-material', 'id' => 'Loginform', 'data-toggle' => 'validator']) !!}
+                <a href="javascript:void(0)" class="text-center db"><h1><span style="color: #059B9A;">Roc</span>Tracker</h1></a>
+                @if ($errors->has('email'))
+                    <div class="form-group m-t-40 has-error">
+                        <div class="col-xs-12">
+                            {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email', 'required' => '', 'autofocus' => '']) !!}
+                        </div>
+                    </div>
+                @else
+                    <div class="form-group m-t-40">
+                        <div class="col-xs-12">
+                            {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email', 'required' => '', 'autofocus' => '']) !!}
+                        </div>
+                    </div>
+                @endif
 
-                <div class="form-group m-t-40">
-                    <div class="col-xs-12">
-                        {!! Form::text('email', null, ['class' => 'form-control', 'placeholder' => 'Email', 'required' => '']) !!}
+                @if ($errors->has('password'))
+                    <div class="form-group has-error">
+                        <div class="col-xs-12">
+                            {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => 'Password']) !!}
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-xs-12">
-                        {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => 'Password']) !!}
+                @else
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => 'Password']) !!}
+                        </div>
                     </div>
-                </div>
+                @endif
+
                 <div class="form-group">
                     <div class="col-md-12">
                         <div class="checkbox checkbox-primary pull-left p-t-0">
@@ -54,10 +71,10 @@
                 </div>
                 <div class="form-group text-center m-t-20">
                     <div class="col-xs-12">
-                        {!! Form::submit('Login', ['class' => 'btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light']) !!}
+                        {!! Form::button('login', ['class' => 'btn btn-info btn-lg btn-block text-uppercase waves-effect waves-light', 'type' => 'submit']) !!}
                     </div>
                 </div>
-            </form>
+            {!! Form::close() !!}
         </div>
     </div>
 </section>
@@ -76,5 +93,7 @@
 {!! Html::script('js/custom.min.js') !!}
 <!--Style Switcher -->
 {!! Html::script('plugins/bower_components/styleswitcher/jQuery.style.switcher.js') !!}
+<!-- Validator -->
+{!! Html::script('js/validator.js') !!}
 </body>
 </html>

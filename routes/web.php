@@ -10,16 +10,14 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
+    Route::get('/users', 'HomeController@getUsers')->name('users');
+});
 
 Route::get('/logout', function () {
     Auth::logout();
-    return redirect('/');
+    return redirect()->route('login');
 })->name('logout');
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index');

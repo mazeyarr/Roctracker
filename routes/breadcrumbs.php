@@ -1,7 +1,13 @@
 <?php
 
-// Home
-Breadcrumbs::register('home', function($breadcrumbs)
+// Dashboard
+Breadcrumbs::register('dashboard', function($breadcrumbs)
 {
-    $breadcrumbs->push('Home', route('home'));
+    $breadcrumbs->push('Dashboard', route('dashboard'));
+});
+
+// Users
+Breadcrumbs::register('users', function($breadcrumbs)
+{
+    $breadcrumbs->push('Gebruikers', route('users'));
 });
