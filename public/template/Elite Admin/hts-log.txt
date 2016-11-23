@@ -1,0 +1,18 @@
+HTTrack3.48-22+htsswf+htsjava launched on Wed, 23 Nov 2016 09:23:29 at http://eliteadmin.themedesigner.in/demos/eliteadmin-dark/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "en, *" http://eliteadmin.themedesigner.in/demos/eliteadmin-dark/ -O1 "C:\Users\Mazeyar\Desktop\School\Web\Roctracker\public\template\Elite Admin" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+09:30:48	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/eliteadmin-dark/forms.html (from eliteadmin.themedesigner.in/demos/eliteadmin-dark/)
+09:32:57	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/eliteadmin-dark/tables.html (from eliteadmin.themedesigner.in/demos/eliteadmin-dark/)
+09:33:23	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/eliteadmin-dark/cropped.jpg (from eliteadmin.themedesigner.in/demos/eliteadmin-dark/form-img-cropper.html)
+09:33:30	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/eliteadmin-dark/www.youtube.com/watch?v=sK7riqg2mr4 (from eliteadmin.themedesigner.in/demos/eliteadmin-dark/lightbox.html)
+09:33:33	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/plugins/bower_components/custom-select/select2-spinner.gif (from eliteadmin.themedesigner.in/demos/plugins/bower_components/custom-select/custom-select.css)
+09:33:33	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/plugins/bower_components/custom-select/select2x2.png (from eliteadmin.themedesigner.in/demos/plugins/bower_components/custom-select/custom-select.css)
+09:33:33	Error: 	"Not Found" (404) at link eliteadmin.themedesigner.in/demos/plugins/bower_components/owl.carousel/owl.video.play.png (from eliteadmin.themedesigner.in/demos/plugins/bower_components/owl.carousel/owl.carousel.min.css)
+
+HTTrack Website Copier/3.48-22 mirror complete in 10 minutes 5 seconds : 472 links scanned, 464 files written (21663989 bytes overall) [16317630 bytes received at 26971 bytes/sec], 6627432 bytes transferred using HTTP compression in 111 files, ratio 17%, 3.0 requests per connection
+(7 errors, 0 warnings, 0 messages)
