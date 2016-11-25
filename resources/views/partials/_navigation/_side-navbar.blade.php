@@ -17,16 +17,13 @@
                 <a class="waves-effect" href="{{ URL::route('dashboard') }}"><i class="linea-icon linea-basic fa-fw" data-icon="a"></i> <span class="hide-menu">Dashboard <span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#">##</a>
+                        <a href="#">Colleges</a>
                     </li>
                     <li>
-                        <a href="#">##</a>
+                        <a href="#">Assessoren</a>
                     </li>
                     <li>
-                        <a href="#">##</a>
-                    </li>
-                    <li>
-                        <a href="#">##</a>
+                        <a href="#">Teamleiders</a>
                     </li>
                 </ul>
             </li>

@@ -27,12 +27,12 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the application Administrators.
      *
      * @return \Illuminate\Http\Response
      */
     public function getUsers()
     {
-        return view('dashboard');
+        return view('administrators');
     }
 }

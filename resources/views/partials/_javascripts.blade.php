@@ -28,11 +28,12 @@
 
 <!-- Custom Theme JavaScript -->
 {!! Html::script('js/custom.min.js') !!}
-<!-- Custom Theme JavaScript -->
-{!! Html::script('js/dashboard.js') !!}
 
 <!-- Sparkline chart JavaScript -->
 {!! Html::script('plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js') !!}
 
 {!! Html::script('plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js') !!}
 {!! Html::script('plugins/bower_components/toast-master/js/jquery.toast.js') !!}
+
+<!-- Validator -->
+{!! Html::script('js/validator.js') !!}

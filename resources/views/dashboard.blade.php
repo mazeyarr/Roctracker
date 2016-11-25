@@ -140,3 +140,7 @@
 </div><!--row -->
 
 @stop
+@section('scripts')
+    <!-- Custom Theme JavaScript -->
+    {!! Html::script('js/dashboard.js') !!}
+@stop

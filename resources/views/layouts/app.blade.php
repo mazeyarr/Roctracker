@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     @include('partials._head')
+    @yield('styles')
 </head>
 <body>
 <!-- Preloader -->
@@ -21,6 +22,7 @@
     </div><!-- /#page-wrapper -->
 </div><!-- /#wrapper -->
 @include('partials._javascripts')
+@yield('scripts')
 
 {{-- Variable login is set by the Auth controller --}}
 @if(Session::has('login'))

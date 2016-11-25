@@ -9,5 +9,5 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
 // Users
 Breadcrumbs::register('users', function($breadcrumbs)
 {
-    $breadcrumbs->push('Gebruikers', route('users'));
+    $breadcrumbs->push('Administratoren', route('users'));
 });

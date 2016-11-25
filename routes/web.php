@@ -12,7 +12,9 @@
 */
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
+
     Route::get('/users', 'HomeController@getUsers')->name('users');
+    Route::post('/users', 'UserController@postNewAdmin')->name('new_user');
 });
 
 Route::get('/logout', function () {
