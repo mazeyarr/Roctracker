@@ -6,6 +6,8 @@
     <!-- Bootstrap Core CSS -->
     {!! Html::style('bootstrap/dist/css/bootstrap.min.css') !!}
 
+    {!! Html::style('plugins/bower_components/datatables/jquery.dataTables.min.css') !!}
+    {!! Html::style('datatable/buttons/1.2.2/css/buttons.dataTables.min.css') !!}
 
     <!-- Menu CSS -->
     {!! Html::style('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}
@@ -23,7 +25,7 @@
     {!! Html::style('css/style.css') !!}
 
     <!-- color CSS -->
-    <link href="css/colors/default-dark.css" id="theme"  rel="stylesheet">
+    <link href=" {!! URL::asset('css/colors/default-dark.css') !!}" id="theme"  rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

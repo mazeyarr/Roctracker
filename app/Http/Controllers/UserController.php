@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use Validator;
 
 class UserController extends Controller
@@ -17,7 +18,7 @@ class UserController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
+            return redirect()->back()->withErrors($validator)->withInput(Input::all());
         }
 
         $user = new User();
@@ -30,6 +31,6 @@ class UserController extends Controller
             /* Send mail to this user */
         }
 
-        return redirect()->route('users')->withSuccess('Gebruiker was opgeslagen !')->withUser($user);
+        return redirect()->route('add_users')->withSuccess('Gebruiker was opgeslagen !')->withUser($user);
     }
 }

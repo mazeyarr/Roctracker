@@ -39,7 +39,7 @@
         })
     });
 @endif
+</script>
 
-</script> <!--Style Switcher -->
 </body>
 </html>

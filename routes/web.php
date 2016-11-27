@@ -11,10 +11,14 @@
 |
 */
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return redirect()->route('dashboard');
+    });
     Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
 
     Route::get('/users', 'HomeController@getUsers')->name('users');
-    Route::post('/users', 'UserController@postNewAdmin')->name('new_user');
+    Route::get('/users/new', 'HomeController@getNewUsers')->name('add_users');
+    Route::post('/users/new', 'UserController@postNewAdmin')->name('new_user');
 });
 
 Route::get('/logout', function () {

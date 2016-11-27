@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -33,6 +34,16 @@ class HomeController extends Controller
      */
     public function getUsers()
     {
-        return view('administrators');
+        return view('administrators')->withUsers(User::all());
+    }
+
+    /**
+     * Show the New Administrator form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getNewUsers()
+    {
+        return view('new-administrators');
     }
 }
