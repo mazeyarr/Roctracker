@@ -17,7 +17,7 @@
                 <a class="waves-effect" href="{{ URL::route('dashboard') }}"><i class="linea-icon linea-basic fa-fw" data-icon="a"></i> <span class="hide-menu">Dashboard <span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="#">Colleges</a>
+                        <a href="{{ URL::route('college') }}">Colleges</a>
                     </li>
                     <li>
                         <a href="#">Assessoren</a>

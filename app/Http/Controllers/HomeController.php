@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Colleges;
+use App\Teamleaders;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -25,6 +27,26 @@ class HomeController extends Controller
     public function getDashboard()
     {
         return view('dashboard');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getColleges()
+    {
+        return view('colleges')->withColleges(Colleges::all())->withTeamleaders(Teamleaders::GetUnsigned());
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getNewColleges()
+    {
+        return view('new-college')->withTeamleaders(Teamleaders::GetUnsigned());
     }
 
     /**

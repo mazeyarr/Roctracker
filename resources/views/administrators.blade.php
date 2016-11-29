@@ -14,8 +14,8 @@
                         <thead>
                         <tr>
                             <th>Naam</th>
-                            <th>Locatie</th>
-                            <th>Teamleider</th>
+                            <th>Email</th>
+                            <th>Gebruiker sinds</th>
                         </tr>
                         </thead>
                         <tbody>

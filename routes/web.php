@@ -16,6 +16,11 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
 
+    Route::get('/dashboard/college', 'HomeController@getColleges')->name('college');
+    Route::get('/dashboard/college/new', 'HomeController@getNewColleges')->name('add_college');
+    Route::post('/dashboard/college/new', 'DashboardController@postNewColleges')->name('new_college');
+    Route::any('/dashboard/college/change/{id}/{name}/{location}/{teamleader}', 'DashboardController@ajaxChangeCollege')->name('change_college');
+
     Route::get('/users', 'HomeController@getUsers')->name('users');
     Route::get('/users/new', 'HomeController@getNewUsers')->name('add_users');
     Route::post('/users/new', 'UserController@postNewAdmin')->name('new_user');

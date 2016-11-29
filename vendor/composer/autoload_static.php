@@ -336,8 +336,10 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
     );
 
     public static $classMap = array (
-        'CreateCollageTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_28_121457_create_collage_table.php',
+        'CollegeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CollegeTableSeeder.php',
+        'CreateCollagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_28_201423_create_collages_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreateTeamleadersTable' => __DIR__ . '/../..' . '/database/migrations/2016_11_28_203517_create_teamleaders_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
@@ -865,6 +867,7 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'TeamleadeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TeamleadeTableSeeder.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'UserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserTableSeeder.php',

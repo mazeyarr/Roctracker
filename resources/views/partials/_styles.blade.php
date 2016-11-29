@@ -8,6 +8,7 @@
 
     {!! Html::style('plugins/bower_components/datatables/jquery.dataTables.min.css') !!}
     {!! Html::style('datatable/buttons/1.2.2/css/buttons.dataTables.min.css') !!}
+    {!! Html::style('plugins/bower_components/custom-select/custom-select.css') !!}
 
     <!-- Menu CSS -->
     {!! Html::style('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}
