@@ -16,6 +16,8 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
 
+    Route::get('/dashboard/teamleaders', 'HomeController@getTeamleaders')->name('teamleaders');
+
     Route::get('/dashboard/college', 'HomeController@getColleges')->name('college');
     Route::get('/dashboard/college/new', 'HomeController@getNewColleges')->name('add_college');
     Route::post('/dashboard/college/new', 'DashboardController@postNewColleges')->name('new_college');

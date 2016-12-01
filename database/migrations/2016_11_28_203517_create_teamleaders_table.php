@@ -17,6 +17,7 @@ class CreateTeamleadersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('college_id')->unsigned()->nullable(true);
+            $table->string('email')->nullable(true);
             $table->timestamps();
         });
     }

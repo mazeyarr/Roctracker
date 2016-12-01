@@ -6,6 +6,13 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
     $breadcrumbs->push('Dashboard', route('dashboard'));
 });
 
+// Dashboard / Teamleaders
+Breadcrumbs::register('teamleaders', function($breadcrumbs)
+{
+    $breadcrumbs->parent('dashboard');
+    $breadcrumbs->push('Teamleiders', route('teamleaders'));
+});
+
 // Dashboard / Colleges
 Breadcrumbs::register('college', function($breadcrumbs)
 {

@@ -44,6 +44,16 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getTeamleaders()
+    {
+        return view('teamleaders')->withColleges(Colleges::all())->withTeamleaders(Teamleaders::all());
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getNewColleges()
     {
         return view('new-college')->withTeamleaders(Teamleaders::GetUnsigned());
