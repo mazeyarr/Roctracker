@@ -5,10 +5,10 @@
         <div class="top-left-part">
             <a class="logo" href="{{ URL::route('dashboard') }}">
                 <b><!--This is dark logo icon-->
-                    <img alt="home" class="dark-logo" src="plugins/images/eliteadmin-logo.png">
+                    <img alt="home" class="dark-logo" src="{{ URL::asset('plugins/images/eliteadmin-logo.png') }}">
                 </b>
                 <span class="hidden-xs"><!--This is dark logo text-->
-                        <img alt="home" class="dark-logo" src="plugins/images/eliteadmin-text.png">
+                        <img alt="home" class="dark-logo" src="{{ URL::asset('plugins/images/eliteadmin-text.png') }}">
                     </span>
             </a>
         </div>
