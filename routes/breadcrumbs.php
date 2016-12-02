@@ -6,20 +6,6 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
     $breadcrumbs->push('Dashboard', route('dashboard'));
 });
 
-// Dashboard / Colleges
-Breadcrumbs::register('college', function($breadcrumbs)
-{
-    $breadcrumbs->parent('dashboard');
-    $breadcrumbs->push('Colleges', route('college'));
-});
-
-// Dashboard / Colleges
-Breadcrumbs::register('add_college', function($breadcrumbs)
-{
-    $breadcrumbs->parent('college');
-    $breadcrumbs->push('College toevoegen', route('add_college'));
-});
-
 // Users
 Breadcrumbs::register('users', function($breadcrumbs)
 {
