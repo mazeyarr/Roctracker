@@ -23,7 +23,7 @@
                         <a href="#">Assessoren</a>
                     </li>
                     <li>
-                        <a href="{{ URL::route('teamleaders') }}">Teamleiders</a>
+                        <a href="#">Teamleiders</a>
                     </li>
                 </ul>
             </li>
