@@ -19,6 +19,12 @@ Route::group(['middleware' => 'auth'], function () {
     /* Colleges Page */
     Route::get('/dashboard/college', 'HomeController@getColleges')->name('colleges');
 
+    /* Teamleaders Page */
+    Route::get('/dashboard/teamleaders', 'HomeController@getTeamleaders')->name('teamleaders');
+
+    /* Assessors Page */
+    Route::get('/dashboard/assessors', 'HomeController@getAssessors')->name('assessors');
+
     /* Administrator page*/
     Route::get('/users', 'HomeController@getUsers')->name('users');
     Route::get('/users/new', 'HomeController@getNewUsers')->name('add_users');

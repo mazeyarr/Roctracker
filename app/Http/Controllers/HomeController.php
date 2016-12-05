@@ -40,6 +40,26 @@ class HomeController extends Controller
     }
 
     /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTeamleaders()
+    {
+
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getAssessors()
+    {
+
+    }
+
+    /**
      * Show the application Administrators.
      *
      * @return \Illuminate\Http\Response
