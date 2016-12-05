@@ -6,6 +6,13 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
     $breadcrumbs->push('Dashboard', route('dashboard'));
 });
 
+// Dashboard
+Breadcrumbs::register('colleges', function($breadcrumbs)
+{
+    $breadcrumbs->parent('dashboard');
+    $breadcrumbs->push('Colleges', route('colleges'));
+});
+
 // Users
 Breadcrumbs::register('users', function($breadcrumbs)
 {

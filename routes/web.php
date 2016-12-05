@@ -16,6 +16,10 @@ Route::group(['middleware' => 'auth'], function () {
     });
     Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
 
+    /* Colleges Page */
+    Route::get('/dashboard/college', 'HomeController@getColleges')->name('colleges');
+
+    /* Administrator page*/
     Route::get('/users', 'HomeController@getUsers')->name('users');
     Route::get('/users/new', 'HomeController@getNewUsers')->name('add_users');
     Route::post('/users/new', 'UserController@postNewAdmin')->name('new_user');
