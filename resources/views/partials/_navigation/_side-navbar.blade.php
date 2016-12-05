@@ -20,10 +20,10 @@
                         <a href="{{ URL::route('colleges') }}">Colleges</a>
                     </li>
                     <li>
-                        <a href="#">Assessoren</a>
+                        <a href="{{ URL::route('assessors') }}">Assessoren</a>
                     </li>
                     <li>
-                        <a href="#">Teamleiders</a>
+                        <a href="{{ URL::route('teamleaders') }}">Teamleiders</a>
                     </li>
                 </ul>
             </li>
