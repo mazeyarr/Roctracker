@@ -18,6 +18,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     /* Colleges Page */
     Route::get('/dashboard/college', 'HomeController@getColleges')->name('colleges');
+    Route::get('/dashboard/college/change/{id}', 'HomeController@getChangeColleges')->name('change_colleges');
+    Route::get('/dashboard/college/save/{id}/{name}/{location}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
 
     /* Teamleaders Page */
     Route::get('/dashboard/teamleaders', 'HomeController@getTeamleaders')->name('teamleaders');

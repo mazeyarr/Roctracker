@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\College;
 use App\Colleges;
 use App\Teamleaders;
 use App\User;
@@ -36,7 +37,19 @@ class HomeController extends Controller
      */
     public function getColleges()
     {
-        return view('colleges');
+        $colleges = College::teamleaders();
+        return view('colleges')->withColleges($colleges);
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getChangeColleges($id)
+    {
+        $colleges = College::teamleaders($id);
+        return view('change-college')->withColleges($colleges);
     }
 
     /**

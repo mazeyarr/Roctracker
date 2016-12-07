@@ -336,6 +336,7 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
     );
 
     public static $classMap = array (
+        'CollegeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CollegeTableSeeder.php',
         'CreateAssessorsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_101240_create_assessors_table.php',
         'CreateCollegesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_105307_create_colleges_table.php',
         'CreateExamsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_105555_create_exams_table.php',
@@ -869,6 +870,8 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\ResourceOperations\\ResourceOperations' => __DIR__ . '/..' . '/sebastian/resource-operations/src/ResourceOperations.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
+        'TeamleadersInCollegeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TeamleadersInCollegeTableSeeder.php',
+        'TeamleadersTableSeeder' => __DIR__ . '/../..' . '/database/seeds/TeamleadersTableSeeder.php',
         'TestCase' => __DIR__ . '/../..' . '/tests/TestCase.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
         'UserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserTableSeeder.php',

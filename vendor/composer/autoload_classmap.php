@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CollegeTableSeeder' => $baseDir . '/database/seeds/CollegeTableSeeder.php',
     'CreateAssessorsTable' => $baseDir . '/database/migrations/2016_12_05_101240_create_assessors_table.php',
     'CreateCollegesTable' => $baseDir . '/database/migrations/2016_12_05_105307_create_colleges_table.php',
     'CreateExamsTable' => $baseDir . '/database/migrations/2016_12_05_105555_create_exams_table.php',
@@ -539,6 +540,8 @@ return array(
     'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => $vendorDir . '/sebastian/recursion-context/src/InvalidArgumentException.php',
     'SebastianBergmann\\ResourceOperations\\ResourceOperations' => $vendorDir . '/sebastian/resource-operations/src/ResourceOperations.php',
     'SebastianBergmann\\Version' => $vendorDir . '/sebastian/version/src/Version.php',
+    'TeamleadersInCollegeTableSeeder' => $baseDir . '/database/seeds/TeamleadersInCollegeTableSeeder.php',
+    'TeamleadersTableSeeder' => $baseDir . '/database/seeds/TeamleadersTableSeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
     'UserTableSeeder' => $baseDir . '/database/seeds/UserTableSeeder.php',
