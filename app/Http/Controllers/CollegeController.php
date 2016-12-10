@@ -57,11 +57,6 @@ class CollegeController extends Controller
 
                 $asigned_assessors = Assessors::where('fk_college', '=', $id)->get();
                 foreach ($asigned_assessors as $assessor) {
-                    $data = json_decode($assessor->log, true);
-                    $key = Log::generateRandomString(50);
-                    $data['log'][$key]['date'] = Carbon::now('Europe/Amsterdam')->format('d-m-Y');
-                    $data['log'][$key]['by']['id'] = Auth::user()->id;
-                    $data['log'][$key]['by']['name'] = Auth::user()->name;
                     if ($change_both==true){
                         $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong> naar <strong>' . $request->name.' </strong> ' . ' en Locatie van <strong>' . $old_college['location'] . ' </strong> naar <strong> ' . $request->location . '</strong>';
                         Log::AssessorLog($assessor->id, $message);
@@ -73,13 +68,52 @@ class CollegeController extends Controller
                         Log::AssessorLog($assessor->id, $message);
                     }
                 }
-                return redirect()->route('view_colleges', $id);
+                return redirect()->route('view_colleges', $id)->withSuccess('Aanpasing opgeslagen en uitgevoerd!');
                 break;
             case 'disable':
+                $validator = Validator::make($request->all(), [
+                    'name' => 'required|max:255',
+                    'location' => 'required|max:255',
+                ]);
+
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator);
+                }
+
+                $college = College::find($id);
+                $name = $college->name;
+                $location = $college->location;
+
+                $name = ($name != $request->name) ? true : false;
+                $location = ($location != $request->location) ? true : false;
+                $change_both = ($name==true && $location==true) ? true : false;
+
+                $message = null;
+                $old_college['name'] = $college->name;
+                $old_college['location'] = $college->location;
+                if ($change_both==true){
+                    $college->name = $request->name;
+                    $college->location = $request->location;
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>' . 'en Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>. <br> Assesoren zijn op non-actief gezet.';
+                }elseif ($name==true) {
+                    $college->name = $request->name;
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>. <br> Assesoren zijn op non-actief gezet.';
+                }elseif ($location==true) {
+                    $college->location = $request->location;
+                    $message = 'Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>. <br> Assesoren zijn op non-actief gezet.';
+                }elseif ($name==false && $location==false) {
+                    $message = 'Geen verandering plaatsgevonden in <strong>' . $old_college['name'] . '</strong> Maar alle Assesoren zijn op non-actief gezet';
+                }
+                $college->save();
+                Log::CollegeLog($id, $message);
+
                 $asigned_assessors = Assessors::where('fk_college', '=', $id)->get();
                 foreach ($asigned_assessors as $assessor) {
-
+                    $assessor->status = 0;
+                    $assessor->save();
+                    Log::AssessorLog($assessor->id, $old_college['name'] . ' Is veranderd, Assessoren in dit college zijn op non-actief gezet');
                 }
+                return redirect()->route('view_colleges', $id)->withSuccess('Aanpasing opgeslagen en uitgevoerd!');
                 break;
         }
     }

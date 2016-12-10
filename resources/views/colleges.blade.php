@@ -34,7 +34,7 @@
                             <tr>
                                 <td>{{ $college['college']->name }}</td>
                                 <td>{{ $college['college']->location }}</td>
-                                <td>12 {{-- TODO: Count all active assessors in this college --}}</td>
+                                <td>{{ \App\Assessors::where('fk_college', '=', $college['college']->id)->where('status', '=', 1)->count() }}</td>
                                 <td>{{ $college['teamleader']->name }}</td>
                                 <td>{{ date_format($college['college']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
@@ -96,7 +96,9 @@
         </div>
     </div>
 @stop
+
 @section('scripts')
+    @include('partials._javascript-alerts')
     <!-- Footable -->
     <script src="{{ URL::asset('plugins/bower_components/footable/js/footable.all.min.js') }}"></script>
     <script src="{{ URL::asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}"

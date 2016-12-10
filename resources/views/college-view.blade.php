@@ -22,7 +22,7 @@
                                 <div class="timeline-panel">
                                     <div class="timeline-heading">
                                         <h4 class="timeline-title">{{ $log->date }}</h4>
-                                        <small>{{ $log->by->name }}</small>
+                                        <small style="margin-bottom: 10px;">Gewijzigd door: {{ $log->by->name }}</small>
                                     </div>
                                     <div class="timeline-body">
                                         <p>{!! $log->discription !!}</p>
@@ -57,4 +57,5 @@
 @stop
 
 @section('scripts')
+    @include('partials._javascript-alerts')
 @stop

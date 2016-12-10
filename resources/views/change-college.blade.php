@@ -52,3 +52,7 @@
     </div>
     <!-- /.row -->
 @stop
+
+@section('scripts')
+    @include('partials._javascript-alerts')
+@stop
