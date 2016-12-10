@@ -20,8 +20,8 @@
             </li>
             <li>
                 <form class="app-search hidden-xs" role="search">
-                    <input class="form-control" placeholder="Search..." type="text"> <a href="#"><i
-                                class="fa fa-search"></i></a>
+                    <input class="form-control" placeholder="Zoeken" type="text"> <a href="#">
+                        <i class="fa fa-search"></i></a>
                 </form>
             </li>
         </ul>
