@@ -336,6 +336,7 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
     );
 
     public static $classMap = array (
+        'AssessorTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AssessorTableSeeder.php',
         'CollegeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CollegeTableSeeder.php',
         'CreateAssessorsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_101240_create_assessors_table.php',
         'CreateCollegesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_105307_create_colleges_table.php',

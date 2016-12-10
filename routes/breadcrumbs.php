@@ -13,6 +13,14 @@ Breadcrumbs::register('colleges', function($breadcrumbs)
     $breadcrumbs->push('Colleges', route('colleges'));
 });
 
+// Dashboard / Colleges / View College
+Breadcrumbs::register('view_colleges', function($breadcrumbs, $id)
+{
+
+    $breadcrumbs->parent('colleges');
+    $breadcrumbs->push(\App\College::find($id)->name, route('view_colleges', $id));
+});
+
 // Dashboard / Colleges / Change College
 Breadcrumbs::register('change_colleges', function($breadcrumbs, $id)
 {

@@ -24,15 +24,15 @@
                     <label for="inputName1" class="control-label">Wat moet er gebeuren met de assessoren ?</label>
                     <div class="form-group">
                         <div class="radio">
-                            <input type="radio" id="assessor1" name="assessor_option" required>
+                            <input type="radio" id="assessor1" name="assessor_option" value="selection" required>
                             <label for="assessor1"> Selectief plaatsen in college(s) </label>
                         </div>
                         <div class="radio">
-                            <input type="radio" id="assessor2" name="assessor_option" required>
+                            <input type="radio" id="assessor2" name="assessor_option" value="overwrite" required>
                             <label for="assessor2"> Meenemen in deze wijziging </label>
                         </div>
                         <div class="radio">
-                            <input type="radio" id="assessor3" name="assessor_option" required>
+                            <input type="radio" id="assessor3" name="assessor_option" value="disable" required>
                             <label for="assessor3"> uitschakelen </label>
                         </div>
                     </div>

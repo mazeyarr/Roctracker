@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AssessorTableSeeder' => $baseDir . '/database/seeds/AssessorTableSeeder.php',
     'CollegeTableSeeder' => $baseDir . '/database/seeds/CollegeTableSeeder.php',
     'CreateAssessorsTable' => $baseDir . '/database/migrations/2016_12_05_101240_create_assessors_table.php',
     'CreateCollegesTable' => $baseDir . '/database/migrations/2016_12_05_105307_create_colleges_table.php',

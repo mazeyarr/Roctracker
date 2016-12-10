@@ -38,6 +38,12 @@
                                 <td>{{ $college['teamleader']->name }}</td>
                                 <td>{{ date_format($college['college']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
+                                    <a href="{{ URL::route('view_colleges', $college['college']->id) }}"
+                                       class="college-row-big btn-xs btn-rounded btn-success">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                        College Bekijken
+                                    </a>
+                                    <span style="margin-left: 5px;"></span>
                                     <button data-toggle="modal" data-target="#college-little-modal"
                                             id="{{ $college['college']->id }}"
                                             data-name="{{ $college['college']->name }}"

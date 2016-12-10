@@ -11,6 +11,7 @@
     {!! Html::style('plugins/bower_components/footable/css/footable.core.css') !!}
     {!! Html::style('plugins/bower_components/custom-select/custom-select.css') !!}
 
+
     <!-- Menu CSS -->
     {!! Html::style('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}
 

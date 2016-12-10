@@ -46,6 +46,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getCollegeTimeline($id)
+    {
+        $colleges = College::teamleaders($id);
+        return view('college-view')->withColleges($colleges)->withLogs(json_decode($colleges['college']->log));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function getChangeColleges($id)
     {
         $colleges = College::teamleaders($id);

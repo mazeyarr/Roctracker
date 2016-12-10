@@ -24,7 +24,7 @@ class CreateAssessorsTable extends Migration
             $table->string('certified_by');
             $table->string('fk_teamleader');
             $table->tinyInteger('status');
-            $table->integer('fk_exams');
+            $table->integer('fk_exams')->nullable(true);
             $table->text('log');
             $table->timestamps();
         });

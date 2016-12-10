@@ -31,4 +31,25 @@ class College extends Model
         }
         return $with_teamleaders;
     }
+
+    public static function object_2_array($result)
+    {
+        $array = array();
+        foreach ($result as $key=>$value)
+        {
+            if (is_object($value))
+            {
+                $array[$key]=self::object_2_array(self::object_2_array($value));
+            }
+            if (is_array($value))
+            {
+                $array[$key]=self::object_2_array(self::object_2_array($value));
+            }
+            else
+            {
+                $array[$key]=$value;
+            }
+        }
+        return $array;
+    }
 }

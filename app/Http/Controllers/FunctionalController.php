@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\College;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class FunctionalController extends Controller
 {
