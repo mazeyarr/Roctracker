@@ -22,8 +22,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard/college/view/{id}', 'HomeController@getCollegeTimeline')->name('view_colleges');
     Route::get('/dashboard/college/change/{id}', 'HomeController@getChangeColleges')->name('change_colleges');
     Route::post('/dashboard/college/change/{id}/check', 'CollegeController@postChangeCollege')->name('save_change_colleges');
+    Route::get('/dashboard/college/change/{id}/check/selection/{collegename?}/{collegelocation?}', 'CollegeController@getChangeAssessorsSelection')->name('change_college_assessors');
 
+    Route::get('/dashboard/college/save/assessor/{id}/{collegeid}', 'FunctionalController@ajaxSaveAssessorToCollege')->name('ajax_save_college_by_selection');
     Route::get('/dashboard/college/save/{id}/{name}/{location}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
+
 
     /* Teamleaders Page */
     Route::get('/dashboard/teamleaders', 'HomeController@getTeamleaders')->name('teamleaders');

@@ -73,7 +73,7 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="exampleModalLabel1">New message</h4></div>
+                    <h4 class="modal-title" id="exampleModalLabel1">Wijzeging</h4></div>
                 <div class="modal-body">
                     <form>
                         <div id="notification-block"></div>

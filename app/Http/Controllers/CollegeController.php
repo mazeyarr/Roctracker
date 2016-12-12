@@ -15,7 +15,8 @@ class CollegeController extends Controller
     public function postChangeCollege (Request $request, $id) {
         switch ($request->assessor_option) {
             case 'selection':
-                return view('college.selection')->withCollegeID($id)->withCollege(College::all())->withAssessors(Assessors::where('fk_college', '=', $id)->get());
+                /* TODO: SAVE COLLEGE AND LOG IT, Also set every assessor default to new college */
+                return redirect()->route('change_college_assessors', array($id, $request->name, $request->location));
                 break;
             case 'overwrite':
                 $validator = Validator::make($request->all(), [
@@ -116,5 +117,9 @@ class CollegeController extends Controller
                 return redirect()->route('view_colleges', $id)->withSuccess('Aanpasing opgeslagen en uitgevoerd!');
                 break;
         }
+    }
+
+    public function getChangeAssessorsSelection ($id, $collegename, $collegelocation) {
+        return view('college-change-selection')->withCollege_current(College::find($id))->withNewname($collegename)->withNewlocation($collegelocation)->withColleges(College::all())->withAssessors(Assessors::where('fk_college', '=', $id)->get());
     }
 }

@@ -29,6 +29,14 @@ Breadcrumbs::register('change_colleges', function($breadcrumbs, $id)
     $breadcrumbs->push(\App\College::find($id)->name, route('change_colleges', $id));
 });
 
+// Dashboard / Colleges / Change College / Selection
+Breadcrumbs::register('change_college_assessors', function($breadcrumbs, $id)
+{
+
+    $breadcrumbs->parent('colleges');
+    $breadcrumbs->push(\App\College::find($id)->name, route('change_college_assessors', $id));
+});
+
 // Dashboard / Teamleaders
 Breadcrumbs::register('teamleaders', function($breadcrumbs)
 {
