@@ -31,6 +31,10 @@ Route::group(['middleware' => 'auth'], function () {
     /* Teamleaders Page */
     Route::get('/dashboard/teamleaders', 'HomeController@getTeamleaders')->name('teamleaders');
 
+    Route::get('/dashboard/teamleader/view/{id}', 'HomeController@getTeamleaderTimeline')->name('view_teamleaders');
+    Route::get('/dashboard/teamleader/change/{id}', 'HomeController@getChangeTeamleader')->name('change_teamleaders');
+
+
     /* Assessors Page */
     Route::get('/dashboard/assessors', 'HomeController@getAssessors')->name('assessors');
 

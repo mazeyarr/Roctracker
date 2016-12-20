@@ -108,6 +108,10 @@
                         , icon: 'success'
                         , hideAfter: 1000
                     });
+
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 800);
                 }).fail(function () {
                     notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> Er is iets fout gegaan.</div>')
                 });

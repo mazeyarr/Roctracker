@@ -68,9 +68,27 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getTeamleaders()
-    {
+    public function getTeamleaders() {
+        $teamleaders = College::teamleaders();
+        return view('teamleaders')->withTeamleaders($teamleaders);
+    }
 
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTeamleaderTimeline() {
+        return view('teamleaders');
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getChangeTeamleader() {
+        return view('teamleaders');
     }
 
     /**

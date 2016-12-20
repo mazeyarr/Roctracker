@@ -52,7 +52,8 @@
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Bewerken
                                     </button>
-                                    <a href="{{ URL::route('change_colleges', $college['college']->id) }}" id="{{ $college['college']->id }}"
+                                    <a href="{{ URL::route('change_colleges', $college['college']->id) }}"
+                                       id="{{ $college['college']->id }}"
                                        class="college-row-big btn-xs btn-rounded btn-danger">
                                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                         Grote bewerking
@@ -105,12 +106,9 @@
             type="text/javascript"></script>
     <!--FooTable init-->
     <script src="{{ URL::asset('js/footable-init.js') }}"></script>
+    @include('partials._javascript-paddingfixer')
     <script>
-        setInterval(function () {
-            $('body').css('padding-right', '0px')
-        }, 1000);
-
-        $( document ).ready(function () {
+        $(document).ready(function () {
             var id = null,
                 name = null,
                 location = null;
@@ -157,7 +155,7 @@
                 }
                 /*Ajax with parameters*/
                 $.ajax({
-                    url: '/dashboard/college/save/'+ id +'/'+ modal_name_field.val() +'/'+ modal_location_field.val()
+                    url: '/dashboard/college/save/' + id + '/' + modal_name_field.val() + '/' + modal_location_field.val()
                 }).done(function (data) {
                     $.toast({
                         heading: 'Voltooid'
