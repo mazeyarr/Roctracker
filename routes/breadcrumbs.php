@@ -44,6 +44,14 @@ Breadcrumbs::register('teamleaders', function($breadcrumbs)
     $breadcrumbs->push('Teamleiders', route('teamleaders'));
 });
 
+// Dashboard / Teamleaders / View Teamleaders
+Breadcrumbs::register('view_teamleaders', function($breadcrumbs, $id)
+{
+
+    $breadcrumbs->parent('teamleaders');
+    $breadcrumbs->push(\App\Teamleaders::find($id)->name, route('view_teamleaders', $id));
+});
+
 // Dashboard / Assessors
 Breadcrumbs::register('assessors', function($breadcrumbs)
 {

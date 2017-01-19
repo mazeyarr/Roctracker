@@ -42,6 +42,7 @@
                                     <span style="margin-left: 5px;"></span>
                                     <button data-toggle="modal" data-target="#teamleader-little-modal"
                                             id="{{ $teamleader['teamleader']->id }}"
+                                            data-name="{{ $teamleader['teamleader']->name }}"
                                             {{-- TODO: data of little change inputs--}}
                                             class="college-row-little btn-xs btn-rounded btn-warning">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -77,11 +78,6 @@
                         <div class="form-group">
                             <label for="recipient-name" class="control-label">Naam:</label>
                             <input type="text" class="form-control" id="modal-name-field">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="recipient-name" class="control-label">locatatie:</label>
-                            <input type="text" class="form-control" id="modal-location-field">
                         </div>
                     </form>
                 </div>

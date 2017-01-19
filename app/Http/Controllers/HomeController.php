@@ -21,9 +21,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getDashboard()
     {
@@ -31,20 +29,15 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
-    public function getColleges()
-    {
-        $colleges = College::teamleaders();
-        return view('colleges')->withColleges($colleges);
+    public function getColleges() {
+        return view('colleges')->withColleges(College::teamleaders());
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
     public function getCollegeTimeline($id)
     {
@@ -53,48 +46,39 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
-    public function getChangeColleges($id)
-    {
-        $colleges = College::teamleaders($id);
-        return view('change-college')->withColleges($colleges);
+    public function getChangeColleges($id) {
+        return view('change-college')->withColleges(College::teamleaders($id));
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function getTeamleaders() {
-        $teamleaders = College::teamleaders();
-        return view('teamleaders')->withTeamleaders($teamleaders);
+        return view('teamleaders')->withTeamleaders(College::teamleaders());
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
-    public function getTeamleaderTimeline() {
-        return view('teamleaders');
+    public function getTeamleaderTimeline($id) {
+        $colleges = College::teamleaders($id);
+        return view('teamleader-view')->withColleges($colleges)->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));;
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return mixed
      */
-    public function getChangeTeamleader() {
-        return view('teamleaders');
+    public function getChangeTeamleader($id) {
+        return view('change-teamleader')->withTeamleader(Teamleaders::find($id));
     }
 
     /**
-     * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
      */
     public function getAssessors()
     {
@@ -102,9 +86,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application Administrators.
-     *
-     * @return \Illuminate\Http\Response
+     * @return mixed
      */
     public function getUsers()
     {
@@ -112,9 +94,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the New Administrator form.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getNewUsers()
     {
