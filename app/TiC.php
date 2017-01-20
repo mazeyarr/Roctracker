@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class TiC extends Model
 {
+    /**
+     * @param $id = teamleader id
+     * @return mixed
+     */
     public static function AssignedCollege ($id) {
         $teamleader_in_colleges = self::where('fk_teamleader', '=', $id)->get();
         $ret['colleges'] = array();

@@ -43,11 +43,17 @@
                             <label for="noCollege"> Geen college </label>
                         </div>
                     </div>
-                    <div id="all_colleges">
-                        <label for="view_all_colleges" class="control-label">Colleges van {{ $teamleader->name }}</label>
+                    <div id="current_colleges">
+                        <label for="view_current_colleges" class="control-label">Colleges van {{ $teamleader->name }}</label>
+                        {!! $i = 1 !!}
                         @foreach($assigned['colleges'] as $assigned_college)
                             <div class="form-group">
-                                <select class="form-control" name="college" id="view_all_colleges">
+                                @if($assigned['count'] > 1)
+                                    <select class="form-control" name="college{{$i}}" id="view_current_colleges">
+                                    {!! $i++ !!}
+                                @else
+                                    <select class="form-control" name="college" id="view_current_colleges">
+                                @endif
                                     <option value="{{ $assigned_college->id }}"> {{ $assigned_college->name }} </option>
                                     @foreach ($colleges as $college)
                                         @if($college->id != $assigned_college->id)
@@ -58,6 +64,18 @@
                                 </select>
                             </div>
                         @endforeach
+                    </div>
+                    <div id="all_colleges" style="display: none;">
+                        <label for="view_all_colleges" class="control-label">Alle Colleges</label>
+                        <div class="form-group">
+                            <select class="form-control" name="college_add" id="view_all_colleges">
+                                @foreach ($colleges as $college)
+                                    @if($college->id != $assigned_college->id)
+                                        <option value="{{ $college->id }}"> {{ $college->name }} </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <hr>
@@ -81,21 +99,34 @@
 @section('scripts')
     @include('partials._javascript-alerts')
     <script>
+        var animationSpeed = 500;
         $('#college_change').change(function () {
             if ($('input#college_change').is(':checked')) {
-                $('#college_change_selectbox').show('500');
+                $('#college_change_selectbox').show(animationSpeed);
             }else {
-                $('#college_change_selectbox').hide('500');
+                $('#college_change_selectbox').hide(animationSpeed);
             }
         });
 
         $('.college_change_options').click(function() {
             if($('#noCollege').is(':checked')) {
-                $('#all_colleges').hide(500);
+                if ($('#current_colleges').is(":visible")) {
+                    $('#current_colleges').hide(animationSpeed);
+                }
+                if ($('#all_colleges').is(":visible")) {
+                    $('#all_colleges').hide(animationSpeed);
+                }
+            }
+            else if ($('#college_option2').is(':checked')) {
+                $('#current_colleges').hide(animationSpeed);
+                $('#all_colleges').show(animationSpeed);
             }
             else {
-                if (!$('#all_colleges').is(":visible")) {
-                    $('#all_colleges').show(500);
+                if (!$('#current_colleges').is(":visible")) {
+                    $('#current_colleges').show(animationSpeed);
+                }
+                if ($('#all_colleges').is(":visible")) {
+                    $('#all_colleges').hide(animationSpeed);
                 }
             }
         });

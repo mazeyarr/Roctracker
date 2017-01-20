@@ -23,6 +23,11 @@ class TeamleadersInCollegeTableSeeder extends Seeder
         ));
 
         TiC::create(array(
+            'fk_teamleader' => 1,
+            'fk_college' => 6
+        ));
+
+        TiC::create(array(
             'fk_teamleader' => 2,
             'fk_college' => 3
         ));

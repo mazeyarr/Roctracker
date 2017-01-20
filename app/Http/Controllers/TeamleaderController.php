@@ -6,6 +6,7 @@ use App\Assessors;
 use App\College;
 use App\Log;
 use App\Teamleaders;
+use App\TiC;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
@@ -29,9 +30,8 @@ class TeamleaderController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'name' => 'required|max:255',
-                'team' => 'required|max:255',
+                'team' => 'max:255',
                 'college_option' => 'required',
-                'college' => 'required|numeric',
             ]);
 
             if ($validator->fails()) {
@@ -44,13 +44,25 @@ class TeamleaderController extends Controller
 
             switch ($option) {
                 case "replace":
-                    /* TODO: Replace the old college with the new one */
+                    /* TODO: Replace the old college(s) with the new one */
+                    $tic = TiC::AssignedCollege($teamleader->id);
+                    if ($tic['count'] > 1) {
+                        $count = 1;
+                        $college_replacements = array();
+                        for ($i = $count; $i <= $tic['count']; $i++) {
+                            $college_replacements[] = $request->college.$i;
+                        }
+                        dd($college_replacements);
+                    }
+                    dd($request);
                     break;
                 case "add":
                     /* TODO: Add a new relation with a college */
+                    dd($request);
                     break;
                 case "none":
                     /* TODO: Delete every relation in the TIC table */
+                    dd($request);
                     break;
             }
         }

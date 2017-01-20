@@ -11,7 +11,7 @@
             <div class="white-box">
                 <ul class="timeline">
                     <?php $i=true ?>
-                    @if(!empty($logs))
+                    @if(!empty($logs->log))
                             @foreach(array_reverse((array)$logs->log) as $log)
                             @if($i)
                                 <li>
