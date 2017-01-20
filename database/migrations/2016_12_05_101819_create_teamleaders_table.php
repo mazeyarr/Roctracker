@@ -16,6 +16,7 @@ class CreateTeamleadersTable extends Migration
         Schema::create('teamleaders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('team')->nullable(true);
             $table->text('log');
             $table->timestamps();
         });

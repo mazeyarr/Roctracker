@@ -27,3 +27,20 @@
         });
     </script>
 @endif
+
+@if($errors->all())
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.toast({
+                heading: 'Error'
+                , text: '{!! $errors->first() !!}'
+                , position: 'top-right'
+                , loaderBg: '#ff6849'
+                , icon: 'error'
+                , hideAfter: 3500
+                , stack: 6
+            })
+        });
+    </script>
+@endif
+

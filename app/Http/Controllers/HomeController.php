@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\College;
 use App\Colleges;
 use App\Teamleaders;
+use App\TiC;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,11 @@ class HomeController extends Controller
     {
         return view('dashboard');
     }
+
+
+    /**
+     * COLLEGES *****************************************************
+     */
 
     /**
      * @return mixed
@@ -53,6 +59,14 @@ class HomeController extends Controller
         return view('change-college')->withColleges(College::teamleaders($id));
     }
 
+    /** END COLLEGES. *********************************************/
+
+
+
+    /**
+     * TEAMLEADERS ***************************************************
+     */
+
     /**
      * @return mixed
      */
@@ -66,7 +80,7 @@ class HomeController extends Controller
      */
     public function getTeamleaderTimeline($id) {
         $colleges = College::teamleaders($id);
-        return view('teamleader-view')->withColleges($colleges)->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));;
+        return view('teamleader-view')->withColleges($colleges)->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));
     }
 
     /**
@@ -74,16 +88,28 @@ class HomeController extends Controller
      * @return mixed
      */
     public function getChangeTeamleader($id) {
-        return view('change-teamleader')->withTeamleader(Teamleaders::find($id));
+        return view('change-teamleader')->withTeamleader(Teamleaders::find($id))->withAssigned(TiC::AssignedCollege($id))->withColleges(College::all());
     }
 
+
+
+    /** END TEAMLEADERS.***********************************************/
+
+
+
+
     /**
-     *
+     * ASSESSORS *******************************************************
      */
+
     public function getAssessors()
     {
 
     }
+    /** END ASSESSORS.**************************************************/
+
+
+
 
     /**
      * @return mixed

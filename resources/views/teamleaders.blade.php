@@ -13,6 +13,7 @@
                     <tr>
                         <th data-toggle="true"> Naam</th>
                         <th> College</th>
+                        <th data-hide="all"> Team</th>
                         <th data-hide="all"> Laatste bijwerking</th>
                         <th data-hide="all"></th>
                     </tr>
@@ -32,9 +33,10 @@
                             <tr>
                                 <td>{{ $teamleader['teamleader']->name }}</td>
                                 <td>{{ $teamleader['college']->name }}</td>
+                                <td>{{ $teamleader['teamleader']->team }}</td>
                                 <td>{{ date_format($teamleader['teamleader']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
-                                    <a href="{{ URL::route('view_teamleaders', $teamleader['college']->id) }}"
+                                    <a href="{{ URL::route('view_teamleaders', $teamleader['teamleader']->id) }}"
                                        class="college-row-big btn-xs btn-rounded btn-success">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                         Teamleider Bekijken
@@ -77,6 +79,11 @@
                         <div id="notification-block"></div>
                         <div class="form-group">
                             <label for="recipient-name" class="control-label">Naam:</label>
+                            <input type="text" class="form-control" id="modal-name-field">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Team:</label>
                             <input type="text" class="form-control" id="modal-name-field">
                         </div>
                     </form>

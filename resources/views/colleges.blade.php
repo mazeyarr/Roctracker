@@ -15,6 +15,7 @@
                         <th> Locatie</th>
                         <th> Actieve Assessoren</th>
                         <th data-hide="all"> Teamleider</th>
+                        <th data-hide="all"> Team</th>
                         <th data-hide="all"> Laatste bijwerking</th>
                         <th data-hide="all"></th>
                     </tr>
@@ -36,6 +37,7 @@
                                 <td>{{ $college['college']->location }}</td>
                                 <td>{{ \App\Assessors::where('fk_college', '=', $college['college']->id)->where('status', '=', 1)->count() }}</td>
                                 <td>{{ $college['teamleader']->name }}</td>
+                                <td>{{ $college['teamleader']->team }}</td>
                                 <td>{{ date_format($college['college']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
                                     <a href="{{ URL::route('view_colleges', $college['college']->id) }}"

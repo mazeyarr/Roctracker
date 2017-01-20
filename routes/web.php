@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard/teamleader/view/{id}', 'HomeController@getTeamleaderTimeline')->name('view_teamleaders');
     Route::get('/dashboard/teamleader/change/{id}', 'HomeController@getChangeTeamleader')->name('change_teamleaders');
+    Route::post('/dashboard/teamleader/change/{id}/check', 'TeamleaderController@postChangeTeamleader')->name('save_change_teamleaders');
 
 
     /* Assessors Page */

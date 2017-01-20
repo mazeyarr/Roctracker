@@ -6,6 +6,8 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
     $breadcrumbs->push('Dashboard', route('dashboard'));
 });
 
+
+// -------------------------------  COLLEGES ---------------------------- //
 // Dashboard / Colleges
 Breadcrumbs::register('colleges', function($breadcrumbs)
 {
@@ -37,6 +39,8 @@ Breadcrumbs::register('change_college_assessors', function($breadcrumbs, $id)
     $breadcrumbs->push(\App\College::find($id)->name, route('change_college_assessors', $id));
 });
 
+
+// ------------------------------------ TEAMLEADERS ------------------------------------- //
 // Dashboard / Teamleaders
 Breadcrumbs::register('teamleaders', function($breadcrumbs)
 {
@@ -52,6 +56,15 @@ Breadcrumbs::register('view_teamleaders', function($breadcrumbs, $id)
     $breadcrumbs->push(\App\Teamleaders::find($id)->name, route('view_teamleaders', $id));
 });
 
+// Dashboard / Teamleaders / Change Teamleader
+Breadcrumbs::register('change_teamleaders', function($breadcrumbs, $id)
+{
+
+    $breadcrumbs->parent('teamleaders');
+    $breadcrumbs->push(\App\Teamleaders::find($id)->name, route('change_teamleaders', $id));
+});
+
+// ---------------------------------- ASSESSORS ---------------------------------------- //
 // Dashboard / Assessors
 Breadcrumbs::register('assessors', function($breadcrumbs)
 {

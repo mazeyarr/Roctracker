@@ -11,15 +11,15 @@
             <div class="white-box">
                 <ul class="timeline">
                     <?php $i=true ?>
-                    @if(!empty($logs->log))
-                        @foreach($logs->log as $log)
+                    @if(!empty($logs))
+                            @foreach(array_reverse((array)$logs->log) as $log)
                             @if($i)
                                 <li>
                             @else
                                 <li class="timeline-inverted">
                             @endif
                                 <div class="timeline-badge info"><i class="fa fa-bookmark"></i></div>
-                                <div class="timeline-panel">
+                                <div class="timeline-panel" data-log-key="{!! $log->key !!}">
                                     <div class="timeline-heading">
                                         <h4 class="timeline-title">{{ $log->date }}</h4>
                                         <small style="margin-bottom: 10px;">Gewijzigd door: {{ $log->by->name }}</small>

@@ -26,6 +26,7 @@ class Log extends Model
         $log['log'][$key]['by']['id'] = Auth::user()->id;
         $log['log'][$key]['by']['name'] = Auth::user()->name;
         $log['log'][$key]['discription'] = $message;
+        $log['log'][$key]['key'] = $key;
         $college->log = json_encode($log);
         $college->save();
     }
@@ -33,12 +34,26 @@ class Log extends Model
     public static function AssessorLog($id, $message) {
         $assessor = Assessors::find($id);
         $log = json_decode($assessor->log, true);
-        $key = Log::generateRandomString(50);
+        $key = self::generateRandomString(50);
         $log['log'][$key]['date'] = Carbon::now('Europe/Amsterdam')->format('d-m-Y');
         $log['log'][$key]['by']['id'] = Auth::user()->id;
         $log['log'][$key]['by']['name'] = Auth::user()->name;
         $log['log'][$key]['discription'] = $message;
+        $log['log'][$key]['key'] = $key;
         $assessor->log = json_encode($log);
         $assessor->save();
+    }
+
+    public static function TeamleaderLog($id, $message) {
+        $teamleader = Teamleaders::find($id);
+        $log = json_decode($teamleader->log, true);
+        $key = self::generateRandomString(50);
+        $log['log'][$key]['date'] = Carbon::now('Europe/Amsterdam')->format('d-m-Y');
+        $log['log'][$key]['by']['id'] = Auth::user()->id;
+        $log['log'][$key]['by']['name'] = Auth::user()->name;
+        $log['log'][$key]['discription'] = $message;
+        $log['log'][$key]['key'] = $key;
+        $teamleader->log = json_encode($log);
+        $teamleader->save();
     }
 }
