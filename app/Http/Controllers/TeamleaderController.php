@@ -46,15 +46,25 @@ class TeamleaderController extends Controller
                 case "replace":
                     /* TODO: Replace the old college(s) with the new one */
                     $tic = TiC::AssignedCollege($teamleader->id);
+                    $message_array = array();
                     if ($tic['count'] > 1) {
                         $count = 1;
                         $college_replacements = array();
                         for ($i = $count; $i <= $tic['count']; $i++) {
-                            $college_replacements[] = $request->college.$i;
+                            $property ='college' . $i;
+                            $college_replacements[] = $request->$property;
                         }
-                        dd($college_replacements);
+
+                        foreach ($tic['tic'] as $key => $link) {
+                            $replacement = TiC::find($link);
+                            $old = College::find($replacement->fk_college)->name;
+                            $replacement->fk_college = $college_replacements[$key];
+                            $replacement->save();
+                            $message_array[] = "<li>".$old." <strong>Naar</strong> ". College::find($college_replacements[$key])->name ."</li>";
+                        }
                     }
-                    dd($request);
+                    Log::TeamleaderLog($id, $message_array);
+                    return redirect()->route('view_teamleaders', $id)->withSuccess("Wijziging succesvol doorgevoerd !");
                     break;
                 case "add":
                     /* TODO: Add a new relation with a college */

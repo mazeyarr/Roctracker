@@ -30,6 +30,9 @@
                     <tbody>
                     @if(!empty($teamleaders))
                         @foreach($teamleaders as $teamleader)
+                            @if(is_null($teamleader['teamleader']))
+                                @continue
+                            @endif
                             <tr>
                                 <td>{{ $teamleader['teamleader']->name }}</td>
                                 <td>{{ $teamleader['college']->name }}</td>

@@ -14,8 +14,13 @@ class College extends Model
             }
             $with_teamleaders = array();
             $asigned_teamleaders = TiC::where('fk_college', '=', $college->id)->first();
-            $with_teamleaders['college'] = $college;
-            $with_teamleaders['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
+            if (is_null($asigned_teamleaders)) {
+                $with_teamleaders['college'] = $college;
+                $with_teamleaders['teamleader'] = null;
+            }else {
+                $with_teamleaders['college'] = $college;
+                $with_teamleaders['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
+            }
             return $with_teamleaders;
         }else {
             $colleges = self::all();
@@ -26,8 +31,13 @@ class College extends Model
         $with_teamleaders = array();
         foreach ($colleges as $college) {
             $asigned_teamleaders = TiC::where('fk_college', '=', $college->id)->first();
-            $with_teamleaders[$college->name]['college'] = $college;
-            $with_teamleaders[$college->name]['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
+            if (is_null($asigned_teamleaders)) {
+                $with_teamleaders[$college->name]['college'] = $college;
+                $with_teamleaders[$college->name]['teamleader'] = null;
+            }else {
+                $with_teamleaders[$college->name]['college'] = $college;
+                $with_teamleaders[$college->name]['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
+            }
         }
         return $with_teamleaders;
     }

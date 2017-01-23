@@ -29,6 +29,7 @@ class Log extends Model
         $log['log'][$key]['key'] = $key;
         $college->log = json_encode($log);
         $college->save();
+        return $college;
     }
 
     public static function AssessorLog($id, $message) {
@@ -42,9 +43,19 @@ class Log extends Model
         $log['log'][$key]['key'] = $key;
         $assessor->log = json_encode($log);
         $assessor->save();
+        return $assessor;
     }
 
     public static function TeamleaderLog($id, $message) {
+        if (is_array($message)) {
+            $list_start = "<ul>";
+            $list_end = "</ul>";
+            foreach ($message as $item) {
+                $list_start = $list_start . $item;
+            }
+            $list_start = $list_start.$list_end;
+            $message = $list_start;
+        }
         $teamleader = Teamleaders::find($id);
         $log = json_decode($teamleader->log, true);
         $key = self::generateRandomString(50);
@@ -55,5 +66,6 @@ class Log extends Model
         $log['log'][$key]['key'] = $key;
         $teamleader->log = json_encode($log);
         $teamleader->save();
+        return $teamleader;
     }
 }
