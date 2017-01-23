@@ -14,6 +14,7 @@ use Validator;
 class TeamleaderController extends Controller
 {
     public function postChangeTeamleader (Request $request, $id) {
+        $teamleader = Teamleaders::find($id);
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'team' => 'max:255',
@@ -22,8 +23,6 @@ class TeamleaderController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors("Geen inputs ontavngen !");
         }
-
-        $teamleader = Teamleaders::find($id);
 
         if ($request->change_college) {
 
