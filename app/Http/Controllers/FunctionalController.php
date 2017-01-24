@@ -5,20 +5,57 @@ namespace App\Http\Controllers;
 use App\Assessors;
 use App\College;
 use App\Log;
+use App\Teamleaders;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
 class FunctionalController extends Controller
 {
-    public function ajaxSaveCollege ($id, $name, $location) {
+    public function ajaxSaveCollege ($id, $name, $location, $team) {
         if (!is_numeric($id)) {
-            return json_encode(array('result' => 'failed'));
+            return json_encode(array(
+                'result' => 'failed',
+                'message' => 'ERROR ID'
+            ));
+        }
+        if (is_numeric($name) || $name == "" || empty($name)) {
+            return json_encode(array(
+                'result' => 'failed',
+                'message' => 'Naam was niet juist ingevuld.'
+            ));
+        }
+        if (is_numeric($location) || $location == "" || empty($location)) {
+            return json_encode(array(
+                'result' => 'failed',
+                'message' => 'Locatie was niet juist ingevuld.'
+            ));
         }
         $college = College::find($id);
         $college->name = $name;
         $college->location = $location;
+        $college->team = $team;
         $college->save();
+        return json_encode(array('result' => 'executed'));
+    }
+
+    public function ajaxSaveTeamleader ($id, $name, $team) {
+        if (!is_numeric($id)) {
+            return json_encode(array(
+                'result' => 'failed',
+                'message' => 'ERROR ID'
+            ));
+        }
+        if (is_numeric($name) || $name == "" || empty($name)) {
+            return json_encode(array(
+                'result' => 'failed',
+                'message' => 'Naam was niet juist ingevuld.'
+            ));
+        }
+        $teamleader = Teamleaders::find($id);
+        $teamleader->name = $name;
+        $teamleader->team = $team;
+        $teamleader->save();
         return json_encode(array('result' => 'executed'));
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class College extends Model
 {
-    public static function teamleaders($id=null) {
+    public static function getColleges($id=null) {
         if (!is_null($id)) {
             $college = self::find($id);
             if (empty($college)) {
@@ -25,18 +25,20 @@ class College extends Model
         }else {
             $colleges = self::all();
         }
+
         if (empty($colleges)) {
             return null;
         }
+
         $with_teamleaders = array();
         foreach ($colleges as $college) {
             $asigned_teamleaders = TiC::where('fk_college', '=', $college->id)->first();
             if (is_null($asigned_teamleaders)) {
-                $with_teamleaders[$college->name]['college'] = $college;
-                $with_teamleaders[$college->name]['teamleader'] = null;
+                $with_teamleaders[$college->id]['college'] = $college;
+                $with_teamleaders[$college->id]['teamleader'] = null;
             }else {
-                $with_teamleaders[$college->name]['college'] = $college;
-                $with_teamleaders[$college->name]['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
+                $with_teamleaders[$college->id]['college'] = $college;
+                $with_teamleaders[$college->id]['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
             }
         }
         return $with_teamleaders;

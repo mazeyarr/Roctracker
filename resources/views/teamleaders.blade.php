@@ -12,7 +12,7 @@
                     <thead>
                     <tr>
                         <th data-toggle="true"> Naam</th>
-                        <th> College</th>
+                        <th> College(s)</th>
                         <th data-hide="all"> Team</th>
                         <th data-hide="all"> Laatste bijwerking</th>
                         <th data-hide="all"></th>
@@ -30,12 +30,18 @@
                     <tbody>
                     @if(!empty($teamleaders))
                         @foreach($teamleaders as $teamleader)
-                            @if(is_null($teamleader['teamleader']))
-                                @continue
-                            @endif
                             <tr>
+                                {{--{{ !empty($teamleader['college']) ? $teamleader['college']->name : "Geen" }}--}}
                                 <td>{{ $teamleader['teamleader']->name }}</td>
-                                <td>{{ $teamleader['college']->name }}</td>
+                                <td>
+                                    @if(!empty($teamleader['college']))
+                                        <?php $name = null; ?>
+                                        @foreach($teamleader['college'] as $college)
+                                            <?php $name = $name . $college->name . " / "; ?>
+                                        @endforeach
+                                        {{ strlen($name) > 25 ? substr($name, 0, 35)."...." : rtrim($name, " / ") }}
+                                    @endif
+                                </td>
                                 <td>{{ $teamleader['teamleader']->team }}</td>
                                 <td>{{ date_format($teamleader['teamleader']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
@@ -48,8 +54,8 @@
                                     <button data-toggle="modal" data-target="#teamleader-little-modal"
                                             id="{{ $teamleader['teamleader']->id }}"
                                             data-name="{{ $teamleader['teamleader']->name }}"
-                                            {{-- TODO: data of little change inputs--}}
-                                            class="college-row-little btn-xs btn-rounded btn-warning">
+                                            data-team="{{ $teamleader['teamleader']->team }}"
+                                            class="teamleader-row-little btn-xs btn-rounded btn-warning">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Bewerken
                                     </button>
@@ -87,12 +93,12 @@
 
                         <div class="form-group">
                             <label for="recipient-name" class="control-label">Team:</label>
-                            <input type="text" class="form-control" id="modal-name-field">
+                            <input type="text" class="form-control" id="modal-team-field">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button id="close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button id="save" type="button" class="btn btn-primary">Opslaan</button>
                 </div>
             </div>
@@ -109,4 +115,72 @@
     <!--FooTable init-->
     <script src="{{ URL::asset('js/footable-init.js') }}"></script>
     @include('partials._javascript-paddingfixer')
+    <script>
+        $( document ).ready( function () {
+
+            var _id = null,
+                _name = null,
+                _team = null;
+
+            var modal_frame = $('#teamleader-little-modal'),
+                notification_block = $('#notification-block'),
+                modal_name_field = $('#modal-name-field'),
+                modal_team_field = $('#modal-team-field'),
+                btnSave = $('#save'),
+                btnClose = $('#close'),
+                btnTeamleader = $('.teamleader-row-little');
+
+            btnTeamleader.click(function () {
+                _id = this.id;
+                _name = $(this).attr('data-name');
+                _team = $(this).attr('data-team');
+                modal_name_field.val(_name);
+                modal_team_field.val(_team);
+            });
+
+            modal_name_field.focus(function () {
+                modal_name_field.css('border', '1px solid #474F5B');
+            });
+
+            modal_team_field.focus(function () {
+                modal_team_field.css('border', '1px solid #474F5B')
+            });
+
+            btnSave.click(function () {
+                notification_block.hide(500);
+                notification_block.empty();
+                notification_block.show(500);
+
+                /* Check if inputs contain a slash, to prevent routing errors */
+                if (modal_name_field.val().indexOf('/') > -1) {
+                    modal_name_field.css('border', '1px solid red');
+                    notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> <b>"/"</b> is niet toegestaan.</div>');
+                    return
+                }
+                /* Check if inputs contain a slash, to prevent routing errors */
+                if (modal_team_field.val().indexOf('/') > -1) {
+                    modal_team_field.css('border', '1px solid red');
+                    notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> <b>"/"</b> is niet toegestaan.</div>');
+                    return
+                }
+                /*Ajax with parameters*/
+                $.ajax({
+                    url: '/dashboard/teamleader/save/' + _id + '/' + modal_name_field.val() + '/' + modal_team_field.val()
+                }).done(function (data) {
+                    $.toast({
+                        heading: 'Voltooid'
+                        , text: 'Teamleider is opgeslagen !'
+                        , position: 'top-right'
+                        , icon: 'success'
+                        , hideAfter: 1000
+                    });
+                    setTimeout(function () {
+                        window.location.reload();
+                    }, 800);
+                }).fail(function () {
+                    notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> Er is iets fout gegaan.</div>')
+                });
+            });
+        });
+    </script>
 @stop

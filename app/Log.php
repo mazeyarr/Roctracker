@@ -46,7 +46,7 @@ class Log extends Model
         return $assessor;
     }
 
-    public static function TeamleaderLog($id, $message) {
+    public static function TeamleaderLog($id, $message, $intro="", $list_before="") {
         if (is_array($message)) {
             $list_start = "<ul>";
             $list_end = "</ul>";
@@ -62,7 +62,7 @@ class Log extends Model
         $log['log'][$key]['date'] = Carbon::now('Europe/Amsterdam')->format('d-m-Y');
         $log['log'][$key]['by']['id'] = Auth::user()->id;
         $log['log'][$key]['by']['name'] = Auth::user()->name;
-        $log['log'][$key]['discription'] = $message;
+        $log['log'][$key]['discription'] = $intro."<br>".$list_before."<br>".$message;
         $log['log'][$key]['key'] = $key;
         $teamleader->log = json_encode($log);
         $teamleader->save();

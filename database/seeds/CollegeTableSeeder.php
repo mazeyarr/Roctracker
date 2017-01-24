@@ -47,5 +47,11 @@ class CollegeTableSeeder extends Seeder
             'location' => 'Keizerinmarialaan 88',
             'log' => '{}'
         ));
+
+        College::create(array(
+            'name' => 'Metaalbewerking',
+            'location' => 'Keizerinmarialaan 88',
+            'log' => '{}'
+        ));
     }
 }

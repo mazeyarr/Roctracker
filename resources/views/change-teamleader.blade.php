@@ -30,47 +30,58 @@
                 <div id="college_change_selectbox" class="form-group" style="display: none;">
                     <label for="inputName1" class="control-label">Hoe moet de college wijzeging worden uitgevoerd ?</label>
                     <div class="form-group">
-                        <div class="radio">
-                            <input class="college_change_options" type="radio" id="college_option1" name="college_option" value="replace" required>
-                            <label for="college_option1"> Vervangen </label>
-                        </div>
+                        @if(!is_null($assigned))
+                            <div class="radio">
+                                <input class="college_change_options" type="radio" id="college_option1" name="college_option" value="replace" required>
+                                <label for="college_option1"> Vervangen </label>
+                            </div>
+                        @endif
                         <div class="radio">
                             <input class="college_change_options" type="radio" id="college_option2" name="college_option" value="add" required>
                             <label for="college_option2"> Toevoegen </label>
                         </div>
-                        <div class="radio">
-                            <input class="college_change_options" type="radio" id="noCollege" name="college_option" value="none" required>
-                            <label for="noCollege"> Geen college </label>
-                        </div>
-                    </div>
-                    <div id="current_colleges">
-                        <label for="view_current_colleges" class="control-label">Colleges van {{ $teamleader->name }}</label>
-                        {!! $i = 1 !!}
-                        @foreach($assigned['colleges'] as $assigned_college)
-                            <div class="form-group">
-                                @if($assigned['count'] > 1)
-                                    <select class="form-control" name="college{{$i}}" id="view_current_colleges">
-                                    {!! $i++ !!}
-                                @else
-                                    <select class="form-control" name="college" id="view_current_colleges">
-                                @endif
-                                    <option value="{{ $assigned_college->id }}"> {{ $assigned_college->name }} </option>
-                                    @foreach ($colleges as $college)
-                                        @if($college->id != $assigned_college->id)
-                                            <option value="{{ $college->id }}"> {{ $college->name }} </option>
-                                        @endif
-                                    @endforeach
-                                    <option value="none">Geen</option>
-                                </select>
+                        @if(!is_null($assigned))
+                            <div class="radio">
+                                <input class="college_change_options" type="radio" id="noCollege" name="college_option" value="none" required>
+                                <label for="noCollege"> Geen college </label>
                             </div>
-                        @endforeach
+                        @endif
                     </div>
+                    @if(!is_null($assigned))
+                        <div id="current_colleges">
+                            <label for="view_current_colleges" class="control-label">Colleges van {{ $teamleader->name }}</label>
+                            {!! $i = 1 !!}
+                            @foreach($assigned['colleges'] as $assigned_college)
+                                <div class="form-group">
+                                    @if($assigned['count'] > 1)
+                                        <select class="form-control" name="college{{$i}}" id="view_current_colleges">
+                                        {!! $i++ !!}
+                                    @else
+                                        <select class="form-control" name="college1" id="view_current_colleges">
+                                    @endif
+                                        <option value="{{ $assigned_college->id }}"> {{ $assigned_college->name }} </option>
+                                        @foreach ($colleges as $college)
+                                            @if($college->id != $assigned_college->id)
+                                                <option value="{{ $college->id }}"> {{ $college->name }} </option>
+                                            @endif
+                                        @endforeach
+                                        <option value="none">Geen</option>
+                                    </select>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
                     <div id="all_colleges" style="display: none;">
                         <label for="view_all_colleges" class="control-label">Alle Colleges</label>
                         <div class="form-group">
                             <select class="form-control" name="college_add" id="view_all_colleges">
                                 @foreach ($colleges as $college)
-                                    @if($college->id != $assigned_college->id)
+                                    @if(!is_null($assigned))
+                                        @if($college->id != $assigned_college->id)
+                                            <option value="{{ $college->id }}"> {{ $college->name }} </option>
+                                        @endif
+                                    @else
                                         <option value="{{ $college->id }}"> {{ $college->name }} </option>
                                     @endif
                                 @endforeach

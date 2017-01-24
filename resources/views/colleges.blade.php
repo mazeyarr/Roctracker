@@ -36,8 +36,8 @@
                                 <td>{{ $college['college']->name }}</td>
                                 <td>{{ $college['college']->location }}</td>
                                 <td>{{ \App\Assessors::where('fk_college', '=', $college['college']->id)->where('status', '=', 1)->count() }}</td>
-                                <td>{{ $college['teamleader']->name }}</td>
-                                <td>{{ $college['teamleader']->team }}</td>
+                                <td>{{ (is_null($college['teamleader'])) ? "Geen" : $college['teamleader']->name }}</td>
+                                <td>{{ (is_null($college['college'])) ? "Geen" : $college['college']->team }}</td>
                                 <td>{{ date_format($college['college']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
                                     <a href="{{ URL::route('view_colleges', $college['college']->id) }}"
@@ -50,6 +50,7 @@
                                             id="{{ $college['college']->id }}"
                                             data-name="{{ $college['college']->name }}"
                                             data-location="{{ $college['college']->location }}"
+                                            data-team="{{ $college['college']->team }}"
                                             class="college-row-little btn-xs btn-rounded btn-warning">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Bewerken
@@ -89,6 +90,11 @@
                             <label for="recipient-name" class="control-label">locatatie:</label>
                             <input type="text" class="form-control" id="modal-location-field">
                         </div>
+
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Team:</label>
+                            <input type="text" class="form-control" id="modal-team-field">
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -113,20 +119,24 @@
         $(document).ready(function () {
             var id = null,
                 name = null,
-                location = null;
+                location = null,
+                team = null;
 
             var btnCollegeRow = $('.college-row-little'),
                 notification_block = $('#notification-block'),
                 modal_name_field = $('#modal-name-field'),
                 modal_location_field = $('#modal-location-field'),
+                modal_team_field = $('#modal-team-field'),
                 btnSave = $('#save');
 
             btnCollegeRow.click(function () {
                 id = this.id;
                 name = $(this).attr('data-name');
                 location = $(this).attr('data-location');
+                team = $(this).attr('data-team');
                 modal_name_field.val(name);
                 modal_location_field.val(location)
+                modal_team_field.val(team)
 
             });
 
@@ -136,6 +146,10 @@
 
             modal_name_field.focus(function () {
                 modal_name_field.css('border', '1px solid #474F5B')
+            });
+
+            modal_team_field.focus(function () {
+                modal_team_field.css('border', '1px solid #474F5B')
             });
 
             btnSave.click(function () {
@@ -155,9 +169,16 @@
                     notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> <b>"/"</b> is niet toegestaan.</div>');
                     return
                 }
+                /* Check if inputs contain a slash, to prevent routing errors */
+                if (modal_team_field.val().indexOf('/') > -1) {
+                    modal_team_field.css('border', '1px solid red');
+                    notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> <b>"/"</b> is niet toegestaan.</div>');
+                    return
+                }
+
                 /*Ajax with parameters*/
                 $.ajax({
-                    url: '/dashboard/college/save/' + id + '/' + modal_name_field.val() + '/' + modal_location_field.val()
+                    url: '/dashboard/college/save/' + id + '/' + modal_name_field.val() + '/' + modal_location_field.val()+ '/' + modal_team_field.val()
                 }).done(function (data) {
                     $.toast({
                         heading: 'Voltooid'

@@ -26,7 +26,6 @@ class TeamleaderController extends Controller
         }
 
         if ($request->change_college) {
-
             $validator = Validator::make($request->all(), [
                 'name' => 'required|max:255',
                 'team' => 'max:255',
@@ -38,40 +37,106 @@ class TeamleaderController extends Controller
             }
 
             $option = $request->college_option;
-            $college_id = $request->college;
-
 
             switch ($option) {
                 case "replace":
-                    /* TODO: Replace the old college(s) with the new one */
-                    $tic = TiC::AssignedCollege($teamleader->id);
                     $message_array = array();
-                    if ($tic['count'] > 1) {
-                        $count = 1;
-                        $college_replacements = array();
-                        for ($i = $count; $i <= $tic['count']; $i++) {
-                            $property ='college' . $i;
-                            $college_replacements[] = $request->$property;
-                        }
+                    $i_current_colleges = TiC::where("fk_teamleader", "=", $teamleader->id)->count();
+                    $rules = array();
+                    for ($i = $i_current_colleges; $i > 0; $i--) {
+                        $rules['college'.$i] = 'required';
+                    }
 
-                        foreach ($tic['tic'] as $key => $link) {
-                            $replacement = TiC::find($link);
-                            $old = College::find($replacement->fk_college)->name;
-                            $replacement->fk_college = $college_replacements[$key];
-                            $replacement->save();
-                            $message_array[] = "<li>".$old." <strong>Naar</strong> ". College::find($college_replacements[$key])->name ."</li>";
+                    foreach ($rules as $rule => $check){
+                        $count = count($rules);
+                        for ($i = $count; $i > 0; $i--) {
+                            $number = str_replace("college", "", $rule);
+                            ($i != $number) ? $check = $check . "|different:college".$i : null;
+                        }
+                        $rules[$rule] = $check;
+                    }
+
+                    $validator = Validator::make($request->all(), $rules);
+                    if ($validator->fails()) {
+                        return redirect()->back()->withErrors($validator);
+                    }
+
+                    $links = TiC::where("fk_teamleader", "=", $teamleader->id)->get();
+                    $old = array();
+                    if (!$links->isEmpty()) {
+                        foreach ($links as $teamleaders_in_colleges) {
+                            $old[] = "<li>".College::find($teamleaders_in_colleges->fk_college)->name."</li>";
+                            $teamleaders_in_colleges->delete();
                         }
                     }
-                    Log::TeamleaderLog($id, $message_array);
+
+                    for ($i = $i_current_colleges; $i > 0; $i--) {
+                        $property = "college".$i;
+                        if ($request->$property != "none") {
+                            $teamleaders_in_college = new TiC();
+                            $teamleaders_in_college->fk_teamleader = $teamleader->id;
+                            $teamleaders_in_college->fk_college = $request->$property;
+                            $teamleaders_in_college->save();
+                            $message_array[] = "<li>" . College::find($teamleaders_in_college->fk_college)->name . "</li>";
+                        }else {
+                            $message_array[] = "<li> Geen </li>";
+                        }
+                    }
+
+                    $list_start = "<ul>";
+                    $list_end = "</ul>";
+                    foreach ($old as $item) {
+                        $list_start = $list_start . $item;
+                    }
+                    $list_start = $list_start.$list_end;
+                    $list = $list_start . "<br> Door:";
+                    $intro = "De college(s) waar <strong>". $teamleader->name ."</strong> teamleider van was, zijn vervangen. <br><br> De volgende college(s) zijn vervangen:";
+
+                    Log::TeamleaderLog($id, array_reverse($message_array), $intro, $list);
                     return redirect()->route('view_teamleaders', $id)->withSuccess("Wijziging succesvol doorgevoerd !");
                     break;
                 case "add":
-                    /* TODO: Add a new relation with a college */
-                    dd($request);
+                    $validator = Validator::make($request->all(), [
+                        'college_add' => 'required|numeric',
+                    ]);
+                    if ($validator->fails()) {
+                        return redirect()->back()->withErrors($validator);
+                    }
+
+                    $teamleaders_in_college = new TiC();
+                    $teamleaders_in_college->fk_teamleader = $teamleader->id;
+                    $teamleaders_in_college->fk_college = $request->college_add;
+                    $teamleaders_in_college->save();
+                    Log::TeamleaderLog($id, "<strong>".$teamleader->name."</strong> is teamleider geworden van: <strong>". College::find($teamleaders_in_college->fk_college)->name ."</strong>");
+                    return redirect()->route('view_teamleaders', $id)->withSuccess("Wijziging succesvol doorgevoerd !");
                     break;
                 case "none":
-                    /* TODO: Delete every relation in the TIC table */
-                    dd($request);
+                    $message_array = array();
+                    $i_current_colleges = TiC::where("fk_teamleader", "=", $teamleader->id)->count();
+                    $links = TiC::where("fk_teamleader", "=", $teamleader->id)->get();
+                    $old = array();
+                    if (!$links->isEmpty()) {
+                        foreach ($links as $teamleaders_in_colleges) {
+                            $old[] = "<li>".College::find($teamleaders_in_colleges->fk_college)->name."</li>";
+                            $teamleaders_in_colleges->delete();
+                        }
+                    }
+
+                    for ($i = $i_current_colleges; $i > 0; $i--) {
+                        $message_array[] = "<li> Geen </li>";
+                    }
+
+                    $list_start = "<ul>";
+                    $list_end = "</ul>";
+                    foreach ($old as $item) {
+                        $list_start = $list_start . $item;
+                    }
+                    $list_start = $list_start.$list_end;
+                    $list = $list_start . "<br> Naar:";
+                    $intro = "De college(s) waar <strong>". $teamleader->name ."</strong> teamleider van was, zijn veranderd. <br><br> De volgende college(s) zijn varanderd:";
+
+                    Log::TeamleaderLog($id, array_reverse($message_array), $intro, $list);
+                    return redirect()->route('view_teamleaders', $id)->withSuccess("Wijziging succesvol doorgevoerd !");
                     break;
             }
         }

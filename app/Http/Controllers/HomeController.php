@@ -38,7 +38,7 @@ class HomeController extends Controller
      * @return mixed
      */
     public function getColleges() {
-        return view('colleges')->withColleges(College::teamleaders());
+        return view('colleges')->withColleges(College::getColleges());
     }
 
     /**
@@ -47,7 +47,7 @@ class HomeController extends Controller
      */
     public function getCollegeTimeline($id)
     {
-        $colleges = College::teamleaders($id);
+        $colleges = College::getColleges($id);
         return view('college-view')->withColleges($colleges)->withLogs(json_decode($colleges['college']->log));
     }
 
@@ -56,7 +56,7 @@ class HomeController extends Controller
      * @return mixed
      */
     public function getChangeColleges($id) {
-        return view('change-college')->withColleges(College::teamleaders($id));
+        return view('change-college')->withColleges(College::getColleges($id));
     }
 
     /** END COLLEGES. *********************************************/
@@ -71,7 +71,7 @@ class HomeController extends Controller
      * @return mixed
      */
     public function getTeamleaders() {
-        return view('teamleaders')->withTeamleaders(College::teamleaders());
+        return view('teamleaders')->withTeamleaders(Teamleaders::getTeamleaders());
     }
 
     /**
@@ -79,7 +79,7 @@ class HomeController extends Controller
      * @return mixed
      */
     public function getTeamleaderTimeline($id) {
-        $colleges = College::teamleaders($id);
+        $colleges = College::getColleges($id);
         return view('teamleader-view')->withColleges($colleges)->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));
     }
 

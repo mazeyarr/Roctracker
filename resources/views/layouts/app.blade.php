@@ -32,7 +32,6 @@
             heading: 'Welkom {!! Auth::user()->name !!}'
             , text: 'Success met uw taken !'
             , position: 'top-right'
-            , loaderBg: '#ff6849'
             , icon: 'success'
             , hideAfter: 3000
             , stack: 6

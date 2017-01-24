@@ -25,7 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard/college/change/{id}/check/selection/{collegename?}/{collegelocation?}', 'CollegeController@getChangeAssessorsSelection')->name('change_college_assessors');
 
     Route::get('/dashboard/college/save/assessor/{id}/{collegeid}', 'FunctionalController@ajaxSaveAssessorToCollege')->name('ajax_save_college_by_selection');
-    Route::get('/dashboard/college/save/{id}/{name}/{location}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
+    Route::get('/dashboard/college/save/{id}/{name}/{location}/{team}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
 
 
     /* Teamleaders Page */
@@ -34,6 +34,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard/teamleader/view/{id}', 'HomeController@getTeamleaderTimeline')->name('view_teamleaders');
     Route::get('/dashboard/teamleader/change/{id}', 'HomeController@getChangeTeamleader')->name('change_teamleaders');
     Route::post('/dashboard/teamleader/change/{id}/check', 'TeamleaderController@postChangeTeamleader')->name('save_change_teamleaders');
+
+    Route::get('/dashboard/teamleader/save/{id}/{name}/{team}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
 
 
     /* Assessors Page */

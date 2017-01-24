@@ -2,7 +2,7 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
         <div class="user-profile">
             <div class="dropdown user-pro-body">
-                <div><img alt="user-img" class="img-circle" src="{{ URL::asset('plugins/images/users/varun.jpg') }}"></div>{{ Auth::user()->name }}</a>
+                <div><img alt="user-img" class="img-circle" src="{{ URL::asset('plugins/images/users/default-user.png') }}"></div>{{ Auth::user()->name }}</a>
             </div>
         </div>
         <ul class="nav" id="side-menu">
