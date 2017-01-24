@@ -8,6 +8,13 @@ use Auth;
 
 class Log extends Model
 {
+    /**
+     * @param int $length
+     * @return string
+     *
+     * This generator is used to randomize names.
+     * Its used to give unique names to keys or images
+     */
     public static function generateRandomString($length = 10) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
@@ -18,6 +25,13 @@ class Log extends Model
         return $randomString;
     }
 
+    /**
+     * @param $id
+     * @param $message
+     * @return mixed
+     *
+     * CollegeLog wil save messages to the according college
+     */
     public static function CollegeLog($id, $message) {
         $college = College::find($id);
         $key = self::generateRandomString(50);
@@ -32,6 +46,13 @@ class Log extends Model
         return $college;
     }
 
+    /**
+     * @param $id
+     * @param $message
+     * @return mixed
+     *
+     * AssessorLog wil save messages to the according Assessor
+     */
     public static function AssessorLog($id, $message) {
         $assessor = Assessors::find($id);
         $log = json_decode($assessor->log, true);
@@ -46,6 +67,16 @@ class Log extends Model
         return $assessor;
     }
 
+    /**
+     * @param $id
+     * @param $message
+     * @param string $intro
+     * @param string $list_before
+     * @return mixed
+     *
+     * TeamleaderLog wil save messages to the according Teamleader
+     * also if many changes occur u have the option to make lists
+     */
     public static function TeamleaderLog($id, $message, $intro="", $list_before="") {
         if (is_array($message)) {
             $list_start = "<ul>";
