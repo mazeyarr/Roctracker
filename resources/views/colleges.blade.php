@@ -22,10 +22,18 @@
                     </thead>
                     <div class="form-inline padding-bottom-15">
                         <div class="row">
-                            <div class="col-sm-12 text-right m-b-20">
+                            <div class="col-sm-12 text-left m-b-20">
                                 <div class="form-group">
-                                    <input id="footable-search" type="text" placeholder="Zoeken" class="form-control"
-                                           autocomplete="off"></div>
+                                    <label class="form-inline"> Laat
+                                        <select id="demo-show-entries" class="form-control input-sm">
+                                            <option value="10">10</option>
+                                            <option value="15">15</option>
+                                        </select> Rijen zien.
+                                    </label>
+                                </div>
+                                <div class="form-group" style="float: right;">
+                                    <input id="footable-search" type="text" placeholder="Zoeken" class="form-control" autocomplete="off">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -66,6 +74,15 @@
                         @endforeach
                     @endif
                     </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="5">
+                            <div class="text-right">
+                                <ul class="pagination pagination-split m-t-30"> </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

@@ -298,5 +298,18 @@ class AssessorTableSeeder extends Seeder
             'status' => 1,
             'log' => '{}'
         ));
+
+        Assessors::create(array(
+            'name' => 'Alia van Kempen',
+            'fk_college' => null,
+            'team' => 'Business',
+            'birthdate' => Carbon::now(),
+            'function' => 'Leraar',
+            'trained_by' => 'NAE',
+            'certified_by' => 'NAE',
+            'fk_teamleader' => 2,
+            'status' => 1,
+            'log' => '{}'
+        ));
     }
 }

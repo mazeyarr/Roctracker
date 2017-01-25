@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Assessors;
 use App\College;
-use App\Colleges;
 use App\Teamleaders;
 use App\TiC;
 use App\User;
@@ -104,7 +104,7 @@ class HomeController extends Controller
 
     public function getAssessors()
     {
-
+        return view('assessoren')->withAssessors(Assessors::getAssessors());
     }
     /** END ASSESSORS.**************************************************/
 
