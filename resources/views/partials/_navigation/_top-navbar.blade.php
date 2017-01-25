@@ -3,7 +3,7 @@
     <div class="navbar-header">
         <a class="navbar-toggle hidden-sm hidden-md hidden-lg" data-target=".navbar-collapse" data-toggle="collapse"
            href="javascript:void(0)"><i class="ti-menu"></i></a>
-        <div class="top-left-part" style="padding-top: 10px; padding-left: 5px;">
+        <div class="top-left-part" style="padding-top: 10px;">
             <a class="logo" href="{{ URL::route('dashboard') }}">
                 <b><!--This is dark logo icon-->
                     <img alt="home" class="dark-logo" src="{{ URL::asset('plugins/images/RocTrackerLogo.png') }}">

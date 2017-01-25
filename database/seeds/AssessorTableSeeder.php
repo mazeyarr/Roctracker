@@ -311,5 +311,31 @@ class AssessorTableSeeder extends Seeder
             'status' => 1,
             'log' => '{}'
         ));
+
+        Assessors::create(array(
+            'name' => 'Richard van Kloppings',
+            'fk_college' => 6,
+            'team' => 'D&R',
+            'birthdate' => Carbon::now(),
+            'function' => 'Leraar',
+            'trained_by' => 'NAE',
+            'certified_by' => 'NAE',
+            'fk_teamleader' => 1,
+            'status' => 0,
+            'log' => '{}'
+        ));
+
+        Assessors::create(array(
+            'name' => 'Miera Shouwers',
+            'fk_college' => 6,
+            'team' => 'D&R',
+            'birthdate' => Carbon::now(),
+            'function' => 'Leraar',
+            'trained_by' => 'NAE',
+            'certified_by' => 'NAE',
+            'fk_teamleader' => 1,
+            'status' => 0,
+            'log' => '{}'
+        ));
     }
 }

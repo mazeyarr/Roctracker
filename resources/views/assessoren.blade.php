@@ -40,19 +40,27 @@
                             </div>
                         </div>
                     </div>
-                    <tbody>
+                    <tbody id="table-body">
                     @if(!empty($assessors))
                         @foreach($assessors as $assessor)
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                            <tr{!!  $assessor->status == 0 ? ' class="assessor-invisable" ' : "" !!}>
+                                <td>{{ $assessor->name }}</td>
+                                <td>{{ !empty($assessor->fk_college) ? $assessor->fk_college->name : "Geen" }}</td>
+                                <td>{{ $assessor->function }}</td>
+                                <td class="assessor-status" data-status="{{ $assessor->status }}">
+                                    @if ($assessor->status == 0)
+                                        <span class="label label-table label-default">Non actief</span>
+                                    @elseif ($assessor->status == 1)
+                                        <span class="label label-table label-success">Actief</span>
+                                    @elseif ($assessor->status == 2)
+                                        <span class="label label-table label-warning">Anders</span>
+                                    @endif
+                                </td>
+                                <td>{{ $assessor->team }}</td>
+                                <td>{{ $assessor->fk_teamleader }}</td>
+                                <td>{{ $assessor->trained_by }}</td>
+                                <td>{{ $assessor->certified_by }}</td>
+                                <td>{{ date_format($assessor->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
                                     <a href="{{ URL::route('view_teamleaders', $assessor->id) }}"
                                        class="college-row-big btn-xs btn-rounded btn-success">

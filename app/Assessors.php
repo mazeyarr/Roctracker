@@ -21,6 +21,10 @@ class Assessors extends Model
 
             $college = College::find($assessor->fk_college);
             $assessor->fk_college = $college;
+
+            $teamleader = Teamleaders::find($assessor->fk_teamleader)->name;
+            $assessor->fk_teamleader = $teamleader;
+
             $assessors[] = $assessor;
         }
         return $assessors;
