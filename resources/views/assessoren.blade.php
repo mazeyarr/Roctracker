@@ -13,15 +13,15 @@
                     <tr>
                         <th data-toggle="true"> Naam</th>
                         <th> College(s)</th>
-                        <th> Status</th>
-                        <th> Status</th>
-                        <th data-hide="all"> Basistraining</th>
-                        <th data-hide="all"> Functie</th>
-                        <th data-hide="all"> Team</th>
-                        <th data-hide="all"> Teamleider</th>
-                        <th data-hide="all"> Opgeleid door</th>
-                        <th data-hide="all"> Gecertificeerd door</th>
-                        <th data-hide="all"> Laatste bijwerking</th>
+                        <th> Volgende examen datum </th>
+                        <th> Status </th>
+                        <th data-hide="all"> Basistraining </th>
+                        <th data-hide="all"> Functie </th>
+                        <th data-hide="all"> Team </th>
+                        <th data-hide="all"> Teamleider </th>
+                        <th data-hide="all"> Opgeleid door </th>
+                        <th data-hide="all"> Gecertificeerd door </th>
+                        <th data-hide="all"> Laatste bijwerking </th>
                         <th data-hide="all"></th>
                     </tr>
                     </thead>
@@ -48,7 +48,7 @@
                             <tr{!!  $assessor->status == 0 ? ' class="assessor-invisable" ' : "" !!}>
                                 <td>{{ $assessor->name }}</td>
                                 <td>{{ !empty($assessor->fk_college) ? $assessor->fk_college->name : "Geen" }}</td>
-                                <td></td>
+                                <td>{{ !empty($assessor->fk_exams->training_next_on) ? date_format($assessor->fk_exams->training_next_on, 'd-m-Y') : "" }}</td>
                                 <td class="assessor-status" data-status="{{ $assessor->status }}">
                                     @if ($assessor->status == 0)
                                         <span class="label label-table label-default">Non actief</span>
@@ -58,7 +58,7 @@
                                         <span class="label label-table label-warning">Anders</span>
                                     @endif
                                 </td>
-                                <td>{{ ($assessor->fk_exams['basictraining']->graduated) ? "Behaald" : "Niet behaald"}}</td>
+                                <td>{!! ($assessor->fk_exams['basictraining']->graduated) ? "Behaald" : "<i>Niet behaald</i>" !!}</td>
                                 <td>{{ $assessor->function }}</td>
                                 <td>{{ $assessor->team }}</td>
                                 <td>{{ $assessor->fk_teamleader }}</td>
