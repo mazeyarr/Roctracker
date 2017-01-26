@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Assessors;
 use App\College;
+use App\Log;
 use App\Teamleaders;
 use App\TiC;
 use App\User;
@@ -107,7 +108,7 @@ class HomeController extends Controller
 
     public function getAssessorProfile($id)
     {
-        return view('assessoren')->withAssessors(Assessors::getAssessors($id));
+        return view('assessor-profile')->withAssessor(Assessors::getAssessors($id))->withLogs(Log::limit(Assessors::find($id)->log));
     }
 
     public function getAssessorTimeline($id) {

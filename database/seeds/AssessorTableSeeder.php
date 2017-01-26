@@ -7,6 +7,12 @@ use Carbon\Carbon;
 
 class AssessorTableSeeder extends Seeder
 {
+    private $logString;
+    private function string () {
+        $string = \App\Log::generateRandomString(50);
+        $this->logString = $string;
+        return $string;
+    }
     /**
      * Run the database seeds.
      *
@@ -15,24 +21,24 @@ class AssessorTableSeeder extends Seeder
     public function run()
     {
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -49,30 +55,88 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {
+                    "'.$this->string().'": {
+                      "date": "26-01-2017",
+                      "by": {
+                        "id": 1,
+                        "name": "Mazeyar Rezaei"
+                      },
+                      "discription": "Test 1",
+                      "key": "'.$this->logString.'"
+                    },
+                    "'.$this->string().'": {
+                      "date": "26-01-2017",
+                      "by": {
+                        "id": 1,
+                        "name": "Mazeyar Rezaei"
+                      },
+                      "discription": "Test 2",
+                      "key": "'.$this->logString.'"
+                    },
+                    "'.$this->string().'": {
+                      "date": "26-01-2017",
+                      "by": {
+                        "id": 1,
+                        "name": "Mazeyar Rezaei"
+                      },
+                      "discription": "Test 3",
+                      "key": "'.$this->logString.'"
+                    },
+                    "'.$this->string().'": {
+                      "date": "26-01-2017",
+                      "by": {
+                        "id": 1,
+                        "name": "Mazeyar Rezaei"
+                      },
+                      "discription": "Test 4",
+                      "key": "'.$this->logString.'"
+                    },
+                    "'.$this->string().'": {
+                      "date": "26-01-2017",
+                      "by": {
+                        "id": 1,
+                        "name": "Mazeyar Rezaei"
+                      },
+                      "discription": "Test 5",
+                      "key": "'.$this->logString.'"
+                    },
+                    "'.$this->string().'": {
+                      "date": "26-01-2017",
+                      "by": {
+                        "id": 1,
+                        "name": "Mazeyar Rezaei"
+                      },
+                      "discription": "Test 6",
+                      "key": "'.$this->logString.'"
+                    }
+                }    
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -89,30 +153,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -129,30 +196,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -169,30 +239,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -209,30 +282,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -249,30 +325,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -289,30 +368,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -329,30 +411,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -369,30 +454,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -409,30 +497,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -449,30 +540,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -489,30 +583,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -529,30 +626,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -569,30 +669,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -609,30 +712,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -649,30 +755,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -689,30 +798,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -729,30 +841,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -769,30 +884,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -809,30 +927,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -849,30 +970,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -889,30 +1013,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -929,30 +1056,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 2,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -969,30 +1099,33 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 0,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
 
         /****************************************/
 
         $EXAM = Exams::create(array(
-            'basictraining' => '
+            'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": false,
+                "passed": false,
               "requirements": {
-                "video": false,
+                            "video": false,
                 "portfolio": false,
                 "CV": false
               },
               "date1": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "date2": {
-                "present": false,
+                            "present": false,
                 "date": null
               },
               "graduated": false
-            }',
+            }')),
             'training_followed_on' => null,
             'training_next_on' => null,
             'log' => '{}'
@@ -1009,7 +1142,10 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 0,
-            'log' => '{}'
+            'log' => trim(preg_replace('/\s\s+/', ' ','
+            {
+                "log" : {}
+            }'))
         ));
     }
 }

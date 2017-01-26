@@ -77,7 +77,15 @@ Breadcrumbs::register('view_assessor', function($breadcrumbs, $id)
 {
 
     $breadcrumbs->parent('assessors');
-    $breadcrumbs->push(\App\Teamleaders::find($id)->name, route('view_assessor', $id));
+    $breadcrumbs->push(\App\Assessors::find($id)->name, route('view_assessor', $id));
+});
+
+// Dashboard / Assessors / View Assessor
+Breadcrumbs::register('view_assessor_profiel', function($breadcrumbs, $id)
+{
+
+    $breadcrumbs->parent('assessors');
+    $breadcrumbs->push(\App\Assessors::find($id)->name, route('view_assessor_profiel', $id));
 });
 
 // Users
