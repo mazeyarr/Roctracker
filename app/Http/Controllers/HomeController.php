@@ -47,8 +47,7 @@ class HomeController extends Controller
      */
     public function getCollegeTimeline($id)
     {
-        $colleges = College::getColleges($id);
-        return view('college-view')->withColleges($colleges)->withLogs(json_decode($colleges['college']->log));
+        return view('college-view')->withColleges(College::getColleges($id))->withLogs(json_decode($colleges['college']->log));
     }
 
     /**
@@ -79,8 +78,7 @@ class HomeController extends Controller
      * @return mixed
      */
     public function getTeamleaderTimeline($id) {
-        $colleges = College::getColleges($id);
-        return view('teamleader-view')->withColleges($colleges)->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));
+        return view('teamleader-view')->withColleges(College::getColleges($id))->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));
     }
 
     /**
@@ -105,6 +103,19 @@ class HomeController extends Controller
     public function getAssessors()
     {
         return view('assessoren')->withAssessors(Assessors::getAssessors());
+    }
+
+    public function getAssessorProfile($id)
+    {
+        return view('assessoren')->withAssessors(Assessors::getAssessors($id));
+    }
+
+    public function getAssessorTimeline($id) {
+        return view('assessor-view')->withAssessor(Assessors::getAssessors($id))->withLogs(json_decode(Assessors::find($id)->log));
+    }
+
+    public function getChangeAssessor($id) {
+        return view('change-assessor')->getAssessor(Assessors::getAssessors($id));
     }
     /** END ASSESSORS.**************************************************/
 

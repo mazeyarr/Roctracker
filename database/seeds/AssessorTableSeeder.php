@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Assessors;
+use App\Exams;
 use Carbon\Carbon;
 
 class AssessorTableSeeder extends Seeder
@@ -13,6 +14,30 @@ class AssessorTableSeeder extends Seeder
      */
     public function run()
     {
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
+            'log' => '{}'
+        ));
+
         Assessors::create(array(
             'name' => 'Rico van Dooren',
             'fk_college' => 4,
@@ -22,7 +47,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -35,7 +87,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -48,7 +127,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -61,7 +167,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -74,7 +207,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -87,7 +247,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -100,7 +287,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -113,7 +327,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -126,7 +367,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -139,7 +407,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -152,7 +447,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -165,7 +487,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -178,7 +527,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -191,7 +567,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -204,7 +607,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -217,7 +647,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -230,7 +687,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -243,7 +727,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -256,7 +767,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -269,7 +807,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -282,7 +847,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -295,7 +887,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -308,7 +927,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 2,
+            'fk_exams' => $EXAM->id,
             'status' => 1,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -321,7 +967,34 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 0,
+            'log' => '{}'
+        ));
+
+        /****************************************/
+
+        $EXAM = Exams::create(array(
+            'basictraining' => '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }',
+            'training_followed_on' => null,
+            'training_next_on' => null,
             'log' => '{}'
         ));
 
@@ -334,6 +1007,7 @@ class AssessorTableSeeder extends Seeder
             'trained_by' => 'NAE',
             'certified_by' => 'NAE',
             'fk_teamleader' => 1,
+            'fk_exams' => $EXAM->id,
             'status' => 0,
             'log' => '{}'
         ));

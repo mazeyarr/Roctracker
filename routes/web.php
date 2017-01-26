@@ -41,6 +41,9 @@ Route::group(['middleware' => 'auth'], function () {
     /* Assessors Page */
     Route::get('/dashboard/assessors', 'HomeController@getAssessors')->name('assessors');
 
+    Route::get('/dashboard/assessor/profile/{id}', 'HomeController@getAssessorProfile')->name('view_assessor_profiel');
+    Route::get('/dashboard/assessor/view/{id}', 'HomeController@getAssessorTimeline')->name('view_assessor');
+
     /* Administrator page*/
     Route::get('/users', 'HomeController@getUsers')->name('users');
     Route::get('/users/new', 'HomeController@getNewUsers')->name('add_users');

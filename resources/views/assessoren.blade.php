@@ -13,8 +13,10 @@
                     <tr>
                         <th data-toggle="true"> Naam</th>
                         <th> College(s)</th>
-                        <th> Functie</th>
                         <th> Status</th>
+                        <th> Status</th>
+                        <th data-hide="all"> Basistraining</th>
+                        <th data-hide="all"> Functie</th>
                         <th data-hide="all"> Team</th>
                         <th data-hide="all"> Teamleider</th>
                         <th data-hide="all"> Opgeleid door</th>
@@ -46,7 +48,7 @@
                             <tr{!!  $assessor->status == 0 ? ' class="assessor-invisable" ' : "" !!}>
                                 <td>{{ $assessor->name }}</td>
                                 <td>{{ !empty($assessor->fk_college) ? $assessor->fk_college->name : "Geen" }}</td>
-                                <td>{{ $assessor->function }}</td>
+                                <td></td>
                                 <td class="assessor-status" data-status="{{ $assessor->status }}">
                                     @if ($assessor->status == 0)
                                         <span class="label label-table label-default">Non actief</span>
@@ -56,16 +58,24 @@
                                         <span class="label label-table label-warning">Anders</span>
                                     @endif
                                 </td>
+                                <td>{{ ($assessor->fk_exams['basictraining']->graduated) ? "Behaald" : "Niet behaald"}}</td>
+                                <td>{{ $assessor->function }}</td>
                                 <td>{{ $assessor->team }}</td>
                                 <td>{{ $assessor->fk_teamleader }}</td>
                                 <td>{{ $assessor->trained_by }}</td>
                                 <td>{{ $assessor->certified_by }}</td>
                                 <td>{{ date_format($assessor->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
-                                    <a href="{{ URL::route('view_teamleaders', $assessor->id) }}"
+                                    <a href="{{ URL::route('view_assessor_profiel', $assessor->id) }}"
+                                       class="college-row-big btn-xs btn-rounded btn-primary">
+                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                        Assessor Profiel
+                                    </a>
+                                    <span style="margin-left: 5px;"></span>
+                                    <a href="{{ URL::route('view_assessor', $assessor->id) }}"
                                        class="college-row-big btn-xs btn-rounded btn-success">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
-                                        Assessor Bekijken
+                                        Assessor Geschiedenis
                                     </a>
                                     <span style="margin-left: 5px;"></span>
                                     <button data-toggle="modal" data-target="#teamleader-little-modal"
