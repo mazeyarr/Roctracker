@@ -71,22 +71,14 @@
                                         <i class="fa fa-user" aria-hidden="true"></i>
                                         Assessor Profiel
                                     </a>
-                                    <span style="margin-left: 5px;"></span>
+                                    <span style="margin-left: 5px;"></span>{{--
                                     <a href="{{ URL::route('view_assessor', $assessor->id) }}"
                                        class="college-row-big btn-xs btn-rounded btn-success">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                         Assessor Geschiedenis
-                                    </a>
+                                    </a>--}}
                                     <span style="margin-left: 5px;"></span>
-                                    <button data-toggle="modal" data-target="#teamleader-little-modal"
-                                            id="{{ $assessor->id }}"
-                                            data-name="{{ $assessor->name }}"
-                                            data-team="{{ $assessor->team }}"
-                                            class="teamleader-row-little btn-xs btn-rounded btn-warning">
-                                        <i class="fa fa-pencil" aria-hidden="true"></i>
-                                        Bewerken
-                                    </button>
-                                    <a href="{{ URL::route('change_teamleaders', $assessor->id) }}"
+                                    <a href="{{ URL::route('change_assessor', $assessor->id) }}"
                                        id="{{ $assessor->id }}"
                                        class="college-row-big btn-xs btn-rounded btn-danger">
                                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>

@@ -70,23 +70,23 @@
 </div><!--row -->
 <!-- /.row -->
 <div class="row">
-    <div class="col-md-7 col-lg-9 col-sm-12 col-xs-12">
+    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
         <div class="white-box">
             <h3 class="box-title">Yearly Sales</h3>
             <ul class="list-inline text-right">
                 <li>
-                    <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>iPhone</h5>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #00bfc7;"></i>Assessoren</h5>
                 </li>
                 <li>
-                    <h5><i class="fa fa-circle m-r-5" style="color: #fb9678;"></i>iPad</h5>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #fb9678;"></i>Colleges</h5>
                 </li>
                 <li>
-                    <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>iPod</h5>
+                    <h5><i class="fa fa-circle m-r-5" style="color: #9675ce;"></i>Teamleider</h5>
                 </li>
             </ul>
             <div id="morris-area-chart" style="height: 340px;"></div>
         </div>
-    </div>
+    </div>{{--
     <div class="col-md-5 col-lg-3 col-sm-6 col-xs-12">
         <div class="bg-theme-dark m-b-15">
             <div class="row weather p-20">
@@ -103,8 +103,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-5 col-lg-3 col-sm-6 col-xs-12">
+    </div>--}}
+    {{--<div class="col-md-5 col-lg-3 col-sm-6 col-xs-12">
         <div class="bg-theme m-b-15">
             <div class="carousel vcarousel slide p-20" id="myCarouse2">
                 <!-- Carousel items -->
@@ -136,7 +136,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--}}
 </div><!--row -->
 
 @stop

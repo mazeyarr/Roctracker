@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard/assessor/profile/{id}', 'HomeController@getAssessorProfile')->name('view_assessor_profiel');
     Route::get('/dashboard/assessor/view/{id}', 'HomeController@getAssessorTimeline')->name('view_assessor');
+    Route::get('/dashboard/assessor/change/{id}', 'HomeController@getChangeAssessor')->name('change_assessor');
+    Route::post('/dashboard/assessor/change/{id}/check', 'AssessorController@postChangeAssessor')->name('save_change_assessor');
 
     /* Administrator page*/
     Route::get('/users', 'HomeController@getUsers')->name('users');

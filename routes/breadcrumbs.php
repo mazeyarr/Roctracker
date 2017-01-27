@@ -80,12 +80,20 @@ Breadcrumbs::register('view_assessor', function($breadcrumbs, $id)
     $breadcrumbs->push(\App\Assessors::find($id)->name, route('view_assessor', $id));
 });
 
-// Dashboard / Assessors / View Assessor
+// Dashboard / Assessors / View Assessor profile
 Breadcrumbs::register('view_assessor_profiel', function($breadcrumbs, $id)
 {
 
     $breadcrumbs->parent('assessors');
     $breadcrumbs->push(\App\Assessors::find($id)->name, route('view_assessor_profiel', $id));
+});
+
+// Dashboard / Assessors / Change Assessor
+Breadcrumbs::register('change_assessor', function($breadcrumbs, $id)
+{
+
+    $breadcrumbs->parent('assessors');
+    $breadcrumbs->push(\App\Assessors::find($id)->name, route('change_assessor', $id));
 });
 
 // Users

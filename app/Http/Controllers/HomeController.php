@@ -116,7 +116,7 @@ class HomeController extends Controller
     }
 
     public function getChangeAssessor($id) {
-        return view('change-assessor')->getAssessor(Assessors::getAssessors($id));
+        return view('change-assessor')->withAssessor(Assessors::getAssessors($id))->withColleges(College::all());
     }
     /** END ASSESSORS.**************************************************/
 

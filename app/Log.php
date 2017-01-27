@@ -103,7 +103,6 @@ class Log extends Model
     public static function limit($logs, $value=5) {
         $logs = json_decode(Assessors::find(1)->log);
         $ret = array();
-        dd($logs);
         if (empty($logs)) {
             return null;
         }
@@ -114,6 +113,7 @@ class Log extends Model
             }else{
                 break;
             }
+            $value--;
         }
 
         return $ret;

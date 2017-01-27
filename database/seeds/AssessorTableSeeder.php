@@ -25,17 +25,17 @@ class AssessorTableSeeder extends Seeder
             {
                 "passed": false,
               "requirements": {
-                            "video": false,
-                "portfolio": false,
+                            "video": true,
+                "portfolio": true,
                 "CV": false
               },
               "date1": {
-                            "present": false,
-                "date": null
+                            "present": true,
+                "date": "'.Carbon::now()->format('d-m-Y').'"
               },
               "date2": {
                             "present": false,
-                "date": null
+                "date": "'.Carbon::now()->format('d-m-Y').'"
               },
               "graduated": false
             }')),
