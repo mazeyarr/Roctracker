@@ -48,6 +48,7 @@ class HomeController extends Controller
      */
     public function getCollegeTimeline($id)
     {
+        $colleges = College::getColleges($id);
         return view('college-view')->withColleges(College::getColleges($id))->withLogs(json_decode($colleges['college']->log));
     }
 

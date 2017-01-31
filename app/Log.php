@@ -53,14 +53,30 @@ class Log extends Model
      *
      * AssessorLog wil save messages to the according Assessor
      */
-    public static function AssessorLog($id, $message) {
+    public static function AssessorLog($id, $message, $array=false) {
         $assessor = Assessors::find($id);
         $log = json_decode($assessor->log, true);
         $key = self::generateRandomString(50);
         $log['log'][$key]['date'] = Carbon::now('Europe/Amsterdam')->format('d-m-Y');
         $log['log'][$key]['by']['id'] = Auth::user()->id;
         $log['log'][$key]['by']['name'] = Auth::user()->name;
-        $log['log'][$key]['discription'] = $message;
+
+        if ($array) {
+
+            if (!is_array($message)) { return false; }
+
+            $string = "<ul>";
+            foreach ($message as $msg) {
+                $string = $string . "<li>". $msg ."</li>";
+            }
+            $string = $string . "</ul>";
+
+            $log['log'][$key]['discription'] = $string;
+
+        }else {
+            $log['log'][$key]['discription'] = $message;
+        }
+
         $log['log'][$key]['key'] = $key;
         $assessor->log = json_encode($log);
         $assessor->save();
@@ -101,7 +117,7 @@ class Log extends Model
     }
 
     public static function limit($logs, $value=5) {
-        $logs = json_decode(Assessors::find(1)->log);
+        $logs = json_decode($logs);
         $ret = array();
         if (empty($logs)) {
             return null;

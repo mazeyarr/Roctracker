@@ -23,7 +23,7 @@ class AssessorTableSeeder extends Seeder
         $EXAM = Exams::create(array(
             'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-                "passed": false,
+                "passed": true,
               "requirements": {
                             "video": true,
                 "portfolio": true,

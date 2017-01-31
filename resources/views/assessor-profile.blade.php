@@ -58,6 +58,15 @@
                     <hr>
                     <h4 class="font-bold m-t-30">Basistraining</h4>
                     <hr>
+                    <h5>Examen behaald ?</h5>
+                    <div>
+                        @if($assessor->fk_exams['basictraining']->passed)
+                            <span class="label label-success m-l-5">Ja</span>
+                        @else
+                            <span class="label label-danger m-l-5">Nee</span>
+                        @endif
+                    </div>
+                    <hr>
                     <h5>Portfolio <span class="pull-right">{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100%" : "0%" }}</span></h5>
                     <div class="progress">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
@@ -71,11 +80,11 @@
                         <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
                     </div>
                     <br>
-                    <h5>Dag 1 <span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100%" : "0%" }}</span></h5>
+                    <h5>Dag 1 - '<i>{{ $assessor->fk_exams['basictraining']->date1->date }}</i><span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100%" : "0%" }}</span></h5>
                     <div class="progress">
                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->date1->present) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
                     </div>
-                    <h5>Dag 2 <span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}</span></h5>
+                    <h5>Dag 2 - '<i>{{ $assessor->fk_exams['basictraining']->date2->date }}</i><span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}</span></h5>
                     <div class="progress">
                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
                     </div>
@@ -91,7 +100,7 @@
                                         <div class="m-t-20 row">
                                             <div class="col-md-2 col-xs-12"><img src="{{ URL::asset('plugins/images/users/default-user.png') }}" alt="user" class="img-responsive" /></div>
                                             <div class="col-md-9 col-xs-12">
-                                                <p>{{ $log->discription }}</p>
+                                                <p>{!! $log->discription !!}</p>
                                             </div>
                                         </div>
                                     </div>

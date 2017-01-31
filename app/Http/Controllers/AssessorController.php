@@ -4,17 +4,212 @@ namespace App\Http\Controllers;
 
 use App\Assessors;
 use App\Exams;
+use App\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
+use Illuminate\Support\Facades\Input;
 
 class AssessorController extends Controller
 {
     public function postChangeAssessor ($id, Request $request) {
         $assessor = Assessors::find($id);
-        $assessor->fk_college = $request->college;
+        $old = $assessor;
+        $messages = array();
+        if (empty($assessor)) {
+            return redirect()->back()->withErrors("ERROR: Geen Assessor !");
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255|min:2',
+            'team' => 'max:255',
+            'college' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->getMessageBag()->first());
+        }
+
         $assessor->name = $request->name;
         $assessor->team = $request->team;
+
+        switch ($this->DetectChange($old, $request->name, $request->team)) {
+            case "both":
+                $messages[] = "Naam gewijzigd van: <strong>".$old->name."</strong> naar <strong>".$request->name."</strong>";
+                $messages[] = "Team gewijzigd van: <strong>".$old->team."</strong> naar <strong>".$request->team."</strong>";
+                break;
+            case "name":
+                $messages[] = "Naam gewijzigd van: <strong>".$old->name."</strong> naar <strong>".$request->name."</strong>";
+                break;
+            case "team":
+                $messages[] = "Team gewijzigd van: <strong>".$old->team."</strong> naar <strong>".$request->team."</strong>";
+                break;
+            default:
+                break;
+        }
+
+        $assessor->fk_college = $request->college;
+
+        if (empty($assessor->fk_exams)) {
+            $assessor->save();
+            return redirect()->route('view_assessor_profiel', $id)->withSuccess('Assessor was successvol opgeslagen !');
+        }
+
+        $basictraining = Exams::getBasictraining($assessor->fk_exams);
+
+        $oldLog['video'] = $basictraining->requirements->video;
+        $oldLog['portfolio'] = $basictraining->requirements->portfolio;
+        $oldLog['cv'] = $basictraining->requirements->CV;
+
+        $oldLog['date1']['present'] = $basictraining->date1->present;
+        $oldLog['date2']['present'] = $basictraining->date2->present;
+        $oldLog['date1']['date'] = $basictraining->date1->date;
+        $oldLog['date2']['date'] = $basictraining->date2->date;
+
+        $oldLog['passed'] = $basictraining->passed;
+        $oldLog['graduated'] = $basictraining->graduated;
+
+        if(Input::has('Filmpje')){
+            $basictraining->requirements->video = true;
+            if ($basictraining->requirements->video != $oldLog['video']){
+                $messages[] = "Filmpje van deze assessor is afgevinkt !";
+            }
+        }else{
+            $basictraining->requirements->video = false;
+            if ($basictraining->requirements->video != $oldLog['video']){
+                $messages[] = "Filmpje van deze assessor is uitgevinkt !";
+            }
+        }
+
+        if(Input::has('Portfolio')){
+            $basictraining->requirements->portfolio = true;
+            if ($basictraining->requirements->portfolio != $oldLog['portfolio']){
+                $messages[] = "Portfolio van deze assessor was afgevinkt !";
+            }
+        }else{
+            $basictraining->requirements->portfolio = false;
+            if ($basictraining->requirements->portfolio != $oldLog['portfolio']){
+                $messages[] = "Portfolio van deze assessor was uitgevinkt !";
+            }
+        }
+
+        if(Input::has('CV')){
+            $basictraining->requirements->CV = true;
+            if ($basictraining->requirements->CV != $oldLog['cv']) {
+                $messages[] = "CV van deze assessor was afgevinkt !";
+            }
+        }else{
+            $basictraining->requirements->CV = false;
+            if ($basictraining->requirements->CV != $oldLog['cv']) {
+                $messages[] = "CV van deze assessor was uitgevinkt !";
+            }
+        }
+
+        if(Input::has('present_day_1')){
+            $basictraining->date1->present = true;
+            if ($basictraining->date1->present != $oldLog['date1']['present']) {
+                $messages[] = "Assessor is op aanwezig gezet voor dag 1 van zijn training!";
+            }
+        }else{
+            $basictraining->date1->present = false;
+            if ($basictraining->date1->present != $oldLog['date1']['present']) {
+                $messages[] = "Assessor is op afwezig gezet voor dag 1 van zijn training.";
+            }
+        }
+
+        if(Input::has('present_day_2')){
+            $basictraining->date2->present = true;
+            if ($basictraining->date2->present != $oldLog['date2']['present']) {
+                $messages[] = "Assessor is op aanwezig gezet voor dag 2 van zijn training!";
+            }
+        }else{
+            $basictraining->date2->present = false;
+            if ($basictraining->date2->present != $oldLog['date2']['present']) {
+                $messages[] = "Assessor is op afwezig gezet voor dag 2 van zijn training.";
+            }
+        }
+
+        $validator = Validator::make($request->all(), [
+            'day1' => 'required',
+            'day2' => 'required',
+        ]);
+
+        if (!$validator->fails()) {
+            $basictraining->date1->date = $request->day1;
+            $basictraining->date2->date = $request->day2;
+
+            if ($basictraining->date1->date != $oldLog['date1']['date']) {
+                $messages[] = "Datum van basistraining dag 1 veranderd naar <i>".$request->day1."</i>";
+            }
+
+            if ($basictraining->date2->date != $oldLog['date2']['date']) {
+                $messages[] = "Datum van basistraining dag 2 veranderd naar <i>".$request->day2."</i>";
+            }
+        }
+
+        if(Input::has('graduated')){
+            $basictraining->graduated = true;
+            $basictraining->passed = true;
+            if ($basictraining->passed != $oldLog['passed'] && $basictraining->graduated != $oldLog['graduated']){
+                $messages[] = "Assessor heeft basistraining behaald !";
+            }
+        }else{
+            $basictraining->graduated = false;
+            $basictraining->passed = false;
+            if ($basictraining->passed != $oldLog['passed'] && $basictraining->graduated != $oldLog['graduated']){
+                $messages[] = "Basistraining van deze assesor is op niet behaald gezet !";
+            }
+        }
+
+        Exams::saveBasictraining($assessor->fk_exams, $basictraining);
+
         $assessor->save();
-        return redirect()->route('assessors')->withSuccess('Assessor saved !');
+        Log::AssessorLog($id, $messages, true);
+        return redirect()->route('view_assessor_profiel', $id)->withSuccess('Assessor was successvol opgeslagen !');
+
+    }
+
+    private function DetectChange ($object, $value1, $value2) {
+        if ($object->name != $value1 && $object->team != $value2) {
+            return "both";
+        }elseif ($object->name != $value1) {
+            return "name";
+        }elseif ($object->team != $value2) {
+            return "team";
+        }else {
+            return "none";
+        }
+    }
+
+    private static function object_2_array($result)
+    {
+        $array = array();
+        foreach ($result as $key=>$value)
+        {
+            if (is_object($value))
+            {
+                $array[$key]=self::object_2_array(self::object_2_array($value));
+            }
+            if (is_array($value))
+            {
+                $array[$key]=self::object_2_array(self::object_2_array($value));
+            }
+            else
+            {
+                $array[$key]=$value;
+            }
+        }
+        return $array;
+    }
+
+    private static function convertToObject($array) {
+        $object = new \stdClass();
+        foreach ($array as $key => $value) {
+            if (is_array($value)) {
+                $value = self::convertToObject($value);
+            }
+            $object->$key = $value;
+        }
+        return $object;
     }
 }
