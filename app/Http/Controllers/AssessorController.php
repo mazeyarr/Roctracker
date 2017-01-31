@@ -157,7 +157,7 @@ class AssessorController extends Controller
             $basictraining->graduated = false;
             $basictraining->passed = false;
             if ($basictraining->passed != $oldLog['passed'] && $basictraining->graduated != $oldLog['graduated']){
-                $messages[] = "Basistraining van deze assesor is op niet behaald gezet !";
+                $messages[] = "Basistraining van deze assessor is op niet behaald gezet !";
             }
         }
 

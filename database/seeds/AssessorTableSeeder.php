@@ -39,7 +39,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -137,7 +137,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -180,7 +180,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -223,7 +223,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -266,7 +266,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -309,7 +309,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -352,7 +352,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -395,7 +395,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -438,7 +438,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -481,7 +481,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -524,7 +524,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -567,7 +567,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -610,7 +610,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -653,7 +653,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -696,7 +696,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -739,7 +739,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -782,7 +782,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -825,7 +825,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -868,7 +868,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -911,7 +911,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -954,7 +954,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -997,7 +997,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -1040,7 +1040,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -1083,7 +1083,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));
@@ -1126,7 +1126,7 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'training_followed_on' => null,
+            'exam_next_on' => null,
             'training_next_on' => null,
             'log' => '{}'
         ));

@@ -12,29 +12,44 @@
                 <h3 class="box-title m-b-0">{{ $assessor->name }}</h3>
                 <p class="text-muted m-b-30"></p>
                 {!! Form::open(['route' =>  array('save_change_assessor', $assessor->id), 'data-toggle' => 'validator']) !!}
-                <div class="form-group">
-                    <label for="inputName1" class="control-label">Naam:</label>
-                    {!! Form::text('name', $assessor->name, array('class' => 'form-control', 'required' => '')) !!}
-                </div>
-                <div class="form-group">
-                    <label for="inputName1" class="control-label">Team:</label>
-                    {!! Form::text('team', $assessor->team, array('class' => 'form-control', 'required' => '')) !!}
-                </div>
-                <hr>
                     <div class="form-group">
-                        <select class="form-control" name="college" id="current_college">
-                            <option value="{{ $assessor->fk_college->id }}"> {{ $assessor->fk_college->name }} </option>
-                            @foreach ($colleges as $college)
-                                @if($college->id != $assessor->fk_college->id)
-                                    <option value="{{ $college->id }}"> {{ $college->name }} </option>
-                                @endif
-                            @endforeach
-                        </select>
+                        <label for="inputName1" class="control-label">Naam:</label>
+                        {!! Form::text('name', $assessor->name, array('class' => 'form-control', 'required' => '')) !!}
                     </div>
-                <hr>
-                <h3 class="box-title m-b-0">Basistraining</h3>
+                    <div class="form-group">
+                        <label for="inputName1" class="control-label">Team:</label>
+                        {!! Form::text('team', $assessor->team, array('class' => 'form-control', 'required' => '')) !!}
+                    </div>
+                    <hr>
+                        <div class="form-group">
+                            <select class="form-control" name="college" id="current_college">
+                                <option value="{{ $assessor->fk_college->id }}"> {{ $assessor->fk_college->name }} </option>
+                                @foreach ($colleges as $college)
+                                    @if($college->id != $assessor->fk_college->id)
+                                        <option value="{{ $college->id }}"> {{ $college->name }} </option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
+                    <hr>
                     @if($assessor->fk_exams['basictraining']->passed)
-                        <button id="btnBasictraining" class="btn btn-block btn-primary btn-rounded" data-status="hidden">Weergeven</button>
+                        <h3 class="box-title m-b-0">Training en Examen data</h3>
+                        <div class="form-group">
+                            <label for="inputName1" class="control-label">Volgende training op</label>
+                            {!! Form::text('training_next_on', $assessor->fk_exams['training_next_on'], array('class' => 'form-control')) !!}
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputName1" class="control-label">Volgende training op</label>
+                            {!! Form::text('exam_next_on', $assessor->fk_exams['exam_next_on'], array('class' => 'form-control')) !!}
+                        </div>
+                    @endif
+                    <hr>
+                    <h3 class="box-title m-b-0">Basistraining</h3>
+                    @if($assessor->fk_exams['basictraining']->passed)
+                        <div class="form-group">
+                            <button id="btnBasictraining" class="btn btn-block btn-primary btn-rounded" data-status="hidden">Weergeven</button>
+                        </div>
                     @endif
                     <div id="hideIfDone" style="{!! $assessor->fk_exams['basictraining']->passed ? "display:none;" : "" !!}">
                         <div class="form-group">
@@ -72,11 +87,11 @@
                             </div>
                         </div>
                         <br>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Wijziging doorvoeren</button>
-                        </div>
-                    {!! Form::close() !!}
-                </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Wijziging doorvoeren</button>
+                    </div>
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
@@ -91,11 +106,14 @@
             $('#btnBasictraining').click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+                console.log($(this).data('status'));
                 if ($(this).attr('data-status') == "hidden") {
                     $('#hideIfDone').slideDown("fast");
+                    $(this).attr('data-status', 'visable');
                     $(this).html("Verbergen");
                 }else {
                     $('#hideIfDone').slideUp("fast");
+                    $(this).attr('data-status', 'hidden');
                     $(this).html("Weergeven");
                 }
             })
