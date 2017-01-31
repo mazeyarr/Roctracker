@@ -16,6 +16,7 @@
                         <label for="inputName1" class="control-label">Naam:</label>
                         {!! Form::text('name', $assessor->name, array('class' => 'form-control', 'required' => '')) !!}
                     </div>
+                    {{-- TODO: Make a 3 option radio button for assessor status--}}
                     <div class="form-group">
                         <label for="inputName1" class="control-label">Team:</label>
                         {!! Form::text('team', $assessor->team, array('class' => 'form-control', 'required' => '')) !!}
