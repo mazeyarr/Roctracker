@@ -33,45 +33,50 @@
                     </div>
                 <hr>
                 <h3 class="box-title m-b-0">Basistraining</h3>
-                    <div class="form-group">
-                        <div class="checkbox checkbox-info">
-                            <input type="checkbox" name="Portfolio" id="Portfolio" {!! $assessor->fk_exams['basictraining']->requirements->portfolio ? "checked" : "" !!}> <label for="Portfolio"> Portfolio</label>
-                        </div>
-                        <div class="checkbox checkbox-info">
-                            <input type="checkbox" name="CV" id="CV" {!! $assessor->fk_exams['basictraining']->requirements->CV ? "checked" : "" !!}> <label for="CV"> CV</label>
-                        </div>
-                        <div class="checkbox checkbox-info">
-                            <input type="checkbox" name="Filmpje" id="Filmpje" {!! $assessor->fk_exams['basictraining']->requirements->video ? "checked" : "" !!}> <label for="Filmpje"> Filmpje</label>
-                        </div>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <div class="checkbox checkbox-primary">
-                            <input type="checkbox" name="present_day_1" id="day_1" {!! ($assessor->fk_exams['basictraining']->date1->present) ? "checked" : "" !!}> <label for="day_1"> Present</label>
-                        </div>
+                    @if($assessor->fk_exams['basictraining']->passed)
+                        <button id="btnBasictraining" class="btn btn-block btn-primary btn-rounded" data-status="hidden">Weergeven</button>
+                    @endif
+                    <div id="hideIfDone" style="{!! $assessor->fk_exams['basictraining']->passed ? "display:none;" : "" !!}">
                         <div class="form-group">
-                            <label for="inputName1" class="control-label">Dag 1:</label>
-                            {!! Form::text('day1', $assessor->fk_exams['basictraining']->date1->date, array('class' => 'form-control')) !!}
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" name="Portfolio" id="Portfolio" {!! $assessor->fk_exams['basictraining']->requirements->portfolio ? "checked" : "" !!}> <label for="Portfolio"> Portfolio</label>
+                            </div>
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" name="CV" id="CV" {!! $assessor->fk_exams['basictraining']->requirements->CV ? "checked" : "" !!}> <label for="CV"> CV</label>
+                            </div>
+                            <div class="checkbox checkbox-info">
+                                <input type="checkbox" name="Filmpje" id="Filmpje" {!! $assessor->fk_exams['basictraining']->requirements->video ? "checked" : "" !!}> <label for="Filmpje"> Filmpje</label>
+                            </div>
                         </div>
                         <hr>
-                        <div class="checkbox checkbox-primary">
-                            <input type="checkbox" name="present_day_2" id="day_2" {!! ($assessor->fk_exams['basictraining']->date2->present) ? "checked" : "" !!}> <label for="day_2"> Present</label>
+                        <div class="form-group">
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" name="present_day_1" id="day_1" {!! ($assessor->fk_exams['basictraining']->date1->present) ? "checked" : "" !!}> <label for="day_1"> Present</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName1" class="control-label">Dag 1:</label>
+                                {!! Form::text('day1', $assessor->fk_exams['basictraining']->date1->date, array('class' => 'form-control')) !!}
+                            </div>
+                            <hr>
+                            <div class="checkbox checkbox-primary">
+                                <input type="checkbox" name="present_day_2" id="day_2" {!! ($assessor->fk_exams['basictraining']->date2->present) ? "checked" : "" !!}> <label for="day_2"> Present</label>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputName1" class="control-label">Dag 2:</label>
+                                {!! Form::text('day2', $assessor->fk_exams['basictraining']->date2->date, array('class' => 'form-control')) !!}
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputName1" class="control-label">Dag 2:</label>
-                            {!! Form::text('day2', $assessor->fk_exams['basictraining']->date2->date, array('class' => 'form-control')) !!}
+                            <div class="checkbox checkbox-success">
+                                <input type="checkbox" name="graduated" id="Geslaagd" {!! $assessor->fk_exams['basictraining']->passed ? "checked" : "" !!}> <label for="Geslaagd"> Geslaagd</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox checkbox-success">
-                            <input type="checkbox" name="graduated" id="Geslaagd" {!! $assessor->fk_exams['basictraining']->passed ? "checked" : "" !!}> <label for="Geslaagd"> Geslaagd</label>
+                        <br>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Wijziging doorvoeren</button>
                         </div>
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Wijziging doorvoeren</button>
-                    </div>
-                {!! Form::close() !!}
+                    {!! Form::close() !!}
+                </div>
             </div>
         </div>
     </div>
@@ -81,4 +86,19 @@
 @section('scripts')
     @include('partials._javascript-alerts')
     @include('partials._javascript-paddingfixer')
+    <script>
+        $(document).ready(function () {
+            $('#btnBasictraining').click(function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if ($(this).attr('data-status') == "hidden") {
+                    $('#hideIfDone').slideDown("fast");
+                    $(this).html("Verbergen");
+                }else {
+                    $('#hideIfDone').slideUp("fast");
+                    $(this).html("Weergeven");
+                }
+            })
+        })
+    </script>
 @stop
