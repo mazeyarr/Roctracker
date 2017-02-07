@@ -13,6 +13,7 @@
                     <tr>
                         <th data-toggle="true"> Naam</th>
                         <th> College(s)</th>
+                        <th> Volgende Training datum </th>
                         <th> Volgende examen datum </th>
                         <th> Status </th>
                         <th data-hide="all"> Basistraining </th>
@@ -49,6 +50,7 @@
                                 <td>{{ $assessor->name }}</td>
                                 <td>{{ !empty($assessor->fk_college) ? $assessor->fk_college->name : "Geen" }}</td>
                                 <td>{{ !empty($assessor->fk_exams->training_next_on) ? date_format($assessor->fk_exams->training_next_on, 'd-m-Y') : "" }}</td>
+                                <td></td>
                                 <td class="assessor-status" data-status="{{ $assessor->status }}">
                                     @if ($assessor->status == 0)
                                         <span class="label label-table label-default">Non actief</span>

@@ -27,7 +27,10 @@ class HomeController extends Controller
      */
     public function getDashboard()
     {
-        return view('dashboard');
+        $c_assessors = Assessors::where('status', '=', '1')->get()->count();
+        $c_teamleaders = Teamleaders::all()->count();
+        $c_colleges = College::all()->count();
+        return view('dashboard')->withCounta($c_assessors)->withCountt($c_teamleaders)->withCountc($c_colleges);
     }
 
 
