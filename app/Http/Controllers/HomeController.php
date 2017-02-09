@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Assessors;
 use App\College;
+use App\HistoryData;
 use App\Log;
 use App\Teamleaders;
 use App\TiC;
@@ -25,12 +26,18 @@ class HomeController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getDashboard()
+    public function getDashboard($year=null)
     {
         $c_assessors = Assessors::where('status', '=', '1')->get()->count();
         $c_teamleaders = Teamleaders::all()->count();
         $c_colleges = College::all()->count();
-        return view('dashboard')->withCounta($c_assessors)->withCountt($c_teamleaders)->withCountc($c_colleges);
+        $sortedData = HistoryData::sorted($year);
+        return view('dashboard')
+                    ->withCounta($c_assessors)
+                    ->withCountt($c_teamleaders)
+                    ->withCountc($c_colleges)
+                    ->withHistorydatas($sortedData);
+
     }
 
 

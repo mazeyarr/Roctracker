@@ -29,6 +29,7 @@ class UserController extends Controller
 
         if (!empty($request->send_mail)) {
             /* Send mail to this user */
+
         }
 
         return redirect()->route('add_users')->withSuccess('Gebruiker was opgeslagen !')->withUser($user);

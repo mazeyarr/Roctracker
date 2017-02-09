@@ -15,7 +15,7 @@ class CreateHistoryDatasTable extends Migration
     {
         Schema::create('history_datas', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('year');
+            $table->string('year');
             $table->integer('actieve_assessors');
             $table->integer('c_assessors');
             $table->integer('c_colleges');

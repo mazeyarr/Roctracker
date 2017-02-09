@@ -14,7 +14,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
         return redirect()->route('dashboard');
     });
-    Route::get('/dashboard', 'HomeController@getDashboard')->name('dashboard');
 
     /* Colleges Page */
     Route::get('/dashboard/college', 'HomeController@getColleges')->name('colleges');
@@ -45,6 +44,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard/assessor/view/{id}', 'HomeController@getAssessorTimeline')->name('view_assessor');
     Route::get('/dashboard/assessor/change/{id}', 'HomeController@getChangeAssessor')->name('change_assessor');
     Route::post('/dashboard/assessor/change/{id}/check', 'AssessorController@postChangeAssessor')->name('save_change_assessor');
+
+    /* Dashboard Page */
+    Route::get('/dashboard/{year?}', 'HomeController@getDashboard')->name('dashboard');
+    Route::get('/history/data/get', 'FunctionalController@ajaxGetHistoryData')->name('ajax_history_data_get');
+    Route::get('/assessor/data/get', 'FunctionalController@ajaxGetAssessorData')->name('ajax_assessor_data_get');
 
     /* Administrator page*/
     Route::get('/users', 'HomeController@getUsers')->name('users');

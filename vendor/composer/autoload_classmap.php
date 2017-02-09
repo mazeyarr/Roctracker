@@ -10,6 +10,7 @@ return array(
     'CollegeTableSeeder' => $baseDir . '/database/seeds/CollegeTableSeeder.php',
     'CreateAssessorsTable' => $baseDir . '/database/migrations/2016_12_05_101240_create_assessors_table.php',
     'CreateCollegesTable' => $baseDir . '/database/migrations/2016_12_05_105307_create_colleges_table.php',
+    'CreateEmailsTable' => $baseDir . '/database/migrations/2017_02_09_191810_create_emails_table.php',
     'CreateExamsTable' => $baseDir . '/database/migrations/2016_12_05_105555_create_exams_table.php',
     'CreateHistoryDatasTable' => $baseDir . '/database/migrations/2017_02_06_093519_create_history_datas_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

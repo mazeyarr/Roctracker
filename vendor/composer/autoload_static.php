@@ -340,6 +340,7 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
         'CollegeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CollegeTableSeeder.php',
         'CreateAssessorsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_101240_create_assessors_table.php',
         'CreateCollegesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_105307_create_colleges_table.php',
+        'CreateEmailsTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_09_191810_create_emails_table.php',
         'CreateExamsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_105555_create_exams_table.php',
         'CreateHistoryDatasTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_06_093519_create_history_datas_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',

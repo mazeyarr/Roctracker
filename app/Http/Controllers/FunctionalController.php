@@ -6,6 +6,7 @@ use App\Assessors;
 use App\College;
 use App\Log;
 use App\Teamleaders;
+use App\HistoryData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -89,5 +90,18 @@ class FunctionalController extends Controller
             Log::AssessorLog($id, 'College veranderd, van <strong>'. (College::find($old_college)->name) . '</strong> Naar <strong>' . (College::find($assessor->fk_college)->name) . '</strong>' );
         }
         return json_encode(array('result' => 'executed'));
+    }
+
+    public function ajaxGetHistoryData () {
+        die(HistoryData::all()->toJson());
+    }
+    public function ajaxGetAssessorData () {
+
+        $pastyear = HistoryData::where('year', (date('Y') - 1))->get();
+        if ($pastyear->isEmpty()) { return null; }
+
+        dd($pastyear);
+
+        die(HistoryData::all()->toJson());
     }
 }
