@@ -37,12 +37,12 @@
                         <h3 class="box-title m-b-0">Training en Examen data</h3>
                         <div class="form-group">
                             <label for="inputName1" class="control-label">Volgende training op</label>
-                            {!! Form::text('training_next_on', $assessor->fk_exams['training_next_on'], array('class' => 'form-control')) !!}
+                            {!! Form::text('training_next_on',  !empty($assessor->fk_exams['training_next_on']) ? date_format(date_create($assessor->fk_exams['training_next_on']), 'd/m/Y'): '', array('data-mask' => '99/99/9999', 'class' => 'form-control')) !!}
                         </div>
 
                         <div class="form-group">
                             <label for="inputName1" class="control-label">Volgende training op</label>
-                            {!! Form::text('exam_next_on', $assessor->fk_exams['exam_next_on'], array('class' => 'form-control')) !!}
+                            {!! Form::text('exam_next_on',  !empty($assessor->fk_exams['exam_next_on']) ? date_format(date_create($assessor->fk_exams['exam_next_on']), 'd/m/Y') : '', array('data-mask' => '99/99/9999', 'class' => 'form-control')) !!}
                         </div>
                     @endif
                     <hr>
@@ -100,6 +100,7 @@
 @stop
 
 @section('scripts')
+    <script src="{!! URL::asset('js/mask.js') !!}"></script>
     @include('partials._javascript-alerts')
     @include('partials._javascript-paddingfixer')
     <script>

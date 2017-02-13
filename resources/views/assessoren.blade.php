@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="row">
+        <div class="col-sm-12">
+            <a href="{{ URL::route('add_assessor') }}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Assessor toevoegen </a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="white-box">
                 <table id="college-footable" class="table toggle-circle table-hover">
@@ -49,8 +54,8 @@
                             <tr{!!  $assessor->status == 0 ? ' class="assessor-invisable" ' : "" !!}>
                                 <td>{{ $assessor->name }}</td>
                                 <td>{{ !empty($assessor->fk_college) ? $assessor->fk_college->name : "Geen" }}</td>
-                                <td>{{ !empty($assessor->fk_exams->training_next_on) ? date_format($assessor->fk_exams->training_next_on, 'd-m-Y') : "" }}</td>
-                                <td></td>
+                                <td>{{ !empty($assessor->fk_exams->training_next_on) ? date_format(date_create($assessor->fk_exams->training_next_on), 'd-m-Y') : "" }}</td>
+                                <td>{{ !empty($assessor->fk_exams->exam_next_on) ? date_format(date_create($assessor->fk_exams->exam_next_on), 'd-m-Y') : "" }}</td>
                                 <td class="assessor-status" data-status="{{ $assessor->status }}">
                                     @if ($assessor->status == 0)
                                         <span class="label label-table label-default">Non actief</span>

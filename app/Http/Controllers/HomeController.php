@@ -26,8 +26,7 @@ class HomeController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getDashboard($year=null)
-    {
+    public function getDashboard($year=null) {
         $c_assessors = Assessors::where('status', '=', '1')->get()->count();
         $c_teamleaders = Teamleaders::all()->count();
         $c_colleges = College::all()->count();
@@ -37,8 +36,20 @@ class HomeController extends Controller
                     ->withCountt($c_teamleaders)
                     ->withCountc($c_colleges)
                     ->withHistorydatas($sortedData);
-
     }
+
+    public function getAddAssessor () {
+        return view('assessor-add');
+    }
+
+    public function getAddAssessorManual () {
+        return view('assessor-add-manual')->withColleges(College::all());
+    }
+
+    public function getAddAssessorAutomatic () {
+        return view('assessor-add-automatic');
+    }
+
 
 
     /**

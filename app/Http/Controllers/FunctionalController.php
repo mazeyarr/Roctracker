@@ -97,11 +97,38 @@ class FunctionalController extends Controller
     }
     public function ajaxGetAssessorData () {
 
-        $pastyear = HistoryData::where('year', (date('Y') - 1))->get();
-        if ($pastyear->isEmpty()) { return null; }
+        $DataPastYear = HistoryData::where('year', (date('Y') - 1))->get();
+        if ($DataPastYear->isEmpty()) { return null; }
 
-        dd($pastyear);
+        /** @var  $DataPastYear (Get assessor data of last year*/
+        $DataPastYear = $DataPastYear->first();
+        $return = array();
+        $return['past'] = json_decode($DataPastYear->assessor_data);
+        $return['current'] = self::CurrentAssessorData();
+        die(json_encode($return));
+    }
 
-        die(HistoryData::all()->toJson());
+    private static function CurrentAssessorData (){
+        $colleges = College::all();
+        if ($colleges->isEmpty()) {
+            return null;
+        }
+        $counts = array();
+        foreach ($colleges as $college) {
+            $counts['data'][] = array(
+              'label' => $college->name,
+              'data' => Assessors::where('fk_college', $college->id)->count(),
+              'value' => Assessors::where('fk_college', $college->id)->count(),
+              'color' => "#" . self::random_color(),
+            );
+        }
+        return $counts;
+    }
+    private static function random_color_part() {
+        return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+    }
+
+    private static function random_color() {
+        return self::random_color_part() . self::random_color_part() . self::random_color_part();
     }
 }

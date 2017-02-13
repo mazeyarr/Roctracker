@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'Assessoren')
+@section('title', 'Assessoren Profiel')
 
-@section('page-title', 'Assessoren')
+@section('page-title', 'Assessoren Profiel| '.$assessor->name)
 
 @section('content')
 <div class="row">

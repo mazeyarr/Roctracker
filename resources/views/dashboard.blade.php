@@ -92,9 +92,17 @@
     <div class="row" id="assessorChartRow">
         <div class="col-md-6 col-lg-6 col-xs-12">
             <div class="white-box">
-                <h3 class="box-title">Asssoren Data</h3>
+                <h3 class="box-title">Asssoren Data <i>({{ date('Y') }})</i></h3>
                 <div class="flot-chart">
-                    <div class="flot-chart-content" id="assessorChart"></div>
+                    <div class="flot-chart-content" id="assessorCurrentChart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xs-12">
+            <div class="white-box">
+                <h3 class="box-title">Asssoren Data <i>({{ date('Y') - 1 }})</i></h3>
+                <div class="flot-chart">
+                    <div class="flot-chart-content" id="assessorHistoryChart"></div>
                 </div>
             </div>
         </div>
@@ -122,34 +130,16 @@
         getData('{{ URL::route('ajax_history_data_get') }}', el_generalChart);
         getData('{{ URL::route('ajax_assessor_data_get') }}', el_assessorChartPie);
 
-        var data = [{
-            label: "Series 0",
-            data: 10,
-            color: "#4f5467",
-
-        }, {
-            label: "Series 1",
-            data: 1,
-            color: "#00c292",
-        }, {
-            label: "Series 2",
-            data: 3,
-            color:"#01c0c8",
-        }, {
-            label: "Series 3",
-            data: 1,
-            color:"#fb9678",
-        }];
         function getData(url, element) {
             $.getJSON( url, function( data ) {
                 if (data.length <= 0) {
                     $.toast({
-                        heading: 'Error'
-                        , text: 'Laden van data mislukt...'
+                        heading: 'Warning'
+                        , text: 'Geen data ontvangen...'
                         , position: 'top-right'
                         , loaderBg: '#ff6849'
-                        , icon: 'error'
-                        , hideAfter: 3500
+                        , icon: 'warning'
+                        , hideAfter: 2500
                         , stack: 6
                     });
                     element.hide();
@@ -162,7 +152,9 @@
                             makeGeneralChart(data);
                             break;
                         case "assessor":
-                            makeAssessorChart(data);
+                            makeHistoryAssessorChart(data.past);
+                            makeCurrentAssessorChart(data.current);
+                            ShowHide(el_assessorChartPie);
                             break;
                         default:
                             break;
@@ -171,7 +163,7 @@
             }).error(function() {
                 $.toast({
                     heading: 'Error'
-                    , text: 'Laden van data mislukt...'
+                    , text: 'Laden van data mislukt !'
                     , position: 'top-right'
                     , loaderBg: '#ff6849'
                     , icon: 'error'
@@ -215,8 +207,50 @@
             ShowHide(el_generalChart);
         }
         
-        function makeAssessorChart ( data ) {
-            var assessorCharObject = $.plot($("#assessorChart"), data, {
+        function makeHistoryAssessorChart ( data ) {
+
+            var nodes = decodePieJsonData(data);
+
+            var HistoryAssessorCharObject = $.plot($("#assessorHistoryChart"), nodes, {
+                series: {
+                    pie: {
+                        innerRadius: 0.4,
+                        show: true
+                    }
+                },
+                grid: {
+                    hoverable: true,
+                    backgroundColor: '#353c48'
+                },
+                yaxis : {
+
+                    font : {
+                        color : '#96a2b4'
+                    }
+                },
+                xaxis : {
+
+                    font : {
+                        color : '#96a2b4'
+                    }
+                },
+                color: null,
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                    shifts: {
+                        x: 20,
+                        y: 0
+                    },
+                    defaultTheme: false
+                }
+            });
+        }
+        
+        function makeCurrentAssessorChart ( data ) {
+            var nodes = decodePieJsonData(data);
+
+            var currentAssessorCharObject = $.plot($("#assessorCurrentChart"), nodes, {
                 series: {
                     pie: {
                         innerRadius: 0.4,
@@ -251,7 +285,21 @@
                 }
             });
 
-            ShowHide(el_assessorChartPie);
+            return true;
+        }
+        
+        function decodePieJsonData(json) {
+            var nodes = [];
+            $.each( json.data , function( key, node ) {
+                nodes.push(
+                    {
+                        label: node.label,
+                        data: node.data,
+                        color: node.color
+                    }
+                );
+            });
+            return nodes;
         }
 
         function ShowHide(element) {

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Assessors;
+use App\College;
 use App\Exams;
 use App\Log;
 use Illuminate\Http\Request;
@@ -30,9 +31,6 @@ class AssessorController extends Controller
             return redirect()->back()->withErrors($validator->getMessageBag()->first());
         }
 
-        $assessor->name = $request->name;
-        $assessor->team = $request->team;
-
         switch ($this->DetectChange($old, $request->name, $request->team)) {
             case "both":
                 $messages[] = "Naam gewijzigd van: <strong>".$old->name."</strong> naar <strong>".$request->name."</strong>";
@@ -47,7 +45,12 @@ class AssessorController extends Controller
             default:
                 break;
         }
+        $assessor->name = $request->name;
+        $assessor->team = $request->team;
 
+        if ($assessor->fk_college != $request->college) {
+            $messages[] = "College gewijzigd van <strong>". College::find($assessor->fk_college)->name ."</strong> naar <strong>".College::find($request->college)->name."</strong>";
+        }
         $assessor->fk_college = $request->college;
 
         if (empty($assessor->fk_exams)) {
@@ -163,7 +166,49 @@ class AssessorController extends Controller
 
         Exams::saveBasictraining($assessor->fk_exams, $basictraining);
 
+        $exams = Exams::find($assessor->fk_exams);
+        $validator = Validator::make($request->all(), [
+            'training_next_on' => 'required',
+        ]);
+        if (!$validator->fails()) {
+            $new_validation = Validator::make($request->all(), [
+                'training_next_on' => 'date_format:d/m/Y',
+            ]);
+            if (!$new_validation->fails()){
+                $training_date = date_format(date_create_from_format('d/m/Y',$request->training_next_on), 'Y-m-d');
+                if ($exams->training_next_on != $training_date) {
+                    $messages[] = "Training datum gewijzigd van: <br><i>". $exams->training_next_on . "</i><br>Naar<br><i>". $training_date ."</i>";
+                }
+                $exams->training_next_on = $training_date;
+            }else{
+                return redirect()->back()->withErrors('Error, Het ingevulde datum:<br><i>'. date_format(date_create($request->training_next_on), 'd-m-Y') .'</i> is incorrect...');
+            }
+        }
+
+        $validator = Validator::make($request->all(), [
+            'exam_next_on' => 'required',
+        ]);
+        if (!$validator->fails()) {
+            $new_validation = Validator::make($request->all(), [
+                'exam_next_on' => 'date_format:d/m/Y',
+            ]);
+            if (!$new_validation->fails()){
+                $exam_date = date_format(date_create_from_format('d/m/Y',$request->exam_next_on), 'Y-m-d');
+                date_format(date_create_from_format('d/m/Y',$request->exam_next_on), 'Y-m-d');
+                if ($exams->exam_next_on != $exam_date) {
+                    $messages[] = "Examen datum gewijzigd van: <br><i>". $exams->exam_next_on . "</i><br>Naar<br><i>". $exam_date ."</i>";
+                }
+                $exams->exam_next_on = $exam_date;
+            }else{
+                return redirect()->back()->withErrors('Error, Het ingevulde datum:<br><i>'. date_format(date_create($request->exam_next_on), 'd-m-Y') .'</i> is incorrect...');
+            }
+        }
+        $exams->save();
+
         $assessor->save();
+        if (empty($messages)) {
+            return redirect()->back()->withWarning('Geen wijzegingen verkregen...');
+        }
         Log::AssessorLog($id, $messages, true);
         return redirect()->route('view_assessor_profiel', $id)->withSuccess('Assessor was successvol opgeslagen !');
 

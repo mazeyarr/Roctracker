@@ -44,6 +44,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard/assessor/view/{id}', 'HomeController@getAssessorTimeline')->name('view_assessor');
     Route::get('/dashboard/assessor/change/{id}', 'HomeController@getChangeAssessor')->name('change_assessor');
     Route::post('/dashboard/assessor/change/{id}/check', 'AssessorController@postChangeAssessor')->name('save_change_assessor');
+    Route::get('/dashboard/assessor/add/', 'HomeController@getAddAssessor')->name('add_assessor');
+    Route::get('/dashboard/assessor/add/manual', 'HomeController@getAddAssessorManual')->name('add_assessor_manual');
+    Route::post('/dashboard/assessor/add/manual/save', 'HomeController@getAddAssessorManual')->name('add_assessor_manual_save');
+    Route::get('/dashboard/assessor/add/automatic', 'HomeController@getAddAssessorAutomatic')->name('add_assessor_automatic');
 
     /* Dashboard Page */
     Route::get('/dashboard/{year?}', 'HomeController@getDashboard')->name('dashboard');

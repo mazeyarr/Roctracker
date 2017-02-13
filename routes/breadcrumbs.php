@@ -96,6 +96,30 @@ Breadcrumbs::register('change_assessor', function($breadcrumbs, $id)
     $breadcrumbs->push(\App\Assessors::find($id)->name, route('change_assessor', $id));
 });
 
+// Dashboard / Assessors / Assessors Toevoegen
+Breadcrumbs::register('add_assessor', function($breadcrumbs)
+{
+
+    $breadcrumbs->parent('assessors');
+    $breadcrumbs->push("Assessoren Toevoegen", route('add_assessor'));
+});
+
+// Dashboard / Assessors / Assessors Manueel Toevoegen
+Breadcrumbs::register('add_assessor_manual', function($breadcrumbs)
+{
+
+    $breadcrumbs->parent('add_assessor');
+    $breadcrumbs->push("Assessoren Manueel Toevoegen", route('add_assessor_manual'));
+});
+
+// Dashboard / Assessors / Assessors Automatisch Toevoegen
+Breadcrumbs::register('add_assessor_automatic', function($breadcrumbs)
+{
+
+    $breadcrumbs->parent('add_assessor');
+    $breadcrumbs->push("Assessoren Automatisch Toevoegen", route('add_assessor_automatic'));
+});
+
 // Users
 Breadcrumbs::register('users', function($breadcrumbs)
 {
