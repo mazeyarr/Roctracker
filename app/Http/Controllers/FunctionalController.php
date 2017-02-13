@@ -108,6 +108,23 @@ class FunctionalController extends Controller
         die(json_encode($return));
     }
 
+    public function ajaxGetColleges ($option){
+        $json = '<option value="Geen"> Geen </option>';
+        switch ($option) {
+            case 'select':
+                $colleges = College::all();
+                if ($colleges->isEmpty()) {
+                    $json = '<option value="Geen"> Geen </option>';
+                }
+
+                foreach ($colleges as $college) {
+                    $json = $json . '<option value="'.$college->id.'"> '.$college->name.' </option>';
+                }
+                break;
+        }
+        return json_encode($json);
+    }
+
     private static function CurrentAssessorData (){
         $colleges = College::all();
         if ($colleges->isEmpty()) {

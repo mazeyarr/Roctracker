@@ -214,6 +214,10 @@ class AssessorController extends Controller
 
     }
 
+    public function postAddAssessorManual ($count, Request $request) {
+        dd($request);
+    }
+
     private function DetectChange ($object, $value1, $value2) {
         if ($object->name != $value1 && $object->team != $value2) {
             return "both";

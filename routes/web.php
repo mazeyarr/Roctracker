@@ -46,7 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/dashboard/assessor/change/{id}/check', 'AssessorController@postChangeAssessor')->name('save_change_assessor');
     Route::get('/dashboard/assessor/add/', 'HomeController@getAddAssessor')->name('add_assessor');
     Route::get('/dashboard/assessor/add/manual', 'HomeController@getAddAssessorManual')->name('add_assessor_manual');
-    Route::post('/dashboard/assessor/add/manual/save', 'HomeController@getAddAssessorManual')->name('add_assessor_manual_save');
+    Route::post('/dashboard/assessor/add/manual/save/{count?}', 'AssessorController@postAddAssessorManual')->name('add_assessor_manual_save');
     Route::get('/dashboard/assessor/add/automatic', 'HomeController@getAddAssessorAutomatic')->name('add_assessor_automatic');
 
     /* Dashboard Page */
@@ -58,6 +58,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/users', 'HomeController@getUsers')->name('users');
     Route::get('/users/new', 'HomeController@getNewUsers')->name('add_users');
     Route::post('/users/new', 'UserController@postNewAdmin')->name('new_user');
+
+    /* AJAX INDEPENDENT ROUTES */
+    Route::get('/ajax/get/colleges/{option}', 'FunctionalController@ajaxGetColleges')->name('ajax_get_colleges');
+
 });
 
 Route::get('/logout', function () {
