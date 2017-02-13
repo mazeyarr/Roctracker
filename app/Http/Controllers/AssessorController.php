@@ -6,6 +6,8 @@ use App\Assessors;
 use App\College;
 use App\Exams;
 use App\Log;
+use App\Teamleaders;
+use App\TiC;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -215,7 +217,59 @@ class AssessorController extends Controller
     }
 
     public function postAddAssessorManual ($count, Request $request) {
-        dd($request);
+        if (empty($count)) {
+            return redirect()->back()->withErrors('Error, parameter niet verkregen...');
+        }
+
+        for ($i = 1; $i <= $count; $i++) {
+            $rules = array(
+                'assessor-'.$i.'-name' => 'required|max:255',
+                'assessor-'.$i.'-birthdate' => 'required|date_format:d/m/Y',
+                'assessor-'.$i.'-college' => 'required',
+                'assessor-'.$i.'-functie' => 'required',
+                'assessor-'.$i.'-team' => 'required',
+                'status-'.$i => 'required|Numeric'
+            );
+
+            $validation = Validator::make($request->all(), $rules);
+
+            if ($validation->fails()) {
+                return redirect()->back()->withErrors($validation->getMessageBag()->first());
+            }
+
+            /* request inputs */
+            $propName = 'assessor-'.$i.'-name';
+            $propBirth = 'assessor-'.$i.'-birthdate';
+            $propCollege = 'assessor-'.$i.'-college';
+            $propFunc = 'assessor-'.$i.'-functie';
+            $propTeam = 'assessor-'.$i.'-team';
+            $propStat = 'status-'.$i;
+
+            /** @var $propBirth  (reformat date for database) */
+            $propBirth = date_format(date_create_from_format('d/m/Y',$request->$propBirth), 'Y-m-d');
+
+            $assessor = new Assessors();
+            $assessor->name = $request->$propName;
+            $assessor->birthdate = $propBirth;
+            $assessor->fk_college = $request->$propCollege != "Geen" ? $request->$propCollege : null;
+            $assessor->function = $request->$propFunc;
+            $assessor->team = $request->$propTeam;
+            $assessor->status = $request->$propStat;
+            if ($request->$propCollege != "Geen") {
+                $college_id = $request->$propCollege;
+                $tic = TiC::where('fk_college', $college_id)->first();
+                if (!empty($tic)){
+                    $teamleader = Teamleaders::find($tic->fk_teamleader)->id;
+                    $assessor->fk_teamleader = $teamleader;
+                }
+            }
+            $assessor->fk_exams = Exams::NewAssessor();
+            $assessor->log = '{"log" : {}}';
+            $assessor->save();
+        }
+
+        $salutation = $count > 1 ? 'Assesoren' : "Assessor";
+        return redirect()->route('assessors')->withSuccess($salutation . ", Zijn successvol opgeslagen");
     }
 
     private function DetectChange ($object, $value1, $value2) {

@@ -24,4 +24,31 @@ class Exams extends Model
 
         return $exam;
     }
+
+    public static function NewAssessor () {
+        $exam = new self();
+        $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
+            {
+              "passed": false,
+              "requirements": {
+                "video": false,
+                "portfolio": false,
+                "CV": false
+              },
+              "date1": {
+                "present": false,
+                "date": null
+              },
+              "date2": {
+                "present": false,
+                "date": null
+              },
+              "graduated": false
+            }'));
+        $exam->exam_next_on = null;
+        $exam->training_next_on = null;
+        $exam->log = '{}';
+        $exam->save();
+        return $exam->id;
+    }
 }

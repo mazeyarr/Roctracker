@@ -118,6 +118,14 @@
                 btnSave.prop('disabled', true);
                 countElements(container);
                 var element_id = elementCount+1;
+                $.toast({
+                    heading: 'info'
+                    , text: 'Een moment geduld a.u.b<br> er zal zo een venster aan de onderkant worden bijgevoegd'
+                    , position: 'top-right'
+                    , icon: 'info'
+                    , hideAfter: 3000
+                    , stack: 6
+                });
                 $.getJSON( "{!! URL::route('ajax_get_colleges', 'select') !!}", function( data ) {
                     if (data.length <= 0) {
                         $.toast({
@@ -200,6 +208,17 @@
                         btnSave.prop('disabled', false);
                         countElements(container);
                     }
+                }).error(function() {
+                    btnSave.prop('disabled', false);
+                    $.toast({
+                        heading: 'Error'
+                        , text: 'Excuses, Kan op dit moment geen nieuw venster toevoegen...'
+                        , position: 'top-right'
+                        , loaderBg: '#ff6849'
+                        , icon: 'error'
+                        , hideAfter: 3500
+                        , stack: 6
+                    });
                 });
             });
 
