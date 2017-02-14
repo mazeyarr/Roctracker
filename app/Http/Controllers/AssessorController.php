@@ -220,7 +220,7 @@ class AssessorController extends Controller
     public function postAddAssessorAutomatic (Request $request) {
         $fileSize = 2;
         $validator = Validator::make($request->all(),array(
-           'file' => 'required|between:0,'.($fileSize*1000)
+            'file' => 'required|between:0,'.($fileSize*1000)
         ));
 
         if ($validator->fails()) {
@@ -231,13 +231,75 @@ class AssessorController extends Controller
         }
 
         Excel::load(Input::file('file'), function ($reader) {
-            dd($reader);
+            $reader = $reader->toArray();
+            $sheet = count($reader) > 1 ? $reader[0] : $reader;
+            $rows = $sheet;
 
-            $reader->each(function($sheet) {
-                foreach ($sheet->toArray() as $row) {
+            $approvedRows = array();
+            $rejectedRows = array();
 
+            foreach ($rows as $row) {
+                $validator = Validator::make($row, array(
+                    'naam_deelnemer'                    => 'required|max:255|min:2',
+                    'naam_college'                      => '',
+                    'naam_team'                         => '',
+                    'geboorte_datum'                    => 'required|',
+                    'functie'                           => 'required|max:255',
+                    'training_verzorgd_door'            => '',
+                    'diploma_uitgegeven_door'           => '',
+                    'naam_teamleider_1_persoon'         => '',
+                    'status_actief_non_actief_anders'   => 'required',
+                    'basistraining_behaald_janee'       => '',
+                ));
+
+                if ($validator->fails()) {
+                    $rejectedRows[] = $row;
+                    continue;
                 }
-            });
+
+                $basictraining = strtolower($row['basistraining_behaald_janee']) == 'ja' ? true : false;
+
+                switch (strtolower($row['status_actief_non_actief_anders'])){
+                    case 'actief':
+                        $status =  1;
+                        break;
+                    case 'non-actief':
+                        $status =  0;
+                        break;
+                    case 'niet-actief':
+                        $status =  0;
+                        break;
+                    case 'anders':
+                        $status =  2;
+                        break;
+                    default:
+                        $status =  2;
+                        break;
+                }
+                $assessor = new Assessors();
+                $assessor->name = $row['naam_deelnemer'];
+                $assessor->birthdate = $row['geboorte_datum']->format('Y-m-d');
+                $assessor->fk_college = !empty(College::where('name', $row['naam_college'])->first()) ? College::where('name', $row['naam_college'])->first()->id : null;
+                $assessor->function = $row['functie'];
+                $assessor->team = $row['naam_team'];
+                $assessor->trained_by = $row['training_verzorgd_door'];
+                $assessor->certified_by = $row['diploma_uitgegeven_door'];
+                $assessor->status = $status;
+                $assessor->fk_exams = Exams::NewAssessor($basictraining);
+                $assessor->log = '{"log" : {}}';
+                $assessor->save();
+
+                $approvedRows[] = $row;
+            }
+
+            $ret['message'] = "Lijst was successvol geimporteerd !";
+            $ret['status'] = "success";
+            $ret['header'] = "Voltooid";
+            $ret['result'] = array(
+                'approved' => $approvedRows,
+                'rejected' => $rejectedRows
+            );
+            die(json_encode($ret));
         });
     }
 

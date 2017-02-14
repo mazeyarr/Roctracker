@@ -25,9 +25,30 @@ class Exams extends Model
         return $exam;
     }
 
-    public static function NewAssessor () {
+    public static function NewAssessor ($training=false) {
         $exam = new self();
-        $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
+
+        if ($training) {
+            $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
+            {
+              "passed": true,
+              "requirements": {
+                "video": true,
+                "portfolio": true,
+                "CV": true
+              },
+              "date1": {
+                "present": true,
+                "date": null
+              },
+              "date2": {
+                "present": true,
+                "date": null
+              },
+              "graduated": true
+            }'));
+        }else{
+            $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
             {
               "passed": false,
               "requirements": {
@@ -45,6 +66,7 @@ class Exams extends Model
               },
               "graduated": false
             }'));
+        }
         $exam->exam_next_on = null;
         $exam->training_next_on = null;
         $exam->log = '{}';

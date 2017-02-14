@@ -9,6 +9,7 @@ use App\Teamleaders;
 use App\HistoryData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
 class FunctionalController extends Controller
@@ -123,6 +124,77 @@ class FunctionalController extends Controller
                 break;
         }
         return json_encode($json);
+    }
+
+    public function downloadExcelAssessorLayout () {
+        Excel::create('Assessor Lijst Layout', function ($excel) {
+
+            // Set the title
+            $excel->setTitle('Assessor Lijst Layout');
+
+            // Chain the setters
+            $excel->setCreator('RocTracker')
+                ->setCompany('MRG Studios')
+                ->setTitle('Assessor Lijst')
+                ->setDescription('Deze layout zal gebruikt worden om assessoren lijsten te importeren in het systeem');
+
+            // Our first sheet
+            $excel->sheet('Lijst', function ($sheet) {
+                $sheet->row(1, array(
+                    'Naam deelnemer', 'Naam College', 'Naam Team', 'Geboorte Datum', 'Functie', 'Training verzorgd door', 'Diploma uitgegeven door', 'Naam Teamleider (1 Persoon)', 'Status (Actief, Non-actief, Anders)', 'Basistraining behaald (Ja/Nee)',
+                ));
+
+                // Set width for multiple cells
+                $sheet->setWidth(array(
+                    'A' => 25,
+                    'B' => 25,
+                    'C' => 20,
+                    'D' => 20,
+                    'E' => 11,
+                    'F' => 38,
+                    'G' => 30,
+                    'H' => 30,
+                    'I' => 38,
+                    'J' => 40
+                ));
+
+                // Set height for a single row
+                $sheet->setHeight(1, 50);
+
+                $sheet->cells('A1:J1', function ($cells) {
+                    // manipulate the range of cells
+                    $cells->setBackground('#FFFF00');
+                    // Set font
+                    $cells->setFont(array(
+                        'family' => 'Verdana',
+                        'size' => '12',
+                        'bold' => true
+                    ));
+                    // Set all borders (top, right, bottom, left)
+                    $cells->setBorder('solid', 'solid', 'solid', 'solid');
+                    // Set vertical alignment to middle
+                    $cells->setValignment('center');
+                });
+
+                // Set border for range
+                $sheet->setBorder('A1:J1', 'thin');
+
+                // Set auto filter for a range
+                $sheet->setAutoFilter('A1:J1');
+
+                // Set multiple column formats
+                $sheet->setColumnFormat(array(
+                    'D' => 'yyyy-mm-dd'
+                ));
+
+                // Advanced protect
+                $sheet->protect('ROCTRACKER', function(\PHPExcel_Worksheet_Protection $protection) {
+                    $protection->setSort(true);
+                });
+            });
+
+        })->download('xlsx');
+        exit(200);
     }
 
     private static function CurrentAssessorData (){

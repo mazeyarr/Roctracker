@@ -116,7 +116,8 @@
                     });
                 },
                 success: function (file, response, xhr) {
-                    var response = jQuery.parseJSON(response);
+                    response = jQuery.parseJSON(response);
+                    rejectedImports(response.result.rejected);
                     this.removeFile(file);
                     $.toast({
                         heading: response.title
@@ -140,6 +141,9 @@
                     });
                 }
             };
+            function rejectedImports(rows) {
+
+            }
 
             el_wizard.wizard({
                 buttonLabels: {
