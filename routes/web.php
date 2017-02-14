@@ -48,6 +48,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard/assessor/add/manual', 'HomeController@getAddAssessorManual')->name('add_assessor_manual');
     Route::post('/dashboard/assessor/add/manual/save/{count?}', 'AssessorController@postAddAssessorManual')->name('add_assessor_manual_save');
     Route::get('/dashboard/assessor/add/automatic', 'HomeController@getAddAssessorAutomatic')->name('add_assessor_automatic');
+    Route::post('/dashboard/assessor/add/automatic/save', 'AssessorController@postAddAssessorAutomatic')->name('add_assessor_automatic_save');
 
     /* Dashboard Page */
     Route::get('/dashboard/{year?}', 'HomeController@getDashboard')->name('dashboard');

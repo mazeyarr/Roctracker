@@ -10,6 +10,7 @@ use App\Teamleaders;
 use App\TiC;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use Illuminate\Support\Facades\Input;
 
@@ -214,6 +215,30 @@ class AssessorController extends Controller
         Log::AssessorLog($id, $messages, true);
         return redirect()->route('view_assessor_profiel', $id)->withSuccess('Assessor was successvol opgeslagen !');
 
+    }
+
+    public function postAddAssessorAutomatic (Request $request) {
+        $fileSize = 2;
+        $validator = Validator::make($request->all(),array(
+           'file' => 'required|between:0,'.($fileSize*1000)
+        ));
+
+        if ($validator->fails()) {
+            $ret['message'] = $validator->getMessageBag()->first();
+            $ret['status'] = "error";
+            $ret['header'] = "Error";
+            die(json_encode($ret));
+        }
+
+        Excel::load(Input::file('file'), function ($reader) {
+            dd($reader);
+
+            $reader->each(function($sheet) {
+                foreach ($sheet->toArray() as $row) {
+
+                }
+            });
+        });
     }
 
     public function postAddAssessorManual ($count, Request $request) {

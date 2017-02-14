@@ -15,6 +15,12 @@
     <!-- Menu CSS -->
     {!! Html::style('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}
 
+    <!-- Wizard CSS -->
+    <link href="{!! URL::asset('plugins/bower_components/jquery-wizard-master/css/wizard.css') !!}" rel="stylesheet">
+
+    <!-- Dropzone css -->
+    <link href="{!! URL::asset('plugins/bower_components/dropzone-master/dist/dropzone.css') !!}" rel="stylesheet" type="text/css" />
+
     <!-- Toast CSS -->
     {!! Html::style('plugins/bower_components/toast-master/css/jquery.toast.css') !!}
 
