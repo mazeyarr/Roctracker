@@ -5,7 +5,6 @@ namespace Illuminate\Foundation\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Session;
 
 trait AuthenticatesUsers
 {
@@ -114,8 +113,7 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        $request->session()->flash('login', true);
-        return redirect()->intended($this->redirectPath());
+        //
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Assessors;
 use App\College;
 use App\HistoryData;
@@ -47,6 +48,8 @@ class HomeController extends Controller
     }
 
     public function getAddAssessorAutomatic () {
+        $excel = App::make('excel');
+        dd($excel);
         return view('assessor-add-automatic');
     }
 
