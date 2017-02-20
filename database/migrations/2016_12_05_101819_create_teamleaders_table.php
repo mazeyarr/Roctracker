@@ -18,6 +18,7 @@ class CreateTeamleadersTable extends Migration
             $table->string('name');
             $table->string('team')->nullable(true);
             $table->text('log');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

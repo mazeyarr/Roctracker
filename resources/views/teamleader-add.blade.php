@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Assessoren Toevoegen')
+@section('title', 'Teamleider Toevoegen')
 
-@section('page-title', 'Assessoren Toevoegen')
+@section('page-title', 'Teamleider Toevoegen')
 
 @section('content')
     <div class="row" style="margin-bottom: 15px;">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <h4><span class="label label-info"> Hoe wilt u de Assessor(s) toevoegen...?</span></h4>
+            <h4><span class="label label-info"> Hoe wilt u de Teamleider(s) toevoegen...?</span></h4>
         </div>
         <div class="col-md-4"></div>
     </div>
@@ -37,13 +37,13 @@
 
             btnManual.click(function (e) {
                 e.preventDefault();
-                window.location.href = "{!! URL::route('add_assessor_manual') !!}";
+                window.location.href = "{!! URL::route('add_teamleader_manual') !!}";
                 return true;
             });
 
             btnAutomatic.click(function (e) {
                 e.preventDefault();
-                window.location.href = "{!! URL::route('add_assessor_automatic') !!}";
+                window.location.href = "{!! URL::route('add_teamleader_automatic') !!}";
                 return true;
             });
         });

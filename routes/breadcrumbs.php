@@ -38,6 +38,7 @@ Breadcrumbs::register('change_college_assessors', function($breadcrumbs, $id)
     $breadcrumbs->parent('colleges');
     $breadcrumbs->push(\App\College::find($id)->name, route('change_college_assessors', $id));
 });
+//------------ ------------------------- end ---------------------------------- //
 
 
 // ------------------------------------ TEAMLEADERS ------------------------------------- //
@@ -63,6 +64,33 @@ Breadcrumbs::register('change_teamleaders', function($breadcrumbs, $id)
     $breadcrumbs->parent('teamleaders');
     $breadcrumbs->push(\App\Teamleaders::find($id)->name, route('change_teamleaders', $id));
 });
+
+// Dashboard / Teamleader / Teamleader Toevoegen
+Breadcrumbs::register('add_teamleader', function($breadcrumbs)
+{
+
+    $breadcrumbs->parent('teamleaders');
+    $breadcrumbs->push("Teamleider Toevoegen", route('add_teamleader'));
+});
+
+// Dashboard / Teamleader / Teamleader Toevoegen / Manueel Toevoegen
+Breadcrumbs::register('add_teamleader_manual', function($breadcrumbs)
+{
+
+    $breadcrumbs->parent('add_teamleader');
+    $breadcrumbs->push("Teamleider Manueel Toevoegen", route('add_teamleader_manual'));
+});
+
+// Dashboard / Teamleader / Teamleader Automatisch Toevoegen
+Breadcrumbs::register('add_teamleader_automatic', function($breadcrumbs)
+{
+
+    $breadcrumbs->parent('add_teamleader');
+    $breadcrumbs->push("Teamleider Automatisch Toevoegen", route('add_teamleader_automatic'));
+});
+
+//------------ ------------------------- end ---------------------------------- //
+
 
 // ---------------------------------- ASSESSORS ---------------------------------------- //
 // Dashboard / Assessors
@@ -119,6 +147,7 @@ Breadcrumbs::register('add_assessor_automatic', function($breadcrumbs)
     $breadcrumbs->parent('add_assessor');
     $breadcrumbs->push("Assessoren Automatisch Toevoegen", route('add_assessor_automatic'));
 });
+//------------ ------------------------- end ---------------------------------- //
 
 // Users
 Breadcrumbs::register('users', function($breadcrumbs)

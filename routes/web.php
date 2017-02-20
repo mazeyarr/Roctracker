@@ -38,6 +38,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('change/{id}', 'HomeController@getChangeTeamleader')->name('change_teamleaders');
             Route::post('change/{id}/check', 'TeamleaderController@postChangeTeamleader')->name('save_change_teamleaders');
 
+            Route::get('add/', 'HomeController@getAddTeamleader')->name('add_teamleader');
+            Route::get('add/manual', 'HomeController@getAddTeamleaderManual')->name('add_teamleader_manual');
+            Route::post('add/manual/save/{count?}', 'TeamleaderController@postAddTeamleaderManual')->name('add_teamleader_manual_save');
+            Route::get('add/automatic', 'HomeController@getAddTeamleaderAutomatic')->name('add_teamleader_automatic');
+            Route::get('excel/layout/download', 'FunctionalController@downloadExcelTeamleaderLayout')->name('download_excel_teamleader_layout');
+            Route::post('add/automatic/save', 'TeamleaderController@postAddTeamleaderAutomatic')->name('add_teamleader_automatic_save');
+            Route::get('add/automatic/undo/{id}', 'TeamleaderController@getUndoTeamleaderAutomatic')->name('add_teamleader_automatic_undo');
+
             Route::get('save/{id}/{name}/{team}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
         });
 
@@ -49,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('view/{id}', 'HomeController@getAssessorTimeline')->name('view_assessor');
             Route::get('change/{id}', 'HomeController@getChangeAssessor')->name('change_assessor');
             Route::post('change/{id}/check', 'AssessorController@postChangeAssessor')->name('save_change_assessor');
+
             Route::get('add/', 'HomeController@getAddAssessor')->name('add_assessor');
             Route::get('add/manual', 'HomeController@getAddAssessorManual')->name('add_assessor_manual');
             Route::post('add/manual/save/{count?}', 'AssessorController@postAddAssessorManual')->name('add_assessor_manual_save');
