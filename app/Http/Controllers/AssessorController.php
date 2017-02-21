@@ -281,7 +281,7 @@ class AssessorController extends Controller
                 $assessor = new Assessors();
                 $assessor->name = $row['naam_deelnemer'];
                 $assessor->birthdate = $row['geboorte_datum']->format('Y-m-d');
-                $assessor->fk_college = !empty(College::where('name', $row['naam_college'])->first()) ? College::where('name', $row['naam_college'])->first()->id : null;
+                $assessor->fk_college = !empty(College::where('name', 'LIKE', "%".$row['naam_college']."%")->first()) ? College::where('name', $row['naam_college'])->first()->id : null;
                 $assessor->function = $row['functie'];
                 $assessor->team = $row['naam_team'];
                 $assessor->trained_by = $row['training_verzorgd_door'];

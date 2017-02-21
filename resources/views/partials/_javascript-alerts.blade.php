@@ -16,8 +16,24 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.toast({
-                heading: 'Success'
+                heading: 'Waarschuwing'
                 , text: '{!! Session::get('warning') !!}'
+                , position: 'top-right'
+                , loaderBg: '#ff6849'
+                , icon: 'warning'
+                , hideAfter: 3500
+                , stack: 6
+            })
+        });
+    </script>
+@endif
+
+@if(isset($warning))
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.toast({
+                heading: 'Waarschuwing'
+                , text: '{!! $warning !!}'
                 , position: 'top-right'
                 , loaderBg: '#ff6849'
                 , icon: 'warning'

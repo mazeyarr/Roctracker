@@ -100,15 +100,7 @@ class HomeController extends Controller
     }
 
     public function getAddTeamleader () {
-        return view('teamleader-add');
-    }
-
-    public function getAddTeamleaderManual () {
         return view('teamleader-add-manual')->withColleges(College::all());
-    }
-
-    public function getAddTeamleaderAutomatic () {
-        return view('teamleader-add-automatic');
     }
 
     /** END TEAMLEADERS.***********************************************/
