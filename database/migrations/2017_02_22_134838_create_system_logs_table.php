@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateExamsTable extends Migration
+class CreateSystemLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateExamsTable extends Migration
      */
     public function up()
     {
-        Schema::create('exams', function (Blueprint $table) {
+        Schema::create('system_logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('basictraining');
-            $table->date('exam_next_on')->nullable(true);
-            $table->date('training_next_on')->nullable(true);
-            $table->tinyInteger('training_done')->default(0);
-            $table->text('log');
+            $table->string('title');
+            $table->string('subject');
+            $table->text('message');
+            $table->integer('fk_users');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ class CreateExamsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exams');
+        Schema::dropIfExists('system_logs');
     }
 }

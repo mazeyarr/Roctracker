@@ -7,7 +7,7 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
 });
 
 
-// -------------------------------  COLLEGES ---------------------------- //
+// -------------------------------  COLLEGES ----------------------------------- //
 // Dashboard / Colleges
 Breadcrumbs::register('colleges', function($breadcrumbs)
 {
@@ -81,10 +81,10 @@ Breadcrumbs::register('add_teamleader_change_save', function($breadcrumbs)
     $breadcrumbs->push("Teamleider veranderen", route('add_teamleader_change_save'));
 });
 
-//------------ ------------------------- end ---------------------------------- //
+//------------ ------------------------- end -------------------------------------------- //
 
 
-// ---------------------------------- ASSESSORS ---------------------------------------- //
+// ---------------------------------- ASSESSORS ----------------------------------------- //
 // Dashboard / Assessors
 Breadcrumbs::register('assessors', function($breadcrumbs)
 {
@@ -139,7 +139,19 @@ Breadcrumbs::register('add_assessor_automatic', function($breadcrumbs)
     $breadcrumbs->parent('add_assessor');
     $breadcrumbs->push("Assessoren Automatisch Toevoegen", route('add_assessor_automatic'));
 });
-//------------ ------------------------- end ---------------------------------- //
+//------------ ------------------------- end ------------------------------------------- //
+
+// ---------------------------------- Assessor Maintenance ----------------------------- //
+
+// Dashboard / Assessor Maintenance
+Breadcrumbs::register('maintenance_assessor', function($breadcrumbs)
+{
+
+    $breadcrumbs->parent('dashboard');
+    $breadcrumbs->push("Onderhouds Overzicht", route('maintenance_assessor'));
+});
+
+//------------ ------------------------- end ------------------------------------------- //
 
 // Users
 Breadcrumbs::register('users', function($breadcrumbs)

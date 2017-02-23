@@ -34,6 +34,7 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
         ),
         'T' => 
         array (
+            'Tremby\\LaravelGitVersion\\' => 25,
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
         ),
         'S' => 
@@ -124,6 +125,10 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Tremby\\LaravelGitVersion\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/tremby/laravel-git-version/src',
         ),
         'TijsVerkoyen\\CssToInlineStyles\\' => 
         array (
@@ -353,12 +358,14 @@ class ComposerStaticInita48add542258f55f818986ec6faba066
         'AssessorTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AssessorTableSeeder.php',
         'CollegeTableSeeder' => __DIR__ . '/../..' . '/database/seeds/CollegeTableSeeder.php',
         'CreateAssessorsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_101240_create_assessors_table.php',
+        'CreateAttentionsTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_22_085832_create_attentions_table.php',
         'CreateCollegesTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_105307_create_colleges_table.php',
         'CreateEmailsTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_09_191810_create_emails_table.php',
         'CreateExamsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_105555_create_exams_table.php',
         'CreateHistoryDatasTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_06_093519_create_history_datas_table.php',
         'CreateImportsTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_20_113612_create_imports_table.php',
         'CreatePasswordResetsTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+        'CreateSystemLogsTable' => __DIR__ . '/../..' . '/database/migrations/2017_02_22_134838_create_system_logs_table.php',
         'CreateTeamleadersTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_101819_create_teamleaders_table.php',
         'CreateTiCsTable' => __DIR__ . '/../..' . '/database/migrations/2016_12_05_102636_create_ti_cs_table.php',
         'CreateUsersTable' => __DIR__ . '/../..' . '/database/migrations/2014_10_12_000000_create_users_table.php',

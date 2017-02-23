@@ -17,7 +17,6 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
     Route::group(['prefix' => 'dashboard'], function () {
-
         /* Colleges Page */
         Route::get('college', 'HomeController@getColleges')->name('colleges');
         Route::group(['prefix' => 'college'], function () {
@@ -41,6 +40,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('add/', 'HomeController@getAddTeamleader')->name('add_teamleader');
             Route::post('add/manual/save/{count?}', 'TeamleaderController@postAddTeamleaderManual')->name('add_teamleader_manual_save');
             Route::get('add/manual/exchange/', 'TeamleaderController@getChangeTeamleaderManual')->name('add_teamleader_change_save');
+            Route::post('add/manual/exchange/save/{count?}', 'TeamleaderController@postChangeTeamleaderManual')->name('add_teamleader_change_save_exchange');
 
             Route::get('save/{id}/{name}/{team}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
         });
@@ -63,6 +63,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('add/automatic/undo/{id}', 'AssessorController@getUndoAssessorAutomatic')->name('add_assessor_automatic_undo');
         });
 
+    });
+
+    Route::group(['prefix' => 'maintenance'], function () {
+        Route::get('overview', 'HomeController@getAssessorMaintenance')->name('maintenance_assessor');
     });
 
     /* Dashboard Page */

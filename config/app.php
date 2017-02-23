@@ -164,6 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
+        Tremby\LaravelGitVersion\GitVersionServiceProvider::class,
         'Maatwebsite\Excel\ExcelServiceProvider',
 
 

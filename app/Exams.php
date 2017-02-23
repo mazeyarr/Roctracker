@@ -6,6 +6,41 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exams extends Model
 {
+    public static function MaintenanceUpdate () {
+        $need_maintenance = array();
+        $assessors = Assessors::all();
+        foreach ($assessors as $assessor) {
+            $exam = self::find($assessor->fk_exams);
+            if (empty($exam)) {
+                continue;
+            }
+            $basictraining = json_decode($exam->basictraining);
+            if (!$basictraining->passed) {
+                continue;
+            }
+            if (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date),'Y') ) {
+                continue;
+            }
+            elseif (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date),'Y') +1) {
+                continue;
+            }
+            if ($exam->training_done == 4) {
+                $need_maintenance[] = array(
+                    'assessor' => $assessor,
+                    'type' => 'exam',
+                    'data' => $exam
+                );
+            }else{
+                $need_maintenance[] = array(
+                    'assessor' => $assessor,
+                    'type' => 'training',
+                    'data' => $exam
+                );
+            }
+        }
+        dd($need_maintenance);
+    }
+
     public static function getBasictraining ($id) {
         $exam = self::find($id);
         if (empty($exam)) {

@@ -31,11 +31,11 @@ class AssessorTableSeeder extends Seeder
               },
               "date1": {
                             "present": true,
-                "date": "'.Carbon::now()->format('d-m-Y').'"
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
               "date2": {
-                            "present": false,
-                "date": "'.Carbon::now()->format('d-m-Y').'"
+                            "present": true,
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
               "graduated": false
             }')),

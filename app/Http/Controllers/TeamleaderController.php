@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Assessors;
+use App\Attention;
 use App\College;
 use App\Functions;
 use App\Imports;
 use App\Log;
+use App\SystemLog;
 use App\Teamleaders;
 use App\TiC;
 use Illuminate\Http\Request;
@@ -177,13 +179,17 @@ class TeamleaderController extends Controller
     }
 
     public function postAddTeamleaderManual ($count, Request $request) {
+        # SECTOR 1
         if (empty($count)) {
             return redirect()->back()->withErrors('Error, parameter niet verkregen...');
         }
 
         $exchange_teamleader = array();
+        $attention = null;
 
+        # SECTOR 2
         for ($i = 1; $i <= $count; $i++) {
+            # SECTOR 2.1
             $rules = array(
                 'teamleader-'.$i.'-name' => 'required|max:255',
                 'teamleader-'.$i.'-college' => 'required',
@@ -191,8 +197,10 @@ class TeamleaderController extends Controller
                 'status-'.$i => 'required|Numeric'
             );
 
+            # SECTOR 2.2
             $validation = Validator::make($request->all(), $rules);
 
+            # SECTOR 2.3
             if ($validation->fails()) {
                 return redirect()->back()->withErrors($validation->getMessageBag()->first());
             }
@@ -203,6 +211,7 @@ class TeamleaderController extends Controller
             $propTeam = 'teamleader-'.$i.'-team';
             $propStat = 'status-'.$i;
 
+            # SECTOR 2.4
             $teamleader = new Teamleaders();
             $teamleader->name = $request->$propName;
             $teamleader->team = $request->$propTeam;
@@ -210,18 +219,55 @@ class TeamleaderController extends Controller
             $teamleader->log = '{"log" : {}}';
             $teamleader->save();
 
+            # SECTOR 2.5
+            Log::TeamleaderLog($teamleader->id, $teamleader->name . " is Teamleider geworden.");
+
             if ($request->$propCollege != "Geen") {
+                # SECTOR 2.6
+                if (!Assessors::where('fk_college', $request->$propCollege)->get()->isEmpty()) {
+                    $assessors = Assessors::where('fk_college', $request->$propCollege)->get();
+                    foreach ($assessors as $assessor) {
+                        Log::AssessorLog($assessor->id, "Teamleider gewijzigd naar: <strong>" . $teamleader->name . "</strong>");
+                    }
+                }
+                # SECTOR 2.7
                 if (empty(TiC::where('fk_college', $request->$propCollege)->first())) {
+                    try{
+                        Log::TeamleaderLog($teamleader->id, $teamleader->name . " is teamleider geworden van -> " . College::find($request->$propCollege)->name);
+                        Log::CollegeLog(College::find($request->$propCollege)->id, $teamleader->name . " is teamleider geworden van dit College");
+                    }
+                    catch(\Exception $e){ SystemLog::LOG(__FUNCTION__,'SECTOR 2.7', $e->getMessage(), Auth::user()->id); }
                     $place_in_college = new TiC();
                     $place_in_college->fk_teamleader = $teamleader->id;
                     $place_in_college->fk_college = $request->$propCollege;
                     $place_in_college->save();
                 } else {
+                    # SECTOR 2.8
                     $check = TiC::find(TiC::where('fk_college', $request->$propCollege)->first()->id)->fk_teamleader;
-                    $exchange_teamleader[] = Teamleaders::find($check);
+
+                    /** save this teamleader in the attention table incase user leaves without making change to this teamleader */
+                    $attention = Attention::create([
+                        'tablename' => Functions::getTablename($model = new Teamleaders()),
+                        'message' => "Deze Teamleider werd vervangen door `" . $teamleader->name ."`. Wijziging vereist",
+                        'status' => 0,
+                        'fk_id' => Teamleaders::find($check)->id,
+                        'fk_users' => Auth::user()->id
+                    ]);
+
+                    # SECTOR 2.9
+                    $exchange_teamleader[$i]['teamleader'] = Teamleaders::find($check);
+                    $exchange_teamleader[$i]['attention_id'] = $attention->id;
+
+                    # SECTOR 2.10
                     $tic = TiC::find(TiC::where('fk_college', $request->$propCollege)->first()->id);
                     $tic->fk_teamleader = $teamleader->id;
                     $tic->save();
+
+                    try{
+                        Log::TeamleaderLog($teamleader->id, $teamleader->name . " is teamleider geworden van -> " . College::find($request->$propCollege)->name);
+                        Log::CollegeLog(College::find($request->$propCollege)->id, $teamleader->name . " is teamleider geworden van dit College");
+                    }
+                    catch(\Exception $e){ SystemLog::LOG(__FUNCTION__,'SECTOR 2.10', $e->getMessage(), Auth::user()->id); }
                 }
             }
         }
@@ -230,7 +276,7 @@ class TeamleaderController extends Controller
             $salutation = count($exchange_teamleader) > 1 ? 'Teamleiders' : "Teamleider";
             $data = array(
                 'teamleaders' => $exchange_teamleader,
-                'message' => "Wat moet er gebeuren met de volgende" . $salutation
+                'message' => "Wat moet er gebeuren met de volgende " . $salutation
             );
             Session::put('action_teamleader', $data);
             return redirect()->route('add_teamleader_change_save');
@@ -240,12 +286,120 @@ class TeamleaderController extends Controller
     }
 
     public function getChangeTeamleaderManual () {
-        $data = Session::get('action_teamleader');
-        return view('teamleader-exchange')
-            ->withColleges(College::all())
-            ->withTeamleaders($data['teamleaders'])
-            ->withNotify($data['message'])
-            ->withWarining($data['message']);
+        if (Session::has('action_teamleader')) {
+            $data = Session::get('action_teamleader');
+            return view('teamleader-exchange')
+                ->withColleges(College::all())
+                ->withTeamleaders($data['teamleaders'])
+                ->withNotify($data['message'])
+                ->withWarining($data['message']);
+        }
+        return redirect()->route('teamleaders')->withWarining('Geen actie nodig...');
+    }
+
+    public function postChangeTeamleaderManual ($count, Request $request) {
+        # SECTOR 1
+        if (empty($count)) {
+            return redirect()->back()->withErrors('Error, parameter niet verkregen...');
+        }
+
+        $exchange_teamleader = array();
+
+        # SECTOR 2
+        for ($i = 1; $i <= $count; $i++) {
+            # SECTOR 2.1
+            $rules = array(
+                'teamleader-'.$i.'-college' => 'required',
+                'teamleader-'.$i.'-id' => 'required|Numeric',
+                'teamleader-'.$i.'-attention' => 'required|Numeric'
+
+            );
+
+            # SECTOR 2.2
+            $validation = Validator::make($request->all(), $rules);
+
+            if ($validation->fails()) {
+                return redirect()->back()->withErrors($validation->getMessageBag()->first());
+            }
+
+            $propID = 'teamleader-'.$i.'-id';
+            $propCollege = 'teamleader-'.$i.'-college';
+            $propAttentionID = 'teamleader-'.$i.'-attention';
+
+            # SECTOR 2.3
+            $teamleader = Teamleaders::find($request->$propID);
+
+            if ($request->$propCollege != "Geen") {
+                # SECTOR 2.4
+                if (!Assessors::where('fk_college', $request->$propCollege)->isEmpty()) {
+                    $assessors = Assessors::where('fk_college', $request->$propCollege)->get();
+
+                    # SECTOR 2.5
+                    foreach ($assessors as $assessor) {
+                        Log::AssessorLog($assessor->id, "Teamleider gewijzigd naar: <strong>" . $teamleader->name . "</strong>");
+                    }
+                }
+                if (empty(TiC::where('fk_college', $request->$propCollege)->first())) {
+
+                    # SECTOR 2.6
+                    try{
+                        Log::TeamleaderLog($teamleader->id, $teamleader->name . " is teamleider geworden van -> " . College::find($request->$propCollege)->name);
+                        Log::CollegeLog(College::find($request->$propCollege)->id, $teamleader->name . " is teamleider geworden van dit College");
+                    }
+                    catch(\Exception $e){ SystemLog::LOG(__FUNCTION__,'SECTOR 2.6', $e->getMessage(), Auth::user()->id); }
+                    $place_in_college = new TiC();
+                    $place_in_college->fk_teamleader = $teamleader->id;
+                    $place_in_college->fk_college = $request->$propCollege;
+                    $place_in_college->save();
+                } else {
+                    # SECTOR 2.7
+                    $check = TiC::find(TiC::where('fk_college', $request->$propCollege)->first()->id)->fk_teamleader;
+
+                    # SECTOR 2.8
+                    /** save this teamleader in the attention table incase user leaves without making change to this teamleader */
+                    $attention = Attention::create([
+                        'tablename' => Functions::getTablename($model = new Teamleaders()),
+                        'message' => "Deze Teamleider werd vervangen door `" . $teamleader->name ."`. Wijziging vereist",
+                        'status' => 0,
+                        'fk_id' => Teamleaders::find($check)->id,
+                        'fk_users' => Auth::user()->id
+                    ]);
+
+                    # SECTOR 2.9
+                    $exchange_teamleader[$i]['teamleader'] = Teamleaders::find($check);
+                    $exchange_teamleader[$i]['attention_id'] = $attention->id;
+
+                    # SECTOR 2.10
+                    $tic = TiC::find(TiC::where('fk_college', $request->$propCollege)->first()->id);
+                    $tic->fk_teamleader = $teamleader->id;
+                    $tic->save();
+
+                    try{
+                        Log::TeamleaderLog($teamleader->id, $teamleader->name . " is teamleider geworden van -> " . College::find($request->$propCollege)->name);
+                        Log::CollegeLog(College::find($request->$propCollege)->id, $teamleader->name . " is teamleider geworden van dit College");
+                    }
+                    catch(\Exception $e){ SystemLog::LOG(__FUNCTION__,'SECTOR 2.10', $e->getMessage(), Auth::user()->id); }
+                }
+            }
+
+            $teamleader->save();
+
+            $attention_old = Attention::find($request->$propAttentionID);
+            $attention_old->status = 1;
+            $attention_old->fk_users = Auth::user()->id;
+            $attention_old->save();
+        }
+
+        if (count($exchange_teamleader) > 0) {
+            $salutation = count($exchange_teamleader) > 1 ? 'Teamleiders' : "Teamleider";
+            $data = array(
+                'teamleaders' => $exchange_teamleader,
+                'message' => "Wat moet er gebeuren met de volgende " . $salutation
+            );
+            Session::put('action_teamleader', $data);
+            return redirect()->route('add_teamleader_change_save');
+        }
+        return redirect()->route('teamleaders')->withSuccess('Teamleider is was successvold veranderd !');
     }
 
     private function DetectChange ($object, $value1, $value2) {

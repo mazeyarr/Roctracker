@@ -10,6 +10,7 @@ use App\Log;
 use App\Teamleaders;
 use App\TiC;
 use App\User;
+use App\Exams;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -112,32 +113,56 @@ class HomeController extends Controller
      * ASSESSORS *******************************************************
      */
 
+    /**
+     * @return mixed
+     */
     public function getAssessors()
     {
         return view('assessoren')->withAssessors(Assessors::getAssessors());
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getAssessorProfile($id)
     {
         return view('assessor-profile')->withAssessor(Assessors::getAssessors($id))->withLogs(Log::limit(Assessors::find($id)->log));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getAssessorTimeline($id) {
         return view('assessor-view')->withAssessor(Assessors::getAssessors($id))->withLogs(json_decode(Assessors::find($id)->log));
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getChangeAssessor($id) {
         return view('change-assessor')->withAssessor(Assessors::getAssessors($id))->withColleges(College::all());
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getAddAssessor () {
         return view('assessor-add');
     }
 
+    /**
+     * @return mixed
+     */
     public function getAddAssessorManual () {
         return view('assessor-add-manual')->withColleges(College::all());
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getAddAssessorAutomatic () {
         return view('assessor-add-automatic');
     }
@@ -145,7 +170,16 @@ class HomeController extends Controller
     /** END ASSESSORS.**************************************************/
 
 
+    /**
+     * Assessor Maintenance *******************************************************
+     */
 
+    public function getAssessorMaintenance () {
+        $assessors_need_maintenance = Exams::MaintenanceUpdate();
+        return view('maintainance-overview');
+    }
+
+    /** Assessor Maintenance ******************************************************/
 
     /**
      * @return mixed
