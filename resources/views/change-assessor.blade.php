@@ -36,12 +36,12 @@
                     @if($assessor->fk_exams['basictraining']->passed)
                         <h3 class="box-title m-b-0">Training en Examen data</h3>
                         <div class="form-group">
-                            <label for="inputName1" class="control-label">Volgende training op</label>
+                            <label for="inputName1" class="control-label">Volgende Training op</label>
                             {!! Form::text('training_next_on',  !empty($assessor->fk_exams['training_next_on']) ? date_format(date_create($assessor->fk_exams['training_next_on']), 'd/m/Y'): '', array('data-mask' => '99/99/9999', 'class' => 'form-control')) !!}
                         </div>
 
                         <div class="form-group">
-                            <label for="inputName1" class="control-label">Volgende training op</label>
+                            <label for="inputName1" class="control-label">Volgende Examen op</label>
                             {!! Form::text('exam_next_on',  !empty($assessor->fk_exams['exam_next_on']) ? date_format(date_create($assessor->fk_exams['exam_next_on']), 'd/m/Y') : '', array('data-mask' => '99/99/9999', 'class' => 'form-control')) !!}
                         </div>
                     @endif

@@ -37,3 +37,7 @@
 
 <!-- Validator -->
 {!! Html::script('js/validator.js') !!}
+
+{!! Html::script('js/jquery.idle.min.js') !!}
+
+{!! Html::script('js/roctracker.js') !!}

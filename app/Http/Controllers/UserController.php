@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
 use Validator;
 
 class UserController extends Controller
@@ -33,5 +36,21 @@ class UserController extends Controller
         }
 
         return redirect()->route('add_users')->withSuccess('Gebruiker was opgeslagen !')->withUser($user);
+    }
+
+    public function getLockScreen () {
+        if (!Session::has('locked')){
+            Session::put('locked');
+        }
+        return view('auth.lock')->withUser(Auth::user());
+    }
+
+    public function postUnlockScreen (Request $request) {
+        if (Hash::check($request->password, Auth::user()->password)){
+            Session::forget('locked');
+            return redirect()->route('dashboard');
+        }else {
+            return redirect()->back();
+        }
     }
 }

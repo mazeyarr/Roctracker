@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="row">
+        <div class="col-sm-12">
+            <a href="{{ URL::route('add_maintenance_dates') }}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Onderhouds Data toevoegen </a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="white-box">
                 <div class="row sales-report">
@@ -13,15 +18,17 @@
                         <h2>Onderhoud {{date('Y') - 1}} - {{date('Y')}}</h2>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xs-6 ">
-                        <h1 class="text-right text-success m-t-15">{count}</h1> </div>
+                        @if(!empty($assessors))
+                        <h1 class="text-right text-success m-t-15">{{ count($assessors) }}</h1> </div>
+                        @endif
                 </div>
                 <table id="college-footable" class="table toggle-circle table-hover">
                     <thead>
                     <tr>
                         <th data-toggle="true"> Naam </th>
-                        <th> Type </th>
                         <th> Datum </th>
-                        <th> Status </th>
+                        <th> Type </th>
+                        <th data-sort-ignore="true"> Bewerken </th>
                     </tr>
                     </thead>
                     <div class="form-inline padding-bottom-15">
@@ -42,7 +49,21 @@
                         </div>
                     </div>
                     <tbody id="table-body">
-
+                        @if(!empty($assessors))
+                            @foreach($assessors as $assessor)
+                                <tr style="cursor: pointer;">
+                                    <td>{{ $assessor['assessor']->name }}</td>
+                                    @if($assessor['type'] == "Onderhoud")
+                                        <td>{{ !empty($assessor['data']->training_next_on) ? date_format(date_create($assessor['data']->training_next_on), 'd/m/Y'): '' }}</td>
+                                        <td><span class="label label-success label-rouded">{{ $assessor['type'] }}</span></td>
+                                    @else
+                                        <td>{{ !empty($assessor['data']->exam_next_on) ? date_format(date_create($assessor['data']->exam_next_on), 'd/m/Y'): '' }}</td>
+                                        <td><span class="label label-info label-danger">{{ $assessor['type'] }}</span></td>
+                                    @endif
+                                    <td> <button class="btn btn-warning btn-rounded assessors" id="{{$assessor['assessor']->id}}"><i class="fa fa-pencil-square" aria-hidden="true"></i></button> </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                     <tfoot>
                     <tr>
@@ -67,4 +88,16 @@
     <!--FooTable init-->
     <script src="{{ URL::asset('js/footable-init.js') }}"></script>
     @include('partials._javascript-paddingfixer')
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var body = $('body'),
+                url = "{!! URL::route('change_assessor',"null") !!}";
+
+            body.on('click', '.assessors', function () {
+                url = url.replace('null', this.id);
+                window.location.href = url;
+            });
+        })
+    </script>
 @stop

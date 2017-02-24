@@ -41,6 +41,7 @@ class AssessorTableSeeder extends Seeder
             }')),
             'exam_next_on' => null,
             'training_next_on' => null,
+            'training_done' => 4,
             'log' => '{}'
         ));
 
@@ -121,21 +122,21 @@ class AssessorTableSeeder extends Seeder
         $EXAM = Exams::create(array(
             'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-                "passed": false,
+                "passed": true,
               "requirements": {
-                            "video": false,
-                "portfolio": false,
+                            "video": true,
+                "portfolio": true,
                 "CV": false
               },
               "date1": {
-                            "present": false,
-                "date": null
+                            "present": true,
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
               "date2": {
-                            "present": false,
-                "date": null
+                            "present": true,
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
-              "graduated": false
+              "graduated": true
             }')),
             'exam_next_on' => null,
             'training_next_on' => null,
@@ -164,21 +165,21 @@ class AssessorTableSeeder extends Seeder
         $EXAM = Exams::create(array(
             'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-                "passed": false,
+                "passed": true,
               "requirements": {
-                            "video": false,
-                "portfolio": false,
+                            "video": true,
+                "portfolio": true,
                 "CV": false
               },
               "date1": {
-                            "present": false,
-                "date": null
+                            "present": true,
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
               "date2": {
-                            "present": false,
-                "date": null
+                            "present": true,
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
-              "graduated": false
+              "graduated": true
             }')),
             'exam_next_on' => null,
             'training_next_on' => null,
@@ -207,21 +208,21 @@ class AssessorTableSeeder extends Seeder
         $EXAM = Exams::create(array(
             'basictraining' => trim(preg_replace('/\s\s+/', ' ', '
             {
-                "passed": false,
+                "passed": true,
               "requirements": {
-                            "video": false,
-                "portfolio": false,
+                            "video": true,
+                "portfolio": true,
                 "CV": false
               },
               "date1": {
-                            "present": false,
-                "date": null
+                            "present": true,
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
               "date2": {
-                            "present": false,
-                "date": null
+                            "present": true,
+                "date": "'.Carbon::now()->subYears(2)->format('d-m-Y').'"
               },
-              "graduated": false
+              "graduated": true
             }')),
             'exam_next_on' => null,
             'training_next_on' => null,

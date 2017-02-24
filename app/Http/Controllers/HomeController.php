@@ -176,7 +176,11 @@ class HomeController extends Controller
 
     public function getAssessorMaintenance () {
         $assessors_need_maintenance = Exams::MaintenanceUpdate();
-        return view('maintainance-overview');
+        return view('maintainance-overview')->withAssessors($assessors_need_maintenance);
+    }
+
+    public function getAssessorMaintenanceData () {
+        return view('maintenance-add-data');
     }
 
     /** Assessor Maintenance ******************************************************/

@@ -27,6 +27,10 @@
         </ul>
         <ul class="nav navbar-top-links navbar-right pull-right">
             <li class="dropdown">
+                <a class="dropdown-toggle waves-effect waves-light" href="{!! URL::route('idle') !!}">
+                    <i class="fa fa-lock" aria-hidden="true"></i></a>
+            </li>
+            <li class="dropdown">
                 <a class="dropdown-toggle waves-effect waves-light" href="{!! URL::route('logout') !!}"><i
                             class="icon-logout"></i></a>
             </li><!-- /.dropdown -->

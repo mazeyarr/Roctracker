@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Exams extends Model
 {
     public static function MaintenanceUpdate () {
-        $need_maintenance = array();
+        $need_maintenance = null;
         $assessors = Assessors::all();
         foreach ($assessors as $assessor) {
             $exam = self::find($assessor->fk_exams);
@@ -27,18 +27,18 @@ class Exams extends Model
             if ($exam->training_done == 4) {
                 $need_maintenance[] = array(
                     'assessor' => $assessor,
-                    'type' => 'exam',
+                    'type' => 'Examen',
                     'data' => $exam
                 );
             }else{
                 $need_maintenance[] = array(
                     'assessor' => $assessor,
-                    'type' => 'training',
+                    'type' => 'Onderhoud',
                     'data' => $exam
                 );
             }
         }
-        dd($need_maintenance);
+        return $need_maintenance;
     }
 
     public static function getBasictraining ($id) {

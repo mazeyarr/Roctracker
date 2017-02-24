@@ -146,9 +146,15 @@ Breadcrumbs::register('add_assessor_automatic', function($breadcrumbs)
 // Dashboard / Assessor Maintenance
 Breadcrumbs::register('maintenance_assessor', function($breadcrumbs)
 {
-
     $breadcrumbs->parent('dashboard');
     $breadcrumbs->push("Onderhouds Overzicht", route('maintenance_assessor'));
+});
+
+// Dashboard / Assessor Maintenance
+Breadcrumbs::register('add_maintenance_dates', function($breadcrumbs)
+{
+    $breadcrumbs->parent('maintenance_assessor');
+    $breadcrumbs->push("Onderhouds Datums invoeren", route('add_maintenance_dates'));
 });
 
 //------------ ------------------------- end ------------------------------------------- //

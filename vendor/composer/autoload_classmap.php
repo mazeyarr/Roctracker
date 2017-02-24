@@ -15,6 +15,7 @@ return array(
     'CreateExamsTable' => $baseDir . '/database/migrations/2016_12_05_105555_create_exams_table.php',
     'CreateHistoryDatasTable' => $baseDir . '/database/migrations/2017_02_06_093519_create_history_datas_table.php',
     'CreateImportsTable' => $baseDir . '/database/migrations/2017_02_20_113612_create_imports_table.php',
+    'CreateMaintenancesTable' => $baseDir . '/database/migrations/2017_02_24_112407_create_maintenances_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateSystemLogsTable' => $baseDir . '/database/migrations/2017_02_22_134838_create_system_logs_table.php',
     'CreateTeamleadersTable' => $baseDir . '/database/migrations/2016_12_05_101819_create_teamleaders_table.php',
