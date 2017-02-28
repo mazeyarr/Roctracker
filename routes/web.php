@@ -38,6 +38,10 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('change/{id}', 'HomeController@getChangeTeamleader')->name('change_teamleaders');
             Route::post('change/{id}/check', 'TeamleaderController@postChangeTeamleader')->name('save_change_teamleaders');
 
+            Route::get('add/', 'HomeController@getAddTeamleader')->name('add_teamleader');
+            Route::post('add/manual/save/{count?}', 'TeamleaderController@postAddTeamleaderManual')->name('add_teamleader_manual_save');
+            Route::get('add/manual/exchange/', 'TeamleaderController@getChangeTeamleaderManual')->name('add_teamleader_change_save');
+
             Route::get('save/{id}/{name}/{team}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
         });
 
@@ -49,12 +53,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('view/{id}', 'HomeController@getAssessorTimeline')->name('view_assessor');
             Route::get('change/{id}', 'HomeController@getChangeAssessor')->name('change_assessor');
             Route::post('change/{id}/check', 'AssessorController@postChangeAssessor')->name('save_change_assessor');
+
             Route::get('add/', 'HomeController@getAddAssessor')->name('add_assessor');
             Route::get('add/manual', 'HomeController@getAddAssessorManual')->name('add_assessor_manual');
             Route::post('add/manual/save/{count?}', 'AssessorController@postAddAssessorManual')->name('add_assessor_manual_save');
             Route::get('add/automatic', 'HomeController@getAddAssessorAutomatic')->name('add_assessor_automatic');
             Route::get('excel/layout/download', 'FunctionalController@downloadExcelAssessorLayout')->name('download_excel_assessor_layout');
             Route::post('add/automatic/save', 'AssessorController@postAddAssessorAutomatic')->name('add_assessor_automatic_save');
+            Route::get('add/automatic/undo/{id}', 'AssessorController@getUndoAssessorAutomatic')->name('add_assessor_automatic_undo');
         });
 
     });

@@ -4,12 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Assessors;
 use App\College;
+use App\Functions;
+use App\Imports;
 use App\Log;
 use App\Teamleaders;
 use App\TiC;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
 class TeamleaderController extends Controller
@@ -169,6 +174,78 @@ class TeamleaderController extends Controller
         }
 
         return redirect()->route('view_teamleaders', $teamleader->id)->withSucces('Wijzeging was succesvol doorgevoerd !');
+    }
+
+    public function postAddTeamleaderManual ($count, Request $request) {
+        if (empty($count)) {
+            return redirect()->back()->withErrors('Error, parameter niet verkregen...');
+        }
+
+        $exchange_teamleader = array();
+
+        for ($i = 1; $i <= $count; $i++) {
+            $rules = array(
+                'teamleader-'.$i.'-name' => 'required|max:255',
+                'teamleader-'.$i.'-college' => 'required',
+                'teamleader-'.$i.'-team' => 'required',
+                'status-'.$i => 'required|Numeric'
+            );
+
+            $validation = Validator::make($request->all(), $rules);
+
+            if ($validation->fails()) {
+                return redirect()->back()->withErrors($validation->getMessageBag()->first());
+            }
+
+            /* request inputs */
+            $propName = 'teamleader-'.$i.'-name';
+            $propCollege = 'teamleader-'.$i.'-college';
+            $propTeam = 'teamleader-'.$i.'-team';
+            $propStat = 'status-'.$i;
+
+            $teamleader = new Teamleaders();
+            $teamleader->name = $request->$propName;
+            $teamleader->team = $request->$propTeam;
+            $teamleader->status = $request->$propStat;
+            $teamleader->log = '{"log" : {}}';
+            $teamleader->save();
+
+            if ($request->$propCollege != "Geen") {
+                if (empty(TiC::where('fk_college', $request->$propCollege)->first())) {
+                    $place_in_college = new TiC();
+                    $place_in_college->fk_teamleader = $teamleader->id;
+                    $place_in_college->fk_college = $request->$propCollege;
+                    $place_in_college->save();
+                } else {
+                    $check = TiC::find(TiC::where('fk_college', $request->$propCollege)->first()->id)->fk_teamleader;
+                    $exchange_teamleader[] = Teamleaders::find($check);
+                    $tic = TiC::find(TiC::where('fk_college', $request->$propCollege)->first()->id);
+                    $tic->fk_teamleader = $teamleader->id;
+                    $tic->save();
+                }
+            }
+        }
+
+        if (count($exchange_teamleader) > 0) {
+            $salutation = count($exchange_teamleader) > 1 ? 'Teamleiders' : "Teamleider";
+            $data = array(
+                'teamleaders' => $exchange_teamleader,
+                'message' => "Wat moet er gebeuren met de volgende" . $salutation
+            );
+            Session::put('action_teamleader', $data);
+            return redirect()->route('add_teamleader_change_save');
+        }
+        $salutation = $count > 1 ? 'Teamleiders' : "Teamleider";
+        return redirect()->route('teamleaders')->withSuccess($salutation . ", Zijn successvol opgeslagen");
+    }
+
+    public function getChangeTeamleaderManual () {
+        $data = Session::get('action_teamleader');
+        return view('teamleader-exchange')
+            ->withColleges(College::all())
+            ->withTeamleaders($data['teamleaders'])
+            ->withNotify($data['message'])
+            ->withWarining($data['message']);
     }
 
     private function DetectChange ($object, $value1, $value2) {

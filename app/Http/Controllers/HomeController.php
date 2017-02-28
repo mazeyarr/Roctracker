@@ -39,20 +39,6 @@ class HomeController extends Controller
                     ->withHistorydatas($sortedData);
     }
 
-    public function getAddAssessor () {
-        return view('assessor-add');
-    }
-
-    public function getAddAssessorManual () {
-        return view('assessor-add-manual')->withColleges(College::all());
-    }
-
-    public function getAddAssessorAutomatic () {
-        return view('assessor-add-automatic');
-    }
-
-
-
     /**
      * COLLEGES *****************************************************
      */
@@ -113,7 +99,9 @@ class HomeController extends Controller
         return view('change-teamleader')->withTeamleader(Teamleaders::find($id))->withAssigned(TiC::AssignedCollege($id))->withColleges(College::all());
     }
 
-
+    public function getAddTeamleader () {
+        return view('teamleader-add-manual')->withColleges(College::all());
+    }
 
     /** END TEAMLEADERS.***********************************************/
 
@@ -141,6 +129,19 @@ class HomeController extends Controller
     public function getChangeAssessor($id) {
         return view('change-assessor')->withAssessor(Assessors::getAssessors($id))->withColleges(College::all());
     }
+
+    public function getAddAssessor () {
+        return view('assessor-add');
+    }
+
+    public function getAddAssessorManual () {
+        return view('assessor-add-manual')->withColleges(College::all());
+    }
+
+    public function getAddAssessorAutomatic () {
+        return view('assessor-add-automatic');
+    }
+
     /** END ASSESSORS.**************************************************/
 
 

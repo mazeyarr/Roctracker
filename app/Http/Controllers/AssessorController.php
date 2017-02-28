@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Assessors;
 use App\College;
 use App\Exams;
+use App\Functions;
+use App\Imports;
 use App\Log;
 use App\Teamleaders;
 use App\TiC;
@@ -232,12 +234,12 @@ class AssessorController extends Controller
 
         Excel::load(Input::file('file'), function ($reader) {
             $reader = $reader->toArray();
-            $sheet = count($reader) > 1 ? $reader[0] : $reader;
+            $sheet = $reader;
             $rows = $sheet;
 
             $approvedRows = array();
             $rejectedRows = array();
-
+            $importdata = array();
             foreach ($rows as $row) {
                 $validator = Validator::make($row, array(
                     'naam_deelnemer'                    => 'required|max:255|min:2',
@@ -279,7 +281,7 @@ class AssessorController extends Controller
                 $assessor = new Assessors();
                 $assessor->name = $row['naam_deelnemer'];
                 $assessor->birthdate = $row['geboorte_datum']->format('Y-m-d');
-                $assessor->fk_college = !empty(College::where('name', $row['naam_college'])->first()) ? College::where('name', $row['naam_college'])->first()->id : null;
+                $assessor->fk_college = !empty(College::where('name', 'LIKE', "%".$row['naam_college']."%")->first()) ? College::where('name', $row['naam_college'])->first()->id : null;
                 $assessor->function = $row['functie'];
                 $assessor->team = $row['naam_team'];
                 $assessor->trained_by = $row['training_verzorgd_door'];
@@ -290,17 +292,44 @@ class AssessorController extends Controller
                 $assessor->save();
 
                 $approvedRows[] = $row;
+                $importdata[]['id'] = $assessor->id;
             }
+
+            $import = new Imports();
+            $import->filename = Input::file('file')->getClientOriginalName();
+            $import->function = "add";
+            $import->tablename = Functions::getTablename($model = new Assessors());
+            $import->data = json_encode($importdata);
+            $import->status = 1;
+            $import->save();
 
             $ret['message'] = "Lijst was successvol geimporteerd !";
             $ret['status'] = "success";
             $ret['header'] = "Voltooid";
             $ret['result'] = array(
                 'approved' => $approvedRows,
-                'rejected' => $rejectedRows
+                'rejected' => $rejectedRows,
+                'importid' => $import->id
             );
             die(json_encode($ret));
         });
+    }
+
+    public function getUndoAssessorAutomatic ($id) {
+        if (Imports::undo($id)) {
+            $message = array(
+                'type' => "success",
+                'message' => "De geimporteerde assessoren zijn successvol ongedaan gemaakt !",
+                'color' => '#23ff00'
+            );
+        }else{
+            $message = array(
+                'type' => "error",
+                'message' => "er was een fout opgetreden.",
+                'color' => '#FB9678'
+            );
+        }
+        return json_encode($message);
     }
 
     public function postAddAssessorManual ($count, Request $request) {

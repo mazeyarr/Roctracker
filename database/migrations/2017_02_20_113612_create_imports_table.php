@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTeamleadersTable extends Migration
+class CreateImportsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreateTeamleadersTable extends Migration
      */
     public function up()
     {
-        Schema::create('teamleaders', function (Blueprint $table) {
+        Schema::create('imports', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('team')->nullable(true);
-            $table->text('log');
-            $table->boolean('status')->default(1);
+            $table->string('filename');
+            $table->string('function');
+            $table->string('tablename');
+            $table->text('data');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateTeamleadersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('teamleaders');
+        Schema::dropIfExists('imports');
     }
 }

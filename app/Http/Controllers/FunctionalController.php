@@ -14,6 +14,15 @@ use Validator;
 
 class FunctionalController extends Controller
 {
+    public $creator;
+    public $company;
+
+    function __construct()
+    {
+        $this->creator = "RocTracker";
+        $this->company = "MRG Studios";
+    }
+
     public function ajaxSaveCollege ($id, $name, $location, $team) {
         if (!is_numeric($id)) {
             return json_encode(array(
@@ -133,8 +142,8 @@ class FunctionalController extends Controller
             $excel->setTitle('Assessor Lijst Layout');
 
             // Chain the setters
-            $excel->setCreator('RocTracker')
-                ->setCompany('MRG Studios')
+            $excel->setCreator($this->creator)
+                ->setCompany($this->company)
                 ->setTitle('Assessor Lijst')
                 ->setDescription('Deze layout zal gebruikt worden om assessoren lijsten te importeren in het systeem');
 

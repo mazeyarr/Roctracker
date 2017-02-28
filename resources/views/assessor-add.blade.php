@@ -8,7 +8,7 @@
     <div class="row" style="margin-bottom: 15px;">
         <div class="col-md-4"></div>
         <div class="col-md-4">
-            <h4><span class="label label-info"> Hoe wilt u de assessor(s) toevoegen...?</span></h4>
+            <h4><span class="label label-info"> Hoe wilt u de Assessor(s) toevoegen...?</span></h4>
         </div>
         <div class="col-md-4"></div>
     </div>
