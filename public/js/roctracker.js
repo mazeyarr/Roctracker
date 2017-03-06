@@ -3,6 +3,6 @@ $(document).ready(function (e) {
         onIdle: function(){
             window.location.href = "/idle/";
         },
-        idle: 60000
+        idle: 120000
     })
 });
