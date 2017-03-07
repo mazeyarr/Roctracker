@@ -69,7 +69,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'maintenance'], function () {
             Route::get('overview', 'HomeController@getAssessorMaintenance')->name('maintenance_assessor');
             Route::get('data', 'HomeController@getAssessorMaintenanceData')->name('add_maintenance_dates');
+            Route::get('groups', 'HomeController@getAssessorMaintenanceGroup')->name('maintenance_assessor_group');
             Route::post('data/add/{count}', 'AssessorMaintenanceController@postNewDates')->name('add_maintenance_dates_post');
+
+            Route::get('groups/add', 'FunctionalController@ajaxAddMaintenanceGroup')->name('ajax_maintenance_add_group');
         });
 
         /* Dashboard Page */

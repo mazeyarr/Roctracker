@@ -3,12 +3,16 @@
 
 <!--  jQuery  -->
 {!! Html::script('plugins/bower_components/jquery/dist/jquery.min.js') !!}
+{!! Html::script('js/jquery-ui.min.js') !!}
 
 <!--  Bootstrap Core JavaScript  -->
 {!! Html::script('bootstrap/dist/js/bootstrap.min.js') !!}
 
 <!--  Menu Plugin JavaScript  -->
 {!! Html::script('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') !!}
+
+<!-- Draggable-panel -->
+{!! Html::script('js/lobipanel.min.js') !!}
 
 <!-- slimscroll JavaScript  -->
 {!! Html::script('js/jquery.slimscroll.js') !!}
@@ -40,4 +44,4 @@
 
 {!! Html::script('js/jquery.idle.min.js') !!}
 
-{!! Html::script('js/roctracker.js') !!}
+{{--{!! Html::script('js/roctracker.js') !!}--}}

@@ -11,6 +11,9 @@ use App\Teamleaders;
 use App\TiC;
 use App\User;
 use App\Exams;
+use App\Maintenance;
+use App\MaintenanceGroups;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -181,6 +184,11 @@ class HomeController extends Controller
 
     public function getAssessorMaintenanceData () {
         return view('maintenance-add-data');
+    }
+
+    public function getAssessorMaintenanceGroup () {
+        $assessors_need_maintenance = Exams::MaintenanceUpdate();
+        return view('maintenance-group')->withAssessors($assessors_need_maintenance)->withMaintenancedata(MaintenanceGroups::GetGroups());
     }
 
     /** Assessor Maintenance ******************************************************/

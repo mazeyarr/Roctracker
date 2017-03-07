@@ -6,6 +6,8 @@
     <!-- Bootstrap Core CSS -->
     {!! Html::style('bootstrap/dist/css/bootstrap.min.css') !!}
 
+    {!! Html::style('css/lobipanel.min.css') !!}
+
     {!! Html::style('plugins/bower_components/datatables/jquery.dataTables.min.css') !!}
     {!! Html::style('datatable/buttons/1.2.2/css/buttons.dataTables.min.css') !!}
     {!! Html::style('plugins/bower_components/footable/css/footable.core.css') !!}
@@ -21,6 +23,8 @@
     <!-- Dropzone css -->
     <link href="{!! URL::asset('plugins/bower_components/dropzone-master/dist/dropzone.css') !!}" rel="stylesheet" type="text/css" />
 
+    <!-- Calendar CSS -->
+    {!! Html::style('plugins/bower_components/calendar/dist/fullcalendar.css') !!}
     <!-- Toast CSS -->
     {!! Html::style('plugins/bower_components/toast-master/css/jquery.toast.css') !!}
 

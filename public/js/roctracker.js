@@ -1,3 +1,4 @@
+/*
 $(document).ready(function (e) {
     $(document).idle({
         onIdle: function(){
@@ -5,4 +6,4 @@ $(document).ready(function (e) {
         },
         idle: 120000
     })
-});
+});*/

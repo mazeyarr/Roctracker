@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Assessors;
 use App\College;
+use App\Functions;
 use App\Log;
+use App\MaintenanceGroups;
 use App\Teamleaders;
 use App\HistoryData;
 use Illuminate\Http\Request;
@@ -133,6 +135,48 @@ class FunctionalController extends Controller
                 break;
         }
         return json_encode($json);
+    }
+
+    public function ajaxAddMaintenanceGroup() {
+        $Group = new MaintenanceGroups();
+        $Group->title = "Groep " . Log::generateRandomString(5);
+        $Group->participants = '{"participants": []}';
+        $Group->year = date('Y');
+        $Group->save();
+
+        $rows = "";
+        for ($i = 1; $i < 16; $i++) {
+            $rows = $rows . '<tr>
+                                <th scope="row">'.$i.'</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>';
+        }
+        $rows = preg_replace("/\r|\n/", "", trim($rows));
+        $element = '
+            <div class="panel panel-info">
+            <div class="panel-heading"> '. $Group->title .' </div>
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                    <h4>Deelnemers</h4>
+                    <tr>
+                        <th>#</th>
+                        <th>Naam</th>
+                        <th>College</th>
+                        <th>Teamleider</th>
+                    </tr>
+                    </thead>
+                      <tbody>
+                          '.$rows.'
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+        ';
+
+        return json_encode(preg_replace("/\r|\n/", "", trim($element)));
     }
 
     public function downloadExcelAssessorLayout () {

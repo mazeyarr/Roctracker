@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Onderhouds Overzicht')
 
-@section('page-title', 'Dashboard')
+@section('page-title', 'Onderhouds Overzicht')
 
 @section('content')
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
+            <a href="{{ URL::route('maintenance_assessor_group') }}" class="btn btn-success btn-block"><i class="fa fa-calendar"></i> Assessoren indelen </a>
+        </div>
+        <div class="col-sm-6">
             <a href="{{ URL::route('add_maintenance_dates') }}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Onderhouds Data toevoegen </a>
         </div>
     </div>
