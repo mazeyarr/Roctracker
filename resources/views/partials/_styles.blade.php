@@ -28,6 +28,9 @@
     <!-- Toast CSS -->
     {!! Html::style('plugins/bower_components/toast-master/css/jquery.toast.css') !!}
 
+    <!-- SweetAlert -->
+    {!! Html::style('css/sweetalert.css') !!}
+
     <!-- morris CSS -->
     {!! Html::style('plugins/bower_components/morrisjs/morris.css') !!}
 

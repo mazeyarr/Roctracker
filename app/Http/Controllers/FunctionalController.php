@@ -11,6 +11,8 @@ use App\Teamleaders;
 use App\HistoryData;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
@@ -137,6 +139,12 @@ class FunctionalController extends Controller
         return json_encode($json);
     }
 
+    public function ajaxRemoveMaintenanceGroup($id) {
+        $group = MaintenanceGroups::find($id);
+        $group->delete();
+        return json_encode(true);
+    }
+
     public function ajaxAddMaintenanceGroup() {
         $Group = new MaintenanceGroups();
         $Group->title = "Groep " . Log::generateRandomString(5);
@@ -177,6 +185,10 @@ class FunctionalController extends Controller
         ';
 
         return json_encode(preg_replace("/\r|\n/", "", trim($element)));
+    }
+
+    public function ajaxCheckPassword ($password) {
+        return json_encode(Hash::check($password, Auth::user()->password));
     }
 
     public function downloadExcelAssessorLayout () {

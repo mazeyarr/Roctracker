@@ -39,6 +39,9 @@
 {!! Html::script('plugins/bower_components/jquery-sparkline/jquery.charts-sparkline.js') !!}
 {!! Html::script('plugins/bower_components/toast-master/js/jquery.toast.js') !!}
 
+<!-- SweetAlert -->
+{!! Html::script('js/sweetalert.min.js') !!}
+
 <!-- Validator -->
 {!! Html::script('js/validator.js') !!}
 

@@ -59,4 +59,17 @@
         });
     </script>
 @endif
+<script type="text/javascript">
+    function ezToast(header, text, icon, time, color) {
+        $.toast({
+            heading: header
+            , text: text
+            , position: 'top-right'
+            , loaderBg: color
+            , icon: icon
+            , hideAfter: time
+            , stack: 6
+        })
+    }
+</script>
 
