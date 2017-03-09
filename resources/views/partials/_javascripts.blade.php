@@ -48,3 +48,4 @@
 {!! Html::script('js/jquery.idle.min.js') !!}
 
 {{--{!! Html::script('js/roctracker.js') !!}--}}
+{!! Html::script('js/roctracker-functions.js') !!}

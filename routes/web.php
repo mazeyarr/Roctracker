@@ -89,6 +89,7 @@ Route::group(['middleware' => 'auth'], function () {
         /* AJAX INDEPENDENT ROUTES */
         Route::get('/ajax/get/colleges/{option}', 'FunctionalController@ajaxGetColleges')->name('ajax_get_colleges');
         Route::get('/ajax/check/user/password/{password}', 'FunctionalController@ajaxCheckPassword')->name('ajax_check_user_password');
+        Route::get('/ajax/get/assessor/{idw}', 'FunctionalController@ajaxGetAssessor')->name('ajax_get_assessor_info');
 
     });
 
