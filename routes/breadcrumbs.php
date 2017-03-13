@@ -164,6 +164,13 @@ Breadcrumbs::register('maintenance_assessor_group', function($breadcrumbs)
     $breadcrumbs->push("Onderhouds Groepen", route('maintenance_assessor_group'));
 });
 
+// Dashboard / Assessor Maintenance / Draft Assessor Groups
+Breadcrumbs::register('maintenance_assessor_draft_groups', function($breadcrumbs)
+{
+    $breadcrumbs->parent('maintenance_assessor');
+    $breadcrumbs->push("Groepen Indelen", route('maintenance_assessor_draft_groups'));
+});
+
 //------------ ------------------------- end ------------------------------------------- //
 
 // Users

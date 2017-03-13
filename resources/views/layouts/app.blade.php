@@ -26,19 +26,19 @@
 
 {{-- Variable login is set by the Auth controller --}}
 @if(Session::has('login'))
-<script type="text/javascript">
-    $(document).ready(function () {
-        $.toast({
-            heading: 'Welkom {!! Auth::user()->name !!}'
-            , text: 'Success met uw taken !'
-            , position: 'top-right'
-            , icon: 'success'
-            , hideAfter: 3000
-            , stack: 6
-        })
-    });
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.toast({
+                heading: 'Welkom {!! Auth::user()->name !!}'
+                , text: 'Success met uw taken !'
+                , position: 'top-right'
+                , icon: 'success'
+                , hideAfter: 3000
+                , stack: 6
+            })
+        });
+    </script>
 @endif
-</script>
 
 </body>
 </html>

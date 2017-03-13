@@ -34,19 +34,31 @@
                                     <?php $i = 1; ?>
                                     @if(!empty($group->participants->participants))
                                         @foreach($group->participants->participants as $assessor)
-                                            <tr>
+                                            <?php $randomid = \App\Log::generateRandomString(6); ?>
+                                            <tr id="row-{{$i}}-{{$randomid}}" data-groupid="{{ $group->id }}" data-old-participant="{{ $assessor->id }}">
                                                 <th scope="row">{{$i}}</th>
-                                                <td>{{ $assessor->name }}</td>
-                                                <td>{{ empty(\App\College::find($assessor->fk_college)) ? "Geen" : \App\College::find($assessor->fk_college)->name }}</td>
-                                                <td>{{ empty(\App\Teamleaders::find($assessor->fk_teamleader)) ? "Geen" : \App\Teamleaders::find($assessor->fk_teamleader)->name }}</td>
+                                                <td>
+                                                    <select class="participant" id="data{{$i}}" name="{{$randomid}}" data-rowid="{{$i}}">
+                                                        <option value="{{ $assessor->id }}">{{ $assessor->name }}</option>
+                                                        @foreach($assessors as $mainAssessorData)
+                                                            @if($mainAssessorData['assessor']->id != $assessor->id)
+                                                                <option value="{{ $mainAssessorData['assessor']->id }}">{{ $mainAssessorData['assessor']->name }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                            <option value="reserve">Reserve</option>
+                                                    </select>
+                                                </td>
+                                                <td id="row-college-{{$i}}">{{ empty(\App\College::find($assessor->fk_college)) ? "Geen" : \App\College::find($assessor->fk_college)->name }}</td>
+                                                <td id="row-teamleader-{{$i}}">{{ empty(\App\Teamleaders::find($assessor->fk_teamleader)) ? "Geen" : \App\Teamleaders::find($assessor->fk_teamleader)->name }}</td>
                                             </tr>
                                             <?php $i++ ?>
                                         @endforeach
                                         @for($spots = (16 - count($group->participants->participants)); $spots > 0; $spots-- )
-                                            <tr id="row-{{$i}}">
+                                            <?php $randomid = \App\Log::generateRandomString(6); ?>
+                                            <tr id="row-{{$i}}-{{$randomid}}"  data-groupid="{{ $group->id }}" data-old-participant="">
                                                 <th scope="row">{{$i}}</th>
                                                 <td>
-                                                    <select class="participant" name="participant-{{$i}}" data-rowid="{{$i}}">
+                                                    <select class="participant" id="data{{$i}}" name="{{$randomid}}" data-rowid="{{$i}}">
                                                         <option value="reserve">Reserve</option>
                                                         @foreach($assessors as $assessor)
                                                             <option value="{{ $assessor['assessor']->id }}">{{ $assessor['assessor']->name }}</option>
@@ -60,10 +72,11 @@
                                         @endfor
                                     @else
                                         @for($spots = 16; $spots > 0; $spots-- )
-                                            <tr id="row-{{$i}}">
+                                            <?php $randomid = \App\Log::generateRandomString(6); ?>
+                                            <tr id="row-{{$i}}-{{$randomid}}"  data-groupid="{{ $group->id }}" data-old-participant="">
                                                 <th scope="row">{{$i}}</th>
                                                 <td>
-                                                    <select class="participant" name="participant-{{$i}}" data-rowid="{{$i}}">
+                                                    <select class="participant" id="data{{$i}}" name="{{$randomid}}" data-rowid="{{$i}}">
                                                         <option value="reserve">Reserve</option>
                                                         @foreach($assessors as $assessor)
                                                             <option value="{{ $assessor['assessor']->id }}">{{ $assessor['assessor']->name }}</option>
@@ -85,10 +98,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
-            <button id="btnSave" class="btn btn-success btn-circle btn-xl" style="padding-top: 15px;"><i class="fa fa-save"></i> </button>
-        </div>
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <button id="btnAddGroup" class="btn btn-primary btn-circle btn-xl" style="float: right; padding-top: 15px;"><i class="fa fa-plus"></i> </button>
         </div>
     </div>
@@ -117,24 +127,83 @@
                 _participant = $('.participant');
 
             body.on('change', _participant, function ( event ) {
-                return console.log(event.target);
-                var id = event.target.value,
-                    rowid = $(this).attr('data-rowid'),
-                    _row = $('#row-' + rowid),
+                var id = event.target.value; // id "new" participant
+                var rowid = event.target.id,
+                    rowid = rowid.replace("data",""),
+                    _row = $('#row-' + rowid + "-" + event.target.name),
                     _cellCollege = $('#row-college-' + rowid),
-                    _cellTeamleader = $('#row-teamleader-' + rowid);
+                    _cellTeamleader = $('#row-teamleader-' + rowid),
+                    groupid = _row.attr('data-groupid'),
+                    old_participant = _row.attr('data-old-participant'),
+                    token = $('meta[name="csrf-token"]').attr('content');
+                if (old_participant == "") old_participant = "none";
 
+                /* RESERVE */
                 if (id == 'reserve') {
-                    _cellCollege.html('');
-                    _cellTeamleader.html('');
+                    _cellCollege.append(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+                    _cellTeamleader.append(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+
+                    var data = {
+                        id: id,
+                        old: old_participant,
+                        _token: token
+                    };
+
+                    $.ajax({
+                        url : "{!! URL::route('ajax_maintenance_group_save', null) !!}/"+groupid,
+                        type: "POST",
+                        data : data,
+                        success: function(response, textStatus, jqXHR)
+                        {
+                            if (response) {
+                                ezToast("Opgeslagen !", "Deze plek is nu weer vrij !", 'success', 2000, "#3CC25F");
+                            } else {
+                                ezToast("Error !", "Er was iets misgegaan probeer het nog een keer...", 'error', 2000, "#ff6849");
+                            }
+                            _cellCollege.html('');
+                            _cellTeamleader.html('');
+                        },
+                        error: function ()
+                        {
+                            _cellCollege.html('');
+                            _cellTeamleader.html('');
+                            ezToast("Error !", "Er was iets misgegaan probeer het nog een keer...", 'error', 2000, "#ff6849");
+                        }
+                    });
                     return;
                 }
 
-                _cellCollege.html('');
-                _cellTeamleader.html('');
                 _cellCollege.append('<i class="fa fa-circle-o-notch fa-spin"></i>');
                 _cellTeamleader.append('<i class="fa fa-circle-o-notch fa-spin"></i>');
+
+
+                var data = {
+                    id: id,
+                    old: old_participant,
+                    _token: token
+                };
+
+                $.ajax({
+                    url : "{!! URL::route('ajax_maintenance_group_save', null) !!}/"+groupid,
+                    type: "POST",
+                    data : data,
+                    success: function(response, textStatus, jqXHR)
+                    {
+                        if (response) {
+                            ezToast("Opgeslagen !", "Deze Assessor is nu geplaatst in deze groep", 'success', 2000, "#3CC25F");
+                        } else {
+                            ezToast("Error !", "Er was iets misgegaan probeer het nog een keer...", 'error', 2000, "#ff6849");
+                        }
+                    },
+                    error: function ()
+                    {
+                        ezToast("Error !", "Er was iets misgegaan probeer het nog een keer...", 'error', 2000, "#ff6849");
+                    }
+                });
+
                 $.getJSON('{!! URL::route('ajax_get_assessor_info', null) !!}/'+id, function(response) {
+                    _cellCollege.html('');
+                    _cellTeamleader.html('');
                     _cellCollege.html(response.fk_college.name);
                     _cellTeamleader.html(response.fk_teamleader.name);
                 });

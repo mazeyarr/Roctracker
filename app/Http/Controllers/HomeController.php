@@ -191,6 +191,10 @@ class HomeController extends Controller
         return view('maintenance-group')->withAssessors($assessors_need_maintenance)->withMaintenancedata(MaintenanceGroups::GetGroups());
     }
 
+    public function getAssessorMaintenanceDraftGroups () {
+        return view('maintenance-sort-groups');
+    }
+
     /** Assessor Maintenance ******************************************************/
 
     /**

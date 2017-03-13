@@ -55,4 +55,43 @@ class AssessorMaintenanceController extends Controller
 
         return redirect()->route('maintenance_assessor')->withSuccess('Datums zijn succesvol opgeslagen !');
     }
+
+    public function ajaxGroupSave($id, Request $request) {
+        $isValid = Validator::make($request->all(), array(
+            'id' => 'required',
+            'old' => 'required',
+        ));
+
+        if ($isValid->fails()) {
+            return json_encode(false);
+        }
+
+        $group = MaintenanceGroups::find($id);
+        $data = json_decode($group->participants,true);
+
+        if ($request->old == "none") {
+            if ($request->id == "reserve") {
+                return json_encode(true);
+            }else{
+                $data['participants'][] = $request->id;
+                $group->participants = json_encode($data);
+                $group->save();
+                return json_encode(true);
+            }
+        } else {
+            foreach ($data['participants'] as $pos => $participant) {
+                if ($participant == $request->old) {
+                    if ($request->id == "reserve") {
+                        array_splice($data['participants'], $pos, 1);
+                    }else{
+                        $data['participants'][$pos] = $request->id;
+                    }
+                    $group->participants = json_encode($data);
+                    $group->save();
+                    return json_encode(true);
+                }
+            }
+        }
+        return json_encode(false);
+    }
 }

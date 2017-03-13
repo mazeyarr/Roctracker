@@ -1,8 +1,9 @@
-<!-- Scripts -->
-{!! Html::script('js/app.js') !!}
-
 <!--  jQuery  -->
 {!! Html::script('plugins/bower_components/jquery/dist/jquery.min.js') !!}
+<!-- Scripts -->
+{!! Html::script('js/config.js') !!}
+{{--{!! Html::script('js/app.js') !!}--}}
+
 {!! Html::script('js/jquery-ui.min.js') !!}
 
 <!--  Bootstrap Core JavaScript  -->

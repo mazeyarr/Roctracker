@@ -165,7 +165,7 @@ class FunctionalController extends Controller
             $rows = $rows . '<tr id="row-'.$i.'">
                                 <th scope="row">'.$i.'</th>
                                 <td>
-                                    <select class="participant" name="participant-'.$i.'" data-rowid="'.$i.'">'
+                                    <select class="participant" id="data-'.$i.'" name="participant-'.$i.'" data-rowid="'.$i.'">'
                                         .$option_assessors.'
                                     </select>
                                 </td>
