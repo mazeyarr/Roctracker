@@ -110,6 +110,7 @@ class FunctionalController extends Controller
     public function ajaxGetHistoryData () {
         die(HistoryData::all()->toJson());
     }
+
     public function ajaxGetAssessorData () {
 
         $DataPastYear = HistoryData::where('year', (date('Y') - 1))->get();
@@ -140,82 +141,11 @@ class FunctionalController extends Controller
         return json_encode($json);
     }
 
-    public function ajaxRemoveMaintenanceGroup($id) {
-        $group = MaintenanceGroups::find($id);
-        $group->delete();
-        return json_encode(true);
-    }
-
-    public function ajaxAddMaintenanceGroup() {
-        $Group = new MaintenanceGroups();
-        $Group->title = "Groep " . Log::generateRandomString(5);
-        $Group->participants = '{"participants": []}';
-        $Group->year = date('Y');
-        $Group->save();
-
-        $assessors_need_maintenance = Exams::MaintenanceUpdate();
-
-        $option_assessors = '<option value="reserve">Reserve</option>';
-        foreach ($assessors_need_maintenance as $assessor) {
-            $option_assessors = $option_assessors . '<option value="'.$assessor['assessor']->id.'">'.$assessor['assessor']->name.'</option>';
-        }
-
-        $rows = "";
-        for ($i = 1; $i < 16; $i++) {
-            $rows = $rows . '<tr id="row-'.$i.'">
-                                <th scope="row">'.$i.'</th>
-                                <td>
-                                    <select class="participant" id="data-'.$i.'" name="participant-'.$i.'" data-rowid="'.$i.'">'
-                                        .$option_assessors.'
-                                    </select>
-                                </td>
-                                <td id="row-college-'.$i.'"></td>
-                                <td id="row-teamleader-'.$i.'"></td>
-                            </tr>';
-        }
-        $rows = preg_replace("/\r|\n/", "", trim($rows));
-        $element = '
-            <div class="panel panel-info" id="panel-'. $Group->id .'">
-            <div class="panel-heading"> '. $Group->title .'  </div>
-            <div class="panel-body">
-                <table class="table table-striped">
-                    <thead>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4>Deelnemers</h4>
-                        </div>
-                        <div class="col-sm-6">
-                            <button id="'. $Group->id .'" data-panel-id="panel-'. $Group->id .'" data-name="'. $Group->title .'" class="delete btn btn-danger" style="float: right;">Verwijderen</button>
-                        </div>
-                    </div>
-                    <tr>
-                        <th>#</th>
-                        <th>Naam</th>
-                        <th>College</th>
-                        <th>Teamleider</  IbMReikuIRAN#
-                        th>
-                    </tr>
-                    </thead>
-                      <tbody>
-                          '.$rows.'
-                      </tbody>
-                  </table>
-              </div>
-            </div>
-        ';
-
-        return json_encode(preg_replace("/\r|\n/", "", trim($element)));
-    }
-
     public function ajaxGetAssessor($id) {
-        if ($id != 'reserve') {
             $assessor = Assessors::find($id);
             $assessor->fk_college = College::find($assessor->fk_college);
             $assessor->fk_teamleader = Teamleaders::find($assessor->fk_teamleader);
             return json_encode($assessor);
-        }else {
-            return json_encode(false);
-        }
     }
 
     public function ajaxCheckPassword ($password) {

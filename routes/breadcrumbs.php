@@ -150,25 +150,11 @@ Breadcrumbs::register('maintenance_assessor', function($breadcrumbs)
     $breadcrumbs->push("Onderhouds Overzicht", route('maintenance_assessor'));
 });
 
-// Dashboard / Assessor Maintenance / Add New Dates
-Breadcrumbs::register('add_maintenance_dates', function($breadcrumbs)
+// Dashboard / Assessor Maintenance / Draft Groups
+Breadcrumbs::register('maintenance_assessor_groups', function($breadcrumbs)
 {
     $breadcrumbs->parent('maintenance_assessor');
-    $breadcrumbs->push("Onderhouds Datums invoeren", route('add_maintenance_dates'));
-});
-
-// Dashboard / Assessor Maintenance / Schedule Assessors for maintenance
-Breadcrumbs::register('maintenance_assessor_group', function($breadcrumbs)
-{
-    $breadcrumbs->parent('maintenance_assessor');
-    $breadcrumbs->push("Onderhouds Groepen", route('maintenance_assessor_group'));
-});
-
-// Dashboard / Assessor Maintenance / Draft Assessor Groups
-Breadcrumbs::register('maintenance_assessor_draft_groups', function($breadcrumbs)
-{
-    $breadcrumbs->parent('maintenance_assessor');
-    $breadcrumbs->push("Groepen Indelen", route('maintenance_assessor_draft_groups'));
+    $breadcrumbs->push("Onderhouds Groepen", route('maintenance_assessor_groups'));
 });
 
 //------------ ------------------------- end ------------------------------------------- //

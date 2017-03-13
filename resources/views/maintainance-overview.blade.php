@@ -6,14 +6,8 @@
 
 @section('content')
     <div class="row">
-        <div class="col-sm-4">
-            <a href="{{ URL::route('maintenance_assessor_group') }}" class="btn btn-info btn-block"><i class="fa fa-users"></i> Onderhouds Groepen maken </a>
-        </div>
-        <div class="col-sm-4">
-            <a href="{{ URL::route('add_maintenance_dates') }}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> Onderhouds Data toevoegen </a>
-        </div>
-        <div class="col-sm-4">
-            <a href="{{ URL::route('maintenance_assessor_draft_groups') }}" class="btn btn-success btn-block"><i class="fa fa-calendar"></i> Groepen indelen </a>
+        <div class="col-sm-12 m-b-10">
+            <a href="{{ URL::route('maintenance_assessor_groups') }}" class="btn btn-success btn-block"><i class="fa fa-calendar"></i> Onderhouds Groepen maken / inplannen </a>
         </div>
     </div>
     <div class="row">
