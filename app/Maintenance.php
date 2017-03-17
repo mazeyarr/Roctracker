@@ -22,4 +22,14 @@ class Maintenance extends Model
         }
         return $ret;
     }
+
+    public static function whatKindOfMaintenance ($id) {
+        $assessor = Assessors::find($id);
+        $exam = Exams::find($assessor->fk_exams);
+        if ($exam->training_done == 4) {
+            return "exam";
+        }else{
+            return "maintenance";
+        }
+    }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Assessors;
 use App\Functions;
 use App\Log;
 use App\Maintenance;
@@ -36,6 +37,7 @@ class AssessorMaintenanceController extends Controller
                     foreach ($participants['participants'] as $key => $participant) {
                         if ($participant == $replacement) {
                             array_splice($participants['participants'], $key, 1);
+                            Assessors::ScheduledForMaintenance($id_a, Maintenance::find($group->fk_maintenances)->from, false);
                             $group->participants = json_encode($participants);
                             $group->save();
                             return json_encode(true);
@@ -49,6 +51,7 @@ class AssessorMaintenanceController extends Controller
                     foreach ($participants['participants'] as $key => $participant) {
                         if ($participant == $replacement) {
                             $participants['participants'][$key] = $id_a;
+                            Assessors::ScheduledForMaintenance($id_a, Maintenance::find($group->fk_maintenances)->from, true);
                             $group->participants = json_encode($participants);
                             $group->save();
                             return json_encode(true);
@@ -57,6 +60,7 @@ class AssessorMaintenanceController extends Controller
                 }else{
                     if (count($participants['participants']) < 16) {
                         $participants['participants'][] = $id_a;
+                        Assessors::ScheduledForMaintenance($id_a, Maintenance::find($group->fk_maintenances)->from, true);
                         $group->participants = json_encode($participants);
                         $group->save();
                         return json_encode(true);
@@ -129,6 +133,10 @@ class AssessorMaintenanceController extends Controller
                     $maintenance->year = $f->format('Y');
                 }
                 $maintenance->save();
+                $participants = json_decode($group->participants, true);
+                foreach ($participants['participants'] as $key => $participant) {
+                    Assessors::ScheduledForMaintenance($participant, $maintenance->from, true);
+                }
                 return json_encode(true);
                 break;
             case "till":
@@ -175,6 +183,10 @@ class AssessorMaintenanceController extends Controller
     public function getRemoveGroup($id) {
         $group = MaintenanceGroups::find($id);
         if (!empty($group)) {
+            $participants = json_decode($group->participants, true);
+            foreach ($participants['participants'] as $key => $participant) {
+                Assessors::ScheduledForMaintenance($participant, Maintenance::find($group->fk_maintenances)->from, false);
+            }
             $maintenance = Maintenance::find($group->fk_maintenances);
             $maintenance->delete();
             $group->delete();

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Assessors extends Model
@@ -57,5 +58,40 @@ class Assessors extends Model
             $assessors[] = $assessor;
         }
         return $assessors;
+    }
+
+    public static function ScheduledForMaintenance($id, $date, $place) {
+        $assessor = self::find($id);
+        if (empty($assessor)) {
+            return false;
+        }
+        $type = Maintenance::whatKindOfMaintenance($id);
+        if ($place) {
+            if ($type == "maintenance"){
+                $exam = Exams::find($assessor->fk_exams);
+                $exam->training_next_on = Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString();
+                $exam->save();
+                Log::AssessorLog($id, "Is aangemeld om op onderhoud te gaan voor " . Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString());
+            }
+
+            if ($type == "exam") {
+                $exam = Exams::find($assessor->fk_exams);
+                $exam->exam_next_on = Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString();
+                $exam->save();
+                Log::AssessorLog($id, "Is aangemeld om op examen te gaan voor " . Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString());
+            }
+        }else {
+            if ($type == "maintenance"){
+                $exam = Exams::find($assessor->fk_exams);
+                $exam->training_next_on = null;
+                $exam->save();
+            }
+
+            if ($type == "exam") {
+                $exam = Exams::find($assessor->fk_exams);
+                $exam->exam_next_on = null;
+                $exam->save();
+            }
+        }
     }
 }
