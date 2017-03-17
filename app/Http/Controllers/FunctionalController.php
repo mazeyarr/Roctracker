@@ -142,10 +142,13 @@ class FunctionalController extends Controller
     }
 
     public function ajaxGetAssessor($id) {
-            $assessor = Assessors::find($id);
-            $assessor->fk_college = College::find($assessor->fk_college);
-            $assessor->fk_teamleader = Teamleaders::find($assessor->fk_teamleader);
-            return json_encode($assessor);
+        $assessor = Assessors::find($id);
+        if (empty($assessor)) {
+            return json_encode(false);
+        }
+        $assessor->fk_college = College::find($assessor->fk_college);
+        $assessor->fk_teamleader = Teamleaders::find($assessor->fk_teamleader);
+        return json_encode($assessor);
     }
 
     public function ajaxCheckPassword ($password) {

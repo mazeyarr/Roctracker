@@ -17,11 +17,10 @@ class CreateMaintenancesTable extends Migration
             $table->increments('id');
             $table->string('institution');
             $table->string('location');
-            $table->tinyInteger('days')->nullable(true);
+            $table->integer('days')->nullable(true);
             $table->dateTime('from');
             $table->dateTime('till');
             $table->string('year');
-            $table->integer('fk_group')->nullable(true);
             $table->timestamps();
         });
     }

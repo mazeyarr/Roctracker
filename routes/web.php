@@ -69,6 +69,11 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'maintenance'], function () {
             Route::get('overview', 'HomeController@getAssessorMaintenance')->name('maintenance_assessor');
             Route::get('groups', 'HomeController@getAssessorMaintenanceGroup')->name('maintenance_assessor_groups');
+            Route::get('groups/add', 'AssessorMaintenanceController@getMakeNewGroup')->name('add_new_assessor_groups');
+            Route::get('groups/remove/{id}', 'AssessorMaintenanceController@getRemoveGroup')->name('remove_assessor_group');
+
+            Route::post('groups/place/assessor', 'AssessorMaintenanceController@postPlaceAssessor')->name('post_maintenance_assessor_groups');
+            Route::post('save/data', 'AssessorMaintenanceController@postMaintenanceData')->name('post_maintenance_data');
         });
 
         /* Dashboard Page */

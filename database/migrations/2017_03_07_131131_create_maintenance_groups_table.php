@@ -18,6 +18,7 @@ class CreateMaintenanceGroupsTable extends Migration
             $table->string('title');
             $table->text('participants');
             $table->string('year');
+            $table->integer('fk_maintenances');
             $table->timestamps();
         });
     }

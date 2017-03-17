@@ -18,6 +18,7 @@ class MaintenanceGroups extends Model
             foreach ($group->participants->participants as $key => $assessor) {
                 $group->participants->participants[$key] = Assessors::find($assessor);
             }
+            $group->fk_maintenances = Maintenance::find($group->fk_maintenances);
         }
         return $groups;
     }

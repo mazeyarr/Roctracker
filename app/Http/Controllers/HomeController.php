@@ -183,7 +183,7 @@ class HomeController extends Controller
     }
 
     public function getAssessorMaintenanceGroup () {
-        return view('maintenance-groups');
+        return view('maintenance-groups')->withAssessors(Exams::MaintenanceUpdate())->withGroups(MaintenanceGroups::GetGroups());
     }
 
     /** Assessor Maintenance ******************************************************/
