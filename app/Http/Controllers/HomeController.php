@@ -72,6 +72,10 @@ class HomeController extends Controller
         return view('change-college')->withColleges(College::getColleges($id));
     }
 
+    public function getAddNewCollege() {
+        return view('college-add')->withTeamleaders(Teamleaders::all());
+    }
+
     /** END COLLEGES. *********************************************/
 
 

@@ -27,7 +27,7 @@ class AssessorTableSeeder extends Seeder
               "requirements": {
                             "video": true,
                 "portfolio": true,
-                "CV": false
+                "CV": true
               },
               "date1": {
                             "present": true,
@@ -39,8 +39,8 @@ class AssessorTableSeeder extends Seeder
               },
               "graduated": false
             }')),
-            'exam_next_on' => null,
-            'training_next_on' => null,
+            'exam_next_on' => Carbon::now()->addYears(4),
+            'training_next_on' => Carbon::now(),
             'training_done' => 4,
             'log' => '{}'
         ));

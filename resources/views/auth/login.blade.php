@@ -50,13 +50,13 @@
                 @if ($errors->has('password'))
                     <div class="form-group has-error">
                         <div class="col-xs-12">
-                            {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => 'Password']) !!}
+                            {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => 'Wachtwoord']) !!}
                         </div>
                     </div>
                 @else
                     <div class="form-group">
                         <div class="col-xs-12">
-                            {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => 'Password']) !!}
+                            {!! Form::password('password', ['class' => 'form-control', 'required' => '', 'placeholder' => 'Wachtwoord']) !!}
                         </div>
                     </div>
                 @endif
@@ -65,7 +65,7 @@
                     <div class="col-md-12">
                         <div class="checkbox checkbox-primary pull-left p-t-0">
                             {!! Form::checkbox('remember_me', 0,0,['id' => 'checkbox-signup']) !!}
-                            <label for="checkbox-signup"> Remember me </label>
+                            <label for="checkbox-signup"> Onthoud mij </label>
                         </div>
                     </div>
                 </div>

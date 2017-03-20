@@ -35,6 +35,13 @@ Breadcrumbs::register('change_college_assessors', function($breadcrumbs, $id)
     $breadcrumbs->parent('colleges');
     $breadcrumbs->push(\App\College::find($id)->name, route('change_college_assessors', $id));
 });
+
+// Dashboard / Colleges / Add
+Breadcrumbs::register('add_college', function($breadcrumbs)
+{
+    $breadcrumbs->parent('colleges');
+    $breadcrumbs->push('College Toevoegen', route('add_college'));
+});
 //------------ ------------------------- end ---------------------------------- //
 
 

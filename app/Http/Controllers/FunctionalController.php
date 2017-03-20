@@ -10,6 +10,8 @@ use App\Exams;
 use App\MaintenanceGroups;
 use App\Teamleaders;
 use App\HistoryData;
+use App\TiC;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -109,6 +111,20 @@ class FunctionalController extends Controller
 
     public function ajaxGetHistoryData () {
         die(HistoryData::all()->toJson());
+    }
+    public function makeBookmark () {
+        HistoryData::create(array(
+            'year' => Carbon::now()->format('Y'),
+            'actieve_assessors' => Assessors::where('status', 1)->count(),
+            'assessor_data' => HistoryData::data(),
+            'c_assessors' => Assessors::all()->count(),
+            'c_colleges' => College::all()->count(),
+            'c_teamleaders' => Teamleaders::all()->count(),
+            'c_teamleaders_in_colleges' => TiC::all()->count(),
+            'year_checked' => true,
+            'log' => '{}',
+
+        ));
     }
 
     public function ajaxGetAssessorData () {
@@ -226,6 +242,9 @@ class FunctionalController extends Controller
         exit(200);
     }
 
+    public static function random_color() {
+        return self::random_color_part() . self::random_color_part() . self::random_color_part();
+    }
     private static function CurrentAssessorData (){
         $colleges = College::all();
         if ($colleges->isEmpty()) {
@@ -244,9 +263,5 @@ class FunctionalController extends Controller
     }
     private static function random_color_part() {
         return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
-    }
-
-    private static function random_color() {
-        return self::random_color_part() . self::random_color_part() . self::random_color_part();
     }
 }

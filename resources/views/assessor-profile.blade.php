@@ -55,38 +55,50 @@
                             <p class="text-muted">{{  date("d-m-Y", strtotime($assessor->birthdate)) }}</p>
                         </div>
                     </div>
-                    <hr>
-                    <h4 class="font-bold m-t-30">Basistraining</h4>
-                    <hr>
-                    <h5>Examen behaald ?</h5>
-                    <div>
-                        @if($assessor->fk_exams['basictraining']->passed)
-                            <span class="label label-success m-l-5">Ja</span>
-                        @else
-                            <span class="label label-danger m-l-5">Nee</span>
-                        @endif
-                    </div>
-                    <hr>
-                    <h5>Portfolio <span class="pull-right">{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100%" : "0%" }}</span></h5>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
-                    </div>
-                    <h5>CV<span class="pull-right">{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "100%" : "0%" }}</span></h5>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
-                    </div>
-                    <h5>Filmpje <span class="pull-right">{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100%" : "0%" }}</span></h5>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
-                    </div>
-                    <br>
-                    <h5>Dag 1 - '<i>{{ $assessor->fk_exams['basictraining']->date1->date }}</i><span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100%" : "0%" }}</span></h5>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->date1->present) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
-                    </div>
-                    <h5>Dag 2 - '<i>{{ $assessor->fk_exams['basictraining']->date2->date }}</i><span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}</span></h5>
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
+                    @if($assessor->fk_exams['basictraining']->passed)
+                        <hr>
+                            <h3 class="box-title m-b-0">Onderhoud en Examen data</h3>
+                        <h5>Onderhouds datum - '<i> {{ !empty($assessor->fk_exams['training_next_on']) ? date_format(date_create($assessor->fk_exams['training_next_on']), 'd/m/Y'): '' }} </i><span class="pull-right"></span></h5>
+                        <h5>Examen datum - '<i> {{ !empty($assessor->fk_exams['exam_next_on']) ? date_format(date_create($assessor->fk_exams['exam_next_on']), 'd/m/Y'): '' }} </i><span class="pull-right"></span></h5>
+                        <hr>
+                        <div class="form-group">
+                            <button id="btnBasictraining" class="btn btn-block btn-primary btn-rounded" data-status="hidden">Basistraining Weergeven</button>
+                        </div>
+                    @endif
+                    <div id="isPassed" style="{{ $assessor->fk_exams['basictraining']->passed ? 'display:none;' : ''}}">
+                        <hr>
+                        <h4 class="font-bold m-t-30">Basistraining</h4>
+                        <hr>
+                        <h5>Examen behaald ?</h5>
+                        <div>
+                            @if($assessor->fk_exams['basictraining']->passed)
+                                <span class="label label-success m-l-5">Ja</span>
+                            @else
+                                <span class="label label-danger m-l-5">Nee</span>
+                            @endif
+                        </div>
+                        <hr>
+                        <h5>Portfolio <span class="pull-right">{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100%" : "0%" }}</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->portfolio) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
+                        </div>
+                        <h5>CV<span class="pull-right">{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "100%" : "0%" }}</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-custom" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->CV) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
+                        </div>
+                        <h5>Filmpje <span class="pull-right">{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100%" : "0%" }}</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->requirements->video) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
+                        </div>
+                        <br>
+                        <h5>Dag 1 - '<i>{{ $assessor->fk_exams['basictraining']->date1->date }}</i><span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100%" : "0%" }}</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->date1->present) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->date1->present) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
+                        </div>
+                        <h5>Dag 2 - '<i>{{ $assessor->fk_exams['basictraining']->date2->date }}</i><span class="pull-right">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="overview">
@@ -120,4 +132,22 @@
 @section('scripts')
     @include('partials._javascript-alerts')
     @include('partials._javascript-paddingfixer')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var basictrainingContainer = $('#isPassed'),
+                btnShowHide = $('#btnBasictraining');
+
+            btnShowHide.click(function (e) {
+                if (basictrainingContainer.is(":visible")) {
+                    basictrainingContainer.slideUp('fast');
+                    $(this).html('Basistraining Weergeven');
+                }
+                if (basictrainingContainer.is(":hidden")) {
+                    basictrainingContainer.slideDown('fast');
+                    $(this).html('Basistraining Verbergen');
+                }
+
+            })
+        });
+    </script>
 @stop

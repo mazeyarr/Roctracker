@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Http\Controllers\FunctionalController;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 
@@ -19,5 +20,11 @@ class Functions extends Model
         }catch (\Exception $e) {
             return null;
         }
+    }
+
+    public static function CollegeColor($id) {
+        return FunctionalController::random_color();
+        $college = College::find($id);
+        $DefaultColleges = array();
     }
 }

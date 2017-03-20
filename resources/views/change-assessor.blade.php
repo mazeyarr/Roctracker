@@ -34,9 +34,9 @@
                         </div>
                     <hr>
                     @if($assessor->fk_exams['basictraining']->passed)
-                        <h3 class="box-title m-b-0">Training en Examen data</h3>
+                        <h3 class="box-title m-b-0">Onderhoud en Examen data</h3>
                         <div class="form-group">
-                            <label for="inputName1" class="control-label">Volgende Training op</label>
+                            <label for="inputName1" class="control-label">Volgende Onderhoud op</label>
                             {!! Form::text('training_next_on',  !empty($assessor->fk_exams['training_next_on']) ? date_format(date_create($assessor->fk_exams['training_next_on']), 'd/m/Y'): '', array('data-mask' => '99/99/9999', 'class' => 'form-control')) !!}
                         </div>
 

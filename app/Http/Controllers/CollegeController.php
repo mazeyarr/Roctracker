@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Assessors;
 use App\College;
 use App\Log;
+use App\Teamleaders;
+use App\TiC;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Auth;
@@ -175,5 +177,40 @@ class CollegeController extends Controller
 
     public function getChangeAssessorsSelection ($id, $collegename, $collegelocation) {
         return view('college-change-selection')->withCollege_current(College::find($id))->withNewname($collegename)->withNewlocation($collegelocation)->withColleges(College::all())->withAssessors(Assessors::where('fk_college', '=', $id)->get());
+    }
+
+    public function postNewCollege(Request $request) {
+        $validate = Validator::make($request->all(),array(
+            'name' => 'required|max:250',
+            'location' => 'required'
+        ), array(
+            'name.max' => 'College naam mag niet groter dan 250 karakters zijn',
+            'location.required' => 'Locatie veld is verplicht'
+        ));
+        if ($validate->fails()) {
+            return back()->withErrors($validate->getMessageBag());
+        }
+
+        $college = new College();
+        $college->name = $request->name;
+        $college->location = $request->location;
+        $college->log = "{}";
+        $college->save();
+        Log::CollegeLog($college->id, $college->name . " Toegevoegd aan het systeem");
+        if ($request->teamleader != "geen"){
+            $validate_teamleader = Validator::make($request->all(), array(
+                'teamleader' => 'numeric'
+            ));
+            if ($validate_teamleader->fails()) {
+                return back()->withErrors('Teamleder veld was incorrect ingevuld');
+            }
+            $tic = new TiC();
+            $tic->fk_teamleader = $request->teamleader;
+            $tic->fk_college = $college->id;
+            $tic->save();
+            Log::CollegeLog($college->id,"<i>" . Teamleaders::find($tic->fk_teamleader)->name . "</i> Is nu teamleider van <i>" . $college->name . "</i>");
+            Log::TeamleaderLog($tic->fk_teamleader,"<i>" . Teamleaders::find($tic->fk_teamleader)->name . "</i> Is nu teamleider van <i>" . $college->name . "</i>");
+        }
+        return redirect()->route('colleges', $college->id)->withSuccess('College Opgeslagen !');
     }
 }

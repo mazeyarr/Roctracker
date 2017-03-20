@@ -25,6 +25,8 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('change/{id}', 'HomeController@getChangeColleges')->name('change_colleges');
                 Route::post('change/{id}/check', 'CollegeController@postChangeCollege')->name('save_change_colleges');
                 Route::get('change/{id}/check/selection/{collegename?}/{collegelocation?}', 'CollegeController@getChangeAssessorsSelection')->name('change_college_assessors');
+                Route::get('add', 'HomeController@getAddNewCollege')->name('add_college');
+                Route::post('add/save', 'CollegeController@postNewCollege')->name('save_new_college');
 
                 Route::get('save/assessor/{id}/{collegeid}', 'FunctionalController@ajaxSaveAssessorToCollege')->name('ajax_save_college_by_selection');
                 Route::get('save/{id}/{name}/{location}/{team}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
@@ -85,6 +87,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/users', 'HomeController@getUsers')->name('users');
         Route::get('/users/new', 'HomeController@getNewUsers')->name('add_users');
         Route::post('/users/new', 'UserController@postNewAdmin')->name('new_user');
+
+        /*INDEPENDENT ROUTES*/
+        Route::get('bookmark/history', 'FunctionalController@makeBookmark')->name('create_bookmark');
 
         /* AJAX INDEPENDENT ROUTES */
         Route::get('/ajax/get/colleges/{option}', 'FunctionalController@ajaxGetColleges')->name('ajax_get_colleges');

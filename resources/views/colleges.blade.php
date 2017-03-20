@@ -6,6 +6,11 @@
 
 @section('content')
     <div class="row">
+        <div class="col-sm-12">
+            <a href="{{ URL::route('add_college') }}" class="btn btn-primary btn-block"><i class="fa fa-plus"></i> College toevoegen </a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-12">
             <div class="white-box">
                 <table id="college-footable" class="table toggle-circle table-hover">
