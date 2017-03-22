@@ -32,15 +32,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getDashboard($year=null) {
-        $c_assessors = Assessors::where('status', '=', '1')->get()->count();
-        $c_teamleaders = Teamleaders::all()->count();
-        $c_colleges = College::all()->count();
-        $sortedData = HistoryData::sorted($year);
-        return view('dashboard')
-                    ->withCounta($c_assessors)
-                    ->withCountt($c_teamleaders)
-                    ->withCountc($c_colleges)
-                    ->withHistorydatas($sortedData);
+        return view('dashboard');
     }
 
     /**

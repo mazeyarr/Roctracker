@@ -22,10 +22,12 @@ class Assessors extends Model
                 $assessor->fk_college = $college;
             }
 
-            $teamleader = Teamleaders::find($assessor->fk_teamleader)->name;
+            if (!is_null($assessor->fk_teamleader)) {
+                $teamleader = Teamleaders::find($assessor->fk_teamleader)->name;
 
-            if (!empty($teamleader)) {
-                $assessor->fk_teamleader = $teamleader;
+                if (!empty($teamleader)) {
+                    $assessor->fk_teamleader = $teamleader;
+                }
             }
 
             $exams = Exams::find($assessor->fk_exams);

@@ -17,10 +17,6 @@
                     {!! Form::text('name', $teamleader->name, array('class' => 'form-control', 'required' => '')) !!}
                 </div>
                 <div class="form-group">
-                    <label for="inputName1" class="control-label">Team:</label>
-                    {!! Form::text('team', $teamleader->team, array('class' => 'form-control')) !!}
-                </div>
-                <div class="form-group">
                     <div class="checkbox">
                         <input name="change_college" type="checkbox" id="college_change" data-error="Vink de voorwaarden aan om de wijziging door te voeren">
                         <label for="college_change"> College wijzeging ? </label>

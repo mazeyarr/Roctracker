@@ -106,6 +106,12 @@ class AssessorMaintenanceController extends Controller
 
         $ret = json_encode(false);
         switch ($fieldname) {
+            case "title":
+                if ($value == "") { return $ret; }
+                $group->title = $value;
+                $group->save();
+                return json_encode(true);
+                break;
             case "institution":
                 if ($value == "") { return $ret; }
                 $maintenance->institution = $value;

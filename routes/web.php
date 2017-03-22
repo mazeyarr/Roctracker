@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::post('add/save', 'CollegeController@postNewCollege')->name('save_new_college');
 
                 Route::get('save/assessor/{id}/{collegeid}', 'FunctionalController@ajaxSaveAssessorToCollege')->name('ajax_save_college_by_selection');
-                Route::get('save/{id}/{name}/{location}/{team}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
+                Route::get('save/{id}/{name}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
             });
 
 
@@ -45,7 +45,7 @@ Route::group(['middleware' => 'auth'], function () {
                 Route::get('add/manual/exchange/', 'TeamleaderController@getChangeTeamleaderManual')->name('add_teamleader_change_save');
                 Route::post('add/manual/exchange/save/{count?}', 'TeamleaderController@postChangeTeamleaderManual')->name('add_teamleader_change_save_exchange');
 
-                Route::get('save/{id}/{name}/{team}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
+                Route::get('save/{id}/{name}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
             });
 
 

@@ -193,7 +193,6 @@ class TeamleaderController extends Controller
             $rules = array(
                 'teamleader-'.$i.'-name' => 'required|max:255',
                 'teamleader-'.$i.'-college' => 'required',
-                'teamleader-'.$i.'-team' => 'required',
                 'status-'.$i => 'required|Numeric'
             );
 
@@ -208,13 +207,12 @@ class TeamleaderController extends Controller
             /* request inputs */
             $propName = 'teamleader-'.$i.'-name';
             $propCollege = 'teamleader-'.$i.'-college';
-            $propTeam = 'teamleader-'.$i.'-team';
             $propStat = 'status-'.$i;
 
             # SECTOR 2.4
             $teamleader = new Teamleaders();
             $teamleader->name = $request->$propName;
-            $teamleader->team = $request->$propTeam;
+            $teamleader->team = "";
             $teamleader->status = $request->$propStat;
             $teamleader->log = '{"log" : {}}';
             $teamleader->save();
@@ -331,7 +329,7 @@ class TeamleaderController extends Controller
 
             if ($request->$propCollege != "Geen") {
                 # SECTOR 2.4
-                if (!Assessors::where('fk_college', $request->$propCollege)->isEmpty()) {
+                if (!empty(Assessors::where('fk_college', $request->$propCollege))) {
                     $assessors = Assessors::where('fk_college', $request->$propCollege)->get();
 
                     # SECTOR 2.5

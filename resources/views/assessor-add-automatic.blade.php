@@ -80,6 +80,7 @@
                                                 <th>Naam Teamleider (1 Persoon)</th>
                                                 <th>Status (Actief, Non-actief, Anders) <span class="text-danger">*</span></th>
                                                 <th>Basistraining behaald (Ja/Nee)</th>
+                                                <th>Laatste basistraining datum</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -87,13 +88,14 @@
                                                 <td>De volledige naam</td>
                                                 <td>1 Naam</td>
                                                 <td>Naam van het team</td>
-                                                <td>dd-mm-yyyy</td>
+                                                <td><span class="text-warning">yyyy-mm-dd</span></td>
                                                 <td>Functie van de assessor</td>
                                                 <td>Naam van de instelling waar de training is gevolgd</td>
                                                 <td>Naam van de instelling waar de assessor is gecertificeerd</td>
                                                 <td>Naam van 1 Teamleider</td>
                                                 <td>Status kan alleen "Actief","Non-actief" of "Anders" zijn,</td>
                                                 <td>Alleen "Ja" of "Nee"</td>
+                                                <td>Als bij <b>"Basistraining behaald (Ja/Nee)"</b> <span class="text-warning">Ja</span> is ingevuld. <span class="text-warning">yyyy-mm-dd</span> van de laatste trainings dag</td>
                                             </tr>
                                             </tbody>
                                         </table>

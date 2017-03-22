@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Exams extends Model
@@ -15,7 +16,13 @@ class Exams extends Model
                 continue;
             }
             $basictraining = json_decode($exam->basictraining);
+            /*if (!is_object($basictraining)) {
+                dd($exam);
+            }*/
             if (!$basictraining->passed) {
+                continue;
+            }
+            if ($basictraining->date2->date == null) {
                 continue;
             }
             if (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date),'Y') ) {
@@ -60,7 +67,7 @@ class Exams extends Model
         return $exam;
     }
 
-    public static function NewAssessor ($training=false) {
+    public static function NewAssessor ($training=false, $last_training=null) {
         $exam = new self();
 
         if ($training) {
@@ -74,11 +81,11 @@ class Exams extends Model
               },
               "date1": {
                 "present": true,
-                "date": null
+                "date": "'.$last_training.'"
               },
               "date2": {
                 "present": true,
-                "date": null
+                "date": "'.$last_training.'"
               },
               "graduated": true
             }'));
@@ -102,10 +109,30 @@ class Exams extends Model
               "graduated": false
             }'));
         }
+
+        $training_done = 0;
+        if (!empty($last_training)) {
+            $training_done = self::calcTrainingDone($last_training, 'd-m-Y');
+        }
         $exam->exam_next_on = null;
         $exam->training_next_on = null;
+        $exam->training_done = $training_done;
         $exam->log = '{}';
         $exam->save();
         return $exam->id;
+    }
+
+    public static function calcTrainingDone ($basictraining_date, $format) {
+        $begin = Carbon::parse(date_format(date_create_from_format($format, $basictraining_date), 'Y-m-d'));
+        $end = Carbon::parse(date_format(date_create_from_format('d-m-Y', Carbon::now()->format('d-m-Y')), 'Y-m-d'));
+        $diff = $end->diffInYears($begin);
+        if ($diff >= 4 ) {
+            $training_done = 4;
+        }elseif ($diff == 1) {
+            $training_done = 0;
+        } else{
+            $training_done = $diff -1;
+        }
+        return $training_done;
     }
 }

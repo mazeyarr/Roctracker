@@ -18,7 +18,6 @@
                     <tr>
                         <th data-toggle="true"> Naam</th>
                         <th> College(s)</th>
-                        <th data-hide="all"> Team</th>
                         <th data-hide="all"> Laatste bijwerking</th>
                         <th data-hide="all"></th>
                     </tr>
@@ -55,7 +54,6 @@
                                         {{ strlen($name) > 25 ? substr($name, 0, 35)."...." : rtrim($name, " / ") }}
                                     @endif
                                 </td>
-                                <td>{{ $teamleader['teamleader']->team }}</td>
                                 <td>{{ date_format($teamleader['teamleader']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
                                     <a href="{{ URL::route('view_teamleaders', $teamleader['teamleader']->id) }}"
@@ -112,11 +110,6 @@
                             <label for="recipient-name" class="control-label">Naam:</label>
                             <input type="text" class="form-control" id="modal-name-field">
                         </div>
-
-                        <div class="form-group">
-                            <label for="recipient-name" class="control-label">Team:</label>
-                            <input type="text" class="form-control" id="modal-team-field">
-                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -141,13 +134,11 @@
         $( document ).ready( function () {
 
             var _id = null,
-                _name = null,
-                _team = null;
+                _name = null;
 
             var modal_frame = $('#teamleader-little-modal'),
                 notification_block = $('#notification-block'),
                 modal_name_field = $('#modal-name-field'),
-                modal_team_field = $('#modal-team-field'),
                 btnSave = $('#save'),
                 btnClose = $('#close'),
                 btnTeamleader = $('.teamleader-row-little');
@@ -155,17 +146,11 @@
             btnTeamleader.click(function () {
                 _id = this.id;
                 _name = $(this).attr('data-name');
-                _team = $(this).attr('data-team');
                 modal_name_field.val(_name);
-                modal_team_field.val(_team);
             });
 
             modal_name_field.focus(function () {
                 modal_name_field.css('border', '1px solid #474F5B');
-            });
-
-            modal_team_field.focus(function () {
-                modal_team_field.css('border', '1px solid #474F5B')
             });
 
             btnSave.click(function () {
@@ -179,15 +164,9 @@
                     notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> <b>"/"</b> is niet toegestaan.</div>');
                     return
                 }
-                /* Check if inputs contain a slash, to prevent routing errors */
-                if (modal_team_field.val().indexOf('/') > -1) {
-                    modal_team_field.css('border', '1px solid red');
-                    notification_block.append('<div class="alert alert-danger alert-dismissible"> <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> <strong>Error:</strong> <b>"/"</b> is niet toegestaan.</div>');
-                    return
-                }
                 /*Ajax with parameters*/
                 $.ajax({
-                    url: '/dashboard/teamleader/save/' + _id + '/' + modal_name_field.val() + '/' + modal_team_field.val()
+                    url: '/dashboard/teamleader/save/' + _id + '/' + modal_name_field.val()
                 }).done(function (data) {
                     $.toast({
                         heading: 'Voltooid'

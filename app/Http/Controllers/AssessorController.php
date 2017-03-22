@@ -30,7 +30,13 @@ class AssessorController extends Controller
             'name' => 'required|max:255|min:2',
             'team' => 'max:255',
             'college' => 'required',
-        ]);
+            'status' => 'required|numeric',
+        ],array(
+            'name.required' => 'Naam van de assessor is verplicht !',
+            'name.max' => 'Naam mag niet meer dan 255 karakters bevatten',
+            'name.min' => 'Naam mag niet minder dan 2 karakters bevatten',
+            'status' => 'Status van deze assessor moet worden aangegeven'
+        ));
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator->getMessageBag()->first());
@@ -50,10 +56,19 @@ class AssessorController extends Controller
             default:
                 break;
         }
+        if ($assessor->status != $request->status){
+            if ($request->status == 1) {
+                $messages[] = "Assessor op Actief gezet";
+            } else {
+                $messages[] = "Assessor op Non-actief gezet";
+            }
+        }
         $assessor->name = $request->name;
         $assessor->team = $request->team;
-
-        if ($assessor->fk_college != $request->college) {
+        $assessor->status = $request->status;
+        if (empty($assessor->fk_college)) {
+            $messages[] = "College gewijzigd naar <strong>".College::find($request->college)->name."</strong>";
+        }elseif ($assessor->fk_college != $request->college) {
             $messages[] = "College gewijzigd van <strong>". College::find($assessor->fk_college)->name ."</strong> naar <strong>".College::find($request->college)->name."</strong>";
         }
         $assessor->fk_college = $request->college;
@@ -141,8 +156,18 @@ class AssessorController extends Controller
             'day1' => 'required',
             'day2' => 'required',
         ]);
-
         if (!$validator->fails()) {
+            $validator = Validator::make($request->all(), [
+                'day1' => 'required|date_format:"d-m-Y"',
+                'day2' => 'required|date_format:"d-m-Y"',
+            ], array(
+                'day1.date_format' => 'Basistraining Dag 1 was verkeerd ingevuld,<br> Graag houden aan het dd-mm-yyyy format',
+                'day2.date_format' => 'Basistraining Dag 2 was verkeerd ingevuld,<br> Graag houden aan het dd-mm-yyyy format'
+            ));
+
+            if ($validator->fails()) {
+                return redirect()->back()->withErrors($validator->getMessageBag()->first());
+            }
             $basictraining->date1->date = $request->day1;
             $basictraining->date2->date = $request->day2;
 
@@ -170,45 +195,6 @@ class AssessorController extends Controller
         }
 
         Exams::saveBasictraining($assessor->fk_exams, $basictraining);
-
-        $exams = Exams::find($assessor->fk_exams);
-        $validator = Validator::make($request->all(), [
-            'training_next_on' => 'required',
-        ]);
-        if (!$validator->fails()) {
-            $new_validation = Validator::make($request->all(), [
-                'training_next_on' => 'date_format:d/m/Y',
-            ]);
-            if (!$new_validation->fails()){
-                $training_date = date_format(date_create_from_format('d/m/Y',$request->training_next_on), 'Y-m-d');
-                if ($exams->training_next_on != $training_date) {
-                    $messages[] = "Training datum gewijzigd van: <br><i>". $exams->training_next_on . "</i><br>Naar<br><i>". $training_date ."</i>";
-                }
-                $exams->training_next_on = $training_date;
-            }else{
-                return redirect()->back()->withErrors('Error, Het ingevulde datum:<br><i>'. date_format(date_create($request->training_next_on), 'd-m-Y') .'</i> is incorrect...');
-            }
-        }
-
-        $validator = Validator::make($request->all(), [
-            'exam_next_on' => 'required',
-        ]);
-        if (!$validator->fails()) {
-            $new_validation = Validator::make($request->all(), [
-                'exam_next_on' => 'date_format:d/m/Y',
-            ]);
-            if (!$new_validation->fails()){
-                $exam_date = date_format(date_create_from_format('d/m/Y',$request->exam_next_on), 'Y-m-d');
-                date_format(date_create_from_format('d/m/Y',$request->exam_next_on), 'Y-m-d');
-                if ($exams->exam_next_on != $exam_date) {
-                    $messages[] = "Examen datum gewijzigd van: <br><i>". $exams->exam_next_on . "</i><br>Naar<br><i>". $exam_date ."</i>";
-                }
-                $exams->exam_next_on = $exam_date;
-            }else{
-                return redirect()->back()->withErrors('Error, Het ingevulde datum:<br><i>'. date_format(date_create($request->exam_next_on), 'd-m-Y') .'</i> is incorrect...');
-            }
-        }
-        $exams->save();
 
         $assessor->save();
         if (empty($messages)) {
@@ -245,21 +231,28 @@ class AssessorController extends Controller
                     'naam_deelnemer'                    => 'required|max:255|min:2',
                     'naam_college'                      => '',
                     'naam_team'                         => '',
-                    'geboorte_datum'                    => 'required|',
+                    'geboorte_datum'                    => 'required',
                     'functie'                           => 'required|max:255',
                     'training_verzorgd_door'            => '',
                     'diploma_uitgegeven_door'           => '',
                     'naam_teamleider_1_persoon'         => '',
                     'status_actief_non_actief_anders'   => 'required',
                     'basistraining_behaald_janee'       => '',
+                    'laatste_basistraining_datum'       => '',
                 ));
 
                 if ($validator->fails()) {
                     $rejectedRows[] = $row;
                     continue;
                 }
-
                 $basictraining = strtolower($row['basistraining_behaald_janee']) == 'ja' ? true : false;
+                if ($basictraining) {
+                    if (empty($row['laatste_basistraining_datum']) || $row['laatste_basistraining_datum'] == "") {
+                        $basictraining_date = null;
+                    }else {
+                        $basictraining_date = $row['laatste_basistraining_datum']->format('d-m-Y');
+                    }
+                }
 
                 switch (strtolower($row['status_actief_non_actief_anders'])){
                     case 'actief':
@@ -281,15 +274,25 @@ class AssessorController extends Controller
                 $assessor = new Assessors();
                 $assessor->name = $row['naam_deelnemer'];
                 $assessor->birthdate = $row['geboorte_datum']->format('Y-m-d');
-                $assessor->fk_college = !empty(College::where('name', 'LIKE', "%".$row['naam_college']."%")->first()) ? College::where('name', $row['naam_college'])->first()->id : null;
+                if (!empty(College::where('name', 'LIKE', "%".$row['naam_college']."%")->first())) {
+                    $collegeid = College::where('name', 'LIKE', "%".$row['naam_college']."%")->first()->id;
+                    $teamleaderid = TiC::where('fk_college', $collegeid)->first()->id;
+                }else{
+                    $collegeid = null;
+                    $teamleaderid = null;
+                }
+                $assessor->fk_college = $collegeid;
+                $assessor->fk_teamleader = $teamleaderid;
                 $assessor->function = $row['functie'];
                 $assessor->team = $row['naam_team'];
                 $assessor->trained_by = $row['training_verzorgd_door'];
                 $assessor->certified_by = $row['diploma_uitgegeven_door'];
                 $assessor->status = $status;
-                $assessor->fk_exams = Exams::NewAssessor($basictraining);
+                $assessor->fk_exams = Exams::NewAssessor($basictraining, $basictraining_date);
                 $assessor->log = '{"log" : {}}';
                 $assessor->save();
+
+                Log::AssessorLog($assessor->id, $assessor->name . " Toegevoegd aan het systeem");
 
                 $approvedRows[] = $row;
                 $importdata[]['id'] = $assessor->id;

@@ -15,6 +15,11 @@
                 <div class="panel-body">
                     <form class="floating-labels form-maintenances" data-toggle="validator" id="form-group-{{$group->fk_maintenances->id}}">
                         <div class="form-group m-b-40 m-t-20">
+                            {!! Form::text('title-' . $group->title, $group->title, array('data-group' => $group->id, 'class' => 'form-control _title', 'id' => 'title-' . $group->fk_maintenances->id, 'required' => '')) !!}
+                            <span class="highlight"></span> <span class="bar"></span>
+                            <label for="title-{{$group->fk_maintenances->id}}">Groeps Titel</label>
+                        </div>
+                        <div class="form-group m-b-40 m-t-20">
                             {!! Form::text('institution-' . $group->title, $group->fk_maintenances->institution, array('data-group' => $group->id, 'class' => 'form-control _institution', 'id' => 'institution-' . $group->fk_maintenances->id, 'required' => '')) !!}
                             <span class="highlight"></span> <span class="bar"></span>
                             <label for="institution-{{$group->fk_maintenances->id}}">Instelling</label>
@@ -126,6 +131,7 @@
         $(document).ready(function () {
             var body = $('body'),
                 _select = $('.select-assessor'),
+                _titleMaintenances = $('._title'),
                 _institutionMaintenances = $('._institution'),
                 _locationMaintenances = $('._locatation'),
                 _fromMaintenances = $('._from'),
@@ -145,6 +151,21 @@
                     }
                 })
             });
+            _titleMaintenances.keyup(function (e) {
+                var maintenance_id = this.id;
+                maintenance_id = maintenance_id.replace('title-', '');
+                if ($(this).val() == "") {
+                    var input = $(this).closest('.form-group');
+                    input.removeClass('has-error');
+                    input.removeClass('has-success');
+                    input.removeClass('has-feedback');
+                    input.addClass('has-error');
+                    input.addClass('has-feedback');
+                    return;
+                }
+                saveMaintenanceData(maintenance_id, $(this).attr('data-group'), 'title', $(this).val(), $(this));
+            });
+
             _institutionMaintenances.keyup(function (e) {
                 var maintenance_id = this.id;
                 maintenance_id = maintenance_id.replace('institution-', '');
@@ -158,7 +179,6 @@
                     return;
                 }
                 saveMaintenanceData(maintenance_id, $(this).attr('data-group'), 'institution', $(this).val(), $(this));
-
             });
             _locationMaintenances.keyup(function (e) {
                 var maintenance_id = this.id;

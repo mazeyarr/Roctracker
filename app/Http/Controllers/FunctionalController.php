@@ -30,7 +30,7 @@ class FunctionalController extends Controller
         $this->company = "MRG Studios";
     }
 
-    public function ajaxSaveCollege ($id, $name, $location, $team) {
+    public function ajaxSaveCollege ($id, $name) {
         if (!is_numeric($id)) {
             return json_encode(array(
                 'result' => 'failed',
@@ -43,21 +43,13 @@ class FunctionalController extends Controller
                 'message' => 'Naam was niet juist ingevuld.'
             ));
         }
-        if (is_numeric($location) || $location == "" || empty($location)) {
-            return json_encode(array(
-                'result' => 'failed',
-                'message' => 'Locatie was niet juist ingevuld.'
-            ));
-        }
         $college = College::find($id);
         $college->name = $name;
-        $college->location = $location;
-        $college->team = $team;
         $college->save();
         return json_encode(array('result' => 'executed'));
     }
 
-    public function ajaxSaveTeamleader ($id, $name, $team) {
+    public function ajaxSaveTeamleader ($id, $name) {
         if (!is_numeric($id)) {
             return json_encode(array(
                 'result' => 'failed',
@@ -72,7 +64,6 @@ class FunctionalController extends Controller
         }
         $teamleader = Teamleaders::find($id);
         $teamleader->name = $name;
-        $teamleader->team = $team;
         $teamleader->save();
         return json_encode(array('result' => 'executed'));
     }
@@ -186,7 +177,7 @@ class FunctionalController extends Controller
             // Our first sheet
             $excel->sheet('Lijst', function ($sheet) {
                 $sheet->row(1, array(
-                    'Naam deelnemer', 'Naam College', 'Naam Team', 'Geboorte Datum', 'Functie', 'Training verzorgd door', 'Diploma uitgegeven door', 'Naam Teamleider (1 Persoon)', 'Status (Actief, Non-actief, Anders)', 'Basistraining behaald (Ja/Nee)',
+                    'Naam deelnemer', 'Naam College', 'Naam Team', 'Geboorte Datum', 'Functie', 'Training verzorgd door', 'Diploma uitgegeven door', 'Naam Teamleider (1 Persoon)', 'Status (Actief, Non-actief, Anders)', 'Basistraining behaald (Ja/Nee)', 'Laatste basistraining datum'
                 ));
 
                 // Set width for multiple cells
@@ -200,13 +191,14 @@ class FunctionalController extends Controller
                     'G' => 30,
                     'H' => 30,
                     'I' => 38,
-                    'J' => 40
+                    'J' => 40,
+                    'K' => 40
                 ));
 
                 // Set height for a single row
                 $sheet->setHeight(1, 50);
 
-                $sheet->cells('A1:J1', function ($cells) {
+                $sheet->cells('A1:K1', function ($cells) {
                     // manipulate the range of cells
                     $cells->setBackground('#FFFF00');
                     // Set font
@@ -222,14 +214,15 @@ class FunctionalController extends Controller
                 });
 
                 // Set border for range
-                $sheet->setBorder('A1:J1', 'thin');
+                $sheet->setBorder('A1:K1', 'thin');
 
                 // Set auto filter for a range
-                $sheet->setAutoFilter('A1:J1');
+                $sheet->setAutoFilter('A1:K1');
 
                 // Set multiple column formats
                 $sheet->setColumnFormat(array(
-                    'D' => 'yyyy-mm-dd'
+                    'D' => 'yyyy-mm-dd',
+                    'K' => 'yyyy-mm-dd',
                 ));
 
                 // Advanced protect

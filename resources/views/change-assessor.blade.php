@@ -16,35 +16,36 @@
                         <label for="inputName1" class="control-label">Naam:</label>
                         {!! Form::text('name', $assessor->name, array('class' => 'form-control', 'required' => '')) !!}
                     </div>
-                    {{-- TODO: Make a 3 option radio button for assessor status--}}
                     <div class="form-group">
                         <label for="inputName1" class="control-label">Team:</label>
                         {!! Form::text('team', $assessor->team, array('class' => 'form-control', 'required' => '')) !!}
                     </div>
+                    <div class="form-group">
+                        <h3 class="box-title m-b-0">Status</h3>
+                        <div class="radio radio-success">
+                            {!! Form::radio('status',1, $assessor->status == 1 ? true : false, array('id' => 'status_actieve', 'required' => '') ) !!}
+                            <label for="status_actieve"> Actief </label>
+                        </div>
+                        <div class="radio radio-danger">
+                            {!! Form::radio('status',0, $assessor->status == 1 ? false : true, array('id' => 'status_inactieve', 'required' => '') ) !!}
+                            <label for="status_inactieve"> Non-actief </label>
+                        </div>
+                    </div>
                     <hr>
                         <div class="form-group">
                             <select class="form-control" name="college" id="current_college">
-                                <option value="{{ $assessor->fk_college->id }}"> {{ $assessor->fk_college->name }} </option>
+                                @if(!empty($assessor->fk_college))
+                                    <option value="{{ $assessor->fk_college->id }}"> {{ $assessor->fk_college->name }} </option>
+                                @endif
                                 @foreach ($colleges as $college)
-                                    @if($college->id != $assessor->fk_college->id)
+                                    @if(empty($assessor->fk_college))
+                                        <option value="{{ $college->id }}"> {{ $college->name }} </option>
+                                    @elseif($college->id != $assessor->fk_college->id)
                                         <option value="{{ $college->id }}"> {{ $college->name }} </option>
                                     @endif
                                 @endforeach
                             </select>
                         </div>
-                    <hr>
-                    @if($assessor->fk_exams['basictraining']->passed)
-                        <h3 class="box-title m-b-0">Onderhoud en Examen data</h3>
-                        <div class="form-group">
-                            <label for="inputName1" class="control-label">Volgende Onderhoud op</label>
-                            {!! Form::text('training_next_on',  !empty($assessor->fk_exams['training_next_on']) ? date_format(date_create($assessor->fk_exams['training_next_on']), 'd/m/Y'): '', array('data-mask' => '99/99/9999', 'class' => 'form-control')) !!}
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inputName1" class="control-label">Volgende Examen op</label>
-                            {!! Form::text('exam_next_on',  !empty($assessor->fk_exams['exam_next_on']) ? date_format(date_create($assessor->fk_exams['exam_next_on']), 'd/m/Y') : '', array('data-mask' => '99/99/9999', 'class' => 'form-control')) !!}
-                        </div>
-                    @endif
                     <hr>
                     <h3 class="box-title m-b-0">Basistraining</h3>
                     @if($assessor->fk_exams['basictraining']->passed)
@@ -70,7 +71,7 @@
                                 <input type="checkbox" name="present_day_1" id="day_1" {!! ($assessor->fk_exams['basictraining']->date1->present) ? "checked" : "" !!}> <label for="day_1"> Present</label>
                             </div>
                             <div class="form-group">
-                                <label for="inputName1" class="control-label">Dag 1:</label>
+                                <label for="inputName1" class="control-label">Dag 1: (dd-mm-yyyy)</label>
                                 {!! Form::text('day1', $assessor->fk_exams['basictraining']->date1->date, array('class' => 'form-control')) !!}
                             </div>
                             <hr>
@@ -78,7 +79,7 @@
                                 <input type="checkbox" name="present_day_2" id="day_2" {!! ($assessor->fk_exams['basictraining']->date2->present) ? "checked" : "" !!}> <label for="day_2"> Present</label>
                             </div>
                             <div class="form-group">
-                                <label for="inputName1" class="control-label">Dag 2:</label>
+                                <label for="inputName1" class="control-label">Dag 2: (dd-mm-yyyy)</label>
                                 {!! Form::text('day2', $assessor->fk_exams['basictraining']->date2->date, array('class' => 'form-control')) !!}
                             </div>
                         </div>

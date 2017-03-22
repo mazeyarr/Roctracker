@@ -32,13 +32,6 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="teamleader-1-team">Team</label>
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="ti-bookmark-alt"></i></div>
-                                    <input type="text" class="form-control" name="teamleader-1-team" id="teamleader-1-team" placeholder="Team" required>
-                                </div>
-                            </div>
                             <hr>
                             <div class="form-group">
                                 <h3 class="box-title m-b-0">Teamleider status</h3>
@@ -143,13 +136,6 @@
                                                         '<select class="form-control" name="teamleader-'+element_id+'-college" id="teamleader-'+element_id+'-college">' +
                                                             data +
                                                         '</select>' +
-                                                    '</div>' +
-                                                '</div>' +
-                                                '<div class="form-group">' +
-                                                    '<label for="teamleader-'+element_id+'-team">Team</label>' +
-                                                    '<div class="input-group">' +
-                                                        '<div class="input-group-addon"><i class="ti-bookmark-alt"></i></div>' +
-                                                        '<input type="text" class="form-control" name="teamleader-'+element_id+'-team" id="teamleader-'+element_id+'-team" placeholder="Team" required>' +
                                                     '</div>' +
                                                 '</div>' +
                                                 '<div class="form-group">' +

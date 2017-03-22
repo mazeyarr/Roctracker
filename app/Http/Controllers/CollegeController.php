@@ -182,7 +182,6 @@ class CollegeController extends Controller
     public function postNewCollege(Request $request) {
         $validate = Validator::make($request->all(),array(
             'name' => 'required|max:250',
-            'location' => 'required'
         ), array(
             'name.max' => 'College naam mag niet groter dan 250 karakters zijn',
             'location.required' => 'Locatie veld is verplicht'
@@ -193,7 +192,7 @@ class CollegeController extends Controller
 
         $college = new College();
         $college->name = $request->name;
-        $college->location = $request->location;
+        $college->location = "";
         $college->log = "{}";
         $college->save();
         Log::CollegeLog($college->id, $college->name . " Toegevoegd aan het systeem");

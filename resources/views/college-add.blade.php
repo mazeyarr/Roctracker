@@ -11,15 +11,10 @@
             <div class="col-md-12">
                 <div class="white-box">
                     <h3 class="box-title m-b-0">Vul de velden hieronder in</h3>
-                    <div class="form-group m-b-30 m-t-20">
+                    <div class="form-group m-b-40 m-t-20">
                         <input type="text" name="name" class="form-control" id="_name" required>
                         <span class="highlight"></span> <span class="bar"></span>
                         <label for="_name">College Naam</label>
-                    </div>
-                    <div class="form-group m-b-40">
-                        <input type="text" name="location" class="form-control" id="_location" required>
-                        <span class="highlight"></span> <span class="bar"></span>
-                        <label for="_location">Locatie</label>
                     </div>
                     <div class="form-group">
                         <select class="form-control p-0" id="_teamleader" name="teamleader" required>
