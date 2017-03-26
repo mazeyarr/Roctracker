@@ -26,6 +26,7 @@
 <!--Counter js -->
 {!! Html::script('plugins/bower_components/counterup/jquery.counterup.min.js') !!}
 
+
 <!--Morris JavaScript -->
 {!! Html::script('plugins/bower_components/raphael/raphael-min.js') !!}
 {!! Html::script('plugins/bower_components/morrisjs/morris.js') !!}

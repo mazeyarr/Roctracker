@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
         });
 
         Route::group(['prefix' => 'dashboard'], function () {
+            Route::get('details/college/{id}', 'CollegeController@getCollegeDetails')->name('view_college_details');
             /* Colleges Page */
             Route::get('college', 'HomeController@getColleges')->name('colleges');
             Route::group(['prefix' => 'college'], function () {

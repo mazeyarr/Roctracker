@@ -15,15 +15,9 @@ class CreateHistoryDatasTable extends Migration
     {
         Schema::create('history_datas', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('year');
-            $table->text('assessor_data');
-            $table->integer('actieve_assessors');
-            $table->integer('c_assessors');
-            $table->integer('c_colleges');
-            $table->integer('c_teamleaders');
-            $table->integer('c_teamleaders_in_colleges');
-            $table->boolean('year_checked');
-            $table->text('log');
+            $table->string('college');
+            $table->bigInteger('actieve_assessors');
+            $table->text('assessors');
             $table->timestamps();
         });
     }

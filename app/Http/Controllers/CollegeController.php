@@ -212,4 +212,13 @@ class CollegeController extends Controller
         }
         return redirect()->route('colleges', $college->id)->withSuccess('College Opgeslagen !');
     }
+
+    public function getCollegeDetails($id) {
+        $college = College::find($id);
+        if (empty($college)) {
+            return redirect()->back()->withErrors("Dit College bestaat niet in het systeem");
+        }
+
+        return view('college-details')->withCollege($college);
+    }
 }

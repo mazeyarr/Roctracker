@@ -32,7 +32,7 @@ class HomeController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function getDashboard($year=null) {
-        return view('dashboard');
+        return view('dashboard')->withColleges(College::all())->withGraph(HistoryData::generate());
     }
 
     /**

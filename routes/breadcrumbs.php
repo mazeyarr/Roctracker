@@ -42,6 +42,13 @@ Breadcrumbs::register('add_college', function($breadcrumbs)
     $breadcrumbs->parent('colleges');
     $breadcrumbs->push('College Toevoegen', route('add_college'));
 });
+
+// Dashboard / Details / College
+Breadcrumbs::register('view_college_details', function($breadcrumbs, $id)
+{
+    $breadcrumbs->parent('dashboard');
+    $breadcrumbs->push("College Details", route('view_college_details', $id));
+});
 //------------ ------------------------- end ---------------------------------- //
 
 
