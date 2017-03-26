@@ -61,6 +61,21 @@ class College extends Model
         return $with_teamleaders;
     }
 
+    public static function AssessorsInCollege($id, $json = false)
+    {
+        $assessors = Assessors::where('fk_college', $id)->where('status', 1)->get();
+        if ($json) {
+            $data = array();
+            foreach ($assessors as $assessor) {
+                $assessor->log = json_decode($assessor->log);
+                $data[] = $assessor;
+            }
+            return json_encode($data);
+        }else {
+            return $assessors;
+        }
+    }
+
     /**
      * @param $result
      * @return array

@@ -20,6 +20,7 @@ class CreateAssessorsTable extends Migration
             $table->string('team');
             $table->date('birthdate');
             $table->string('function');
+            $table->string('profession');
             $table->string('trained_by')->nullable(true);
             $table->string('certified_by')->nullable(true);
             $table->integer('fk_teamleader')->nullable(true);

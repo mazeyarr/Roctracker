@@ -346,6 +346,7 @@ class AssessorController extends Controller
                 'assessor-'.$i.'-birthdate' => 'required|date_format:d/m/Y',
                 'assessor-'.$i.'-college' => 'required',
                 'assessor-'.$i.'-functie' => 'required',
+                'assessor-'.$i.'-kerntaak' => 'required',
                 'assessor-'.$i.'-team' => 'required',
                 'status-'.$i => 'required|Numeric'
             );
@@ -361,6 +362,7 @@ class AssessorController extends Controller
             $propBirth = 'assessor-'.$i.'-birthdate';
             $propCollege = 'assessor-'.$i.'-college';
             $propFunc = 'assessor-'.$i.'-functie';
+            $propProf = 'assessor-'.$i.'-kerntaak';
             $propTeam = 'assessor-'.$i.'-team';
             $propStat = 'status-'.$i;
 
@@ -372,6 +374,7 @@ class AssessorController extends Controller
             $assessor->birthdate = $propBirth;
             $assessor->fk_college = $request->$propCollege != "Geen" ? $request->$propCollege : null;
             $assessor->function = $request->$propFunc;
+            $assessor->profession = $request->$propProf;
             $assessor->team = $request->$propTeam;
             $assessor->status = $request->$propStat;
             if ($request->$propCollege != "Geen") {

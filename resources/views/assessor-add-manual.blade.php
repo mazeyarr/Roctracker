@@ -47,6 +47,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="assessor-1-kerntaak">Beroepskerntaak</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-clipboard"></i></div>
+                                    <input type="text" class="form-control" name="assessor-1-kerntaak" id="assessor-1-kerntaak" placeholder="Beroepskerntaak" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="assessor-1-team">Team</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-bookmark-alt"></i></div>
@@ -174,6 +181,14 @@
                                                     '<div class="input-group">' +
                                                         '<div class="input-group-addon"><i class="ti-clipboard"></i></div>' +
                                                         '<input type="text" class="form-control" name="assessor-'+element_id+'-functie" id="assessor-'+element_id+'-functie" placeholder="Functie" required>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '<div class="form-group">' +
+                                                    '<label for="assessor-'+element_id+'-kerntaak">Functie</label>' +
+                                                    '<div class="input-group">' +
+                                                        '<div class="input-group-addon"><i class="ti-clipboard"></i></div>' +
+                                                        '<input type="text" class="form-control" name="assessor-'+element_id+'-kerntaak" id="assessor-'+element_id+'-kerntaak" placeholder="Beroepskerntaak" required>' +
                                                     '</div>' +
                                                 '</div>' +
                                                 '<div class="form-group">' +

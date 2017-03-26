@@ -23,6 +23,7 @@
                         <th> Status </th>
                         <th data-hide="all"> Basistraining </th>
                         <th data-hide="all"> Functie </th>
+                        <th data-hide="all"> Beroepskerntaak </th>
                         <th data-hide="all"> Team </th>
                         <th data-hide="all"> Teamleider </th>
                         <th data-hide="all"> Opgeleid door </th>
@@ -67,6 +68,7 @@
                                 </td>
                                 <td>{!! ($assessor->fk_exams['basictraining']->graduated) ? "Behaald" : "<i>Niet behaald</i>" !!}</td>
                                 <td>{{ $assessor->function }}</td>
+                                <td>{{ $assessor->profession }}</td>
                                 <td>{{ $assessor->team }}</td>
                                 <td>{{ $assessor->fk_teamleader }}</td>
                                 <td>{{ $assessor->trained_by }}</td>

@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-md-12 col-lg-12 col-xs-12">
             <div class="white-box">
-                <h3 class="box-title">Sales Bar Chart</h3>
+                <h3 class="box-title">Actieve assessoren in {{ $college->name  }}</h3>
                 <div class="flot-chart">
                     <div class="sales-bars-chart" style="width: 100%; height: 320px;"> </div>
                 </div>
@@ -32,9 +32,9 @@
     <script src="{!! URL::asset('plugins/bower_components/flot/jquery.flot.crosshair.js') !!}"></script>
     <script src="{!! URL::asset('plugins/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js') !!}"></script>
     <script type="text/javascript">
-        // TODO: ASSESSORS NEED NEW FIELD "BeroepsKerntaken" BASED ON THAT DATA WE NEED TO MAKE A GRAPH
         $(document).ready(function () {
             // sales bar chart
+            var json  = ;
 
             $(function() {
                 //some data

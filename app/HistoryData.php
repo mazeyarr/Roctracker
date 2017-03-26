@@ -18,4 +18,9 @@ class HistoryData extends Model
         }
         return $data;
     }
+
+    public static function CollegeData()
+    {
+        // TODO: LOOK FOR A WAY TO KEEP HISTORY OF ALL THE ACTIEVE ASSESSORS THROUGH OUT THE YEAR !
+    }
 }
