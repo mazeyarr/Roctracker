@@ -16,6 +16,7 @@ class CreateHistoryDatasTable extends Migration
         Schema::create('history_datas', function (Blueprint $table) {
             $table->increments('id');
             $table->string('college');
+            $table->integer('collegeid');
             $table->bigInteger('actieve_assessors');
             $table->text('assessors');
             $table->timestamps();

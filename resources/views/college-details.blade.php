@@ -34,46 +34,32 @@
     <script type="text/javascript">
         $(document).ready(function () {
             // sales bar chart
-            var json  = ;
-
+            var $json  = $.parseJSON('{!! \App\HistoryData::CollegeData($college->id) !!}');
+            function gd(string) {
+                return new Date(string).getTime();
+            }
             $(function() {
-                //some data
-                var d1 = [];
-                for (var i = 0; i <= 10; i += 1)
-                    d1.push([i, parseInt(Math.random() * 60)]);
-
-                var d2 = [];
-                for (var i = 0; i <= 10; i += 1)
-                    d2.push([i, parseInt(Math.random() * 40)]);
-
-                var d3 = [];
-                for (var i = 0; i <= 10; i += 1)
-                    d3.push([i, parseInt(Math.random() * 25)]);
-
                 var ds = new Array();
-                console.log(d1);
-                console.log(d2);
-                console.log(d3);
-                ds.push({
-                    label : "Data One",
-                    data : d1,
-                    bars : {
-                        order : 1
-                    }
-                });
-                ds.push({
-                    label : "Data Two",
-                    data : d2,
-                    bars : {
-                        order : 2
-                    }
-                });
-                ds.push({
-                    label : "Data Three",
-                    data : d3,
-                    bars : {
-                        order : 3
-                    }
+                var itarator = 0;
+                var minDate = null;
+                $.each($json, function ($label, $array) {
+                    $.each($array, function ($key, $val) {
+                        $array[$key][0] = gd($val[0]);
+                        if (minDate !== null) {
+                            if (minDate > gd($val[0])) {
+                                minDate = gd($val[0]);
+                            }
+                        }
+                        console.log(gd($val[0]));
+                    });
+                    ds.push({
+                        label : $label,
+                        data : $array,
+                        bars : {
+                            order : itarator
+                        }
+                    });
+                    itarator++;
                 });
 
                 var stack = 0,
@@ -84,7 +70,8 @@
                 var options = {
                     bars : {
                         show : true,
-                        barWidth : 0.2,
+                        lineWidth: 1,
+                        barWidth: 24 * 60 * 60 * 70000,
                         fill : 1
                     },
                     grid : {
@@ -117,17 +104,23 @@
                     },
                     yaxis : {
                         tickColor : '#353c48',
+                        tickDecimals:0,
                         font : {
                             color : '#bdbdbd'
                         }
                     },
                     xaxis : {
                         tickColor : '#353c48',
+                        mode: "time",
+
+                        minTickSize: [1, "year"],
+                        min: minDate,
+                        max: (new Date()).getTime(),
                         font : {
                             color : '#bdbdbd'
                         }
                     },
-                    colors : ["#4F5467", "#01c0c8", "#fb9678"],
+                    colors : ["#4F5467", "#01c0c8", "#fb9678", "#3846fb", "#47fb75", "#fbdd34", "#eafbe0"],
                     tooltip : true, //activate tooltip
                     tooltipOpts : {
                         content : "%s : %y.0 ",
@@ -137,7 +130,6 @@
                         }
                     }
                 };
-
                 $.plot($(".sales-bars-chart"), ds, options);
             });
         });
