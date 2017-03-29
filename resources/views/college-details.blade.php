@@ -11,7 +11,11 @@
             <div class="white-box">
                 <h3 class="box-title">Actieve assessoren in {{ $college->name  }}</h3>
                 <div class="flot-chart">
-                    <div class="sales-bars-chart" style="width: 100%; height: 320px;"> </div>
+                    @if(empty(\App\College::AssessorsInCollege($college->id)))
+                        <p class="text-info"> Er is geen data van dit college om te weergeven</p>
+                    @else
+                        <div class="sales-bars-chart" style="width: 100%; height: 320px;"> </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -31,6 +35,8 @@
     <script src="{!! URL::asset('plugins/bower_components/flot/jquery.flot.stack.js') !!}"></script>
     <script src="{!! URL::asset('plugins/bower_components/flot/jquery.flot.crosshair.js') !!}"></script>
     <script src="{!! URL::asset('plugins/bower_components/flot.tooltip/js/jquery.flot.tooltip.min.js') !!}"></script>
+
+    @if(!empty(\App\College::AssessorsInCollege($college->id)))
     <script type="text/javascript">
         $(document).ready(function () {
             // sales bar chart
@@ -120,7 +126,7 @@
                             color : '#bdbdbd'
                         }
                     },
-                    colors : ["#4F5467", "#01c0c8", "#fb9678", "#3846fb", "#47fb75", "#fbdd34", "#eafbe0"],
+                    colors : ["#ff5252", "#ff4081", "#e040fb", "#7c4dff", "#536dfe", "#448aff", "#18ffff", "#64ffda"],
                     tooltip : true, //activate tooltip
                     tooltipOpts : {
                         content : "%s : %y.0 ",
@@ -134,4 +140,5 @@
             });
         });
     </script>
+    @endif
 @stop

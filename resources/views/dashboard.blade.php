@@ -31,7 +31,6 @@
         $(document).ready(function () {
             var $i = "{!! $i !!}";
             $i = parseInt($i);
-            console.log($i);
             @foreach($colleges as $college)
                 Morris.Bar({
                     element: 'morris-bar-chart-{{$college->id}}',
@@ -50,10 +49,6 @@
                     resize: true
                 });
             @endforeach
-            for ($count = 0; $count < $i; $count++) {
-                // Morris bar chart
-                console.log($count);
-            }
         })
     </script>
 @stop

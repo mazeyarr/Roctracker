@@ -72,6 +72,9 @@ class College extends Model
             }
             return json_encode($data);
         }else {
+            if ($assessors->isEmpty()) {
+                return null;
+            }
             return $assessors;
         }
     }

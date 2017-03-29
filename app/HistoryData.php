@@ -83,6 +83,5 @@ class HistoryData extends Model
         }
         /*dd($dataBars);*/
         return json_encode($dataBars);
-
     }
 }
