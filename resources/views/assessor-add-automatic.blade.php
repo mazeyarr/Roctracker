@@ -319,6 +319,16 @@
                     }
                 },
                 onFinish: function () {
+                    $.toast({
+                        heading: 'Excuses'
+                        , text: 'Deze functionaliteit is nog onder constructie !'
+                        , position: 'top-right'
+                        , loaderBg: '#ffdf00'
+                        , icon: 'info'
+                        , hideAfter: 3500
+                        , stack: 6
+                    });
+                    return;
                     ob_dropzone.processQueue();
                 }
             });

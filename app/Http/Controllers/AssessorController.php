@@ -206,6 +206,13 @@ class AssessorController extends Controller
     }
 
     public function postAddAssessorAutomatic (Request $request) {
+        // TODO: FIX THIS FUNCTION
+        $ret['message'] = "Deze functie is nog onder constructie !";
+        $ret['status'] = "error";
+        $ret['header'] = "Info";
+        die(json_encode($ret));
+
+
         $fileSize = 2;
         $validator = Validator::make($request->all(),array(
             'file' => 'required|between:0,'.($fileSize*1000)

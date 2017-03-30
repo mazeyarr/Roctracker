@@ -3,7 +3,6 @@
 @section('title', 'Assessoren')
 
 @section('page-title', 'Assessoren')
-
 @section('content')
     <div class="row">
         <div class="col-sm-12">
