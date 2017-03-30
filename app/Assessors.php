@@ -132,20 +132,33 @@ class Assessors extends Model
 
         /** If assessor needs to be placed in maintenance mode */
         if ($place) {
+            # if assessor needs to do an maintenance
             if ($type == "maintenance"){
                 $exam = Exams::find($assessor->fk_exams);
+
+                /** Create a DateTime format*/
                 $exam->training_next_on = Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString();
                 $exam->save();
+
+                /** We Log this change to the log of this assessor */
                 Log::AssessorLog($id, "Is aangemeld om op onderhoud te gaan voor " . Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString());
             }
 
+            # if assessor needs to do an Exam
             if ($type == "exam") {
                 $exam = Exams::find($assessor->fk_exams);
+
+                /** Create a DateTime format*/
                 $exam->exam_next_on = Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString();
                 $exam->save();
+
+                /** We Log this change to the log of this assessor */
                 Log::AssessorLog($id, "Is aangemeld om op examen te gaan voor " . Carbon::createFromFormat('Y-m-d H:i:s', $date)->toDateString());
             }
-        }else {
+        } else {
+            /** If this assessor does not have to be placed in maintenance
+             * We will reset the dates
+             */
             if ($type == "maintenance"){
                 $exam = Exams::find($assessor->fk_exams);
                 $exam->training_next_on = null;

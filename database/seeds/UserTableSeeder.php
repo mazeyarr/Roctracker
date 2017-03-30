@@ -17,5 +17,15 @@ class UserTableSeeder extends Seeder
             'email' => 'mazeyarr@gmail.com',
             'password' => bcrypt('mazeyar123')
         ));
+        User::create(array(
+            'name' => 'Zahra Abidar',
+            'email' => 'z.abidar@roc-teraa.nl',
+            'password' => bcrypt('welkom1')
+        ));
+        User::create(array(
+            'name' => 'Peter Nöcker',
+            'email' => 'p.nocker@roc-teraa.nl',
+            'password' => bcrypt('peter123')
+        ));
     }
 }
