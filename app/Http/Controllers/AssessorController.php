@@ -42,7 +42,7 @@ class AssessorController extends Controller
             return redirect()->back()->withErrors($validator->getMessageBag()->first());
         }
 
-        switch ($this->DetectChange($old, $request->name, $request->team)) {
+        switch ($this->DetectChange_name_or_team($old, $request->name, $request->team)) {
             case "both":
                 $messages[] = "Naam gewijzigd van: <strong>".$old->name."</strong> naar <strong>".$request->name."</strong>";
                 $messages[] = "Team gewijzigd van: <strong>".$old->team."</strong> naar <strong>".$request->team."</strong>";
@@ -233,6 +233,7 @@ class AssessorController extends Controller
             $approvedRows = array();
             $rejectedRows = array();
             $importdata = array();
+
             foreach ($rows as $row) {
                 $validator = Validator::make($row, array(
                     'naam_deelnemer'                    => 'required|max:255|min:2',
@@ -252,57 +253,50 @@ class AssessorController extends Controller
                     $rejectedRows[] = $row;
                     continue;
                 }
-                $basictraining = strtolower($row['basistraining_behaald_janee']) == 'ja' ? true : false;
-                if ($basictraining) {
-                    if (empty($row['laatste_basistraining_datum']) || $row['laatste_basistraining_datum'] == "") {
-                        $basictraining_date = null;
-                    }else {
-                        $basictraining_date = $row['laatste_basistraining_datum']->format('d-m-Y');
+
+                $messages = array();
+
+                if (!Assessors::where('name', $row['naam_deelnemer'])->isEmpty()) {
+                    $assessor = Assessors::where('name', $row['naam_deelnemer'])->first();
+
+                    $n_college = (College::where('name', 'like', '%' . $row['naam_college'] . '%')->isEmpty()) ? null : College::where('name', 'like', '%' . $row['naam_college'] . '%')->first()->name;
+                    $o_college = (empty(College::find($assessor->fk_college)) ? null : College::find($assessor->fk_college)->name);
+                    if ($this->DetectChange($o_college, $n_college)) {
+                        if (!empty($n_college)) {
+                            $assessor->fk_college = null;
+                        }else {
+                            $assessor->fk_collge = College::where('name', 'like', '%' . $row['naam_college'] . '%')->id;
+                        }
+                        $messages[] = "College geqijzigd van " . empty($o_college) ? "Geen" : $o_college . " naar " . empty($n_college) ? "Geen" : $n_college;
                     }
+
+                    $n_team = $row['naam_team'];
+                    $o_team = $assessor->team;
+                    if ($this->DetectChange($o_team, $n_team)) {
+                        $assessor->team = $n_team;
+                        $messages[] = "Team wijziging van " . empty($o_team) ? "Geen" : $o_team . " naar " . empty($n_team) ? "Geen" : $n_team;
+                    }
+
+                    /*$n_birth = $row['geboorte_datum'];
+                    $o_birth = $assessor->birthdate;
+                    if ($this->DetectChange($o_birth, $n_birth)) {
+                        $assessor->birthdate = $n_birth;
+                        $messages[] = "Geboorte datum naar " . $n_birth . " Gewijzigd";
+                    }*/
+
+                    $n_function = $row['functie'];
+                    $o_function = $assessor->function;
+                    if ($this->DetectChange($o_function, $n_function)) {
+                        $assessor->function = $n_function;
+                        $messages[] = "Functie gewijzigd van " . $o_function . " naar " . $n_function;
+                    }
+
+
+
                 }
 
-                switch (strtolower($row['status_actief_non_actief_anders'])){
-                    case 'actief':
-                        $status =  1;
-                        break;
-                    case 'non-actief':
-                        $status =  0;
-                        break;
-                    case 'niet-actief':
-                        $status =  0;
-                        break;
-                    case 'anders':
-                        $status =  2;
-                        break;
-                    default:
-                        $status =  2;
-                        break;
-                }
-                $assessor = new Assessors();
-                $assessor->name = $row['naam_deelnemer'];
-                $assessor->birthdate = $row['geboorte_datum']->format('Y-m-d');
-                if (!empty(College::where('name', 'LIKE', "%".$row['naam_college']."%")->first())) {
-                    $collegeid = College::where('name', 'LIKE', "%".$row['naam_college']."%")->first()->id;
-                    $teamleaderid = TiC::where('fk_college', $collegeid)->first()->id;
-                }else{
-                    $collegeid = null;
-                    $teamleaderid = null;
-                }
-                $assessor->fk_college = $collegeid;
-                $assessor->fk_teamleader = $teamleaderid;
-                $assessor->function = $row['functie'];
-                $assessor->team = $row['naam_team'];
-                $assessor->trained_by = $row['training_verzorgd_door'];
-                $assessor->certified_by = $row['diploma_uitgegeven_door'];
-                $assessor->status = $status;
-                $assessor->fk_exams = Exams::NewAssessor($basictraining, $basictraining_date);
-                $assessor->log = '{"log" : {}}';
-                $assessor->save();
-
-                Log::AssessorLog($assessor->id, $assessor->name . " Toegevoegd aan het systeem");
-
-                $approvedRows[] = $row;
-                $importdata[]['id'] = $assessor->id;
+                /*$approvedRows[] = $row;
+                $importdata[]['id'] = $assessor->id;*/
             }
 
             $import = new Imports();
@@ -401,7 +395,7 @@ class AssessorController extends Controller
         return redirect()->route('assessors')->withSuccess($salutation . ", Zijn successvol opgeslagen");
     }
 
-    private function DetectChange ($object, $value1, $value2) {
+    private function DetectChange_name_or_team ($object, $value1, $value2) {
         if ($object->name != $value1 && $object->team != $value2) {
             return "both";
         }elseif ($object->name != $value1) {
@@ -411,6 +405,15 @@ class AssessorController extends Controller
         }else {
             return "none";
         }
+    }
+
+    private function DetectChange($old, $new)
+    {
+        if ($old == $new) {
+            return false;
+        }
+
+        return true;
     }
 
     private static function object_2_array($result)
