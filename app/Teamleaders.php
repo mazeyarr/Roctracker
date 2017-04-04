@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Teamleaders extends Model
 {
     /**
+     * This function is used to get all teamleaders with colleges if available,
+     *
      * @param null $id
      * @return array|bool|mixed
-     *
-     * This function is used to get all teamleaders with colleges if available,
      */
     public static function getTeamleaders ($id=null) {
 
@@ -26,7 +26,6 @@ class Teamleaders extends Model
             # We loop trough all the teamleaders and make a proper output that we can than loop trough in the view
             foreach ($all_teamleaders as $teamleader) {
                 $format_teamleaders[$teamleader->id]["teamleader"] = $teamleader;
-                $inCollege = TiC::where("fk_teamleader", "=", $teamleader->id)->first();
                 $inCollege = TiC::where("fk_teamleader", "=", $teamleader->id)->get();
                 if (!$inCollege->isEmpty()) {
                     foreach ($inCollege as $inthisCollege) {

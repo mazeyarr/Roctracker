@@ -5,6 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 
+/**
+ * This class will keep track of all the imported files to the system.
+ *
+ * Class Imports
+ * @package App
+ */
 class Imports extends Model
 {
     public static function undo ($id) {

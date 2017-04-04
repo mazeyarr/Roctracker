@@ -13,6 +13,13 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="white-box">
+                <div class="row sales-report">
+                    <div class="col-md-6 col-sm-6 col-xs-6 m-t-15">
+                        <h2>Totaal Actieve Assessoren</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-6 ">
+                            <h1 class="text-right text-success m-t-15">{{ \App\Assessors::where('status', 1)->count() }}</h1> </div>
+                </div>
                 <table id="college-footable" class="table toggle-circle table-hover">
                     <thead>
                     <tr>

@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class TiC extends Model
 {
     /**
+     * This function is for getting college that is assigned to the teamleaders by id
+     *
      * @param $id = teamleader id
      * @return mixed
-     *
-     * This function is for getting college that is assigned to the teamleaders id
      */
     public static function AssignedCollege ($id) {
         $teamleader_in_colleges = self::where('fk_teamleader', '=', $id)->get();
