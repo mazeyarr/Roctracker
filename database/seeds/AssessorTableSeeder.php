@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Assessors;
 use App\Exams;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class AssessorTableSeeder extends Seeder
 {
@@ -200,7 +200,7 @@ class AssessorTableSeeder extends Seeder
             'fk_teamleader' => 1,
             'fk_exams' => $EXAM->id,
             'status' => 1,
-            'log' => trim(preg_replace('/\s\s+/', ' ','
+            'log' => trim(preg_replace('/\s\s+/', ' ', '
             {
                 "log" : {}
             }'))

@@ -12,7 +12,8 @@ class Teamleaders extends Model
      * @param null $id
      * @return array|bool|mixed
      */
-    public static function getTeamleaders ($id=null) {
+    public static function getTeamleaders($id = null)
+    {
 
         # We initialize our variables
         $ret = false;
@@ -31,7 +32,7 @@ class Teamleaders extends Model
                     foreach ($inCollege as $inthisCollege) {
                         $format_teamleaders[$teamleader->id]["college"][] = College::find($inthisCollege->fk_college);
                     }
-                }else {
+                } else {
                     $format_teamleaders[$teamleader->id]["college"] = null;
                 }
             }
@@ -39,7 +40,7 @@ class Teamleaders extends Model
         }
 
         if (!is_null($id)) {
-            array_key_exists ( $id , $ret ) ? $ret = $ret[$id] : $ret = false;
+            array_key_exists($id, $ret) ? $ret = $ret[$id] : $ret = false;
         }
         return $ret;
     }

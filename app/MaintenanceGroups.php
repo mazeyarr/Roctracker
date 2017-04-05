@@ -18,7 +18,8 @@ class MaintenanceGroups extends Model
      *
      * @return Collection Array
      */
-    public static function GetGroups () {
+    public static function GetGroups()
+    {
         $groups = self::where('year', '>=', date('Y'))->get();
 
         # If there are no groups, this function will return null

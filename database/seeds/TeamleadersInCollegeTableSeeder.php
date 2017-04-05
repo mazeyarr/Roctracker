@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\TiC;
+use Illuminate\Database\Seeder;
 
 class TeamleadersInCollegeTableSeeder extends Seeder
 {

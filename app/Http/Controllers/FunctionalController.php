@@ -4,16 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Assessors;
 use App\College;
-use App\Functions;
-use App\Log;
-use App\Exams;
-use App\MaintenanceGroups;
-use App\Teamleaders;
 use App\HistoryData;
-use App\TiC;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Log;
+use App\Teamleaders;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -30,7 +23,8 @@ class FunctionalController extends Controller
         $this->company = "MRG Studios";
     }
 
-    public function ajaxSaveCollege ($id, $name) {
+    public function ajaxSaveCollege($id, $name)
+    {
         if (!is_numeric($id)) {
             return json_encode(array(
                 'result' => 'failed',
@@ -49,7 +43,8 @@ class FunctionalController extends Controller
         return json_encode(array('result' => 'executed'));
     }
 
-    public function ajaxSaveTeamleader ($id, $name) {
+    public function ajaxSaveTeamleader($id, $name)
+    {
         if (!is_numeric($id)) {
             return json_encode(array(
                 'result' => 'failed',
@@ -68,11 +63,12 @@ class FunctionalController extends Controller
         return json_encode(array('result' => 'executed'));
     }
 
-    public function ajaxSaveAssessorToCollege ($id, $college_id) {
+    public function ajaxSaveAssessorToCollege($id, $college_id)
+    {
 
         $parameters = array(
-          'id' => $id,
-          'college_id' => $college_id
+            'id' => $id,
+            'college_id' => $college_id
         );
         $validator = Validator::make($parameters, [
             'id' => 'required|max:255',
@@ -92,38 +88,28 @@ class FunctionalController extends Controller
             $assessor->status = 0;
             $assessor->save();
             Log::AssessorLog($id, 'College veranderd, Assessor is hierbij op non-actief gezet');
-        }else {
+        } else {
             $assessor->fk_college = $college_id;
             $assessor->save();
-            Log::AssessorLog($id, 'College veranderd, van <strong>'. (College::find($old_college)->name) . '</strong> Naar <strong>' . (College::find($assessor->fk_college)->name) . '</strong>' );
+            Log::AssessorLog($id, 'College veranderd, van <strong>' . (College::find($old_college)->name) . '</strong> Naar <strong>' . (College::find($assessor->fk_college)->name) . '</strong>');
         }
         return json_encode(array('result' => 'executed'));
     }
 
-    public function ajaxGetHistoryData () {
+    public function ajaxGetHistoryData()
+    {
         die(HistoryData::all()->toJson());
     }
-    public function makeBookmark () {
-        HistoryData::create(array(
-            'year' => Carbon::now()->format('Y'),
-            'actieve_assessors' => Assessors::where('status', 1)->count(),
-            'assessor_data' => HistoryData::data(),
-            'c_assessors' => Assessors::all()->count(),
-            'c_colleges' => College::all()->count(),
-            'c_teamleaders' => Teamleaders::all()->count(),
-            'c_teamleaders_in_colleges' => TiC::all()->count(),
-            'year_checked' => true,
-            'log' => '{}',
 
-        ));
-    }
-
-    public function ajaxGetAssessorData () {
+    public function ajaxGetAssessorData()
+    {
 
         $DataPastYear = HistoryData::where('year', (date('Y') - 1))->get();
-        if ($DataPastYear->isEmpty()) { return null; }
+        if ($DataPastYear->isEmpty()) {
+            return null;
+        }
 
-        /** @var  $DataPastYear (Get assessor data of last year*/
+        /** @var  $DataPastYear (Get assessor data of last year */
         $DataPastYear = $DataPastYear->first();
         $return = array();
         $return['past'] = json_decode($DataPastYear->assessor_data);
@@ -131,7 +117,8 @@ class FunctionalController extends Controller
         die(json_encode($return));
     }
 
-    public function ajaxGetColleges ($option){
+    public function ajaxGetColleges($option)
+    {
         $json = '<option value="Geen"> Geen </option>';
         switch ($option) {
             case 'select':
@@ -141,14 +128,15 @@ class FunctionalController extends Controller
                 }
 
                 foreach ($colleges as $college) {
-                    $json = $json . '<option value="'.$college->id.'"> '.$college->name.' </option>';
+                    $json = $json . '<option value="' . $college->id . '"> ' . $college->name . ' </option>';
                 }
                 break;
         }
         return json_encode($json);
     }
 
-    public function ajaxGetAssessor($id) {
+    public function ajaxGetAssessor($id)
+    {
         $assessor = Assessors::find($id);
         if (empty($assessor)) {
             return json_encode(false);
@@ -158,11 +146,13 @@ class FunctionalController extends Controller
         return json_encode($assessor);
     }
 
-    public function ajaxCheckPassword ($password) {
+    public function ajaxCheckPassword($password)
+    {
         return json_encode(Hash::check($password, Auth::user()->password));
     }
 
-    public function downloadExcelAssessorLayout () {
+    public function downloadExcelAssessorLayout()
+    {
         Excel::create('Assessor Lijst Layout', function ($excel) {
 
             // Set the title
@@ -177,7 +167,7 @@ class FunctionalController extends Controller
             // Our first sheet
             $excel->sheet('Lijst', function ($sheet) {
                 $sheet->row(1, array(
-                    'Naam deelnemer', 'Naam College', 'Naam Team', 'Geboorte Datum', 'Functie', 'Training verzorgd door', 'Diploma uitgegeven door', 'Naam Teamleider (1 Persoon)', 'Status (Actief, Non-actief, Anders)', 'Basistraining behaald (Ja/Nee)', 'Laatste basistraining datum'
+                    'Naam deelnemer', 'Naam College', 'Naam Team', 'Geboorte Datum', 'Functie', 'Training verzorgd door', 'Diploma uitgegeven door', 'Beroepskerntaak', 'Status (Actief, Non-actief, Anders)', 'Basistraining behaald (Ja/Nee)', 'Laatste basistraining datum'
                 ));
 
                 // Set width for multiple cells
@@ -225,20 +215,23 @@ class FunctionalController extends Controller
                     'K' => 'yyyy-mm-dd',
                 ));
 
-                // Advanced protect
+                /*// Advanced protect
                 $sheet->protect('ROCTRACKER', function(\PHPExcel_Worksheet_Protection $protection) {
                     $protection->setSort(true);
-                });
+                });*/
             });
 
         })->download('xlsx');
         exit(200);
     }
 
-    public static function random_color() {
+    public static function random_color()
+    {
         return self::random_color_part() . self::random_color_part() . self::random_color_part();
     }
-    private static function CurrentAssessorData (){
+
+    private static function CurrentAssessorData()
+    {
         $colleges = College::all();
         if ($colleges->isEmpty()) {
             return null;
@@ -246,15 +239,17 @@ class FunctionalController extends Controller
         $counts = array();
         foreach ($colleges as $college) {
             $counts['data'][] = array(
-              'label' => $college->name,
-              'data' => Assessors::where('fk_college', $college->id)->count(),
-              'value' => Assessors::where('fk_college', $college->id)->count(),
-              'color' => "#" . self::random_color(),
+                'label' => $college->name,
+                'data' => Assessors::where('fk_college', $college->id)->count(),
+                'value' => Assessors::where('fk_college', $college->id)->count(),
+                'color' => "#" . self::random_color(),
             );
         }
         return $counts;
     }
-    private static function random_color_part() {
-        return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+
+    private static function random_color_part()
+    {
+        return str_pad(dechex(mt_rand(0, 255)), 2, '0', STR_PAD_LEFT);
     }
 }

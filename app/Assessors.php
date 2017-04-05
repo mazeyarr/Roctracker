@@ -14,47 +14,56 @@ class Assessors extends Model
      * @else
      * @return Collection of Assessor
      */
-    public static function getAssessors($id=null){
+    public static function getAssessors($id = null)
+    {
         # SECTOR 1
         $assessors = array();
 
         # SECTOR 2
-        if (self::all()->isEmpty()){
+        if (self::all()->isEmpty()) {
             return null;
         }
 
         # SECTOR 3
         if (!empty($id)) {
             # SECTOR 3.1
-            $assessor = self::find($id); /** @returns Collection of $this Model */
+            $assessor = self::find($id);
+            /** @returns Collection of $this Model */
 
             # SECTOR 3.2
             /** If the college #id is not a faulty one */
             if (!empty($assessor->fk_college)) {
-                $college = College::find($assessor->fk_college); /** $college will become a Collection */
-                $assessor->fk_college = $college; /** replace the Collection collum "fk_college" with the bounded Collection */
+                $college = College::find($assessor->fk_college);
+                /** $college will become a Collection */
+                $assessor->fk_college = $college;
+                /** replace the Collection collum "fk_college" with the bounded Collection */
             }
 
             # SECTOR 3.3
             /** If the teamleader #id is not a faulty one */
             if (!empty($assessor->fk_teamleader)) {
-                $teamleader = Teamleaders::find($assessor->fk_teamleader)->name; /** Place name from Teamleader in $teamleader */
+                $teamleader = Teamleaders::find($assessor->fk_teamleader)->name;
+                /** Place name from Teamleader in $teamleader */
 
                 # SECTOR 3.3.1
                 /** if the Teamleader could be found */
                 if (!empty($teamleader)) {
-                    $assessor->fk_teamleader = $teamleader; /** replace the Collection collum "fk_teamleader" with the name of the $teamleader */
+                    $assessor->fk_teamleader = $teamleader;
+                    /** replace the Collection collum "fk_teamleader" with the name of the $teamleader */
                 }
             }
 
             # SECTOR 3.4
-            $exams = Exams::find($assessor->fk_exams); /** @returns Collection of the Exam Model */
+            $exams = Exams::find($assessor->fk_exams);
+            /** @returns Collection of the Exam Model */
 
             # SECTOR 3.5
             /** if the Model returned Collection */
             if (!empty($exams)) {
-                $exams->basictraining = json_decode($exams->basictraining); /** replace Collection collum "basictraining" a json decoded version */
-                $assessor->fk_exams = $exams; /** replace this Collection collum from this $assessor to the Collection of $exams */
+                $exams->basictraining = json_decode($exams->basictraining);
+                /** replace Collection collum "basictraining" a json decoded version */
+                $assessor->fk_exams = $exams;
+                /** replace this Collection collum from this $assessor to the Collection of $exams */
             }
             return $assessor;
         }
@@ -102,7 +111,8 @@ class Assessors extends Model
                 /** replace the Assessor(Collection) "fk_exams" to the new temporary $exams Collection*/
                 $assessor->fk_exams = $exams;
             }
-            $assessors[] = $assessor; /** add new (temp) made assessor to array with all the others */
+            $assessors[] = $assessor;
+            /** add new (temp) made assessor to array with all the others */
         }
 
         return $assessors;
@@ -114,7 +124,8 @@ class Assessors extends Model
      * @param $place "(bool) if u want to place assessor in group"
      * @return bool "True or False"
      */
-    public static function ScheduledForMaintenance($id, $date, $place) {
+    public static function ScheduledForMaintenance($id, $date, $place)
+    {
         /** @var  $assessor Collection */
         $assessor = self::find($id);
 
@@ -133,7 +144,7 @@ class Assessors extends Model
         /** If assessor needs to be placed in maintenance mode */
         if ($place) {
             # if assessor needs to do an maintenance
-            if ($type == "maintenance"){
+            if ($type == "maintenance") {
                 $exam = Exams::find($assessor->fk_exams);
 
                 /** Create a DateTime format*/
@@ -159,7 +170,7 @@ class Assessors extends Model
             /** If this assessor does not have to be placed in maintenance
              * We will reset the dates
              */
-            if ($type == "maintenance"){
+            if ($type == "maintenance") {
                 $exam = Exams::find($assessor->fk_exams);
                 $exam->training_next_on = null;
                 $exam->save();

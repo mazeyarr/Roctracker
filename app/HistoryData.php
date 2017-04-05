@@ -52,7 +52,7 @@ class HistoryData extends Model
                 if (array_key_exists($assessor->profession, $currentProfessions)) {
                     # if the profession already exist in this college we just add an integer to it.
                     $currentProfessions[$assessor->profession]++;
-                }else {
+                } else {
                     # if the profession did not exist in the profession array we add this profession as a key
                     $currentProfessions[$assessor->profession] = 1;
                 }
@@ -81,7 +81,7 @@ class HistoryData extends Model
                 if (array_key_exists($assessor->profession, $professions)) {
                     # if the profession already exist in this college we just add an integer to it.
                     $professions[$assessor->profession]++;
-                }else {
+                } else {
                     # if the profession did not exist in the profession array we add this profession as a key
                     $professions[$assessor->profession] = 1;
                 }
@@ -108,7 +108,7 @@ class HistoryData extends Model
         foreach ($data as $bar => $barData) {
             foreach ($diffrentLabels as $label => $null) {
                 # For each profession that exists in this college
-                if (!array_key_exists($label, $barData)){
+                if (!array_key_exists($label, $barData)) {
                     # If this profession does not exist in this the year that is looped trough,
                     # we only add this profession, but we value it to a 0 (integer)
                     $data[$bar][$label] = 0;

@@ -8,13 +8,12 @@ use App\Log;
 use App\Teamleaders;
 use App\TiC;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Auth;
 use Validator;
 
 class CollegeController extends Controller
 {
-    public function postChangeCollege (Request $request, $id) {
+    public function postChangeCollege(Request $request, $id)
+    {
         switch ($request->assessor_option) {
             case 'selection':
                 $validator = Validator::make($request->all(), [
@@ -32,7 +31,7 @@ class CollegeController extends Controller
 
                 $name = ($name != $request->name) ? true : false;
                 $location = ($location != $request->location) ? true : false;
-                $change_both = ($name==true && $location==true) ? true : false;
+                $change_both = ($name == true && $location == true) ? true : false;
                 if ($name == false && $location == false) {
                     return redirect()->route('change_colleges', $id)->withWarning('Geen veranderingen plaatsgevonden.');
                 }
@@ -40,14 +39,14 @@ class CollegeController extends Controller
                 $message = null;
                 $old_college['name'] = $college->name;
                 $old_college['location'] = $college->location;
-                if ($change_both==true){
+                if ($change_both == true) {
                     $college->name = $request->name;
                     $college->location = $request->location;
-                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>' . 'en Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>';
-                }elseif ($name==true) {
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name . '</strong>' . 'en Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>';
+                } elseif ($name == true) {
                     $college->name = $request->name;
-                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>';
-                }elseif ($location==true) {
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name . '</strong>';
+                } elseif ($location == true) {
                     $college->location = $request->location;
                     $message = 'Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>';
                 }
@@ -88,7 +87,7 @@ class CollegeController extends Controller
 
                 $name = ($name != $request->name) ? true : false;
                 $location = ($location != $request->location) ? true : false;
-                $change_both = ($name==true && $location==true) ? true : false;
+                $change_both = ($name == true && $location == true) ? true : false;
                 if ($name == false && $location == false) {
                     return redirect()->route('change_colleges', $id)->withWarning('Geen veranderingen plaatsgevonden');
                 }
@@ -96,14 +95,14 @@ class CollegeController extends Controller
                 $message = null;
                 $old_college['name'] = $college->name;
                 $old_college['location'] = $college->location;
-                if ($change_both==true){
+                if ($change_both == true) {
                     $college->name = $request->name;
                     $college->location = $request->location;
-                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>' . 'en Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>';
-                }elseif ($name==true) {
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name . '</strong>' . 'en Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>';
+                } elseif ($name == true) {
                     $college->name = $request->name;
-                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>';
-                }elseif ($location==true) {
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name . '</strong>';
+                } elseif ($location == true) {
                     $college->location = $request->location;
                     $message = 'Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>';
                 }
@@ -143,22 +142,22 @@ class CollegeController extends Controller
 
                 $name = ($name != $request->name) ? true : false;
                 $location = ($location != $request->location) ? true : false;
-                $change_both = ($name==true && $location==true) ? true : false;
+                $change_both = ($name == true && $location == true) ? true : false;
 
                 $message = null;
                 $old_college['name'] = $college->name;
                 $old_college['location'] = $college->location;
-                if ($change_both==true){
+                if ($change_both == true) {
                     $college->name = $request->name;
                     $college->location = $request->location;
-                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>' . 'en Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>. <br> Assesoren zijn op non-actief gezet.';
-                }elseif ($name==true) {
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name . '</strong>' . 'en Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>. <br> Assesoren zijn op non-actief gezet.';
+                } elseif ($name == true) {
                     $college->name = $request->name;
-                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name.'</strong>. <br> Assesoren zijn op non-actief gezet.';
-                }elseif ($location==true) {
+                    $message = 'College naam van<strong> ' . $old_college['name'] . ' </strong>naar <strong>' . $request->name . '</strong>. <br> Assesoren zijn op non-actief gezet.';
+                } elseif ($location == true) {
                     $college->location = $request->location;
                     $message = 'Locatie van <strong>' . $old_college['location'] . '</strong> naar <strong>' . $request->location . '</strong>. <br> Assesoren zijn op non-actief gezet.';
-                }elseif ($name==false && $location==false) {
+                } elseif ($name == false && $location == false) {
                     $message = 'Geen verandering plaatsgevonden in <strong>' . $old_college['name'] . '</strong> Maar alle Assesoren zijn op non-actief gezet';
                 }
                 $college->save();
@@ -175,12 +174,14 @@ class CollegeController extends Controller
         }
     }
 
-    public function getChangeAssessorsSelection ($id, $collegename, $collegelocation) {
+    public function getChangeAssessorsSelection($id, $collegename, $collegelocation)
+    {
         return view('college-change-selection')->withCollege_current(College::find($id))->withNewname($collegename)->withNewlocation($collegelocation)->withColleges(College::all())->withAssessors(Assessors::where('fk_college', '=', $id)->get());
     }
 
-    public function postNewCollege(Request $request) {
-        $validate = Validator::make($request->all(),array(
+    public function postNewCollege(Request $request)
+    {
+        $validate = Validator::make($request->all(), array(
             'name' => 'required|max:250',
         ), array(
             'name.max' => 'College naam mag niet groter dan 250 karakters zijn',
@@ -196,7 +197,7 @@ class CollegeController extends Controller
         $college->log = "{}";
         $college->save();
         Log::CollegeLog($college->id, $college->name . " Toegevoegd aan het systeem");
-        if ($request->teamleader != "geen"){
+        if ($request->teamleader != "geen") {
             $validate_teamleader = Validator::make($request->all(), array(
                 'teamleader' => 'numeric'
             ));
@@ -207,13 +208,14 @@ class CollegeController extends Controller
             $tic->fk_teamleader = $request->teamleader;
             $tic->fk_college = $college->id;
             $tic->save();
-            Log::CollegeLog($college->id,"<i>" . Teamleaders::find($tic->fk_teamleader)->name . "</i> Is nu teamleider van <i>" . $college->name . "</i>");
-            Log::TeamleaderLog($tic->fk_teamleader,"<i>" . Teamleaders::find($tic->fk_teamleader)->name . "</i> Is nu teamleider van <i>" . $college->name . "</i>");
+            Log::CollegeLog($college->id, "<i>" . Teamleaders::find($tic->fk_teamleader)->name . "</i> Is nu teamleider van <i>" . $college->name . "</i>");
+            Log::TeamleaderLog($tic->fk_teamleader, "<i>" . Teamleaders::find($tic->fk_teamleader)->name . "</i> Is nu teamleider van <i>" . $college->name . "</i>");
         }
         return redirect()->route('colleges', $college->id)->withSuccess('College Opgeslagen !');
     }
 
-    public function getCollegeDetails($id) {
+    public function getCollegeDetails($id)
+    {
         $college = College::find($id);
         if (empty($college)) {
             return redirect()->back()->withErrors("Dit College bestaat niet in het systeem");

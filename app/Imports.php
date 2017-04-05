@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * This class will keep track of all the imported files to the system.
@@ -13,7 +13,8 @@ use DB;
  */
 class Imports extends Model
 {
-    public static function undo ($id) {
+    public static function undo($id)
+    {
         if (empty($id) || !is_numeric($id)) {
             return false;
         }

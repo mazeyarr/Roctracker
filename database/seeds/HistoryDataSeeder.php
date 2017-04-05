@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\HistoryData;
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
 
 class HistoryDataSeeder extends Seeder
 {

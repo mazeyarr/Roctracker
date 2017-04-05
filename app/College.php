@@ -13,7 +13,8 @@ class College extends Model
      * @param null $id
      * @return array|null
      */
-    public static function getColleges($id=null) {
+    public static function getColleges($id = null)
+    {
         # if there is an ID given as a parameter of this function then we only get 1 college according to the ID
         if (!is_null($id)) {
             $college = self::find($id); # Get the college object
@@ -29,12 +30,12 @@ class College extends Model
             if (is_null($asigned_teamleaders)) {
                 $with_teamleaders['college'] = $college;
                 $with_teamleaders['teamleader'] = null;
-            }else {
+            } else {
                 $with_teamleaders['college'] = $college;
                 $with_teamleaders['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
             }
             return $with_teamleaders;
-        }else {
+        } else {
             # else we just grab all the colleges
             $colleges = self::all();
         }
@@ -55,7 +56,7 @@ class College extends Model
                 # If there is no teamleader, we will just give the college and set the teamleader to null value
                 $with_teamleaders[$college->id]['college'] = $college;
                 $with_teamleaders[$college->id]['teamleader'] = null;
-            }else {
+            } else {
                 # in the case that we do have a teamleader in this college we will set the teamleader to a Collection class
                 $with_teamleaders[$college->id]['college'] = $college;
                 $with_teamleaders[$college->id]['teamleader'] = Teamleaders::find($asigned_teamleaders->fk_teamleader);
@@ -87,7 +88,7 @@ class College extends Model
 
             #we encode the array to json and return it
             return json_encode($data);
-        }else {
+        } else {
             if ($assessors->isEmpty()) {
                 return null;
             }
@@ -104,19 +105,14 @@ class College extends Model
     public static function object_2_array($result)
     {
         $array = array();
-        foreach ($result as $key=>$value)
-        {
-            if (is_object($value))
-            {
-                $array[$key]=self::object_2_array(self::object_2_array($value));
+        foreach ($result as $key => $value) {
+            if (is_object($value)) {
+                $array[$key] = self::object_2_array(self::object_2_array($value));
             }
-            if (is_array($value))
-            {
-                $array[$key]=self::object_2_array(self::object_2_array($value));
-            }
-            else
-            {
-                $array[$key]=$value;
+            if (is_array($value)) {
+                $array[$key] = self::object_2_array(self::object_2_array($value));
+            } else {
+                $array[$key] = $value;
             }
         }
         return $array;

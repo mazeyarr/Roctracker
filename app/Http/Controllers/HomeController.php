@@ -5,16 +5,13 @@ namespace App\Http\Controllers;
 use App;
 use App\Assessors;
 use App\College;
+use App\Exams;
 use App\HistoryData;
 use App\Log;
+use App\MaintenanceGroups;
 use App\Teamleaders;
 use App\TiC;
 use App\User;
-use App\Exams;
-use App\Maintenance;
-use App\MaintenanceGroups;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -31,7 +28,8 @@ class HomeController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getDashboard($year=null) {
+    public function getDashboard($year = null)
+    {
         return view('dashboard')->withColleges(College::all())->withGraph(HistoryData::generate());
     }
 
@@ -42,7 +40,8 @@ class HomeController extends Controller
     /**
      * @return mixed
      */
-    public function getColleges() {
+    public function getColleges()
+    {
         return view('colleges')->withColleges(College::getColleges());
     }
 
@@ -60,16 +59,17 @@ class HomeController extends Controller
      * @param $id
      * @return mixed
      */
-    public function getChangeColleges($id) {
+    public function getChangeColleges($id)
+    {
         return view('change-college')->withColleges(College::getColleges($id));
     }
 
-    public function getAddNewCollege() {
+    public function getAddNewCollege()
+    {
         return view('college-add')->withTeamleaders(Teamleaders::all());
     }
 
     /** END COLLEGES. *********************************************/
-
 
 
     /**
@@ -79,7 +79,8 @@ class HomeController extends Controller
     /**
      * @return mixed
      */
-    public function getTeamleaders() {
+    public function getTeamleaders()
+    {
         return view('teamleaders')->withTeamleaders(Teamleaders::getTeamleaders());
     }
 
@@ -87,7 +88,8 @@ class HomeController extends Controller
      * @param $id
      * @return mixed
      */
-    public function getTeamleaderTimeline($id) {
+    public function getTeamleaderTimeline($id)
+    {
         return view('teamleader-view')->withColleges(College::getColleges($id))->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));
     }
 
@@ -95,17 +97,17 @@ class HomeController extends Controller
      * @param $id
      * @return mixed
      */
-    public function getChangeTeamleader($id) {
+    public function getChangeTeamleader($id)
+    {
         return view('change-teamleader')->withTeamleader(Teamleaders::find($id))->withAssigned(TiC::AssignedCollege($id))->withColleges(College::all());
     }
 
-    public function getAddTeamleader () {
+    public function getAddTeamleader()
+    {
         return view('teamleader-add-manual')->withColleges(College::all());
     }
 
     /** END TEAMLEADERS.***********************************************/
-
-
 
 
     /**
@@ -133,7 +135,8 @@ class HomeController extends Controller
      * @param $id
      * @return mixed
      */
-    public function getAssessorTimeline($id) {
+    public function getAssessorTimeline($id)
+    {
         return view('assessor-view')->withAssessor(Assessors::getAssessors($id))->withLogs(json_decode(Assessors::find($id)->log));
     }
 
@@ -141,28 +144,32 @@ class HomeController extends Controller
      * @param $id
      * @return mixed
      */
-    public function getChangeAssessor($id) {
+    public function getChangeAssessor($id)
+    {
         return view('change-assessor')->withAssessor(Assessors::getAssessors($id))->withColleges(College::all());
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getAddAssessor () {
+    public function getAddAssessor()
+    {
         return view('assessor-add');
     }
 
     /**
      * @return mixed
      */
-    public function getAddAssessorManual () {
+    public function getAddAssessorManual()
+    {
         return view('assessor-add-manual')->withColleges(College::all());
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getAddAssessorAutomatic () {
+    public function getAddAssessorAutomatic()
+    {
         return view('assessor-add-automatic');
     }
 
@@ -173,12 +180,14 @@ class HomeController extends Controller
      * Assessor Maintenance *******************************************************
      */
 
-    public function getAssessorMaintenance () {
+    public function getAssessorMaintenance()
+    {
         $assessors_need_maintenance = Exams::MaintenanceUpdate();
         return view('maintainance-overview')->withAssessors($assessors_need_maintenance);
     }
 
-    public function getAssessorMaintenanceGroup () {
+    public function getAssessorMaintenanceGroup()
+    {
         return view('maintenance-groups')->withAssessors(Exams::MaintenanceUpdate())->withGroups(MaintenanceGroups::GetGroups());
     }
 

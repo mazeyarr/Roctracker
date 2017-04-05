@@ -3,20 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Assessors;
-use App\Functions;
 use App\Log;
 use App\Maintenance;
 use App\MaintenanceGroups;
-use App\SystemLog;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-use Mockery\CountValidator\Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AssessorMaintenanceController extends Controller
 {
-    public function postPlaceAssessor(Request $request) {
+    public function postPlaceAssessor(Request $request)
+    {
         $validator = Validator::make($request->all(), array(
             'id_a' => 'required',
             'id_g' => 'required',
@@ -43,7 +40,7 @@ class AssessorMaintenanceController extends Controller
                             return json_encode(true);
                         }
                     }
-                }else{
+                } else {
                     return json_encode(true);
                 }
             } else {
@@ -57,14 +54,14 @@ class AssessorMaintenanceController extends Controller
                             return json_encode(true);
                         }
                     }
-                }else{
+                } else {
                     if (count($participants['participants']) < 16) {
                         $participants['participants'][] = $id_a;
                         Assessors::ScheduledForMaintenance($id_a, Maintenance::find($group->fk_maintenances)->from, true);
                         $group->participants = json_encode($participants);
                         $group->save();
                         return json_encode(true);
-                    }else{
+                    } else {
                         return json_encode(false);
                     }
                 }
@@ -74,7 +71,8 @@ class AssessorMaintenanceController extends Controller
         return json_encode(false);
     }
 
-    public function postMaintenanceData (Request $request) {
+    public function postMaintenanceData(Request $request)
+    {
         $validate = Validator::make($request->all(), array(
             'id' => 'required',
             'group' => 'required',
@@ -107,31 +105,43 @@ class AssessorMaintenanceController extends Controller
         $ret = json_encode(false);
         switch ($fieldname) {
             case "title":
-                if ($value == "") { return $ret; }
+                if ($value == "") {
+                    return $ret;
+                }
                 $group->title = $value;
                 $group->save();
                 return json_encode(true);
                 break;
             case "institution":
-                if ($value == "") { return $ret; }
+                if ($value == "") {
+                    return $ret;
+                }
                 $maintenance->institution = $value;
                 $maintenance->save();
                 return json_encode(true);
                 break;
             case "location":
-                if ($value == "") { return $ret; }
+                if ($value == "") {
+                    return $ret;
+                }
                 $maintenance->location = $value;
                 $maintenance->save();
                 return json_encode(true);
                 break;
             case "from":
-                if ($value == "") { return $ret; }
-                if(preg_match("/[a-z]/i", $value)){ return $ret; }
+                if ($value == "") {
+                    return $ret;
+                }
+                if (preg_match("/[a-z]/i", $value)) {
+                    return $ret;
+                }
                 $validate_date = Validator::make($request->all(), array('value' => 'date_format:d-m-Y'));
-                if ($validate_date->fails()) { return $ret; }
+                if ($validate_date->fails()) {
+                    return $ret;
+                }
                 $from = Carbon::createFromFormat('d-m-Y', $value);
                 $maintenance->from = $from->toDateTimeString();
-                if (!empty($maintenance->from) && !empty($maintenance->till)){
+                if (!empty($maintenance->from) && !empty($maintenance->till)) {
                     $till = Carbon::createFromFormat('Y-m-d H:i:s', $maintenance->till);
                     $f = $from;
                     $t = $till;
@@ -146,13 +156,19 @@ class AssessorMaintenanceController extends Controller
                 return json_encode(true);
                 break;
             case "till":
-                if ($value == "") { return $ret; }
-                if(preg_match("/[a-z]/i", $value)){ return $ret; }
+                if ($value == "") {
+                    return $ret;
+                }
+                if (preg_match("/[a-z]/i", $value)) {
+                    return $ret;
+                }
                 $validate_date = Validator::make($request->all(), array('value' => 'date_format:d-m-Y'));
-                if ($validate_date->fails()) { return $ret; }
+                if ($validate_date->fails()) {
+                    return $ret;
+                }
                 $till = Carbon::createFromFormat('d-m-Y', $value);
                 $maintenance->till = $till->toDateTimeString();
-                if (!empty($maintenance->from) && !empty($maintenance->till)){
+                if (!empty($maintenance->from) && !empty($maintenance->till)) {
                     $from = Carbon::createFromFormat('Y-m-d H:i:s', $maintenance->from);
                     $f = $from;
                     $t = $till;
@@ -166,7 +182,8 @@ class AssessorMaintenanceController extends Controller
         return json_encode(false);
     }
 
-    public function getMakeNewGroup () {
+    public function getMakeNewGroup()
+    {
         $maintenance = new Maintenance();
         $maintenance->institution = "";
         $maintenance->location = "";
@@ -186,7 +203,8 @@ class AssessorMaintenanceController extends Controller
         return json_encode(true);
     }
 
-    public function getRemoveGroup($id) {
+    public function getRemoveGroup($id)
+    {
         $group = MaintenanceGroups::find($id);
         if (!empty($group)) {
             $participants = json_decode($group->participants, true);

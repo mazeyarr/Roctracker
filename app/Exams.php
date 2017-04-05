@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Auth;
 
 /**
  * This class will perform updates, saves, and changes to every assessors exam data.
@@ -23,7 +23,8 @@ class Exams extends Model
      *  * Data (Collection: Exam Collection from the assessor)
      * @return array|null
      */
-    public static function MaintenanceUpdate () {
+    public static function MaintenanceUpdate()
+    {
         # We initialize our variables
         $need_maintenance = null;
         $assessors = Assessors::all();
@@ -36,7 +37,7 @@ class Exams extends Model
             # SECTOR 1.1
             if (empty($exam)) {
                 # this is highly unlikely, but we will Log this error to the system log
-                SystemLog::LOG(__FUNCTION__,'SECTOR 1.1', "Exam was empty, Assessor: ". $assessor->id, Auth::user()->id);
+                SystemLog::LOG(__FUNCTION__, 'SECTOR 1.1', "Exam was empty, Assessor: " . $assessor->id, Auth::user()->id);
                 continue;
             }
 
@@ -60,14 +61,14 @@ class Exams extends Model
             # SECTOR 1.5
             # if the current year is equal the year this assessor received his basictraining certificate
             # In that case this assessor does not require maintenance.
-            if (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date),'Y') ) {
+            if (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date), 'Y')) {
                 continue;
             }
 
             # SECTOR 1.6
             # if the last basictraining date is equal to the current year + 1 year
             # In that case this assessor does not require maintenance
-            elseif (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date),'Y') +1) {
+            elseif (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date), 'Y') + 1) {
                 continue;
             }
 
@@ -80,9 +81,9 @@ class Exams extends Model
                     'type' => 'Examen',
                     'data' => $exam
                 );
-            # If this assessor has passed below 4 maintenance`s,
-            # In that case this assessor is required to be applied for an standard maintenance.
-            }else{
+                # If this assessor has passed below 4 maintenance`s,
+                # In that case this assessor is required to be applied for an standard maintenance.
+            } else {
                 $need_maintenance[] = array(
                     'assessor' => $assessor,
                     'type' => 'Onderhoud',
@@ -99,7 +100,8 @@ class Exams extends Model
      * @param $id
      * @return bool|mixed
      */
-    public static function getBasictraining ($id) {
+    public static function getBasictraining($id)
+    {
         $exam = self::find($id);
         if (empty($exam)) {
             return false;
@@ -114,7 +116,8 @@ class Exams extends Model
      * @param null $object
      * @return bool
      */
-    public static function saveBasictraining($id, $object=null) {
+    public static function saveBasictraining($id, $object = null)
+    {
         $exam = self::find($id);
         if (empty($object)) {
             return false;
@@ -133,7 +136,8 @@ class Exams extends Model
      * @param null $last_training
      * @return mixed
      */
-    public static function NewAssessor ($training=false, $last_training=null) {
+    public static function NewAssessor($training = false, $last_training = null)
+    {
         $exam = new self();
 
         # If this Assessor passed his basictraining,
@@ -151,15 +155,15 @@ class Exams extends Model
               },
               "date1": {
                 "present": true,
-                "date": "'.$last_training.'"
+                "date": "' . $last_training . '"
               },
               "date2": {
                 "present": true,
-                "date": "'.$last_training.'"
+                "date": "' . $last_training . '"
               },
               "graduated": true
             }'));
-        }else{
+        } else {
             $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
             {
               "passed": false,
@@ -205,7 +209,8 @@ class Exams extends Model
      * @param $format
      * @return int
      */
-    public static function calcTrainingDone ($basictraining_date, $format) {
+    public static function calcTrainingDone($basictraining_date, $format)
+    {
         # We make a Carbon object based on the given basictraining date
         $begin = Carbon::parse(date_format(date_create_from_format($format, $basictraining_date), 'Y-m-d'));
 
@@ -216,17 +221,17 @@ class Exams extends Model
         $diff = $end->diffInYears($begin);
 
         # if the difference is below 4, the next maintenance type will be "Onderhoud"
-        if ($diff >= 4 ) {
+        if ($diff >= 4) {
             $training_done = 4;
 
-        # if the diffrence is equal to 1 year this assessor is not required to be applied for maintenance
-        }elseif ($diff == 1) {
+            # if the diffrence is equal to 1 year this assessor is not required to be applied for maintenance
+        } elseif ($diff == 1) {
             $training_done = 0;
 
-        # Else we will just place the differance value in the database,
-        # (Minus 1 because an assessor is not required to be applied for maintenance, after the first year of the basictraining)
-        } else{
-            $training_done = $diff -1;
+            # Else we will just place the differance value in the database,
+            # (Minus 1 because an assessor is not required to be applied for maintenance, after the first year of the basictraining)
+        } else {
+            $training_done = $diff - 1;
         }
         return $training_done;
     }

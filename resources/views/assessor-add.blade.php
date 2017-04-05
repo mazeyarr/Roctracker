@@ -31,7 +31,7 @@
     @include('partials._javascript-paddingfixer')
 
     <script type="text/javascript">
-        $( document ).ready(function () {
+        $(document).ready(function () {
             var btnManual = $('#Manual'),
                 btnAutomatic = $('#Automatic');
 

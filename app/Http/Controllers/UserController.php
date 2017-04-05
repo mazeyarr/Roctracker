@@ -12,7 +12,8 @@ use Validator;
 
 class UserController extends Controller
 {
-    public function postNewAdmin (Request $request) {
+    public function postNewAdmin(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -38,18 +39,20 @@ class UserController extends Controller
         return redirect()->route('add_users')->withSuccess('Gebruiker was opgeslagen !')->withUser($user);
     }
 
-    public function getLockScreen () {
-        if (!Session::has('locked')){
+    public function getLockScreen()
+    {
+        if (!Session::has('locked')) {
             Session::put('locked');
         }
         return view('auth.lock')->withUser(Auth::user());
     }
 
-    public function postUnlockScreen (Request $request) {
-        if (Hash::check($request->password, Auth::user()->password)){
+    public function postUnlockScreen(Request $request)
+    {
+        if (Hash::check($request->password, Auth::user()->password)) {
             Session::forget('locked');
             return redirect()->route('dashboard');
-        }else {
+        } else {
             return redirect()->back();
         }
     }

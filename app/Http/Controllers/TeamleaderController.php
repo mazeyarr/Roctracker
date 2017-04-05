@@ -6,17 +6,13 @@ use App\Assessors;
 use App\Attention;
 use App\College;
 use App\Functions;
-use App\Imports;
 use App\Log;
 use App\SystemLog;
 use App\Teamleaders;
 use App\TiC;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
 use Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
 class TeamleaderController extends Controller

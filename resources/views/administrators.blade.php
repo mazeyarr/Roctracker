@@ -34,7 +34,8 @@
     </div>
     <div class="row">
         <div class="col-sm-12">
-            <a href="{{ URL::route('add_users') }}" type="button" class="btn btn-success btn-circle btn-xl" style="float: right; padding-top: 20px;"><i class="fa fa-plus"></i> </a>
+            <a href="{{ URL::route('add_users') }}" type="button" class="btn btn-success btn-circle btn-xl"
+               style="float: right; padding-top: 20px;"><i class="fa fa-plus"></i> </a>
         </div>
     </div>
 @stop

@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Log;
 use App\Maintenance;
 use Carbon\Carbon;
-use App\Log;
+use Illuminate\Database\Seeder;
 
 class MaintenancesTableSeeder extends Seeder
 {

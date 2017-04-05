@@ -1,14 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Teamleaders;
-use App\College;
 use App\Assessors;
+use App\College;
 use App\Exams;
-use App\TiC;
-use App\Log;
-use App\Maintenance;
 use App\HistoryData;
+use App\Teamleaders;
+use App\TiC;
+use Illuminate\Database\Seeder;
 
 class SeedDemoContent extends Seeder
 {
@@ -1892,7 +1890,7 @@ class SeedDemoContent extends Seeder
         /** END HISTORY SEEDER */
     }
 
-    public function demoExamMaker($passed, $_vid, $_port, $_cv, $graduated, $exam_next, $training_next, $training_done, $p_date1=null,$p_date2=null, $present1=true, $present2=true)
+    public function demoExamMaker($passed, $_vid, $_port, $_cv, $graduated, $exam_next, $training_next, $training_done, $p_date1 = null, $p_date2 = null, $present1 = true, $present2 = true)
     {
         if (!empty($p_date1)) {
             $date1 = $p_date1;
@@ -1918,21 +1916,21 @@ class SeedDemoContent extends Seeder
         $exam = new Exams();
         $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
             {
-              "passed": '.$passed.',
+              "passed": ' . $passed . ',
               "requirements": {
-                "video": '.$_vid .',
-                "portfolio": '.$_port.',
-                "CV": '.$_cv.'
+                "video": ' . $_vid . ',
+                "portfolio": ' . $_port . ',
+                "CV": ' . $_cv . '
               },
               "date1": {
-                "present": '.$present1.',
-                "date": "'.$date1.'"
+                "present": ' . $present1 . ',
+                "date": "' . $date1 . '"
               },
               "date2": {
-                "present": '.$present2.',
-                "date": "'.$date2.'"
+                "present": ' . $present2 . ',
+                "date": "' . $date2 . '"
               },
-              "graduated": '.$graduated.'
+              "graduated": ' . $graduated . '
             }'));
 
         $exam->exam_next_on = $exam_next;
@@ -1944,7 +1942,8 @@ class SeedDemoContent extends Seeder
         return $exam->id;
     }
 
-    public function randProfession () {
+    public function randProfession()
+    {
         $rand = rand(1, 3);
         switch ($rand) {
             case 1:

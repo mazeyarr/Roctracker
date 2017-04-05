@@ -58,7 +58,7 @@
                             <p class="text-warning">
                                 LET OP: <b>Als</b> u een andere lijst gebruikt is het verplicht dat deze voldoet aan de volgende eisen
                                 <ul style="display: none;" class="tabHideShow">
-                                    <li>De Eerste rij zal <b>! exact !</b> dezelfde kolommen namen bevaten als de tabel hieronder</li>
+                                    <li>De Eerste rij zal <b>! exact !</b> dezelfde kolommen namen bevaten als de <a href="{!! URL::route('download_excel_assessor_layout') !!}">"Assessor Layout Template"</a></li>
                                     <li>Alle verplichte kolommen moeten worden ingevuld met de regels die in de onderstaande tabel te zien zijn</li>
                                     <li>Alleen lijsten met de extensie <i>".xls" of ".xlsx"</i> worden toegestaan</li>
                                 </ul>
@@ -70,17 +70,17 @@
                                         <table class="table table-bordered">
                                             <thead>
                                             <tr>
-                                                <th>Naam deelnemer <span class="text-danger">*</span></th>
+                                                <th>Naam <span class="text-danger">*</span></th>
                                                 <th>Naam College</th>
-                                                <th>Naam Team</th>
+                                                <th>Team</th>
                                                 <th>Geboorte Datum *</th>
                                                 <th>Functie <span class="text-danger">*</span></th>
                                                 <th>Training verzorgd door</th>
                                                 <th>Diploma uitgegeven door</th>
-                                                <th>Naam Teamleider (1 Persoon)</th>
-                                                <th>Status (Actief, Non-actief, Anders) <span class="text-danger">*</span></th>
-                                                <th>Basistraining behaald (Ja/Nee)</th>
-                                                <th>Laatste basistraining datum</th>
+                                                <th>Beroepskerntaak <span class="text-danger">*</span></th>
+                                                <th>Status <span class="text-danger">*</span></th>
+                                                <th>Basistraining behaald</th>
+                                                <th>Laatste basistrainings datum</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -93,9 +93,14 @@
                                                 <td>Naam van de instelling waar de training is gevolgd</td>
                                                 <td>Naam van de instelling waar de assessor is gecertificeerd</td>
                                                 <td>Naam van 1 Teamleider</td>
-                                                <td>Status kan alleen "Actief","Non-actief" of "Anders" zijn,</td>
-                                                <td>Alleen "Ja" of "Nee"</td>
-                                                <td>Als bij <b>"Basistraining behaald (Ja/Nee)"</b> <span class="text-warning">Ja</span> is ingevuld. <span class="text-warning">yyyy-mm-dd</span> van de laatste trainings dag</td>
+                                                <td>
+                                                    <ul>
+                                                        <li>"Actief"</li>
+                                                        <li>"Non-actief"</li>
+                                                        <li>"Anders"</li>
+                                                    </ul></td>
+                                                <td>"Ja" / "Nee"</td>
+                                                <td>Als <span class="text-warning">Ja</span> bij basistraining is ingevuld. <span class="text-warning">yyyy-mm-dd</span></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -251,12 +256,18 @@
             function rejectedImports(rows) {
                 var rejects = "";
                 $.each(rows, function(index, row) {
+                    var date = null;
+                    if (row.geboorte_datum === null) {
+                        date = "";
+                    }else {
+                        date = row.geboorte_datum.date;
+                    }
                     rejects = rejects + '' +
                         '<tr>' +
                             '<td>'+ row.naam_deelnemer +'</td>' +
                             '<td>'+ row.naam_college +'</td>' +
                             '<td>'+ row.naam_team +'</td>' +
-                            '<td>'+ row.geboorte_datum.date +'</td>' +
+                            '<td>'+ date +'</td>' +
                             '<td>'+ row.functie +'</td>' +
                             '<td>'+ row.training_verzorgd_door +'</td>' +
                             '<td>'+ row.diploma_uitgegeven_door +'</td>' +
@@ -320,15 +331,14 @@
                 },
                 onFinish: function () {
                     $.toast({
-                        heading: 'Excuses'
-                        , text: 'Deze functionaliteit is nog onder constructie !'
+                        heading: 'Een moment geduld...'
+                        , text: 'Het systeem is nu uw bestand aan het verwerken.'
                         , position: 'top-right'
                         , loaderBg: '#ffdf00'
                         , icon: 'info'
                         , hideAfter: 3500
                         , stack: 6
                     });
-                    return;
                     ob_dropzone.processQueue();
                 }
             });

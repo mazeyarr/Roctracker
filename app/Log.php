@@ -2,9 +2,9 @@
 
 namespace App;
 
+use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Auth;
 
 /**
  * This Class will do all the Logging functions to the all the Models that contain a "log" field
@@ -21,7 +21,8 @@ class Log extends Model
      * @param int $length
      * @return string
      */
-    public static function generateRandomString($length = 10) {
+    public static function generateRandomString($length = 10)
+    {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);
         $randomString = '';
@@ -38,7 +39,8 @@ class Log extends Model
      * @param $message
      * @return mixed
      */
-    public static function CollegeLog($id, $message) {
+    public static function CollegeLog($id, $message)
+    {
         $college = College::find($id); # We get the College (Collection) by id
         $key = self::generateRandomString(50); # We generate a unique Key name
         $log = json_decode($college->log, true); # We decode our json log (ASSOC ARRAY)
@@ -59,7 +61,8 @@ class Log extends Model
      * @param $message
      * @return mixed
      */
-    public static function AssessorLog($id, $message, $array=false) {
+    public static function AssessorLog($id, $message, $array = false)
+    {
         $assessor = Assessors::find($id); # We find the assessor by $id (Collection)
         $log = json_decode($assessor->log, true); # We decode the json log (ASSOC ARRAY)
         $key = self::generateRandomString(50); # We generate a random unique string
@@ -69,21 +72,23 @@ class Log extends Model
 
         # If $array is set to TRUE than this indicates that $message is an array
         if ($array) {
-            if (!is_array($message)) { return false; } # in case $message is not an array we return a false value
+            if (!is_array($message)) {
+                return false;
+            } # in case $message is not an array we return a false value
 
             # We initialize our variable
             # starting with an <ul> tag to start a unordered list
             $string = "<ul>";
             foreach ($message as $msg) {
                 # Now we add each message as an 'list item' to the 'unordered list'
-                $string = $string . "<li>". $msg ."</li>";
+                $string = $string . "<li>" . $msg . "</li>";
             }
 
             # We finish the list by adding the end tag for the 'unordered list'
             $string = $string . "</ul>";
 
             $log['log'][$key]['discription'] = $string; # We store the made string to the log
-        }else {
+        } else {
             $log['log'][$key]['discription'] = $message; # We store the made $message to the log
         }
 
@@ -103,7 +108,8 @@ class Log extends Model
      * @param string $list_before
      * @return mixed
      */
-    public static function TeamleaderLog($id, $message, $intro="", $list_before="") {
+    public static function TeamleaderLog($id, $message, $intro = "", $list_before = "")
+    {
 
         # First we check if the $message parameter is an array
         if (is_array($message)) {
@@ -116,7 +122,7 @@ class Log extends Model
                 $list_start = $list_start . $item; # We add each message as an list item
             }
 
-            $list_start = $list_start.$list_end; # To finish the string we will end the string with our initialized variable
+            $list_start = $list_start . $list_end; # To finish the string we will end the string with our initialized variable
 
             # We transform the $message variable to the new made 'Unordered list'
             $message = $list_start;
@@ -132,7 +138,7 @@ class Log extends Model
         # We make our log by adding a few extra variables
         # $intro = The first line of text that is shown before the list
         # $list_before = is a description if the given list
-        $log['log'][$key]['discription'] = $intro."<br>".$list_before."<br>".$message;
+        $log['log'][$key]['discription'] = $intro . "<br>" . $list_before . "<br>" . $message;
 
         $log['log'][$key]['key'] = $key; # We store the key another time so you can get it more easily
         $teamleader->log = json_encode($log); # We encode the decoded json log
@@ -148,7 +154,8 @@ class Log extends Model
      * @param int $value
      * @return array|null
      */
-    public static function limit($logs, $value=5) {
+    public static function limit($logs, $value = 5)
+    {
         $logs = json_decode($logs); # We decode all logs given by the $logs parameter
         $ret = array(); # We initialize our return array
 
@@ -161,7 +168,7 @@ class Log extends Model
         foreach (array_reverse((array)$logs->log) as $log) {
             if ($value > 0) {
                 $ret[] = $log;
-            }else{
+            } else {
                 break;
             }
             $value--;
