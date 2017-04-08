@@ -24,6 +24,7 @@
     @endif
 @stop
 @section('scripts')
+    @include('partials._javascript-alerts')
     <!--Morris JavaScript -->
     <script src="{!! URL::asset('plugins/bower_components/raphael/raphael-min.js') !!}"></script>
     <script src="{!! URL::asset('plugins/bower_components/morrisjs/morris.js') !!}"></script>

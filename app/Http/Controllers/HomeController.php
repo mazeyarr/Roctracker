@@ -28,7 +28,7 @@ class HomeController extends Controller
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getDashboard($year = null)
+    public function getDashboard()
     {
         return view('dashboard')->withColleges(College::all())->withGraph(HistoryData::generate());
     }
@@ -191,7 +191,16 @@ class HomeController extends Controller
         return view('maintenance-groups')->withAssessors(Exams::MaintenanceUpdate())->withGroups(MaintenanceGroups::GetGroups());
     }
 
-    /** Assessor Maintenance ******************************************************/
+    /** END Assessor Maintenance ******************************************************/
+
+    /** Notificaions ******************************************************/
+
+    public function getNotifications()
+    {
+        return view('notifications');
+    }
+
+    /** END Notificaions **************************************************/
 
     /**
      * @return mixed

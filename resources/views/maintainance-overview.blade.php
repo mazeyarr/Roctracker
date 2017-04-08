@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-12 bt-switch">
             <div class="white-box">
                 <div class="row sales-report">
                     <div class="col-md-6 col-sm-6 col-xs-6 m-t-15">
@@ -28,7 +28,7 @@
                         <th data-toggle="true"> Naam </th>
                         <th> Datum </th>
                         <th> Type </th>
-                        <th data-sort-ignore="true"> Bewerken </th>
+                        <th data-sort-ignore="true"> Afvinken </th>
                     </tr>
                     </thead>
                     <div class="form-inline padding-bottom-15">
@@ -60,7 +60,11 @@
                                         <td>{{ !empty($assessor['data']->exam_next_on) ? date_format(date_create($assessor['data']->exam_next_on), 'd/m/Y'): '' }}</td>
                                         <td><span class="label label-info label-danger">{{ $assessor['type'] }}</span></td>
                                     @endif
-                                    <td> <button class="btn btn-warning btn-rounded assessors" id="{{$assessor['assessor']->id}}"><i class="fa fa-pencil-square" aria-hidden="true"></i></button> </td>
+                                    <td>
+                                        <div class="m-b-30 ticking_maintenance">
+                                            <input id="tick-{{$assessor['assessor']->id}}" {{ $assessor['data']->maintenance_this_year == true ? "Checked" : "" }} class="radio-switch" type="checkbox" data-on-color="success" data-off-color="danger" data-on-text="<i class='fa fa-check'></i>" data-off-text="<i class='fa fa-times'></i>">
+                                        </div>
+                                    </td>
                                 </tr>
                             @endforeach
                         @endif
@@ -87,17 +91,47 @@
     <script src="{{ URL::asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js') }}" type="text/javascript"></script>
     <!--FooTable init-->
     <script src="{{ URL::asset('js/footable-init.js') }}"></script>
+    <!-- bt-switch -->
+    <script src="{!! URL::asset('plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js') !!}"></script>
     @include('partials._javascript-paddingfixer')
 
     <script type="text/javascript">
         $(document).ready(function () {
-            var body = $('body'),
-                url = "{!! URL::route('change_assessor',"null") !!}";
-
-            body.on('click', '.assessors', function () {
-                url = url.replace('null', this.id);
-                window.location.href = url;
+            $("input[type='checkbox']").bootstrapSwitch();
+            var body = $('body');
+            body.on('switchChange.bootstrapSwitch', function (event, state) {
+                var id_a = event.target.id;
+                id_a = id_a.replace('tick-', "");
+                TickOffMaintenance(state, id_a);
             });
-        })
+
+            function TickOffMaintenance(state, id) {
+                $.post( "{!! URL::route('post_tick_maintenance') !!}", { tick: state, id: id, _token: $('meta[name="csrf-token"]').attr('content') } )
+                    .done(function( data ) {
+                        if (data === "true") {
+                            var OnOff = "",
+                                status = "",
+                                color = "";
+
+                            switch (state) {
+                                case true:
+                                    OnOff = " afgevinkt";
+                                    status = "success";
+                                    color = "#ACE0AC";
+                                    break;
+                                case false:
+                                    OnOff = " niet meer afgevinkt";
+                                    status = "warning";
+                                    color = "#dde044";
+                                    break;
+                            }
+                            ezToast("Opdracht voltooid", "Assessor is" + OnOff, status, 2000, color);
+                        }else{
+                            ezToast("Opdracht mislukt", "Er ging iets verkeerd", "success", 2000, "#e07d69")
+                        }
+                });
+
+            }
+        });
     </script>
 @stop

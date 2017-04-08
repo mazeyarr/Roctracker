@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
+use Illuminate\Http\Request;
 
 class FunctionalController extends Controller
 {
@@ -21,6 +22,23 @@ class FunctionalController extends Controller
     {
         $this->creator = "RocTracker";
         $this->company = "MRG Studios";
+    }
+
+    public function search(Request $request)
+    {
+        $validator = Validator::make($request->all(), array('search' => 'required|string'), ['search.required' => "U heeft niks ingevuld"]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator->getMessageBag()->first());
+        }
+
+        $search_result = array();
+        $cols = array();
+
+        $cols = Assessors::
+
+
+        return view('search-results');
+
     }
 
     public function ajaxSaveCollege($id, $name)
@@ -223,6 +241,11 @@ class FunctionalController extends Controller
 
         })->download('xlsx');
         exit(200);
+    }
+
+    public function CronJobs()
+    {
+        abort(404);
     }
 
     public static function random_color()

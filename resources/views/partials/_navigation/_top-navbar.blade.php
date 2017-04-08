@@ -19,9 +19,10 @@
                             class="icon-arrow-left-circle ti-menu"></i></a>
             </li>
             <li>
-                <form class="app-search hidden-xs" role="search">
-                    <input class="form-control" placeholder="Zoeken" type="text"> <a href="#">
-                        <i class="fa fa-search"></i></a>
+                <form class="app-search hidden-xs" action="{!! URL::route('search') !!}" method="post">
+                    <input id="searchbar" class="form-control" placeholder="Zoeken" type="text" name="search">
+                    <a href="#"><i class="fa fa-search"></i></a>
+                    {{ csrf_field() }}
                 </form>
             </li>
         </ul>

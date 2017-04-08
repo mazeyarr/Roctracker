@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Assessors;
+use App\Exams;
 use App\Log;
 use App\Maintenance;
 use App\MaintenanceGroups;
@@ -12,6 +13,54 @@ use Illuminate\Support\Facades\Validator;
 
 class AssessorMaintenanceController extends Controller
 {
+    public function postTickMaintenance(Request $request)
+    {
+        $validator = Validator::make($request->all(), array(
+            'id' => 'required|Numeric',
+            'tick' => 'required|string'
+        ), array(
+            'id.required' => 'Deze assessor bestaat niet',
+            'id.Numeric' => 'Foutieve assessor',
+            'tick.required' => 'Het systeem begreep uw handeling niet',
+            'tick.string' => 'Systeem begreep niet wat uw intensie was'
+        ));
+
+        if ($validator->fails()) {
+            return $validator->getMessageBag()->toArray();
+        }
+
+        $assessor = Assessors::getAssessors($request->id);
+        $maintenances_this_year = Exams::MaintenanceUpdate();
+        $check_maintenance = array('status' => false, 'key' => null);
+        foreach ($maintenances_this_year as $key => $m_assessor) {
+            if ($m_assessor['assessor']->id == $assessor->id) {
+                $check_maintenance['status'] = true;
+                $check_maintenance['key'] = $key;
+                break;
+            }
+        }
+
+        if ($check_maintenance['status']) {
+            $exam = Exams::find($maintenances_this_year[$check_maintenance['key']]['assessor']->id);
+            switch ($request->tick){
+                case "true":
+                    $tick = true;
+                    break;
+                case "false":
+                    $tick = false;
+                    break;
+                default:
+                    $tick = false;
+                    break;
+            }
+            $exam->maintenance_this_year = $tick;
+            $exam->save();
+            return json_encode(true);
+        }
+
+        return json_encode(false);
+    }
+
     public function postPlaceAssessor(Request $request)
     {
         $validator = Validator::make($request->all(), array(

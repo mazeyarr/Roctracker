@@ -1,9 +1,8 @@
-/*
 $(document).ready(function (e) {
-    $(document).idle({
+    /*$(document).idle({
         onIdle: function(){
             window.location.href = "/idle/";
         },
-        idle: 120000
-    })
-});*/
+        idle: 600000
+    })*/
+});

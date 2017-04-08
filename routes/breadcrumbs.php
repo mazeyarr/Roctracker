@@ -173,6 +173,26 @@ Breadcrumbs::register('maintenance_assessor_groups', function($breadcrumbs)
 
 //------------ ------------------------- end ------------------------------------------- //
 
+// ---------------------------------- Search Results ------------------------------------ //
+
+// Dashboard / Assessor Maintenance
+Breadcrumbs::register('search', function($breadcrumbs)
+{
+    $breadcrumbs->push("Zoek Resultaten", route('search'));
+});
+
+//------------ ------------------------- end ------------------------------------------- //
+
+// ---------------------------------- Notifications ------------------------------------ //
+
+// Dashboard / Assessor Maintenance
+Breadcrumbs::register('notification_overview', function($breadcrumbs)
+{
+    $breadcrumbs->push("Systeem Berichten", route('notification_overview'));
+});
+
+//------------ ------------------------- end ------------------------------------------- //
+
 // Users
 Breadcrumbs::register('users', function($breadcrumbs)
 {

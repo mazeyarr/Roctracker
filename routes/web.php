@@ -19,6 +19,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('details/college/{id}', 'CollegeController@getCollegeDetails')->name('view_college_details');
+            Route::post('search', 'FunctionalController@search')->name('search');
+
             /* Colleges Page */
             Route::get('college', 'HomeController@getColleges')->name('colleges');
             Route::group(['prefix' => 'college'], function () {
@@ -77,6 +79,11 @@ Route::group(['middleware' => 'auth'], function () {
 
             Route::post('groups/place/assessor', 'AssessorMaintenanceController@postPlaceAssessor')->name('post_maintenance_assessor_groups');
             Route::post('save/data', 'AssessorMaintenanceController@postMaintenanceData')->name('post_maintenance_data');
+            Route::post('tick/maintenance', 'AssessorMaintenanceController@postTickMaintenance')->name('post_tick_maintenance');
+        });
+
+        Route::group(['prefix' => 'notifications'], function () {
+            Route::get('overview', 'HomeController@getNotifications')->name('notification_overview');
         });
 
         /* Dashboard Page */
@@ -112,5 +119,7 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect()->route('login');
 })->name('logout');
+
+Route::get('cronjobs', 'FunctionalController@CronJobs')->name('cronjob');
 
 Auth::routes();

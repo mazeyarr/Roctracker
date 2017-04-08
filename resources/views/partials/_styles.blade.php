@@ -5,6 +5,7 @@
 
     <!-- Bootstrap Core CSS -->
     {!! Html::style('bootstrap/dist/css/bootstrap.min.css') !!}
+    {!! Html::style('plugins/bower_components/bootstrap-switch/bootstrap-switch.min.css') !!}
 
     {!! Html::style('css/lobipanel.min.css') !!}
 
