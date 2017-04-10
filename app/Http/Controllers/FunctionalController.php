@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Assessors;
 use App\College;
+use App\Email;
 use App\HistoryData;
 use App\Log;
+use App\MailTexts;
 use App\Teamleaders;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
@@ -34,7 +37,7 @@ class FunctionalController extends Controller
         $search_result = array();
         $cols = array();
 
-        $cols = Assessors::
+        $cols = null;
 
 
         return view('search-results');
@@ -245,7 +248,18 @@ class FunctionalController extends Controller
 
     public function CronJobs()
     {
-        abort(404);
+        $date = Carbon::now()->format('m');
+        if ($date == '04') {
+            for ($i = 0; $i < 1; $i++) {
+                $mailtext = MailTexts::where('name', 'name-'.$i)->get();
+                if (!$mailtext->isEmpty()) {
+                    $mailtext = $mailtext->first();
+                    Email::send("mazeyarr@gmail.com", $mailtext->type, $mailtext->subject, $mailtext->title, $mailtext->text);
+                }
+            }
+        }
+
+        return response(200);
     }
 
     public static function random_color()

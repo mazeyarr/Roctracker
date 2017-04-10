@@ -23,5 +23,6 @@ class DatabaseSeeder extends Seeder
 
         /** Demo Seeders */
         $this->call(SeedDemoContent::class);
+        $this->call(MailTextsSeeder::class);
     }
 }
