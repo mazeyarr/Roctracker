@@ -42,12 +42,12 @@
                 <tbody>
                 <tr>
                     <td>
-                        {{ $text }}
+                        {!! $text !!}
                         <br>
                         <br>
                         <br>
                         <br>
-                        <b>- Alvast bedankt, ROCTracker</b> </td>
+                        <b>- <span style="color: #059B9A;">ROC</span>Tracker</b> </td>
                 </tr>
                 </tbody>
             </table>

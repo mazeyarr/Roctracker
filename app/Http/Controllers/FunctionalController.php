@@ -172,6 +172,42 @@ class FunctionalController extends Controller
         return json_encode(Hash::check($password, Auth::user()->password));
     }
 
+    public function ajaxResendMails(Request $request)
+    {
+        $validator = Validator::make($request->all(), array(
+            'emails' => 'required'
+        ));
+
+        if ($validator->fails()) {
+            return false;
+        }
+
+        $status = array(
+            'sended' => array(),
+            'failed' => array()
+        );
+
+        foreach ($request->emails as $key => $mail_id) {
+            $email = Email::find($mail_id);
+            if (empty($email)) {
+                $status['failed'][] = $mail_id;
+            } else {
+               $sendStatus = Email::resend($mail_id);
+                if ($sendStatus) {
+                    $status['sended'][] = $mail_id;
+                    $email->send = 1;
+                    $email->save();
+                } else {
+                    $status['failed'][] = $mail_id;
+                    $email->send = 0;
+                    $email->save();
+                }
+            }
+        }
+
+        return $status;
+    }
+
     public function downloadExcelAssessorLayout()
     {
         Excel::create('Assessor Lijst Layout', function ($excel) {
@@ -250,16 +286,16 @@ class FunctionalController extends Controller
     {
         $date = Carbon::now()->format('m');
         if ($date == '04') {
-            for ($i = 0; $i < 1; $i++) {
+            for ($i = 0; $i <= 1; $i++) {
                 $mailtext = MailTexts::where('name', 'name-'.$i)->get();
                 if (!$mailtext->isEmpty()) {
                     $mailtext = $mailtext->first();
-                    Email::send("mazeyarr@gmail.com", $mailtext->type, $mailtext->subject, $mailtext->title, $mailtext->text);
+                    $mail = Email::send("mazeyarr@gmail.com", $mailtext->type, $mailtext->subject, $mailtext->title, $mailtext->text);
                 }
             }
+            return response(200);
         }
-
-        return response(200);
+        return response(202);
     }
 
     public static function random_color()

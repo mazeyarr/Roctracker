@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputName1" class="control-label">Locatie:</label>
-                        {!! Form::text('location', $colleges['college']->location, array('class' => 'form-control', 'required' => '')) !!}
+                        {!! Form::text('location', $colleges['college']->location, array('class' => 'form-control')) !!}
                     </div>
                     <hr>
                     <label for="inputName1" class="control-label">Wat moet er gebeuren met de assessoren ?</label>

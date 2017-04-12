@@ -21,6 +21,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="teamleader-1-name">E-mail</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-user"></i></div>
+                                    <input type="text" class="form-control" name="teamleader-1-email" id="teamleader-1-email" placeholder="E-mail">
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="teamleader-1-college">College</label>
                                 <div class="input-group college-container">
                                     <div class="input-group-addon"><i class="ti-briefcase"></i></div>
@@ -127,6 +134,12 @@
                                                     '<div class="input-group">' +
                                                         '<div class="input-group-addon"><i class="ti-user"></i></div>' +
                                                         '<input type="text" class="form-control" name="teamleader-'+element_id+'-name" id="teamleader-'+element_id+'-name" placeholder="Volledige Naam" required>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                    '<label for="teamleader-'+element_id+'-email">E-mail</label>' +
+                                                    '<div class="input-group">' +
+                                                        '<div class="input-group-addon"><i class="ti-user"></i></div>' +
+                                                        '<input type="text" class="form-control" name="teamleader-'+element_id+'-email" id="teamleader-'+element_id+'-email" placeholder="E-mail">' +
                                                     '</div>' +
                                                 '</div>' +
                                                 '<div class="form-group">' +

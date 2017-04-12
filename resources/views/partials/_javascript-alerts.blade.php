@@ -28,6 +28,22 @@
     </script>
 @endif
 
+@if(Session::has('info'))
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.toast({
+                heading: 'Info'
+                , text: '{!! Session::get('info') !!}'
+                , position: 'top-right'
+                , loaderBg: '#6a84ff'
+                , icon: 'info'
+                , hideAfter: 2500
+                , stack: 6
+            })
+        });
+    </script>
+@endif
+
 @if(isset($warning))
     <script type="text/javascript">
         $(document).ready(function () {

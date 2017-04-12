@@ -21,7 +21,6 @@ class TeamleaderController extends Controller
         $teamleader = Teamleaders::find($id);
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
-            'team' => 'max:255',
         ]);
 
         if ($validator->fails()) {
@@ -146,30 +145,54 @@ class TeamleaderController extends Controller
 
         $old['name'] = $teamleader->name;
         $old['team'] = $teamleader->team;
+        $message = "";
         switch ($this->DetectChange($teamleader, $request->name, $request->team)) {
             case "both":
                 $teamleader->name = $request->name;
                 $teamleader->team = $request->team;
-                $teamleader->save();
                 $message = "Naam gewijzigd van <i><strong>". $old['name'] ."</strong></i> naar <i><strong>". $request->name ."</strong></i>.<br> Team gewijzigd van <i><strong>". $old['team'] ."</strong></i> naar <i><strong>". $request->team ."</strong></i>";
-                Log::TeamleaderLog($teamleader->id, $message);
                 break;
             case "name":
                 $teamleader->name = $request->name;
-                $teamleader->save();
                 $message = "Naam gewijzigd van <i><strong>". $old['name'] ."</strong></i> naar <i><strong>". $request->name ."</strong></i>.";
-                Log::TeamleaderLog($teamleader->id, $message);
                 break;
             case "team":
                 $teamleader->team = $request->team;
-                $teamleader->save();
                 $message = "Team gewijzigd van <i><strong>". $old['team'] ."</strong></i> naar <i><strong>". $request->team ."</strong></i>";
-                Log::TeamleaderLog($teamleader->id, $message);
                 break;
             default:
-                return redirect()->back()->withWarning("Geen wijzegingen ontvangen !");
+                if ($request->exists('email')) {
+                    $validate_mail = Validator::make($request->all(), array(
+                        'email' => 'required|email|unique:teamleaders'
+                    ));
+                    if (!$validate_mail->fails()) {
+                        if ($request->email != $teamleader->email) {
+                            $teamleader->email = $request->email;
+                            $message = $message . "<br>" . "Email gewijzigd naar " . $request->email;
+                        }
+                    }else {
+                        return redirect()->back()->withWarning("Email was incorrect ingevuld...");
+                    }
+                }else {
+                    return redirect()->back()->withWarning("Geen wijzegingen ontvangen !");
+                }
                 break;
         }
+
+        if ($request->has('email')) {
+            $validate_mail = Validator::make($request->all(), array(
+                'email' => 'required|email|unique:teamleaders'
+            ));
+            if (!$validate_mail->fails()) {
+                if ($request->email != $teamleader->email) {
+                    $teamleader->email = $request->email;
+                    $message = $message . "<br>" . "Email gewijzigd naar " . $request->email;
+                }
+            }
+        }
+
+        $teamleader->save();
+        Log::TeamleaderLog($teamleader->id, $message);
 
         return redirect()->route('view_teamleaders', $teamleader->id)->withSucces('Wijzeging was succesvol doorgevoerd !');
     }
@@ -189,6 +212,7 @@ class TeamleaderController extends Controller
             $rules = array(
                 'teamleader-'.$i.'-name' => 'required|max:255',
                 'teamleader-'.$i.'-college' => 'required',
+                'teamleader-'.$i.'-email' => 'email',
                 'status-'.$i => 'required|Numeric'
             );
 
@@ -203,11 +227,17 @@ class TeamleaderController extends Controller
             /* request inputs */
             $propName = 'teamleader-'.$i.'-name';
             $propCollege = 'teamleader-'.$i.'-college';
+            $propEmail = 'teamleader-'.$i.'-email';
             $propStat = 'status-'.$i;
+
+            if (!Teamleaders::where('email', $request->$propEmail)->get()->isEmpty()) {
+                return redirect()->back()->withErrors("Email van " . $request->$propName . " bestaat al bij een andere teamleider..");
+            }
 
             # SECTOR 2.4
             $teamleader = new Teamleaders();
             $teamleader->name = $request->$propName;
+            $teamleader->email = $request->$propEmail;
             $teamleader->team = "";
             $teamleader->status = $request->$propStat;
             $teamleader->log = '{"log" : {}}';

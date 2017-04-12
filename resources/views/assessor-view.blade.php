@@ -5,6 +5,7 @@
 @section('page-title', $assessor->name.' Aanpassen')
 
 @section('content')
+
 <!-- .row -->
 <div class="row">
     <div class="col-md-12">

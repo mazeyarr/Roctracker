@@ -12,6 +12,7 @@ use App\MaintenanceGroups;
 use App\Teamleaders;
 use App\TiC;
 use App\User;
+use App\Email;
 
 class HomeController extends Controller
 {
@@ -90,7 +91,8 @@ class HomeController extends Controller
      */
     public function getTeamleaderTimeline($id)
     {
-        return view('teamleader-view')->withColleges(College::getColleges($id))->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));
+
+        return view('teamleader-view')->withTeamleader(Teamleaders::find($id))->withLogs(json_decode(Teamleaders::find($id)->log));
     }
 
     /**
@@ -197,7 +199,23 @@ class HomeController extends Controller
 
     public function getNotifications()
     {
-        return view('notifications');
+        $emails = Email::orderBy('updated_at', 'desc')->paginate(15);
+        return view('notifications')->withEmails($emails);
+    }
+
+    public function getNotification($id)
+    {
+        $email = Email::find($id);
+        $teamleader = Teamleaders::findByMail($email->to);
+        if (empty($email)) {
+            return redirect()->back()->withInfo("Email niet gevonden !");
+        }
+        return view('notification-view')->withEmail($email)->withTeamleader($teamleader);
+    }
+
+    public function getCreeateNotifications()
+    {
+        return view('notification-create');
     }
 
     /** END Notificaions **************************************************/

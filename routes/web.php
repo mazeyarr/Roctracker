@@ -84,6 +84,8 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'notifications'], function () {
             Route::get('overview', 'HomeController@getNotifications')->name('notification_overview');
+            Route::get('overview/show/{id}', 'HomeController@getNotification')->name('notification_view');
+            Route::get('create', 'HomeController@getCreeateNotifications')->name('notification_create');
         });
 
         /* Dashboard Page */
@@ -103,6 +105,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/ajax/get/colleges/{option}', 'FunctionalController@ajaxGetColleges')->name('ajax_get_colleges');
         Route::get('/ajax/check/user/password/{password}', 'FunctionalController@ajaxCheckPassword')->name('ajax_check_user_password');
         Route::get('/ajax/get/assessor/{idw}', 'FunctionalController@ajaxGetAssessor')->name('ajax_get_assessor_info');
+        Route::post('/ajax/resend/emails/', 'FunctionalController@ajaxResendMails')->name('ajax_post_resend_mails');
 
     });
 

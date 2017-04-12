@@ -31,7 +31,15 @@
                 <a class="waves-effect" href="{{ URL::route('maintenance_assessor') }}"><i class="fa fa-cogs"></i> <span class="hide-menu">Onderhoud</span></a>
             </li>
             <li>
-                <a class="waves-effect" href="{{ URL::route('notification_overview') }}"><i class="fa fa-envelope"></i> <span class="hide-menu">Systeem Berichten</span></a>
+                <a class="waves-effect" href="{{ URL::route('notification_overview') }}"><i class="fa fa-envelope fa-fw" data-icon="a"></i> <span class="hide-menu">Berichten <span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{ URL::route('notification_overview') }}">Overzicht</a>
+                    </li>
+                    <li>
+                        <a href="{{ URL::route('notification_create') }}">Aanmaken</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a class="waves-effect" href="{{ URL::route('users') }}"><i class="fa fa-users"></i> <span class="hide-menu">Administratoren</span></a>

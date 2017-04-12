@@ -18,6 +18,7 @@
                     <tr>
                         <th data-toggle="true"> Naam</th>
                         <th> College(s)</th>
+                        <th data-hide="all"> Email</th>
                         <th data-hide="all"> Laatste bijwerking</th>
                         <th data-hide="all"></th>
                     </tr>
@@ -54,6 +55,7 @@
                                         {{ strlen($name) > 25 ? substr($name, 0, 35)."...." : rtrim($name, " / ") }}
                                     @endif
                                 </td>
+                                <td>{{ empty($teamleader['teamleader']->email) ? "Geen" : $teamleader['teamleader']->email  }}</td>
                                 <td>{{ date_format($teamleader['teamleader']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
                                     <a href="{{ URL::route('view_teamleaders', $teamleader['teamleader']->id) }}"

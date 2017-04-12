@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', 'College Aanpassen')
+@section('title', 'Teamleider bekijken')
 
-@section('page-title', $colleges['college']->name.' Aanpassen')
+@section('page-title', 'Teamleider bekijken')
 
 @section('content')
     <!-- .row -->

@@ -185,10 +185,23 @@ Breadcrumbs::register('search', function($breadcrumbs)
 
 // ---------------------------------- Notifications ------------------------------------ //
 
-// Dashboard / Assessor Maintenance
+// Notifications / Overview
 Breadcrumbs::register('notification_overview', function($breadcrumbs)
 {
-    $breadcrumbs->push("Systeem Berichten", route('notification_overview'));
+    $breadcrumbs->push("Berichten", route('notification_overview'));
+});
+
+// Notifications / Overview / View
+Breadcrumbs::register('notification_view', function($breadcrumbs, $id)
+{
+    $breadcrumbs->parent('notification_overview');
+    $breadcrumbs->push("Bericht bekijken", route('notification_view', $id));
+});
+
+// Notifications / Create
+Breadcrumbs::register('notification_create', function($breadcrumbs)
+{
+    $breadcrumbs->push("Berichten Aanmaken", route('notification_create'));
 });
 
 //------------ ------------------------- end ------------------------------------------- //

@@ -44,4 +44,14 @@ class Teamleaders extends Model
         }
         return $ret;
     }
+
+    public static function findByMail($address)
+    {
+        $teamleader = self::where('email', $address)->get();
+        if (!$teamleader->isEmpty()) {
+            return $teamleader->first();
+        }
+
+        return false;
+    }
 }
