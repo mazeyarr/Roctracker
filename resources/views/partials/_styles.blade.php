@@ -13,6 +13,7 @@
     {!! Html::style('datatable/buttons/1.2.2/css/buttons.dataTables.min.css') !!}
     {!! Html::style('plugins/bower_components/footable/css/footable.core.css') !!}
     {!! Html::style('plugins/bower_components/custom-select/custom-select.css') !!}
+    {!! Html::style('plugins/bower_components/multiselect/css/multi-select.css') !!}
 
 
     <!-- Menu CSS -->

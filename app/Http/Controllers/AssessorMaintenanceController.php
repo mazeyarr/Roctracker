@@ -140,7 +140,6 @@ class AssessorMaintenanceController extends Controller
 
         $maintenance = Maintenance::find($id);
         if (empty($maintenance)) {
-            dd($id);
             return json_encode(false);
         }
 
