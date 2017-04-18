@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\MailTexts;
+use App\ScheduleEmailTasks;
 
 class MailTextsSeeder extends Seeder
 {
@@ -13,33 +14,52 @@ class MailTextsSeeder extends Seeder
      */
     public function run()
     {
-        MailTexts::create(array(
-            'name' => 'Signaal Teamleiders',
-            'title' => 'Assessoren aantal laag',
-            'subject' => 'Assessoren gedaald',
-            'text' => $this->string,
-            'type' => 'success',
+        ScheduleEmailTasks::create(array(
+            'table' => 'teamleaders',
+            'to' => json_encode(array()),
+            'fk_mail_texts' => MailTexts::create(array(
+                'name' => 'Signaal Teamleiders',
+                'title' => 'Assessoren aantal laag',
+                'subject' => 'Assessoren gedaald',
+                'text' => $this->string,
+                'type' => 'success',
+            ))->id
         ));
-        MailTexts::create(array(
-            'name' => 'Signaal Administratie',
-            'title' => 'Waarschuwing: Geld tekort',
-            'subject' => 'Geld binnen het college',
-            'text' => $this->string,
-            'type' => 'warning',
+
+        ScheduleEmailTasks::create(array(
+            'table' => 'teamleaders',
+            'to' => json_encode(array()),
+            'fk_mail_texts' => MailTexts::create(array(
+                'name' => 'Signaal Administratie',
+                'title' => 'Waarschuwing: Geld tekort',
+                'subject' => 'Geld binnen het college',
+                'text' => $this->string,
+                'type' => 'warning',
+            ))->id
         ));
-        MailTexts::create(array(
-            'name' => 'Info mail Assessoren',
-            'title' => 'Basistraining ?',
-            'subject' => 'Aanmelding Assessors Course',
-            'text' => $this->string,
-            'type' => 'info',
+
+        ScheduleEmailTasks::create(array(
+            'table' => 'assessors',
+            'to' => json_encode(array()),
+            'fk_mail_texts' => MailTexts::create(array(
+                'name' => 'Info mail Assessoren',
+                'title' => 'Basistraining ?',
+                'subject' => 'Aanmelding Assessors Course',
+                'text' => $this->string,
+                'type' => 'info',
+            ))->id
         ));
-        MailTexts::create(array(
-            'name' => 'Teamleiders Dringende Waarschuwing',
-            'title' => 'Waarschuwing Assessor Aaantal',
-            'subject' => 'Aantal Assessors in College te laag !',
-            'text' => $this->string,
-            'type' => 'error',
+
+        ScheduleEmailTasks::create(array(
+            'table' => 'teamleaders',
+            'to' => json_encode(array()),
+            'fk_mail_texts' => MailTexts::create(array(
+                'name' => 'Teamleiders Dringende Waarschuwing',
+                'title' => 'Waarschuwing Assessor Aaantal',
+                'subject' => 'Aantal Assessors in College te laag !',
+                'text' => $this->string,
+                'type' => 'error',
+            ))->id
         ));
     }
 }

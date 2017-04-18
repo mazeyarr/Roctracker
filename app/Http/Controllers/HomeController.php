@@ -14,6 +14,7 @@ use App\TiC;
 use App\User;
 use App\Email;
 use App\MailTexts;
+use App\ScheduleEmailTasks;
 
 class HomeController extends Controller
 {
@@ -222,7 +223,7 @@ class HomeController extends Controller
             'warning' => 'Waarschuwing',
             'danger' => 'Dringend',
         );
-        return view('notification-create')->withTexts(MailTexts::all())->withTypes($types);
+        return view('notification-create')->withTexts(ScheduleEmailTasks::getAll())->withTypes($types);
     }
 
     /** END Notificaions **************************************************/
