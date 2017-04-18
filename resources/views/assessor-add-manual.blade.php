@@ -21,6 +21,13 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="assessor-1-email">Email</label>
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="ti-email"></i></div>
+                                    <input type="text" class="form-control" name="assessor-1-email" id="assessor-1-email inputEmail" placeholder="Email" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="assessor-1-birthdate">Geboorte datum</label>
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="ti-layout-grid3"></i></div>
@@ -158,6 +165,13 @@
                                                     '<div class="input-group">' +
                                                         '<div class="input-group-addon"><i class="ti-user"></i></div>' +
                                                         '<input type="text" class="form-control" name="assessor-'+element_id+'-name" id="assessor-'+element_id+'-name" placeholder="Volledige Naam" required>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                                '<div class="form-group">' +
+                                                    '<label for="assessor-'+element_id+'-email">Email</label>' +
+                                                    '<div class="input-group">' +
+                                                        '<div class="input-group-addon"><i class="ti-email"></i></div>' +
+                                                        '<input type="text" class="form-control" name="assessor-'+element_id+'-email" id="assessor-'+element_id+'-email inputEmail" placeholder="Email" required>' +
                                                     '</div>' +
                                                 '</div>' +
                                                 '<div class="form-group">' +

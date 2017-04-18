@@ -224,7 +224,7 @@ class FunctionalController extends Controller
             // Our first sheet
             $excel->sheet('Lijst', function ($sheet) {
                 $sheet->row(1, array(
-                    'Naam deelnemer', 'Naam College', 'Naam Team', 'Geboorte Datum', 'Functie', 'Training verzorgd door', 'Diploma uitgegeven door', 'Beroepskerntaak', 'Status (Actief, Non-actief, Anders)', 'Basistraining behaald (Ja/Nee)', 'Laatste basistraining datum'
+                    'Naam deelnemer', 'Naam College', 'Naam Team', 'Geboorte Datum', 'Functie', 'Training verzorgd door', 'Diploma uitgegeven door', 'Beroepskerntaak', 'Status (Actief, Non-actief, Anders)', 'Basistraining behaald (Ja/Nee)', 'Laatste basistraining datum', 'Email'
                 ));
 
                 // Set width for multiple cells
@@ -239,13 +239,14 @@ class FunctionalController extends Controller
                     'H' => 30,
                     'I' => 38,
                     'J' => 40,
-                    'K' => 40
+                    'K' => 40,
+                    'L' => 25
                 ));
 
                 // Set height for a single row
                 $sheet->setHeight(1, 50);
 
-                $sheet->cells('A1:K1', function ($cells) {
+                $sheet->cells('A1:L1', function ($cells) {
                     // manipulate the range of cells
                     $cells->setBackground('#FFFF00');
                     // Set font
@@ -261,10 +262,10 @@ class FunctionalController extends Controller
                 });
 
                 // Set border for range
-                $sheet->setBorder('A1:K1', 'thin');
+                $sheet->setBorder('A1:L1', 'thin');
 
                 // Set auto filter for a range
-                $sheet->setAutoFilter('A1:K1');
+                $sheet->setAutoFilter('A1:L1');
 
                 // Set multiple column formats
                 $sheet->setColumnFormat(array(

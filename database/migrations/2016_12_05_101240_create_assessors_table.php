@@ -16,6 +16,7 @@ class CreateAssessorsTable extends Migration
         Schema::create('assessors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('email');
             $table->integer('fk_college')->nullable(true);
             $table->string('team');
             $table->date('birthdate');

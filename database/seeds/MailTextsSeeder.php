@@ -14,30 +14,30 @@ class MailTextsSeeder extends Seeder
     public function run()
     {
         MailTexts::create(array(
-            'name' => 'name-1',
-            'title' => 'Test - success',
-            'subject' => '1',
+            'name' => 'Signaal Teamleiders',
+            'title' => 'Assessoren aantal laag',
+            'subject' => 'Assessoren gedaald',
             'text' => $this->string,
             'type' => 'success',
         ));
         MailTexts::create(array(
-            'name' => 'name-2',
-            'title' => 'Test - warning',
-            'subject' => '2',
+            'name' => 'Signaal Administratie',
+            'title' => 'Waarschuwing: Geld tekort',
+            'subject' => 'Geld binnen het college',
             'text' => $this->string,
             'type' => 'warning',
         ));
         MailTexts::create(array(
-            'name' => 'name-3',
-            'title' => 'Test - info',
-            'subject' => '3',
+            'name' => 'Info mail Assessoren',
+            'title' => 'Basistraining ?',
+            'subject' => 'Aanmelding Assessors Course',
             'text' => $this->string,
             'type' => 'info',
         ));
         MailTexts::create(array(
-            'name' => 'name-4',
-            'title' => 'Test - Error',
-            'subject' => '4',
+            'name' => 'Teamleiders Dringende Waarschuwing',
+            'title' => 'Waarschuwing Assessor Aaantal',
+            'subject' => 'Aantal Assessors in College te laag !',
             'text' => $this->string,
             'type' => 'error',
         ));

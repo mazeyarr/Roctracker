@@ -56,6 +56,7 @@ class AssessorController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255|min:2',
+            'email' => 'required|email|unique:assessors',
             'team' => 'max:255',
             'college' => 'required',
             'status' => 'required|numeric',
@@ -63,6 +64,7 @@ class AssessorController extends Controller
             'name.required' => 'Naam van de assessor is verplicht !',
             'name.max' => 'Naam mag niet meer dan 255 karakters bevatten',
             'name.min' => 'Naam mag niet minder dan 2 karakters bevatten',
+            'email.unique' => 'Dit email adres bestaat al bij een andere assessor',
             'status' => 'Status van deze assessor moet worden aangegeven'
         ));
 
@@ -94,6 +96,12 @@ class AssessorController extends Controller
         $assessor->name = $request->name;
         $assessor->team = $request->team;
         $assessor->status = $request->status;
+
+        if ($assessor->email != $request->email){
+            $messages[] = "Email is van <i>" . $assessor->email . "</i> Naar <strong>" . $request->email . "</strong> Gewijzigd";
+        }
+        $assessor->email = $request->email;
+
         if (empty($assessor->fk_college)) {
             $messages[] = "College gewijzigd naar <strong>" . College::find($request->college)->name . "</strong>";
         } elseif ($assessor->fk_college != $request->college) {
@@ -282,6 +290,7 @@ class AssessorController extends Controller
                     'status_actief_non_actief_anders' => 'required',
                     'basistraining_behaald_janee' => '',
                     'laatste_basistraining_datum' => '',
+                    'email' => 'required|email',
                 ));
                 if ($validator->fails()) {
                     $rejectedRows[] = $row;
@@ -320,6 +329,13 @@ class AssessorController extends Controller
 
                         }
                         $messages[] = "College geqijzigd, van " . Functions::nullIsString($o_college, "Geen") . " naar " . Functions::nullIsString($n_college, "Geen");
+                    }
+
+                    $n_email = $row['email'];
+                    $o_email = $assessor->email;
+                    if ($this->DetectChange($o_email, $n_email)) {
+                        $assessor->email = $n_email;
+                        $messages[] = "Email wijziging, van " . Functions::nullIsString($o_email, "Geen") . " naar " . Functions::nullIsString($n_email, "Geen");
                     }
 
                     $n_team = $row['naam_team'];
@@ -381,8 +397,15 @@ class AssessorController extends Controller
                         Log::AssessorLog($assessor->id, $messages, true);
                     }
                 } else {
+
+                    if (!Assessors::where('email', $row['email'])->get()->isEmpty()){
+                        $rejectedRows[] = $row;
+                        continue;
+                    }
+
                     $n_assessor = new Assessors();
                     $n_assessor->name = $row['naam_deelnemer'];
+                    $n_assessor->email = $row['email'];
                     $n_assessor->birthdate = $row['geboorte_datum']->format('Y-m-d');
                     $n_assessor->fk_college = (College::where('name', 'like', '%' . $row['naam_college'] . '%')->get()->isEmpty()) ? null : College::where('name', 'like', '%' . $row['naam_college'] . '%')->first()->id;
                     $n_assessor->fk_teamleader = (College::where('name', 'like', '%' . $row['naam_college'] . '%')->get()->isEmpty() || TiC::where('fk_college', College::where('name', 'like', '%' . $row['naam_college'] . '%')->first()->id)->get()->isEmpty()) ? null : TiC::where('fk_college', College::where('name', 'like', '%' . $row['naam_college'] . '%')->first()->id)->first()->fk_teamleader;
@@ -459,6 +482,7 @@ class AssessorController extends Controller
         for ($i = 1; $i <= $count; $i++) {
             $rules = array(
                 'assessor-' . $i . '-name' => 'required|max:255',
+                'assessor-' . $i . '-email' => 'required|email',
                 'assessor-' . $i . '-birthdate' => 'required|date_format:d/m/Y',
                 'assessor-' . $i . '-college' => 'required',
                 'assessor-' . $i . '-functie' => 'required',
@@ -475,6 +499,7 @@ class AssessorController extends Controller
 
             /* request inputs */
             $propName = 'assessor-' . $i . '-name';
+            $propEmail = 'assessor-' . $i . '-email';
             $propBirth = 'assessor-' . $i . '-birthdate';
             $propCollege = 'assessor-' . $i . '-college';
             $propFunc = 'assessor-' . $i . '-functie';
@@ -482,11 +507,16 @@ class AssessorController extends Controller
             $propTeam = 'assessor-' . $i . '-team';
             $propStat = 'status-' . $i;
 
+            if (!Assessors::where('email', $propEmail)->get()->isEmpty()){
+                return redirect()->back()->withErrors("Email: " . $propEmail . " Bestaat al bij een andere assessor" );
+            }
+
             /** @var $propBirth (reformat date for database) */
             $propBirth = date_format(date_create_from_format('d/m/Y', $request->$propBirth), 'Y-m-d');
 
             $assessor = new Assessors();
             $assessor->name = $request->$propName;
+            $assessor->email = $request->$propEmail;
             $assessor->birthdate = $propBirth;
             $assessor->fk_college = $request->$propCollege != "Geen" ? $request->$propCollege : null;
             $assessor->function = $request->$propFunc;

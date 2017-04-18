@@ -154,7 +154,7 @@
             _titleMaintenances.keyup(function (e) {
                 var maintenance_id = this.id;
                 maintenance_id = maintenance_id.replace('title-', '');
-                if ($(this).val() == "") {
+                if ($(this).val() === "") {
                     var input = $(this).closest('.form-group');
                     input.removeClass('has-error');
                     input.removeClass('has-success');
@@ -169,7 +169,7 @@
             _institutionMaintenances.keyup(function (e) {
                 var maintenance_id = this.id;
                 maintenance_id = maintenance_id.replace('institution-', '');
-                if ($(this).val() == "") {
+                if ($(this).val() === "") {
                     var input = $(this).closest('.form-group');
                     input.removeClass('has-error');
                     input.removeClass('has-success');
@@ -183,7 +183,7 @@
             _locationMaintenances.keyup(function (e) {
                 var maintenance_id = this.id;
                 maintenance_id = maintenance_id.replace('location-', '');
-                if ($(this).val() == "") {
+                if ($(this).val() === "") {
                     var input = $(this).closest('.form-group');
                     input.removeClass('has-error');
                     input.removeClass('has-success');
@@ -198,7 +198,7 @@
             _fromMaintenances.keyup(function (e) {
                 var maintenance_id = this.id;
                 maintenance_id = maintenance_id.replace('from-', '');
-                if ($(this).val() == "") {
+                if ($(this).val() === "") {
                     var input = $(this).closest('.form-group');
                     input.removeClass('has-error');
                     input.removeClass('has-success');
@@ -213,7 +213,7 @@
             _tillMaintenances.keyup(function (e) {
                 var maintenance_id = this.id;
                 maintenance_id = maintenance_id.replace('till-', '');
-                if ($(this).val() == "") {
+                if ($(this).val() === "") {
                     var input = $(this).closest('.form-group');
                     input.removeClass('has-error');
                     input.removeClass('has-success');

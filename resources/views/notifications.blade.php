@@ -20,7 +20,7 @@
                                 <tr>
                                     <th colspan="4">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-default waves-effect waves-light  dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-refresh"></i> </button>
+                                            <button id="btnRefresh" type="button" class="btn btn-default waves-effect waves-light  dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-refresh"></i> </button>
                                         </div>
                                     </th>
                                     <th class="hidden-xs" width="100">
@@ -83,12 +83,19 @@
         $(document).ready(function () {
             var select_boxes = $('.select_mail'),
                 btnResend = $('#resend_mails'),
+                btnRefresh = $('#btnRefresh'),
                 selected_emails = [];
+
+            btnRefresh.click(function (e) {
+                window.location.reload();
+            });
+
             $('body').on('change', select_boxes, function (event) {
                 var id = event.target.id,
                     checkbox = $('#' + id);
 
                 if (checkbox.is(':checkbox')) {
+
                     if (checkbox.prop('checked')) {
                         selected_emails.push(id);
                     } else {
@@ -105,6 +112,7 @@
                             btnResend.show(500);
                         }
                     }
+
                 }
             });
 
@@ -149,6 +157,7 @@
                                         element.attr('class', 'label label-success m-r-10');
                                         element.html('Verzonden');
                                     });
+                                    ezToast("Info", "Emails geselecteerde emails worden opnieuw verzonden", 'info', 2000, '#4c53ff')
                                     swal.close();
                                 });
                             } else {

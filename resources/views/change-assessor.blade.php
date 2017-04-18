@@ -17,6 +17,10 @@
                         {!! Form::text('name', $assessor->name, array('class' => 'form-control', 'required' => '')) !!}
                     </div>
                     <div class="form-group">
+                        <label for="inputEmail" class="control-label">Email:</label>
+                        {!! Form::email('email', $assessor->email, array('id' => 'inputEmail', 'class' => 'form-control', 'required' => '')) !!}
+                    </div>
+                    <div class="form-group">
                         <label for="inputName1" class="control-label">Team:</label>
                         {!! Form::text('team', $assessor->team, array('class' => 'form-control', 'required' => '')) !!}
                     </div>

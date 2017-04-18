@@ -13,6 +13,7 @@ use App\Teamleaders;
 use App\TiC;
 use App\User;
 use App\Email;
+use App\MailTexts;
 
 class HomeController extends Controller
 {
@@ -215,7 +216,13 @@ class HomeController extends Controller
 
     public function getCreeateNotifications()
     {
-        return view('notification-create');
+        $types = array(
+            'info' => 'Informatieve',
+            'success' => 'Succesvole',
+            'warning' => 'Waarschuwing',
+            'danger' => 'Dringend',
+        );
+        return view('notification-create')->withTexts(MailTexts::all())->withTypes($types);
     }
 
     /** END Notificaions **************************************************/

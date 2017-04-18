@@ -81,6 +81,7 @@
                                                 <th>Status <span class="text-danger">*</span></th>
                                                 <th>Basistraining behaald</th>
                                                 <th>Laatste basistrainings datum</th>
+                                                <th>Email</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -101,6 +102,7 @@
                                                     </ul></td>
                                                 <td>"Ja" / "Nee"</td>
                                                 <td>Als <span class="text-warning">Ja</span> bij basistraining is ingevuld. <span class="text-warning">yyyy-mm-dd</span></td>
+                                                <td>E-mail adres van deze assessor</td>
                                             </tr>
                                             </tbody>
                                         </table>

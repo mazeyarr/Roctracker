@@ -20,6 +20,7 @@
                         <th> Volgende Training datum </th>
                         <th> Volgende examen datum </th>
                         <th> Status </th>
+                        <th data-hide="all"> Email </th>
                         <th data-hide="all"> Basistraining </th>
                         <th data-hide="all"> Functie </th>
                         <th data-hide="all"> Beroepskerntaak </th>
@@ -65,6 +66,7 @@
                                         <span class="label label-table label-warning">Anders</span>
                                     @endif
                                 </td>
+                                <td>{{ $assessor->email }}</td>
                                 <td>{!! ($assessor->fk_exams['basictraining']->graduated) ? "Behaald" : "<i>Niet behaald</i>" !!}</td>
                                 <td>{{ $assessor->function }}</td>
                                 <td>{{ $assessor->profession }}</td>

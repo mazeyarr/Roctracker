@@ -202,6 +202,7 @@ class SeedDemoContent extends Seeder
         # Christien Heesters
         $assessor = new Assessors();
         $assessor->name = "Christien Heesters";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -219,6 +220,7 @@ class SeedDemoContent extends Seeder
         # Eveline Sijmons
         $assessor = new Assessors();
         $assessor->name = "Eveline Sijmons";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -236,6 +238,7 @@ class SeedDemoContent extends Seeder
         # Leon Staal
         $assessor = new Assessors();
         $assessor->name = "Leon Staal";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -253,6 +256,7 @@ class SeedDemoContent extends Seeder
         # Maarten Heesters
         $assessor = new Assessors();
         $assessor->name = "Maarten Heesters";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -270,6 +274,7 @@ class SeedDemoContent extends Seeder
         # Marga Gijsbers
         $assessor = new Assessors();
         $assessor->name = "Marga Gijsbers";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -287,6 +292,7 @@ class SeedDemoContent extends Seeder
         # Petra Heeskens
         $assessor = new Assessors();
         $assessor->name = "Petra Heeskens";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -304,6 +310,7 @@ class SeedDemoContent extends Seeder
         # Stanny Buddingh
         $assessor = new Assessors();
         $assessor->name = "Stanny Buddingh";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -321,6 +328,7 @@ class SeedDemoContent extends Seeder
         # Tine van de Velde
         $assessor = new Assessors();
         $assessor->name = "Tine van de Velde";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -338,6 +346,7 @@ class SeedDemoContent extends Seeder
         # Thom Bloks
         $assessor = new Assessors();
         $assessor->name = "Thom Bloks";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 4, "01-02-2012", "02-02-2012");
@@ -355,6 +364,7 @@ class SeedDemoContent extends Seeder
         # Peter Christians
         $assessor = new Assessors();
         $assessor->name = "Peter Christians";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Bouw & design college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Wil Hurkmans")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -372,6 +382,7 @@ class SeedDemoContent extends Seeder
         # Renee van de Kerkhof
         $assessor = new Assessors();
         $assessor->name = "Renee van de Kerkhof";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Bouw & design college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Wil Hurkmans")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -389,6 +400,7 @@ class SeedDemoContent extends Seeder
         # Victor van Loon
         $assessor = new Assessors();
         $assessor->name = "Victor van Loon";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Bouw & design college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Wil Hurkmans")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 4, "01-02-2012", "02-02-2012");
@@ -406,6 +418,7 @@ class SeedDemoContent extends Seeder
         # Fatima Gazuani Serbout
         $assessor = new Assessors();
         $assessor->name = "Fatima Gazuani Serbout";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -423,6 +436,7 @@ class SeedDemoContent extends Seeder
         # Francien Mesman
         $assessor = new Assessors();
         $assessor->name = "Francien Mesman";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -440,6 +454,7 @@ class SeedDemoContent extends Seeder
         # Frans Hikspoors
         $assessor = new Assessors();
         $assessor->name = "Francien Mesman";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -457,6 +472,7 @@ class SeedDemoContent extends Seeder
         # Greetje Lathouwers
         $assessor = new Assessors();
         $assessor->name = "Greetje Lathouwers";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -474,6 +490,7 @@ class SeedDemoContent extends Seeder
         # Heidi Veltkamp
         $assessor = new Assessors();
         $assessor->name = "Heidi Veltkamp";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -491,6 +508,7 @@ class SeedDemoContent extends Seeder
         # Koen Verheijen
         $assessor = new Assessors();
         $assessor->name = "Koen Verheijen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -508,6 +526,7 @@ class SeedDemoContent extends Seeder
         # Lissete Stoter
         $assessor = new Assessors();
         $assessor->name = "Lissete Stoter";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -525,6 +544,7 @@ class SeedDemoContent extends Seeder
         # Marcel Rejinders
         $assessor = new Assessors();
         $assessor->name = "Marcel Rejinders";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -542,6 +562,7 @@ class SeedDemoContent extends Seeder
         # Maurice Backus
         $assessor = new Assessors();
         $assessor->name = "Maurice Backus";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -559,6 +580,7 @@ class SeedDemoContent extends Seeder
         # Mike van Lierop
         $assessor = new Assessors();
         $assessor->name = "Mike van Lierop";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -576,6 +598,7 @@ class SeedDemoContent extends Seeder
         # Miranda Habraken
         $assessor = new Assessors();
         $assessor->name = "Miranda Habraken";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -593,6 +616,7 @@ class SeedDemoContent extends Seeder
         # Renee Teeuwsen
         $assessor = new Assessors();
         $assessor->name = "Renee Teeuwsen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 4, "01-02-2012", "02-02-2012");
@@ -610,6 +634,7 @@ class SeedDemoContent extends Seeder
         # Rita Jansen
         $assessor = new Assessors();
         $assessor->name = "Rita Jansen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -627,6 +652,7 @@ class SeedDemoContent extends Seeder
         # Roelof Oosterwijk
         $assessor = new Assessors();
         $assessor->name = "Roelof Oosterwijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -644,6 +670,7 @@ class SeedDemoContent extends Seeder
         # Twan van Grunsven
         $assessor = new Assessors();
         $assessor->name = "Roelof Oosterwijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -661,6 +688,7 @@ class SeedDemoContent extends Seeder
         # Yvonne Wilbers
         $assessor = new Assessors();
         $assessor->name = "Roelof Oosterwijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -678,6 +706,7 @@ class SeedDemoContent extends Seeder
         # Roelof Oosterwijk
         $assessor = new Assessors();
         $assessor->name = "Roelof Oosterwijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -695,6 +724,7 @@ class SeedDemoContent extends Seeder
         # Roelof Oosterwijk
         $assessor = new Assessors();
         $assessor->name = "Roelof Oosterwijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -712,6 +742,7 @@ class SeedDemoContent extends Seeder
         # Jeske Dijkshoorn-Gans
         $assessor = new Assessors();
         $assessor->name = "Jeske Dijkshoorn-Gans";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -729,6 +760,7 @@ class SeedDemoContent extends Seeder
         # Norbert Sleutjes
         $assessor = new Assessors();
         $assessor->name = "Norbert Sleutjes";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -746,6 +778,7 @@ class SeedDemoContent extends Seeder
         # Saskia Lemlijn
         $assessor = new Assessors();
         $assessor->name = "Saskia Lemlijn";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -763,6 +796,7 @@ class SeedDemoContent extends Seeder
         # Sita El Maach
         $assessor = new Assessors();
         $assessor->name = "Sita El Maach";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -780,6 +814,7 @@ class SeedDemoContent extends Seeder
         # Carlijn v Renswoude
         $assessor = new Assessors();
         $assessor->name = "Carlijn v Renswoude";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -797,6 +832,7 @@ class SeedDemoContent extends Seeder
         # Salem El Maach
         $assessor = new Assessors();
         $assessor->name = "Salem El Maach";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -814,6 +850,7 @@ class SeedDemoContent extends Seeder
         # Anneke der Kinderen
         $assessor = new Assessors();
         $assessor->name = "Anneke der Kinderen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -831,6 +868,7 @@ class SeedDemoContent extends Seeder
         # Inge Stevens
         $assessor = new Assessors();
         $assessor->name = "Inge Stevens";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -848,6 +886,7 @@ class SeedDemoContent extends Seeder
         # Karin Cloudt
         $assessor = new Assessors();
         $assessor->name = "Karin Cloudt";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -865,6 +904,7 @@ class SeedDemoContent extends Seeder
         # Tanja Mers
         $assessor = new Assessors();
         $assessor->name = "Tanja Mers";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -882,6 +922,7 @@ class SeedDemoContent extends Seeder
         # Cathelijn Strijbosch
         $assessor = new Assessors();
         $assessor->name = "Cathelijn Strijbosch";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -899,6 +940,7 @@ class SeedDemoContent extends Seeder
         # Harold Meulendijks
         $assessor = new Assessors();
         $assessor->name = "Harold Meulendijks";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -916,6 +958,7 @@ class SeedDemoContent extends Seeder
         # Hennita van de Mortel
         $assessor = new Assessors();
         $assessor->name = "Hennita van de Mortel";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -933,6 +976,7 @@ class SeedDemoContent extends Seeder
         # Ineke Ernest
         $assessor = new Assessors();
         $assessor->name = "Ineke Ernest";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -950,6 +994,7 @@ class SeedDemoContent extends Seeder
         # Inge Huybers
         $assessor = new Assessors();
         $assessor->name = "Inge Huybers";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -967,6 +1012,7 @@ class SeedDemoContent extends Seeder
         # Ilse Vossen
         $assessor = new Assessors();
         $assessor->name = "Ilse Vossen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -984,6 +1030,7 @@ class SeedDemoContent extends Seeder
         # Marie-Cecile Martin- van Ommeren
         $assessor = new Assessors();
         $assessor->name = "Marie-Cecile Martin- van Ommeren";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1001,6 +1048,7 @@ class SeedDemoContent extends Seeder
         # Marion van Wijk
         $assessor = new Assessors();
         $assessor->name = "Marion van Wijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1018,6 +1066,7 @@ class SeedDemoContent extends Seeder
         # Sanneke van Zeeland
         $assessor = new Assessors();
         $assessor->name = "Sanneke van Zeeland";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1035,6 +1084,7 @@ class SeedDemoContent extends Seeder
         # Saskia Moerman
         $assessor = new Assessors();
         $assessor->name = "Saskia Moerman";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1052,6 +1102,7 @@ class SeedDemoContent extends Seeder
         # Thomas van de Elsen
         $assessor = new Assessors();
         $assessor->name = "Thomas van de Elsen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1069,6 +1120,7 @@ class SeedDemoContent extends Seeder
         # Yvonne van de Boomen
         $assessor = new Assessors();
         $assessor->name = "Yvonne van de Boomen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Zorg en welzijn college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Niels van Dalsen")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1086,6 +1138,7 @@ class SeedDemoContent extends Seeder
         # Anke Bruggink
         $assessor = new Assessors();
         $assessor->name = "Anke Bruggink";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1103,6 +1156,7 @@ class SeedDemoContent extends Seeder
         # Barbara Bierens
         $assessor = new Assessors();
         $assessor->name = "Barbara Bierens";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1120,6 +1174,7 @@ class SeedDemoContent extends Seeder
         # Hettie Jilesen
         $assessor = new Assessors();
         $assessor->name = "Hettie Jilesen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1137,6 +1192,7 @@ class SeedDemoContent extends Seeder
         # Ingeborg Krook
         $assessor = new Assessors();
         $assessor->name = "Ingeborg Krook";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1154,6 +1210,7 @@ class SeedDemoContent extends Seeder
         # Laila Hendriks
         $assessor = new Assessors();
         $assessor->name = "Laila Hendriks";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1171,6 +1228,7 @@ class SeedDemoContent extends Seeder
         # Margo Huijbers
         $assessor = new Assessors();
         $assessor->name = "Margo Huijbers";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1188,6 +1246,7 @@ class SeedDemoContent extends Seeder
         # Margriet van Mil
         $assessor = new Assessors();
         $assessor->name = "Margriet van Mil";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1205,6 +1264,7 @@ class SeedDemoContent extends Seeder
         # Tonnie Waals
         $assessor = new Assessors();
         $assessor->name = "Tonnie Waals";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs & Kinderopvang College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Peter de Roy van Zuijdewijn")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1222,6 +1282,7 @@ class SeedDemoContent extends Seeder
         # Frank Berben
         $assessor = new Assessors();
         $assessor->name = "Frank Berben";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1239,6 +1300,7 @@ class SeedDemoContent extends Seeder
         # Henry van Wanrooy
         $assessor = new Assessors();
         $assessor->name = "Henry van Wanrooy";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1256,6 +1318,7 @@ class SeedDemoContent extends Seeder
         # Han op de Kelder
         $assessor = new Assessors();
         $assessor->name = "Han op de Kelder";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1273,6 +1336,7 @@ class SeedDemoContent extends Seeder
         # Marcel Beekmans
         $assessor = new Assessors();
         $assessor->name = "Marcel Beekmans";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1290,6 +1354,7 @@ class SeedDemoContent extends Seeder
         # Marcel Stabel
         $assessor = new Assessors();
         $assessor->name = "Marcel Stabel";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1307,6 +1372,7 @@ class SeedDemoContent extends Seeder
         # Nihat Sahin
         $assessor = new Assessors();
         $assessor->name = "Marcel Stabel";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1324,6 +1390,7 @@ class SeedDemoContent extends Seeder
         # Peter Bessems
         $assessor = new Assessors();
         $assessor->name = "Peter Bessems";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1341,6 +1408,7 @@ class SeedDemoContent extends Seeder
         # Peter Peels
         $assessor = new Assessors();
         $assessor->name = "Peter Peels";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1358,6 +1426,7 @@ class SeedDemoContent extends Seeder
         # Rico van Dooren
         $assessor = new Assessors();
         $assessor->name = "Rico van Dooren";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "ict college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -1375,6 +1444,7 @@ class SeedDemoContent extends Seeder
         # Eniko Hettema- Bilicz
         $assessor = new Assessors();
         $assessor->name = "Eniko Hettema- Bilicz";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1392,6 +1462,7 @@ class SeedDemoContent extends Seeder
         # Hanny in 't Hout
         $assessor = new Assessors();
         $assessor->name = "Hanny in 't Hout";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1409,6 +1480,7 @@ class SeedDemoContent extends Seeder
         # Heidrun Browarzik
         $assessor = new Assessors();
         $assessor->name = "Heidrun Browarzik";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1426,6 +1498,7 @@ class SeedDemoContent extends Seeder
         # Lenie Hector-Filion
         $assessor = new Assessors();
         $assessor->name = "Lenie Hector-Filion";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 4, "01-02-2012", "02-02-2012");
@@ -1443,6 +1516,7 @@ class SeedDemoContent extends Seeder
         # Lotte Soontiëns
         $assessor = new Assessors();
         $assessor->name = "Lotte Soontiëns";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1460,6 +1534,7 @@ class SeedDemoContent extends Seeder
         # Joke Loch
         $assessor = new Assessors();
         $assessor->name = "Joke Loch";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1477,6 +1552,7 @@ class SeedDemoContent extends Seeder
         # Patsy Franssen
         $assessor = new Assessors();
         $assessor->name = "Patsy Franssen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1494,6 +1570,7 @@ class SeedDemoContent extends Seeder
         # Peter van Breemen
         $assessor = new Assessors();
         $assessor->name = "Peter van Breemen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Onderwijs Centraal")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Richard Meulenberg")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1511,6 +1588,7 @@ class SeedDemoContent extends Seeder
         # Bennie Cuijpers
         $assessor = new Assessors();
         $assessor->name = "Bennie Cuijpers";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1528,6 +1606,7 @@ class SeedDemoContent extends Seeder
         # Bert van den Berg
         $assessor = new Assessors();
         $assessor->name = "Bert van den Berg";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1545,6 +1624,7 @@ class SeedDemoContent extends Seeder
         # Cor van de Moosdijk
         $assessor = new Assessors();
         $assessor->name = "Cor van de Moosdijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 4, "01-02-2012", "02-02-2012");
@@ -1562,6 +1642,7 @@ class SeedDemoContent extends Seeder
         # Jack van Dijk
         $assessor = new Assessors();
         $assessor->name = "Jack van Dijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1579,6 +1660,7 @@ class SeedDemoContent extends Seeder
         # Joost Rooijakkers
         $assessor = new Assessors();
         $assessor->name = "Joost Rooijakkers";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1596,6 +1678,7 @@ class SeedDemoContent extends Seeder
         # Marieke Trip
         $assessor = new Assessors();
         $assessor->name = "Marieke Trip";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1613,6 +1696,7 @@ class SeedDemoContent extends Seeder
         # Paul Groot
         $assessor = new Assessors();
         $assessor->name = "Paul Groot";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1630,6 +1714,7 @@ class SeedDemoContent extends Seeder
         # Paul Versantvoort
         $assessor = new Assessors();
         $assessor->name = "Paul Versantvoort";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1647,6 +1732,7 @@ class SeedDemoContent extends Seeder
         # Ron Gommans
         $assessor = new Assessors();
         $assessor->name = "Ron Gommans";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1664,6 +1750,7 @@ class SeedDemoContent extends Seeder
         # Richard van den Elzen
         $assessor = new Assessors();
         $assessor->name = "Richard van den Elzen";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1681,6 +1768,7 @@ class SeedDemoContent extends Seeder
         # Ruud Kuijken
         $assessor = new Assessors();
         $assessor->name = "Ruud Kuijken";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 2, "01-02-2014", "02-02-2014");
@@ -1698,6 +1786,7 @@ class SeedDemoContent extends Seeder
         # Vincent van de Camp
         $assessor = new Assessors();
         $assessor->name = "Ruud Kuijken";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Techniek & technologie college")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Kees Dings")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1717,6 +1806,7 @@ class SeedDemoContent extends Seeder
         # Marie-Jose Janssens
         $assessor = new Assessors();
         $assessor->name = "Marie-Jose Janssens";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1734,6 +1824,7 @@ class SeedDemoContent extends Seeder
         # Liesbeth Ehrismann
         $assessor = new Assessors();
         $assessor->name = "Liesbeth Ehrismann";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Presta")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Yvon Pas")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1751,6 +1842,7 @@ class SeedDemoContent extends Seeder
         # Rik vd Ven
         $assessor = new Assessors();
         $assessor->name = "Rik vd Ven";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(true, true, true, true, true, null, null, 0);
@@ -1768,6 +1860,7 @@ class SeedDemoContent extends Seeder
         # Sebas Visser
         $assessor = new Assessors();
         $assessor->name = "Sebas Visser";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Business College")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Toine Ketelaars")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(false, false, true, true, false, null, null, 0, "23-05-2017", "30-05-2017", false, false);
@@ -1785,6 +1878,7 @@ class SeedDemoContent extends Seeder
         # Ad van Eijk
         $assessor = new Assessors();
         $assessor->name = "Ad van Eijk";
+        $assessor->email = "test@test.nl";
         $assessor->fk_college = College::where('name', "Dienstverlening")->first()->id;
         $assessor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
         $assessor->fk_exams = $this->demoExamMaker(false, true, true, true, false, null, null, 0, false, false, false, false);
