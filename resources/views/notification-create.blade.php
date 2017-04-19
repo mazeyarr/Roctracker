@@ -13,48 +13,50 @@
                     </div>
                     <div class="panel-body">
                         <form class="floating-labels form-mailtext" data-toggle="validator" id="form-mailtext-{{$mail->fk_mail_texts->id}}">
-                            <div class="form-group m-b-40 m-t-20">
-                                {!! Form::text('name-' . $mail->fk_mail_texts->id, $mail->fk_mail_texts->name, array('id' => 'name-'.$mail->fk_mail_texts->id , 'class' => '_name form-control', 'required' => '')) !!}
+                            <div class="form-group m-b-40 m-t-20" data-task-id="{{$mail->id}}">
+                                {!! Form::text('name', $mail->fk_mail_texts->name, array('id' => 'name-'.$mail->fk_mail_texts->id , 'class' => '_name form-control', 'required' => '')) !!}
                                 <span class="highlight"></span> <span class="bar"></span>
-                                <label for="id-name-{{$mail->fk_mail_texts->id}}">Naam van deze tekst</label>
+                                <label for="name-{{$mail->fk_mail_texts->id}}">Naam van deze tekst</label>
                             </div>
 
-                            <div class="form-group m-b-40 m-t-20">
-                                {!! Form::text('title-' . $mail->fk_mail_texts->id, $mail->fk_mail_texts->title, array('id' => 'title-'.$mail->fk_mail_texts->id , 'class' => '_title form-control', 'required' => '')) !!}
+                            <div class="form-group m-b-40 m-t-20" data-task-id="{{$mail->id}}">
+                                {!! Form::text('title', $mail->fk_mail_texts->title, array('id' => 'title-'.$mail->fk_mail_texts->id , 'class' => '_title form-control', 'required' => '')) !!}
                                 <span class="highlight"></span> <span class="bar"></span>
-                                <label for="id-title-{{$mail->fk_mail_texts->id}}">Titel van deze E-Mail</label>
+                                <label for="title-{{$mail->fk_mail_texts->id}}">Titel van deze E-Mail</label>
                             </div>
 
-                            <div class="form-group m-b-40 m-t-20">
-                                {!! Form::text('subject-' . $mail->fk_mail_texts->id, $mail->fk_mail_texts->subject, array('id' => 'subject-'.$mail->fk_mail_texts->id , 'class' => '_subject form-control', 'required' => '')) !!}
+                            <div class="form-group m-b-40 m-t-20" data-task-id="{{$mail->id}}">
+                                {!! Form::text('subject', $mail->fk_mail_texts->subject, array('id' => 'subject-'.$mail->fk_mail_texts->id , 'class' => '_subject form-control', 'required' => '')) !!}
                                 <span class="highlight"></span> <span class="bar"></span>
-                                <label for="id-subject-{{$mail->fk_mail_texts->id}}">Onderwerp van deze E-Mail</label>
+                                <label for="subject-{{$mail->fk_mail_texts->id}}">Onderwerp van deze E-Mail</label>
                             </div>
 
-                            <div class="form-group m-b-40 m-t-20">
-                                {!! Form::textarea('text-' . $mail->fk_mail_texts->id, $mail->fk_mail_texts->text, array('id' => 'text-'.$mail->fk_mail_texts->id , 'class' => '_text form-control', 'required' => '')) !!}
+                            <div class="form-group m-b-40 m-t-20" data-task-id="{{$mail->id}}">
+                                {!! Form::textarea('text', $mail->fk_mail_texts->text, array('id' => 'text-'.$mail->fk_mail_texts->id , 'class' => '_text form-control', 'required' => '')) !!}
                                 <span class="highlight"></span> <span class="bar"></span>
-                                <label for="id-text-{{$mail->fk_mail_texts->id}}">Bericht van deze E-Mail @include('partials._components._icon-tooltip',array('fa' => 'fa-info-circle', 'text' => "(optioneel) u kunt ook html hier gebruiken bij uw bericht" )) </label>
+                                <label for="text-{{$mail->fk_mail_texts->id}}">Bericht van deze E-Mail @include('partials._components._icon-tooltip',array('fa' => 'fa-info-circle', 'text' => "(optioneel) u kunt ook html hier gebruiken bij uw bericht" )) </label>
                             </div>
 
-                            <div class="form-group m-b-40 m-t-20">
-                                {!! Form::select('type-' . $mail->fk_mail_texts->id, $types, null, array('id' => 'type-'.$mail->fk_mail_texts->id , 'class' => '_type form-control', 'required' => '', 'style' => 'padding: 0px;')) !!}
-                                <label for="id-type-{{$mail->fk_mail_texts->id}}">Wat voor type mail is dit</label>
+                            <div class="form-group m-b-40 m-t-20" data-task-id="{{$mail->id}}">
+                                {!! Form::select('type', $types, $mail->fk_mail_texts->type, array('id' => 'type-'.$mail->fk_mail_texts->id , 'class' => '_type form-control', 'required' => '', 'style' => 'padding: 0px;')) !!}
+                                <label for="type-{{$mail->fk_mail_texts->id}}">Wat voor type mail is dit</label>
                             </div>
 
+                            <hr>
                             <h2>Planning</h2>
                             <hr>
-                            <div class="form-group m-b-40 m-t-40">
-                                {!! Form::text('at_date-' . $mail->id, $mail->at_date, array('id' => 'at_date-'.$mail->id , 'class' => '_at_date form-control', 'required' => '')) !!}
+
+                            <div class="form-group m-b-40 m-t-40" data-task-id="{{$mail->id}}">
+                                {!! Form::text('at_date', $mail->at_date, array('id' => 'at_date-'.$mail->id , 'class' => '_at_date form-control', 'required' => '')) !!}
                                 <span class="highlight"></span> <span class="bar"></span>
-                                <label for="id-at_date-{{$mail->id}}">Verstuur Datum <small>(dd-mm-yyyy)</small></label>
+                                <label for="at_date-{{$mail->id}}">Verstuur Datum <small>(dd-mm-yyyy hh:mm)</small></label>
                             </div>
-                            <div class="form-group m-t-20">
-                                {!! Form::select('table-' . $mail->id, array('teamleaders' => "Teamleiders", 'assessors' => "Assessoren"), $mail->table, array('id' => 'table-'.$mail->id , 'class' => '_table form-control', 'required' => '', 'style' => 'padding: 0px;')) !!}
-                                <label for="id-to-{{$mail->id}}">Naar wie word deze email verstuurd ?</label>
+                            <div class="form-group m-t-20" data-task-id="{{$mail->id}}">
+                                {!! Form::select('table', array('teamleaders' => "Teamleiders", 'assessors' => "Assessoren"), $mail->table, array('id' => 'table-'.$mail->id , 'class' => '_table form-control', 'required' => '', 'style' => 'padding: 0px;')) !!}
+                                <label for="to-{{$mail->id}}">Naar wie word deze email verstuurd ?</label>
                             </div>
                             <div class="form-group m-b-40">
-                                {!! Form::button('Email lijst maken', array('id' => 'btnMakeList-' . $mail->id, 'class' => 'btnMakeList btn btn-success', 'data-id' => $mail->id)) !!}
+                                {!! Form::button('Email lijst maken/aanpassen', array('id' => 'btnMakeList-' . $mail->id, 'class' => 'btnMakeList btn btn-success', 'data-table' => $mail->table, 'data-id' => $mail->id)) !!}
                             </div>
                         </form>
                     </div>
@@ -98,76 +100,62 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function (e) {
-            $('#public-methods').multiSelect();
-            var _name = $('._name'),
-                _title = $('._title'),
-                _subject = $('._subject'),
-                _text = $('._text'),
-                _type = $('._type'),
-                _at_date = $('._at_date'),
-                btnMakeList = $('.btnMakeList'),
-                body = $('body');
+            var btnMakeList = $('.btnMakeList'),
+                modal = $('#modal-email-sender-list'),
+                body = $('body'),
+                _inputs = $(':input'),
+                _table = $('._table');
 
-            _name.keyup(function () {
-                var taskId = this.id;
-                taskId = taskId.replace('name-', '');
-                if ($(this).val() === "") {
-                    var input = $(this).closest('.form-group');
-                    resetInputError(input);
-                    return;
+            _inputs.blur(function (e) {
+                if ($(this).is( ":text" )) {
+                    if ($(this).val() === "") {
+                       return resetInputError($(this).closest('.form-group'));
+                    }
                 }
-                saveMailTaskData(taskId, 'name', $(this).val(), $(this));
-            });
-            _title.keyup(function () {
-                var taskId = this.id;
-                taskId = taskId.replace('title-', '');
-                if ($(this).val() === "") {
-                    var input = $(this).closest('.form-group');
-                    resetInputError(input);
-                    return;
-                }
-                saveMailTaskData(taskId, 'title', $(this).val(), $(this));
-            });
-            _subject.keyup(function () {
-                var taskId = this.id;
-                taskId = taskId.replace('subject-', '');
-                if ($(this).val() === "") {
-                    var input = $(this).closest('.form-group');
-                    resetInputError(input);
-                    return;
-                }
-                saveMailTaskData(taskId, 'subject', $(this).val(), $(this));
-            });
-            _text.keyup(function () {
-                var taskId = this.id;
-                taskId = taskId.replace('text-', '');
-                if ($(this).val() === "") {
-                    var input = $(this).closest('.form-group');
-                    resetInputError(input);
-                    return;
-                }
-                saveMailTaskData(taskId, 'text', $(this).val(), $(this));
             });
 
-            _at_date.keyup(function () {
-                var taskId = this.id;
-                taskId = taskId.replace('at_date-', '');
+            _inputs.keyup(function (e) {
                 if ($(this).val() === "") {
-                    var input = $(this).closest('.form-group');
-                    resetInputError(input);
-                    return;
+                    return resetInputError($(this).closest('.form-group'));
                 }
-                saveMailTaskData(taskId, 'at_date', $(this).val(), $(this));
+                var taskId = $(this).closest('.form-group').attr('data-task-id');
+                saveMailTaskData(taskId, this.name, $(this).val(), $(this));
             });
 
-            // TODO: Type is an select box
-
-            // TODO: Table is an select box
+            _inputs.change(function () {
+                if ($(this).is( "select" )) {
+                    var taskId = $(this).closest('.form-group').attr('data-task-id');
+                    saveMailTaskData(taskId, this.name, $(this).val(), $(this));
+                    if ($(this).attr('name') === "table"){
+                        $('#btnMakeList-' + taskId).attr('data-table', $(this).val());
+                    }
+                }
+            });
 
             body.on('click', btnMakeList, function (event) {
                 var btnId = event.target.id,
                     thisBtn = $('#' + btnId),
                     taskId = thisBtn.attr('data-id');
+
+                if (!thisBtn.hasClass('btnMakeList')) {
+                    return;
+                }
+
+                waitingDialog.show('Moment Geduld...',{
+                    onHide: function () {
+                        modal.modal('show');
+                    },
+                    progressType: 'info'
+                });
+                /*waitingDialog.hide();*/
+                console.log(thisBtn);
+                $('#select-receivers').multiSelect();
+            });
+
+            body.on('click', '#btnModalClose', function (e) {
+                e.stopPropagation();
+                e.preventDefault();
+                modal.modal('hide');
             });
 
             function resetInputError(element) {

@@ -15,7 +15,7 @@ class CreateScheduleEmailTasksTable extends Migration
     {
         Schema::create('schedule_email_tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('at_date')->nullable(true);
+            $table->dateTime('at_date')->nullable(true);
             $table->string('table');
             $table->text('to');
             $table->integer('fk_mail_texts');

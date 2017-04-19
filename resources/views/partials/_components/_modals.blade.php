@@ -15,8 +15,18 @@
                             </div>
                         @endforeach
                     @elseif (!empty($select))
-                        <div class="form-group">
-                            <select {!! $select['options'] !!} id="{{$select['id']}}" name="{{$select['name']}}"></select>
+                        <div class="row">
+                            <div class="col-xs-4">
+                                <div class="button-box m-t-20">
+                                    <a id="select-all" class="btn btn-success btn-outline" href="#">Selecteer Alles</a>
+                                    <a id="deselect-all" class="btn btn-danger btn-outline" href="#">Deselecteer Alles</a>
+                                </div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="form-group">
+                                    <select {!! $select['options'] !!} id="{{$select['id']}}" name="{{$select['name']}}"></select>
+                                </div>
+                            </div>
                         </div>
                     @endif
                 </form>

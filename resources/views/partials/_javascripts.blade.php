@@ -31,6 +31,9 @@
 {!! Html::script('plugins/bower_components/raphael/raphael-min.js') !!}
 {!! Html::script('plugins/bower_components/morrisjs/morris.js') !!}
 
+<!-- Custom Loader -->'
+{!! Html::script('js/waiting-page.js') !!}
+
 
 <!-- Custom Theme JavaScript -->
 {!! Html::script('js/custom.min.js') !!}

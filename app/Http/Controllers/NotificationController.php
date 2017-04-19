@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\MailTexts;
 use App\ScheduleEmailTasks;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Schema;
 
 class NotificationController extends Controller
 {
@@ -35,6 +36,8 @@ class NotificationController extends Controller
 
         $ret = json_encode(false);
         switch ($fieldname) {
+
+            # Mail Texts table fields
             case "name":
                 if ($value == "") {
                     return $ret;
@@ -68,9 +71,16 @@ class NotificationController extends Controller
                 $ret = true;
                 break;
             case "type":
-                // TODO: SELECT BOX
+                $mailTypes = MailTexts::$mailTypes;
+                if (!array_key_exists($value, $mailTypes)) {
+                    return $ret;
+                }
+                $mailText->type = $value;
+                $mailText->save();
+                $ret = true;
                 break;
 
+            # Schedule Email Tasks table fields
             case "at_date":
                 if ($value == "") {
                     return $ret;
@@ -78,15 +88,15 @@ class NotificationController extends Controller
                 if (preg_match("/[a-z]/i", $value)) {
                     return $ret;
                 }
-                $validate_date = Validator::make($request->all(), array('value' => 'date_format:d-m-Y'));
+                $validate_date = Validator::make($request->all(), array('value' => 'date_format:d-m-Y H:i'));
                 if ($validate_date->fails()) {
                     return $ret;
                 }
-                $date = Carbon::createFromFormat('d-m-Y', $value);
+                $date = Carbon::createFromFormat('d-m-Y H:i', $value);
                 if ($date->format('Y') < date('Y')) {
                     return $ret;
                 }
-                $task->at_date = $date->format('Y-m-d');
+                $task->at_date = $date->format('Y-m-d H:i:s');
                 $task->save();
                 $ret = true;
                 break;
@@ -94,7 +104,12 @@ class NotificationController extends Controller
                 // TODO: JSON ARRAY
                 break;
             case "table":
-                // TODO: SELECT BOX
+                if (!Schema::hasTable($value)) {
+                    return $ret;
+                }
+                $task->table = $value;
+                $task->save();
+                $ret = true;
                 break;
             case "repeat":
                 // TODO: CHECKBOX

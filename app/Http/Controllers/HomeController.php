@@ -217,13 +217,7 @@ class HomeController extends Controller
 
     public function getCreeateNotifications()
     {
-        $types = array(
-            'info' => 'Informatieve',
-            'success' => 'Succesvole',
-            'warning' => 'Waarschuwing',
-            'danger' => 'Dringend',
-        );
-        return view('notification-create')->withTexts(ScheduleEmailTasks::getAll())->withTypes($types);
+        return view('notification-create')->withTexts(ScheduleEmailTasks::getAll())->withTypes(MailTexts::$mailTypes);
     }
 
     /** END Notificaions **************************************************/
