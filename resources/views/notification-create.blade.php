@@ -56,7 +56,7 @@
                                 <label for="to-{{$mail->id}}">Naar wie word deze email verstuurd ?</label>
                             </div>
                             <div class="form-group m-b-40">
-                                {!! Form::button('Email lijst maken/aanpassen', array('id' => 'btnMakeList-' . $mail->id, 'class' => 'btnMakeList btn btn-success', 'data-table' => $mail->table, 'data-id' => $mail->id)) !!}
+                                {!! Form::button('Email lijst maken/aanpassen', array('id' => 'btnMakeList-' . $mail->id, 'class' => 'btnMakeList btn btn-success', 'data-table' => empty($mail->table) ? '' : $mail->table, 'data-id' => $mail->id)) !!}
                             </div>
                         </form>
                     </div>
@@ -82,10 +82,10 @@
 @stop
 
 @section('scripts')
+    @include('partials._javascript-paddingfixer')
+    @include('partials._javascript-alerts')
     <script src="{{URL::asset('plugins/bower_components/custom-select/custom-select.min.js')}}" type="text/javascript"></script>
     <script src="{{URL::asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js')}}" type="text/javascript"></script>
-    <script src="{{URL::asset('plugins/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js')}}"></script>
-    <script src="{{URL::asset('plugins/bower_components/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js')}}" type="text/javascript"></script>
     <script type="text/javascript" src="{{URL::asset('plugins/bower_components/multiselect/js/jquery.multi-select.js')}}"></script>
     <script type="text/javascript">
         $(function(){
@@ -101,10 +101,13 @@
     <script type="text/javascript">
         $(document).ready(function (e) {
             var btnMakeList = $('.btnMakeList'),
+                btnModalClose = $('#btnModalClose'),
+                btnModalAction = $('#btnModalAction'),
                 modal = $('#modal-email-sender-list'),
                 body = $('body'),
                 _inputs = $(':input'),
-                _table = $('._table');
+                _table = $('._table'),
+                _multiselect = $('#select-receivers');
 
             _inputs.blur(function (e) {
                 if ($(this).is( ":text" )) {
@@ -135,27 +138,56 @@
             body.on('click', btnMakeList, function (event) {
                 var btnId = event.target.id,
                     thisBtn = $('#' + btnId),
-                    taskId = thisBtn.attr('data-id');
+                    taskId = thisBtn.attr('data-id'),
+                    receivers = false;
 
                 if (!thisBtn.hasClass('btnMakeList')) {
                     return;
                 }
 
+                if (thisBtn.attr('data-table') === "") {
+                    ezToast('Wacht..', "U heeft nog niet groep geselecteerd naar wie u deze mail wilt stuuren.", "warning", 3500, '#fffd5d');
+                    return;
+                }
+
                 waitingDialog.show('Moment Geduld...',{
                     onHide: function () {
-                        modal.modal('show');
+                        if (receivers !== false) {
+                            $.each(receivers, function (index, object) {
+                                _multiselect.multiSelect('addOption', {
+                                    value: object.id,
+                                    text: object.name,
+                                    index: index
+                                });
+                            });
+                            _multiselect.multiSelect();
+                            modal.modal('show');
+                        }
                     },
                     progressType: 'info'
                 });
-                /*waitingDialog.hide();*/
-                console.log(thisBtn);
-                $('#select-receivers').multiSelect();
+
+                var receiverGroup = thisBtn.attr('data-table');
+
+                $.get( "{{URL::route('ajax_get_actieve_from_table', null)}}/"+receiverGroup, function( data ) {
+                    if (data.hasOwnProperty('status') && !data.status) {
+                        ezToast('Wacht..', "" + data.message, "warning", 4000, '#fffd5d');
+                    }else {
+                        receivers = data;
+                    }
+                    waitingDialog.hide();
+                });
             });
 
-            body.on('click', '#btnModalClose', function (e) {
+            btnModalClose.click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
+                _multiselect.multiSelect('deselect_all');
                 modal.modal('hide');
+            });
+
+            btnModalAction.click(function (e) {
+                // TODO : SAVE RECEIVERS http://stackoverflow.com/questions/25750253/bootstrap-multiselectrefresh-is-not-working-properly
             });
 
             function resetInputError(element) {

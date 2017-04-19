@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Assessors;
 use App\College;
 use App\Email;
+use App\Functions;
 use App\HistoryData;
 use App\Log;
 use App\MailTexts;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class FunctionalController extends Controller
 {
@@ -136,6 +138,32 @@ class FunctionalController extends Controller
         $return['past'] = json_decode($DataPastYear->assessor_data);
         $return['current'] = self::CurrentAssessorData();
         die(json_encode($return));
+    }
+
+    public function ajaxGetActieveFrom($table)
+    {
+        if (Schema::hasTable($table)) {
+
+            if (Functions::getTablename($A = new Assessors()) == $table) {
+                $assessors = Assessors::where('status', 1)->where('email', '!=', '')->get();
+                if ($assessors->isEmpty()) {
+                    return array(
+                        'status' => false,
+                        'message' => 'Er waren geen Assessoren gevonden die actief waren en/of geen e-mail hebben.'
+                    );
+                }
+                return $assessors;
+            }elseif (Functions::getTablename($T = new Teamleaders()) == $table) {
+                $teamleaders = Teamleaders::where('status', 1)->where('email', '!=', '')->get();
+                if ($teamleaders->isEmpty()) {
+                    return array(
+                        'status' => false,
+                        'message' => 'Er waren geen Teamleiders gevonden die actief waren en/of geen e-mail hebben.'
+                    );
+                }
+                return $teamleaders;
+            }
+        }
     }
 
     public function ajaxGetColleges($option)
