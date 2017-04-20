@@ -19,6 +19,9 @@
     <!-- Menu CSS -->
     {!! Html::style('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}
 
+    <!-- Menu CSS -->
+    {!! Html::style('plugins/bower_components/icheck/skins/all.css') !!}
+
     <!-- Wizard CSS -->
     <link href="{!! URL::asset('plugins/bower_components/jquery-wizard-master/css/wizard.css') !!}" rel="stylesheet">
 

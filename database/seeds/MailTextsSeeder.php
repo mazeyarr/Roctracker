@@ -40,6 +40,7 @@ class MailTextsSeeder extends Seeder
 
         ScheduleEmailTasks::create(array(
             'table' => 'assessors',
+            'at_date' => \Carbon\Carbon::now()->addMinutes(3),
             'to' => json_encode(array(
                 0 => 1,
                 1 => 2,

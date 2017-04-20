@@ -9,6 +9,7 @@ use App\Functions;
 use App\HistoryData;
 use App\Log;
 use App\MailTexts;
+use App\ScheduleEmailTasks;
 use App\Teamleaders;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
+use DB;
 
 class FunctionalController extends Controller
 {
@@ -313,17 +315,50 @@ class FunctionalController extends Controller
 
     public function CronJobs()
     {
-        $date = Carbon::now()->format('m');
-        if ($date == '04') {
-            for ($i = 0; $i <= 1; $i++) {
-                $mailtext = MailTexts::where('name', 'name-'.$i)->get();
-                if (!$mailtext->isEmpty()) {
-                    $mailtext = $mailtext->first();
-                    $mail = Email::send("mazeyarr@gmail.com", $mailtext->type, $mailtext->subject, $mailtext->title, $mailtext->text);
+        $schedule = ScheduleEmailTasks::where('at_date', '!=', null)->where('done', 0)->get();
+        if (!$schedule->isEmpty()) {
+            foreach ($schedule as $email) {
+                $date_deployment = Carbon::createFromFormat('Y-m-d H:i:s', $email->at_date);
+                $date_now = Carbon::now();
+                if ($date_now > $date_deployment) {
+                    $mailtext = MailTexts::find($email->fk_mail_texts);
+                    $mail_receivers = json_decode($email->to);
+                    $receiverTable = $email->table;
+                    foreach ($mail_receivers as $key => $receiverID) {
+                        $receiver = DB::table($receiverTable)->find($receiverID);
+                        $validation = Validator::make(array('email' => $receiver->email), array('email' => 'email'));
+                        if ($validation->fails()) {
+                            $registerMail = new Email();
+                            $registerMail->to = $receiver->name;
+                            $registerMail->from = Email::$from;
+                            $registerMail->subject = $mailtext->subject;
+                            $registerMail->text = $mailtext->text;
+                            $registerMail->send = 0;
+                            $registerMail->save();
+                        }
+                        echo "sended mail to: " . $receiver->email . "<br>";
+                        //Email::send($receiver->email, $mailtext->type, $mailtext->subject, $mailtext->title, $mailtext->text);
+                    }
+
+                    $email->done = 1;
+                    $email->save();
                 }
             }
             return response(200);
         }
+
+        if (Carbon::now()->format('m') == 12) {
+            $schedule_repeated = ScheduleEmailTasks::where('done', 1)->where('repeat', 1)->get();
+            if (!$schedule_repeated->isEmpty()) {
+                foreach ($schedule_repeated as $emailTask) {
+                    $emailTask->at_date = Carbon::createFromFormat('Y-m-d H:i:s', $emailTask->at_date)->addYear()->toDateTimeString();
+                    $emailTask->done = 0;
+                    $emailTask->save();
+                }
+                return response(200);
+            }
+        }
+
         return response(202);
     }
 

@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Email extends Model
 {
     public $fillable = ['to', 'from', 'text', 'send'];
+    public static $from = "roctracker@gmail.com";
 
     public static function send($to, $type, $subject, $title, $text)
     {
@@ -27,14 +28,14 @@ class Email extends Model
 
         $email = new self();
         $email->to = $data['to'];
-        $email->from = "roctracker@gmail.com";
+        $email->from = self::$from;
         $email->subject = $data['subject'];
         $email->text = $data['text'];
 
         try {
             Mail::send('mails.email', $data, function ($message) use ($data) {
                 $message->to($data['to'])
-                    ->from('roctracker@gmail.com', "ROCTracker")
+                    ->from(self::$from, "ROCTracker")
                     ->subject($data['subject']);
             });
         } catch (\Exception $e) {
@@ -58,7 +59,7 @@ class Email extends Model
 
     public static function resend($id)
     {
-        $email = Email::find($id);
+        $email = self::find($id);
         if (empty($email)) {
             return false;
         } else {
@@ -74,7 +75,7 @@ class Email extends Model
             try {
                 Mail::send('mails.email', $data, function ($message) use ($data) {
                     $message->to($data['to'])
-                        ->from('roctracker@gmail.com', "ROCTracker")
+                        ->from(self::$from, "ROCTracker")
                         ->subject($data['subject']);
                 });
             } catch (\Exception $e) {

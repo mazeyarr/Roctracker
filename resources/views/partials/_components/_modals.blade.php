@@ -17,8 +17,8 @@
                         <div class="row">
                             <div class="col-xs-4">
                                 <div class="button-box m-t-20">
-                                    <a id="select-all" class="btn btn-success btn-outline" href="#">Selecteer Alles</a>
-                                    <a id="deselect-all" class="btn btn-danger btn-outline" href="#">Deselecteer Alles</a>
+                                    <a id="select-all" class="btn btn-block btn-success btn-outline" href="#">Selecteer Alles</a>
+                                    <a id="deselect-all" class="btn btn-block btn-danger btn-outline" href="#">Deselecteer Alles</a>
                                 </div>
                             </div>
                             <div class="col-xs-8">

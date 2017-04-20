@@ -19,7 +19,7 @@
                 heading: 'Waarschuwing'
                 , text: '{!! Session::get('warning') !!}'
                 , position: 'top-right'
-                , loaderBg: '#ff6849'
+                , loaderBg: '#ffef6b'
                 , icon: 'warning'
                 , hideAfter: 3500
                 , stack: 6

@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="timeline-body">
                                         <p>Op het moment zijn er geen grote wijzigingen plaatsgevonden, in
-                                            het<br> <strong>{{ $colleges['teamleader']->name }}</strong></p>
+                                            het<br> <strong>{{ $teamleader->name }}</strong></p>
                                     </div>
                                 </div>
                             </li>

@@ -164,8 +164,13 @@ class TeamleaderController extends Controller
             default:
                 if ($request->exists('email')) {
                     $validate_mail = Validator::make($request->all(), array(
-                        'email' => 'required|email|unique:teamleaders'
+                        'email' => 'required|email'
                     ));
+
+                    if (!Teamleaders::where('email', $request->email)->where('id', '!=', $teamleader->id)->get()->isEmpty()) {
+                        return redirect()->back()->withWarning("Email van " . $teamleader->name . " bestaat al bij een andere teamleider..");
+                    }
+
                     if (!$validate_mail->fails()) {
                         if ($request->email != $teamleader->email) {
                             $teamleader->email = $request->email;
@@ -199,6 +204,11 @@ class TeamleaderController extends Controller
         }
 
         $teamleader->save();
+
+        if ($message == "") {
+            return redirect()->back()->withWarning('Geen wijzegingen ontvangen !');
+        }
+
         Log::TeamleaderLog($teamleader->id, $message);
 
         return redirect()->route('view_teamleaders', $teamleader->id)->withSucces('Wijzeging was succesvol doorgevoerd !');

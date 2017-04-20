@@ -104,7 +104,9 @@ class NotificationController extends Controller
                 if ($value == "") {
                     return $ret;
                 }
-                if (!is_array($value)) {
+                if ($value == "none") {
+                    $value = array();
+                }elseif (!is_array($value)) {
                     return $ret;
                 }
 
@@ -121,7 +123,16 @@ class NotificationController extends Controller
                 $ret = true;
                 break;
             case "repeat":
-                // TODO: CHECKBOX
+                if ($value == "") {
+                    return $ret;
+                }
+                if (!is_numeric($value)) {
+                    return $ret;
+                }
+
+                $task->repeat = $value;
+                $task->save();
+                $ret = true;
                 break;
         }
 

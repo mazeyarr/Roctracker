@@ -58,6 +58,13 @@
                             <div class="form-group m-b-40">
                                 {!! Form::button('Email lijst maken/aanpassen', array('id' => 'btnMakeList-' . $mail->id, 'class' => 'btnMakeList btn btn-success', 'data-table' => empty($mail->table) ? '' : $mail->table, 'data-id' => $mail->id)) !!}
                             </div>
+                            <div class="form-group m-b-40">
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        {!! Form::checkbox('repeat', $mail->repeat, $mail->repeat, array('id' => 'repeat-' . $mail->id, 'class' => 'check', 'data-task-id' => $mail->id,'data-checkbox' => 'icheckbox_line-green', 'data-label' => 'Deze mail jaarlijks herhalen ?')) !!}
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -107,7 +114,22 @@
                 body = $('body'),
                 _inputs = $(':input'),
                 _table = $('._table'),
-                _multiselect = $('#select-receivers');
+                _multiselect = $('#select-receivers'),
+                _ichecks = $('.check');
+
+            _ichecks.on('ifChecked', function(event){
+                var _checkbox = $('#' + event.currentTarget.id),
+                    name = _checkbox.attr('name'),
+                    taskId = _checkbox.attr('data-task-id');
+                saveMailTaskData(taskId, name, 1, false, "Deze E-mail zal elk jaar herhaald worden.");
+            });
+
+            _ichecks.on('ifUnchecked', function(event){
+                var _checkbox = $('#' + event.currentTarget.id),
+                    name = _checkbox.attr('name'),
+                    taskId = _checkbox.attr('data-task-id');
+                saveMailTaskData(taskId, name, 0, false, "Deze E-mail zal <strong>niet</strong> herhaald worden.");
+            });
 
             _inputs.blur(function (e) {
                 if ($(this).is( ":text" )) {
@@ -208,7 +230,11 @@
                                 afterDeselect: function(){
                                     console.log(init);
                                     if (init === false) {
-                                        saveMailTaskData(taskId, "to", _multiselect.val(), false);
+                                        if (_multiselect.val() === null) {
+                                            saveMailTaskData(taskId, "to", "none", false, "Er zijn nu geen ontvangers van deze mail");
+                                        } else {
+                                            saveMailTaskData(taskId, "to", _multiselect.val(), false);
+                                        }
                                     }
                                     this.qs1.cache();
                                     this.qs2.cache();
@@ -216,6 +242,16 @@
                             });
 
                             modal.modal('show');
+
+                            $('#select-all').click(function (e) {
+                                e.preventDefault();
+                                _multiselect.multiSelect('select_all');
+                            })
+
+                            $('#deselect-all').click(function (e) {
+                                e.preventDefault();
+                                _multiselect.multiSelect('deselect_all');
+                            })
                         }
                     },
                     progressType: 'info'
@@ -254,6 +290,10 @@
                 modal.modal('hide');
             });
 
+            modal.on('hidden.bs.modal', function () {
+                _multiselect.multiSelect('destroy');
+            });
+
             function resetInputError(element) {
                 element.removeClass('has-error');
                 element.removeClass('has-success');
@@ -269,7 +309,7 @@
                 element.addClass('has-feedback');
             }
 
-            function saveMailTaskData(id, name, value, element) {
+            function saveMailTaskData(id, name, value, element, customMessage) {
                 if (typeof id === "undefined") return;
                 $.post("{!! URL::route('notification_save') !!}",
                 {
@@ -284,7 +324,11 @@
                         if (element) {
                             resetInputSuccess(input);
                         }else {
-                            ezToast('Opgeslagen !', 'Deze persoon is nu een ontvanger van deze mail', 'success', 2000, '#70ff57');
+                            if (!customMessage){
+                                ezToast('Opgeslagen !', 'Deze persoon is nu een ontvanger van deze mail', 'success', 2000, '#70ff57');
+                            } else {
+                                ezToast('Opgeslagen !', ''+customMessage, 'success', 2000, '#70ff57');
+                            }
                         }
                     }else{
                         if (element) {

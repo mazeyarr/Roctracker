@@ -12,6 +12,10 @@
 <!--  Menu Plugin JavaScript  -->
 {!! Html::script('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.js') !!}
 
+<!-- icheck -->
+{!! Html::script('plugins/bower_components/icheck/icheck.min.js') !!}
+{!! Html::script('plugins/bower_components/icheck/icheck.init.js') !!}
+
 <!-- Draggable-panel -->
 {!! Html::script('js/lobipanel.min.js') !!}
 

@@ -98,6 +98,9 @@ class AssessorController extends Controller
         $assessor->status = $request->status;
 
         if ($assessor->email != $request->email){
+            if (!Assessors::where('email', $request->email)->where('id', '!=', $assessor->id)->get()->isEmpty()) {
+                return redirect()->back()->withWarning("Email van " . $assessor->name . " bestaat al bij een andere teamleider..");
+            }
             $messages[] = "Email is van <i>" . $assessor->email . "</i> Naar <strong>" . $request->email . "</strong> Gewijzigd";
         }
         $assessor->email = $request->email;
