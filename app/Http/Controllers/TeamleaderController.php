@@ -30,6 +30,7 @@ class TeamleaderController extends Controller
         if ($request->change_college) {
             $validator = Validator::make($request->all(), [
                 'name' => 'required|max:255',
+                'status' => 'required',
                 'team' => 'max:255',
                 'college_option' => 'required',
             ]);
@@ -177,6 +178,12 @@ class TeamleaderController extends Controller
                     return redirect()->back()->withWarning("Geen wijzegingen ontvangen !");
                 }
                 break;
+        }
+
+        if ($request->status != $teamleader->status) {
+            $status = $request->status == 1 ? "Actief" : "Non-actief";
+            $message = $message . "<br>" . "Teamleader is op <strong>" . $status . "</strong> gezet";
+            $teamleader->status = $request->status;
         }
 
         if ($request->has('email')) {

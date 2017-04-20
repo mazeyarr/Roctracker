@@ -21,6 +21,17 @@
                     {!! Form::text('email', $teamleader->email, array('class' => 'form-control')) !!}
                 </div>
                 <div class="form-group">
+                    <h3 class="box-title m-b-0">Status</h3>
+                    <div class="radio radio-success">
+                        {!! Form::radio('status',1, $teamleader->status == 1 ? true : false, array('id' => 'status_actieve', 'required' => '') ) !!}
+                        <label for="status_actieve"> Actief </label>
+                    </div>
+                    <div class="radio radio-danger">
+                        {!! Form::radio('status',0, $teamleader->status == 1 ? false : true, array('id' => 'status_inactieve', 'required' => '') ) !!}
+                        <label for="status_inactieve"> Non-actief </label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="checkbox">
                         <input name="change_college" type="checkbox" id="college_change" data-error="Vink de voorwaarden aan om de wijziging door te voeren">
                         <label for="college_change"> College wijzeging ? </label>
