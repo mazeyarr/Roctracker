@@ -199,7 +199,7 @@
                                                 '</div>' +
                                                 '</div>' +
                                                 '<div class="form-group">' +
-                                                    '<label for="assessor-'+element_id+'-kerntaak">Functie</label>' +
+                                                    '<label for="assessor-'+element_id+'-kerntaak">Beroepskerntaak</label>' +
                                                     '<div class="input-group">' +
                                                         '<div class="input-group-addon"><i class="ti-clipboard"></i></div>' +
                                                         '<input type="text" class="form-control" name="assessor-'+element_id+'-kerntaak" id="assessor-'+element_id+'-kerntaak" placeholder="Beroepskerntaak" required>' +

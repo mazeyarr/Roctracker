@@ -40,7 +40,11 @@ class MailTextsSeeder extends Seeder
 
         ScheduleEmailTasks::create(array(
             'table' => 'assessors',
-            'to' => json_encode(array()),
+            'to' => json_encode(array(
+                0 => 1,
+                1 => 2,
+                2 => 3,
+            )),
             'fk_mail_texts' => MailTexts::create(array(
                 'name' => 'Info mail Assessoren',
                 'title' => 'Basistraining ?',
