@@ -145,7 +145,7 @@ class FunctionalController extends Controller
         if (Schema::hasTable($table)) {
 
             if (Functions::getTablename($A = new Assessors()) == $table) {
-                $assessors = Assessors::where('status', 1)->where('email', '!=', '')->get();
+                $assessors = Assessors::where('status', 1)->where('email', '!=', '')->orderBy('name', 'asc')->get();
                 if ($assessors->isEmpty()) {
                     return array(
                         'status' => false,
@@ -154,7 +154,7 @@ class FunctionalController extends Controller
                 }
                 return $assessors;
             }elseif (Functions::getTablename($T = new Teamleaders()) == $table) {
-                $teamleaders = Teamleaders::where('status', 1)->where('email', '!=', '')->get();
+                $teamleaders = Teamleaders::where('email', '!=', '')->orderBy('name', 'asc')->get();
                 if ($teamleaders->isEmpty()) {
                     return array(
                         'status' => false,

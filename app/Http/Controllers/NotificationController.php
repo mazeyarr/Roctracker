@@ -101,7 +101,16 @@ class NotificationController extends Controller
                 $ret = true;
                 break;
             case "to":
-                // TODO: JSON ARRAY
+                if ($value == "") {
+                    return $ret;
+                }
+                if (!is_array($value)) {
+                    return $ret;
+                }
+
+                $task->to = json_encode($value);
+                $task->save();
+                $ret = true;
                 break;
             case "table":
                 if (!Schema::hasTable($value)) {
@@ -117,5 +126,15 @@ class NotificationController extends Controller
         }
 
         return json_encode($ret);
+    }
+
+    public function ajaxGetCurrentReceivers($mail_task_id)
+    {
+       $task = ScheduleEmailTasks::find($mail_task_id);
+        if (empty($task)) {
+            return false;
+        }
+
+        return $task->to;
     }
 }

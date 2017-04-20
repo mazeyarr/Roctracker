@@ -56,7 +56,7 @@ class AssessorController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255|min:2',
-            'email' => 'required|email|unique:assessors',
+            'email' => 'required|email',
             'team' => 'max:255',
             'college' => 'required',
             'status' => 'required|numeric',
@@ -64,7 +64,7 @@ class AssessorController extends Controller
             'name.required' => 'Naam van de assessor is verplicht !',
             'name.max' => 'Naam mag niet meer dan 255 karakters bevatten',
             'name.min' => 'Naam mag niet minder dan 2 karakters bevatten',
-            'email.unique' => 'Dit email adres bestaat al bij een andere assessor',
+            'email' => 'Dit email adres is incorrect',
             'status' => 'Status van deze assessor moet worden aangegeven'
         ));
 

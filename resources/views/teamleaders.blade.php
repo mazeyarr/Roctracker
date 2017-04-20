@@ -49,10 +49,14 @@
                                 <td>
                                     @if(!empty($teamleader['college']))
                                         <?php $name = null; ?>
-                                        @foreach($teamleader['college'] as $college)
-                                            <?php $name = $name . $college->name . " / "; ?>
-                                        @endforeach
-                                        {{ strlen($name) > 25 ? substr($name, 0, 35)."...." : rtrim($name, " / ") }}
+                                        @if(count($teamleader['college']) > 1)
+                                            @foreach($teamleader['college'] as $college)
+                                                <?php $name = $name . $college->name . " / "; ?>
+                                            @endforeach
+                                                {{ strlen($name) > 35 ? substr($name,0,35)."..." : rtrim($name, " / ") }}
+                                        @else
+                                            {{ strlen($teamleader['college'][0]->name) > 35 ? substr($teamleader['college'][0]->name,0,35)."..." : $teamleader['college'][0]->name }}
+                                        @endif
                                     @endif
                                 </td>
                                 <td>{{ empty($teamleader['teamleader']->email) ? "Geen" : $teamleader['teamleader']->email  }}</td>

@@ -31,8 +31,13 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="{{$btnClose_id}}" class="btn btn-default waves-effect" data-dismiss="modal">{{$btnClose_text}}</button>
-                <button type="button" id="{{$btnAction_id}}" class="btn btn-danger waves-effect waves-light">{{$btnAction_text}}</button>
+                @if(!empty($btnClose_id))
+                    <button type="button" id="{{$btnClose_id}}" class="btn btn-default waves-effect" data-dismiss="modal">{{$btnClose_text}}</button>
+                @endif
+
+                @if(!empty($btnAction_id))
+                    <button type="button" id="{{$btnAction_id}}" class="btn btn-danger waves-effect waves-light">{{$btnAction_text}}</button>
+                @endif
             </div>
         </div>
     </div>

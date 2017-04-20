@@ -69,9 +69,9 @@
         'id' => 'modal-email-sender-list',
         'modal_title' => 'Email Lijst Aanmaken',
         'btnClose_id' => 'btnModalClose',
-        'btnAction_id' => 'btnModalAction',
+        'btnAction_id' => null,
         'btnClose_text' => 'Sluiten',
-        'btnAction_text' => 'Opslaan',
+        'btnAction_text' => null,
         'inputs' => null,
         'select' => array(
             'id' => 'select-receivers',
@@ -86,6 +86,7 @@
     @include('partials._javascript-alerts')
     <script src="{{URL::asset('plugins/bower_components/custom-select/custom-select.min.js')}}" type="text/javascript"></script>
     <script src="{{URL::asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js')}}" type="text/javascript"></script>
+    <script src="{{URL::asset('js/jquery.quicksearch.js')}}" type="text/javascript"></script>
     <script type="text/javascript" src="{{URL::asset('plugins/bower_components/multiselect/js/jquery.multi-select.js')}}"></script>
     <script type="text/javascript">
         $(function(){
@@ -102,7 +103,6 @@
         $(document).ready(function (e) {
             var btnMakeList = $('.btnMakeList'),
                 btnModalClose = $('#btnModalClose'),
-                btnModalAction = $('#btnModalAction'),
                 modal = $('#modal-email-sender-list'),
                 body = $('body'),
                 _inputs = $(':input'),
@@ -153,14 +153,68 @@
                 waitingDialog.show('Moment Geduld...',{
                     onHide: function () {
                         if (receivers !== false) {
-                            $.each(receivers, function (index, object) {
-                                _multiselect.multiSelect('addOption', {
-                                    value: object.id,
-                                    text: object.name,
-                                    index: index
-                                });
+                            var init = true;
+                            _multiselect.multiSelect({
+                                keepOrder: true,
+                                selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Zoeken'>",
+                                selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='Zoeken'>",
+                                afterInit: function(ms){
+                                    var that = this,
+                                        $selectableSearch = that.$selectableUl.prev(),
+                                        $selectionSearch = that.$selectionUl.prev(),
+                                        selectableSearchString = '#'+that.$container.attr('id')+' .ms-elem-selectable:not(.ms-selected)',
+                                        selectionSearchString = '#'+that.$container.attr('id')+' .ms-elem-selection.ms-selected';
+
+                                    that.qs1 = $selectableSearch.quicksearch(selectableSearchString)
+                                        .on('keydown', function(e){
+                                            if (e.which === 40){
+                                                that.$selectableUl.focus();
+                                                return false;
+                                            }
+                                        });
+
+                                    that.qs2 = $selectionSearch.quicksearch(selectionSearchString)
+                                        .on('keydown', function(e){
+                                            if (e.which === 40){
+                                                that.$selectionUl.focus();
+                                                return false;
+                                            }
+                                        });
+                                    $.each(receivers.all, function (index, object) {
+                                        _multiselect.multiSelect('addOption', {
+                                            value: object.id,
+                                            text: object.name,
+                                            index: index
+                                        });
+                                    });
+
+                                    $.each(receivers.current, function (index, id) {
+                                        _multiselect.multiSelect('select', id.toString())
+                                    });
+
+                                    that.qs1.cache();
+                                    that.qs2.cache();
+
+                                    init = false;
+                                },
+                                afterSelect: function(){
+                                    console.log(init);
+                                    if (init === false) {
+                                        saveMailTaskData(taskId, "to", _multiselect.val(), false);
+                                    }
+                                    this.qs1.cache();
+                                    this.qs2.cache();
+                                },
+                                afterDeselect: function(){
+                                    console.log(init);
+                                    if (init === false) {
+                                        saveMailTaskData(taskId, "to", _multiselect.val(), false);
+                                    }
+                                    this.qs1.cache();
+                                    this.qs2.cache();
+                                }
                             });
-                            _multiselect.multiSelect();
+
                             modal.modal('show');
                         }
                     },
@@ -172,22 +226,32 @@
                 $.get( "{{URL::route('ajax_get_actieve_from_table', null)}}/"+receiverGroup, function( data ) {
                     if (data.hasOwnProperty('status') && !data.status) {
                         ezToast('Wacht..', "" + data.message, "warning", 4000, '#fffd5d');
+                        waitingDialog.hide();
                     }else {
-                        receivers = data;
+                        var all_receivers = data;
+                        $.get( "{{URL::route('ajax_get_current_receivers', null)}}/"+taskId, function( currentReceivers ) {
+                            if (currentReceivers) {
+                                var m_currentReceivers = $.parseJSON(currentReceivers);
+                                receivers = {
+                                    'all': all_receivers,
+                                    'current': m_currentReceivers
+                                }
+                            } else {
+                                receivers = {
+                                    'all': all_receivers,
+                                    'current': []
+                                }
+                            }
+                            waitingDialog.hide();
+                        });
                     }
-                    waitingDialog.hide();
                 });
             });
 
             btnModalClose.click(function (e) {
                 e.stopPropagation();
                 e.preventDefault();
-                _multiselect.multiSelect('deselect_all');
                 modal.modal('hide');
-            });
-
-            btnModalAction.click(function (e) {
-                // TODO : SAVE RECEIVERS http://stackoverflow.com/questions/25750253/bootstrap-multiselectrefresh-is-not-working-properly
             });
 
             function resetInputError(element) {
@@ -206,6 +270,7 @@
             }
 
             function saveMailTaskData(id, name, value, element) {
+                if (typeof id === "undefined") return;
                 $.post("{!! URL::route('notification_save') !!}",
                 {
                     id: id,
@@ -214,11 +279,19 @@
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 function(data){
-                    var input = element.closest('.form-group');
+                    if (element) var input = element.closest('.form-group');
                     if (data === "true") {
-                        resetInputSuccess(input);
+                        if (element) {
+                            resetInputSuccess(input);
+                        }else {
+                            ezToast('Opgeslagen !', 'Deze persoon is nu een ontvanger van deze mail', 'success', 2000, '#70ff57');
+                        }
                     }else{
-                        resetInputError(input);
+                        if (element) {
+                            resetInputError(input);
+                        }else {
+                            ezToast('Fout !', 'Er is iets misgegaan...', 'danger', 2000, '#ff504e');
+                        }
                     }
                 });
             }
