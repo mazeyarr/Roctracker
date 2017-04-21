@@ -12,4 +12,17 @@ class MailTexts extends Model
         'warning' => 'Waarschuwing',
         'danger' => 'Dringend',
     );
+
+    public static function newMail()
+    {
+        $mail = new MailTexts();
+        $mail->name = "Mail: " . Log::generateRandomString(5);
+        $mail->title = "";
+        $mail->subject = "";
+        $mail->text = "";
+        $mail->type = "";
+        $mail->save();
+
+        return $mail->id;
+    }
 }

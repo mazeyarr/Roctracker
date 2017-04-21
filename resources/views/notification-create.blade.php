@@ -55,14 +55,17 @@
                                 {!! Form::select('table', array('teamleaders' => "Teamleiders", 'assessors' => "Assessoren"), $mail->table, array('id' => 'table-'.$mail->id , 'class' => '_table form-control', 'required' => '', 'style' => 'padding: 0px;')) !!}
                                 <label for="to-{{$mail->id}}">Naar wie word deze email verstuurd ?</label>
                             </div>
+
                             <div class="form-group m-b-40">
                                 {!! Form::button('Email lijst maken/aanpassen', array('id' => 'btnMakeList-' . $mail->id, 'class' => 'btnMakeList btn btn-success', 'data-table' => empty($mail->table) ? '' : $mail->table, 'data-id' => $mail->id)) !!}
                             </div>
+
                             <div class="form-group m-b-40">
                                 <div class="row">
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-3">
                                         {!! Form::checkbox('repeat', $mail->repeat, $mail->repeat, array('id' => 'repeat-' . $mail->id, 'class' => 'check', 'data-task-id' => $mail->id,'data-checkbox' => 'icheckbox_line-green', 'data-label' => 'Deze mail jaarlijks herhalen ?')) !!}
                                     </div>
+                                    <div class="col-xs-offset-9"></div>
                                 </div>
                             </div>
                         </form>
@@ -72,6 +75,11 @@
         @endforeach
     </div>
     <!-- /.row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <button id="btnAdd" class="btn btn-success btn-circle btn-xl" style="float: right; padding-top: 15px;"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
     @include('partials._components._modals', [
         'id' => 'modal-email-sender-list',
         'modal_title' => 'Email Lijst Aanmaken',
@@ -91,6 +99,10 @@
 @section('scripts')
     @include('partials._javascript-paddingfixer')
     @include('partials._javascript-alerts')
+    <!-- Custom Theme JavaScript -->
+    <script src="{!! URL::asset('js/custom.min.js') !!}"></script>
+    @include('partials._jquery-fileupload')
+    <!-- Dropzone Plugin JavaScript -->
     <script src="{{URL::asset('plugins/bower_components/custom-select/custom-select.min.js')}}" type="text/javascript"></script>
     <script src="{{URL::asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{URL::asset('js/jquery.quicksearch.js')}}" type="text/javascript"></script>
@@ -110,6 +122,7 @@
         $(document).ready(function (e) {
             var btnMakeList = $('.btnMakeList'),
                 btnModalClose = $('#btnModalClose'),
+                btnAdd = $('#btnAdd'),
                 modal = $('#modal-email-sender-list'),
                 body = $('body'),
                 _inputs = $(':input'),
@@ -117,18 +130,22 @@
                 _multiselect = $('#select-receivers'),
                 _ichecks = $('.check');
 
-            _ichecks.on('ifChecked', function(event){
-                var _checkbox = $('#' + event.currentTarget.id),
-                    name = _checkbox.attr('name'),
-                    taskId = _checkbox.attr('data-task-id');
-                saveMailTaskData(taskId, name, 1, false, "Deze E-mail zal elk jaar herhaald worden.");
-            });
+            btnAdd.click(function (e) {
+                e.preventDefault();
 
-            _ichecks.on('ifUnchecked', function(event){
-                var _checkbox = $('#' + event.currentTarget.id),
-                    name = _checkbox.attr('name'),
-                    taskId = _checkbox.attr('data-task-id');
-                saveMailTaskData(taskId, name, 0, false, "Deze E-mail zal <strong>niet</strong> herhaald worden.");
+                $.post("{!! URL::route('notification_create_new') !!}",
+                {
+                    _token: $('meta[name="csrf-token"]').attr('content')
+                },function (data) {
+                    if (data === "true") {
+                        ezToast('Aangemaakt !', "De groep was successvol aangemaakt", 'success', 1500, '#61ff55');
+                        setTimeout(function () {
+                            window.location.reload();
+                        }, 1500);
+                    } else {
+                        ezToast('Fout !', "Er ging iets fout bij het aanmaken van de groep", 'danger', 2500, '#ff6371')
+                    }
+                });
             });
 
             _inputs.blur(function (e) {
@@ -155,6 +172,20 @@
                         $('#btnMakeList-' + taskId).attr('data-table', $(this).val());
                     }
                 }
+            });
+
+            _ichecks.on('ifChecked', function(event){
+                var _checkbox = $('#' + event.currentTarget.id),
+                    name = _checkbox.attr('name'),
+                    taskId = _checkbox.attr('data-task-id');
+                saveMailTaskData(taskId, name, 1, false, "Deze E-mail zal elk jaar herhaald worden.");
+            });
+
+            _ichecks.on('ifUnchecked', function(event){
+                var _checkbox = $('#' + event.currentTarget.id),
+                    name = _checkbox.attr('name'),
+                    taskId = _checkbox.attr('data-task-id');
+                saveMailTaskData(taskId, name, 0, false, "Deze E-mail zal <strong>niet</strong> herhaald worden.");
             });
 
             body.on('click', btnMakeList, function (event) {

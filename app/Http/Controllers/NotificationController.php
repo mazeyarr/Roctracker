@@ -139,6 +139,21 @@ class NotificationController extends Controller
         return json_encode($ret);
     }
 
+    public function postNewNotification()
+    {
+        try {
+            $notification = new ScheduleEmailTasks();
+            $notification->table = '';
+            $notification->fk_mail_texts = MailTexts::newMail();
+            $notification->to = json_encode(array());
+            $notification->save();
+        } catch (\Exception $exception) {
+            return json_encode(false);
+        }
+
+        return json_encode(true);
+    }
+
     public function ajaxGetCurrentReceivers($mail_task_id)
     {
        $task = ScheduleEmailTasks::find($mail_task_id);

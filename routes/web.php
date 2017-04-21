@@ -86,6 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('overview', 'HomeController@getNotifications')->name('notification_overview');
             Route::get('overview/show/{id}', 'HomeController@getNotification')->name('notification_view');
             Route::get('create', 'HomeController@getCreeateNotifications')->name('notification_create');
+            Route::post('create/new', 'NotificationController@postNewNotification')->name('notification_create_new');
             Route::post('save', 'NotificationController@postSaveNotification')->name('notification_save');
             Route::get('ajax/get/current/receivers/{mail_task_id}', 'NotificationController@ajaxGetCurrentReceivers')->name('ajax_get_current_receivers');
         });

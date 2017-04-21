@@ -303,7 +303,7 @@
                     input.removeClass('has-error');
                     input.removeClass('has-success');
                     input.removeClass('has-feedback');
-                    if (data == "true") {
+                    if (data === "true") {
                         input.addClass('has-success');
                         input.addClass('has-feedback');
                     }else{
@@ -313,7 +313,7 @@
                 });
             }
             function placeInGroup(id, replacementID, groupID) {
-                if (replacementID == "") replacementID = null;
+                if (replacementID === "") replacementID = null;
                 $.post("{!! URL::route('post_maintenance_assessor_groups') !!}",
                 {
                     id_a: id,
@@ -322,7 +322,7 @@
                     _token: $('meta[name="csrf-token"]').attr('content')
                 },
                 function(data){
-                    if (data == "true") {
+                    if (data === "true") {
                         ezToast('Groep Aangepast', "Assessor is opgeslagen in groep", "success", 2000, "#5cb85c");
                     }else {
                         ezToast('Error', "Er was een fout check even of u voldoet aan alle eisen", "error", 2000, "#d9534f");
