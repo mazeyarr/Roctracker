@@ -14,18 +14,22 @@
             </li>
             <li class="nav-small-cap m-t-10"><span style="font-size: 20px">&#10146;</span> Menu</li>
             <li>
-                <a class="waves-effect" href="{{ URL::route('dashboard') }}"><i class="linea-icon linea-basic fa-fw" data-icon="a"></i> <span class="hide-menu">Dashboard <span class="fa arrow"></span></span></a>
-                <ul class="nav nav-second-level">
-                    <li>
-                        <a href="{{ URL::route('colleges') }}">Colleges</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::route('assessors') }}">Assessoren</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::route('teamleaders') }}">Teamleiders</a>
-                    </li>
-                </ul>
+                <a class="waves-effect" href="{{ URL::route('dashboard') }}"><i class="linea-icon linea-basic fa-fw" data-icon="a"></i> Dashboard</a>
+            </li>
+            <li>
+                <a class="waves-effect" href="{{ URL::route('assessors') }}"><i class="fa fa-user"></i> Assessoren</a>
+            </li>
+            <li>
+                <a class="waves-effect" href="{{ URL::route('teamleaders') }}"><i class="fa fa-users"></i> Teamleiders</a>
+            </li>
+            <li>
+                <a class="waves-effect disabled" href="#"><i class="fa fa-book"></i> Instructeurs</a>
+            </li>
+            <li>
+                <a class="waves-effect disabled" href="#"><i class="fa fa-bank"></i> Studenten</a>
+            </li>
+            <li>
+                <a class="waves-effect" href="{{ URL::route('colleges') }}"><i class="fa fa-graduation-cap"></i> Colleges</a>
             </li>
             <li>
                 <a class="waves-effect" href="{{ URL::route('maintenance_assessor') }}"><i class="fa fa-cogs"></i> <span class="hide-menu">Onderhoud</span></a>
@@ -34,10 +38,10 @@
                 <a class="waves-effect" href="{{ URL::route('notification_overview') }}"><i class="fa fa-envelope fa-fw" data-icon="a"></i> <span class="hide-menu">Berichten <span class="fa arrow"></span></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="{{ URL::route('notification_overview') }}">Overzicht</a>
+                        <a href="{{ URL::route('notification_overview') }}"><i class="fa fa-list"></i> Overzicht</a>
                     </li>
                     <li>
-                        <a href="{{ URL::route('notification_create') }}">Aanmaken</a>
+                        <a href="{{ URL::route('notification_create') }}"><i class="fa fa-plus"></i> Aanmaken</a>
                     </li>
                 </ul>
             </li>
