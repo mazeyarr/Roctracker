@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Email;
 use App\SystemLog;
+use App\UploadedFiles;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Session;
-use Mockery\Exception;
+use Storage;
+use Intervention\Image\Facades\Image;
 use Validator;
 
 class UserController extends Controller
@@ -64,6 +66,55 @@ class UserController extends Controller
         }
 
         return redirect()->route('add_users')->withSuccess('Gebruiker was opgeslagen !')->withUser($user);
+    }
+
+    public function postSaveProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), array(
+            'name' => 'required|min:2|max:250',
+            'email' => 'required|email',
+            'avatar' => 'file|max:3000'
+        ));
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator->getMessageBag()->first());
+        }
+
+        if ($request->email != Auth::user()->email) {
+            $validator = Validator::make($request->all(), array(
+                'email' => 'unique:users',
+            ));
+
+            if ($validator->fails()) {
+                return back()->withErrors($validator->getMessageBag()->first());
+            }
+        }
+        $user = User::find(Auth::user()->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        if (!empty($request->file('avatar'))) {
+            if (!empty($user->avatar)){
+                Storage::delete('public/'. $user->avatar);
+            }
+
+            $destinationPath = storage_path('/app/public/avatars/');
+            $file = $request->file('avatar');
+            $newFilename = md5($file->getClientOriginalName() . time());
+
+            $img = Image::make($file->getRealPath());
+            $img->resize(600, 600)->save($destinationPath . $newFilename . '.'.$file->getClientOriginalExtension());
+
+            $user->avatar = "avatars/" . $newFilename . '.'.$file->getClientOriginalExtension();
+        } else {
+            if (!empty($user->avatar)){
+                Storage::delete('public/'. $user->avatar);
+            }
+            $user->avatar = null;
+        }
+
+        $user->save();
+
+        return redirect()->route('profile')->withSuccess('Profiel opgeslagen');
     }
 
     public function getLockScreen()

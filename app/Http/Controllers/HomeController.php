@@ -37,6 +37,14 @@ class HomeController extends Controller
     }
 
     /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getProfile()
+    {
+        return view('profile')->withUser(\Auth::user());
+    }
+
+    /**
      * COLLEGES *****************************************************
      */
 

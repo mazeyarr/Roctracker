@@ -6,6 +6,12 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
     $breadcrumbs->push('Dashboard', route('dashboard'));
 });
 
+// Profile
+Breadcrumbs::register('profile', function($breadcrumbs)
+{
+    $breadcrumbs->push('Uw Profiel', route('profile'));
+});
+
 
 // -------------------------------  COLLEGES ----------------------------------- //
 // Dashboard / Colleges

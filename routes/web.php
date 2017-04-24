@@ -22,6 +22,11 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('search', 'FunctionalController@search')->name('search');
         });
 
+        Route::group(['prefix' => 'profile'], function () {
+            Route::get('/', 'HomeController@getProfile')->name('profile');
+            Route::post('/save/profile', 'UserController@postSaveProfile')->name('profile_save');
+        });
+
         /* Colleges Page */
         Route::get('college', 'HomeController@getColleges')->name('colleges');
         Route::group(['prefix' => 'college'], function () {

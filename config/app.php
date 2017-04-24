@@ -165,6 +165,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Tremby\LaravelGitVersion\GitVersionServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         'Maatwebsite\Excel\ExcelServiceProvider',
 
 
@@ -233,6 +234,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
     ],

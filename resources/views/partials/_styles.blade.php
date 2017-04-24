@@ -19,6 +19,9 @@
     <!-- Menu CSS -->
     {!! Html::style('plugins/bower_components/sidebar-nav/dist/sidebar-nav.min.css') !!}
 
+    <!-- Dropify -->
+    {!! Html::style('plugins/bower_components/dropify/dist/css/dropify.min.css') !!}
+
     <!-- Menu CSS -->
     {!! Html::style('plugins/bower_components/icheck/skins/all.css') !!}
 
