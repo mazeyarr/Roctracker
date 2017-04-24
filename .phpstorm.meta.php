@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-03-29.
+    * Generated on 2017-04-24.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -31,6 +31,7 @@ namespace PHPSTORM_META {
             'files' instanceof \Illuminate\Filesystem\Filesystem,
             'filesystem' instanceof \Illuminate\Filesystem\FilesystemManager,
             'filesystem.disk' instanceof \Illuminate\Filesystem\FilesystemAdapter,
+            'filesystem.cloud' instanceof \Illuminate\Filesystem\FilesystemAdapter,
             'Illuminate\Notifications\ChannelManager' instanceof \Illuminate\Notifications\ChannelManager,
             'session' instanceof \Illuminate\Session\SessionManager,
             'session.store' instanceof \Illuminate\Session\Store,
@@ -156,6 +157,7 @@ namespace PHPSTORM_META {
             'files' instanceof \Illuminate\Filesystem\Filesystem,
             'filesystem' instanceof \Illuminate\Filesystem\FilesystemManager,
             'filesystem.disk' instanceof \Illuminate\Filesystem\FilesystemAdapter,
+            'filesystem.cloud' instanceof \Illuminate\Filesystem\FilesystemAdapter,
             'Illuminate\Notifications\ChannelManager' instanceof \Illuminate\Notifications\ChannelManager,
             'session' instanceof \Illuminate\Session\SessionManager,
             'session.store' instanceof \Illuminate\Session\Store,
@@ -281,6 +283,7 @@ namespace PHPSTORM_META {
             'files' instanceof \Illuminate\Filesystem\Filesystem,
             'filesystem' instanceof \Illuminate\Filesystem\FilesystemManager,
             'filesystem.disk' instanceof \Illuminate\Filesystem\FilesystemAdapter,
+            'filesystem.cloud' instanceof \Illuminate\Filesystem\FilesystemAdapter,
             'Illuminate\Notifications\ChannelManager' instanceof \Illuminate\Notifications\ChannelManager,
             'session' instanceof \Illuminate\Session\SessionManager,
             'session.store' instanceof \Illuminate\Session\Store,
@@ -406,6 +409,7 @@ namespace PHPSTORM_META {
             'files' instanceof \Illuminate\Filesystem\Filesystem,
             'filesystem' instanceof \Illuminate\Filesystem\FilesystemManager,
             'filesystem.disk' instanceof \Illuminate\Filesystem\FilesystemAdapter,
+            'filesystem.cloud' instanceof \Illuminate\Filesystem\FilesystemAdapter,
             'Illuminate\Notifications\ChannelManager' instanceof \Illuminate\Notifications\ChannelManager,
             'session' instanceof \Illuminate\Session\SessionManager,
             'session.store' instanceof \Illuminate\Session\Store,

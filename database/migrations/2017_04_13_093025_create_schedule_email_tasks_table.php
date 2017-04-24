@@ -19,6 +19,7 @@ class CreateScheduleEmailTasksTable extends Migration
             $table->string('table');
             $table->text('to');
             $table->integer('fk_mail_texts');
+            $table->text('uploaded_files')->nullable(true);
             $table->boolean('done')->default(0);
             $table->boolean('repeat')->default(0);
             $table->timestamps();

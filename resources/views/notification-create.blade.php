@@ -5,6 +5,8 @@
 @section('page-title', 'Berichten Aanmaken')
 
 @section('content')
+
+
     <div class="row">
         @foreach($texts as $mail)
             <div class="col-md-12">
@@ -69,6 +71,31 @@
                                 </div>
                             </div>
                         </form>
+                        <!-- .row dropzone -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="white-box">
+                                    <form action="{!! URL::route('notification_save_attachment', $mail->id) !!}" id="upload-list-{{$mail->id}}" class="dropzone">
+                                        <input type="hidden" name="_token" value="{{csrf_token()}}">
+                                        <div class="fallback">
+                                            <input name="attachment" type="file" multiple />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3" id="container-attached-files-{{$mail->id}}">
+                                @if(!empty($mail->uploaded_files))
+                                    @foreach($mail->uploaded_files as $file)
+                                        <div class="m-b-10 m-t-10">
+                                            <span class="label label-info">{{$file->name}}</span>
+                                            <button type="button" id="btnRemoveAttachment-{{$file->id}}" data-task-id="{{$mail->id}}" data-file-id="{{$file->id}}" class="btn btn-danger btn-circle btnRemoveAttachment"><i class="fa fa-times"></i> </button>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,12 +128,13 @@
     @include('partials._javascript-alerts')
     <!-- Custom Theme JavaScript -->
     <script src="{!! URL::asset('js/custom.min.js') !!}"></script>
-    @include('partials._jquery-fileupload')
     <!-- Dropzone Plugin JavaScript -->
     <script src="{{URL::asset('plugins/bower_components/custom-select/custom-select.min.js')}}" type="text/javascript"></script>
     <script src="{{URL::asset('plugins/bower_components/bootstrap-select/bootstrap-select.min.js')}}" type="text/javascript"></script>
     <script src="{{URL::asset('js/jquery.quicksearch.js')}}" type="text/javascript"></script>
     <script type="text/javascript" src="{{URL::asset('plugins/bower_components/multiselect/js/jquery.multi-select.js')}}"></script>
+    <!-- Dropzone Plugin JavaScript -->
+    <script src="{!! URL::asset('plugins/bower_components/dropzone-master/dist/dropzone.js') !!}"></script>
     <script type="text/javascript">
         $(function(){
             $('.panel').lobiPanel({
@@ -128,7 +156,104 @@
                 _inputs = $(':input'),
                 _table = $('._table'),
                 _multiselect = $('#select-receivers'),
-                _ichecks = $('.check');
+                _ichecks = $('.check'),
+                _btnRemoveAttachment = $('.btnRemoveAttachment');
+
+            @foreach($texts as $task)
+                Dropzone.options.uploadList{{$task->id}} = {
+                    acceptedFiles: ".doc, .docx, .xls, .xlsx, .pdf, .csv, .txt",
+                    paramName: "attachment", // The name that will be used to transfer the file
+                    maxFilesize: 2, // MB
+                    addRemoveLinks: true,
+                    maxFiles: 3,
+                    dictInvalidFileType: "Dit is het verkeerde bestands type graag alleen (.doc, .docx, .xls, .xlsx, .pdf, .csv, .txt)",
+                    dictFileTooBig: "Dit bestand is te groot graag alleen bestanden van maximaal "+2+" MB",
+                    dictRemoveFile: "Bestand verwijderen",
+                    dictDefaultMessage: "Plaats of Sleep eventuele bestanden hier",
+                    dictMaxFilesExceeded: "Sorry, maar er zijn maar 3 bestanden toegestaan",
+                    init: function() {
+                        this.on("error", function(file, response) {
+                            this.removeFile(file);
+                            var message = "";
+                            if($.type(response) === "string") {
+                                message = response;
+                            }
+                            else {
+                                message = "Er ging iets mis";
+                            }
+                            $.toast({
+                                heading: 'Warning'
+                                , text: message
+                                , position: 'top-right'
+                                , loaderBg: '#fbeb50'
+                                , icon: 'warning'
+                                , hideAfter: 3500
+                                , stack: 6
+                            });
+                        });
+                    },
+                    success: function (file, response, xhr) {
+                        response = jQuery.parseJSON(response);
+                        if(response.error) {
+                            $.toast({
+                                heading: 'Warning'
+                                , text: response.message
+                                , position: 'top-right'
+                                , loaderBg: '#fbeb50'
+                                , icon: 'warning'
+                                , hideAfter: 3500
+                                , stack: 6
+                            });
+                            return;
+                        }
+                        this.removeFile(file);
+                        showNewAttachment(response.id, jQuery.parseJSON(response.file));
+                        $.toast({
+                            heading: response.title
+                            , text: response.message
+                            , position: 'top-right'
+                            , icon: response.status
+                            , hideAfter: 3500
+                            , stack: 6
+                        });
+                    }
+                };
+            @endforeach
+
+            function showNewAttachment(taskId, file) {
+                var fileContainer = $('#container-attached-files-' + taskId);
+                fileContainer.append('<div class="m-b-10 m-t-10"> <span class="label label-info">'+file.name+'</span> <button type="button" id="btnRemoveAttachment-'+file.id+'" data-task-id="'+taskId+'" data-file-id="'+file.id+'" class="btn btn-danger btn-circle btnRemoveAttachment"><i class="fa fa-times"></i> </button></div>')
+                var _attachment = $('#btnRemoveAttachment-' + file.id);
+                _attachment.click(function () {
+                    removeAttachment(taskId, file.id, _attachment);
+                });
+            }
+
+            function removeAttachment(taskId, fileId, element) {
+                var url = "{{URL::route('notification_remove_attachment', "XreplaceX")}}";
+                url = url.replace('XreplaceX', taskId);
+                $.post(url,
+                    {
+                        _token: $('meta[name="csrf-token"]').attr('content'),
+                        id: fileId
+                    },
+                    function( response ) {
+                        if(response.error) {
+                            ezToast('Mislukt !', response.message, 'danger', 2500, '#ff6371');
+                            return;
+                        }
+
+                        ezToast('Gelukt !', response.message, 'success', 1500, '#61ff55');
+                        var elementContainer = element.closest('div');
+                        elementContainer.remove();
+                });
+            }
+
+            _btnRemoveAttachment.click(function () {
+                var taskId = $(this).attr('data-task-id'),
+                    fileId = $(this).attr('data-file-id');
+                removeAttachment(taskId, fileId, $(this))
+            });
 
             btnAdd.click(function (e) {
                 e.preventDefault();

@@ -16,14 +16,15 @@ class Email extends Model
     public $fillable = ['to', 'from', 'text', 'send'];
     public static $from = "roctracker@gmail.com";
 
-    public static function send($to, $type, $subject, $title, $text)
+    public static function send($to, $type, $subject, $title, $text, $attachments=null)
     {
         $data = array(
             'to' => $to,
             'type' => $type,
             'subject' => $subject,
             'title' => $title,
-            'text' => $text
+            'text' => $text,
+            'attachments' => $attachments
         );
 
         $email = new self();
@@ -37,6 +38,15 @@ class Email extends Model
                 $message->to($data['to'])
                     ->from(self::$from, "ROCTracker")
                     ->subject($data['subject']);
+
+                if (!empty($data['attachments'])) {
+                    foreach ($data['attachments'] as $key => $id) {
+                        $file = UploadedFiles::find($id);
+                        if (!empty($file)) {
+                            $message->attach(storage_path('app/' . $file->path), ['as' => $file->name]);
+                        }
+                    }
+                }
             });
         } catch (\Exception $e) {
             $email->send = 0;
