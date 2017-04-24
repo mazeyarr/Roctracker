@@ -338,8 +338,8 @@ class FunctionalController extends Controller
                         }
 
                         $attachments = !empty($email->uploaded_files) ? json_decode($email->uploaded_files) : null;
-                        echo "sended mail to: " . $receiver->email . "<br>";
-                        /*Email::send($receiver->email, $mailtext->type, $mailtext->subject, $mailtext->title, $mailtext->text, $attachments)*/;
+                        /*echo "sended mail to: " . $receiver->email . "<br>";*/
+                        Email::send($receiver->email, $mailtext->type, $mailtext->subject, $mailtext->title, $mailtext->text, $attachments);
                     }
 
                     $email->done = 1;
