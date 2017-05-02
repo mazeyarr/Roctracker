@@ -1,3 +1,5 @@
+<!--  Laroute  -->
+{!! Html::script('js/roctracker-routes.js') !!}
 <!--  jQuery  -->
 {!! Html::script('plugins/bower_components/jquery/dist/jquery.min.js') !!}
 <!-- Scripts -->

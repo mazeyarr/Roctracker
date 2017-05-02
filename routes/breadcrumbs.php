@@ -189,6 +189,50 @@ Breadcrumbs::register('search', function($breadcrumbs)
 
 //------------ ------------------------- end ------------------------------------------- //
 
+// ---------------------------------- Officials ------------------------------------ //
+
+// Officials / Constructors
+Breadcrumbs::register('constructors', function($breadcrumbs)
+{
+    $breadcrumbs->parent('officials_home');
+    $breadcrumbs->push("Constructeurs", route('constructors'));
+});
+// Officials
+Breadcrumbs::register('officials_home', function($breadcrumbs)
+{
+    $breadcrumbs->push("Functionarissen", route('officials_home'));
+});
+
+// Officials / Detectors
+Breadcrumbs::register('detectors', function($breadcrumbs)
+{
+    $breadcrumbs->parent('officials_home');
+    $breadcrumbs->push("Vaststellers", route('detectors'));
+});
+
+// Officials / Exam Comittee
+Breadcrumbs::register('exam-comittee', function($breadcrumbs)
+{
+    $breadcrumbs->parent('officials_home');
+    $breadcrumbs->push("Examencommissie", route('exam-comittee'));
+});
+
+// Officials / Surveyors
+Breadcrumbs::register('surveyors', function($breadcrumbs)
+{
+    $breadcrumbs->parent('officials_home');
+    $breadcrumbs->push("Surveillanten", route('surveyors'));
+});
+
+// Officials / Staff Exam Office
+Breadcrumbs::register('staff-exam-office', function($breadcrumbs)
+{
+    $breadcrumbs->parent('officials_home');
+    $breadcrumbs->push("Examenbureau", route('staff-exam-office'));
+});
+
+//------------ ------------------------- end ------------------------------------------- //
+
 // ---------------------------------- Notifications ------------------------------------ //
 
 // Notifications / Overview

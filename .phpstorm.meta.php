@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-04-24.
+    * Generated on 2017-05-02.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -41,6 +41,9 @@ namespace PHPSTORM_META {
             'view' instanceof \Illuminate\View\Factory,
             'breadcrumbs' instanceof \DaveJamesMiller\Breadcrumbs\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
+            'Lord\Laroute\Generators\GeneratorInterface' instanceof \Lord\Laroute\Generators\TemplateGenerator,
+            'Lord\Laroute\Compilers\CompilerInterface' instanceof \Lord\Laroute\Compilers\TemplateCompiler,
+            'command.laroute.generate' instanceof \Lord\Laroute\Console\Commands\LarouteGeneratorCommand,
             'excel.identifier' instanceof \Maatwebsite\Excel\Classes\FormatIdentifier,
             'excel.parsers.css' instanceof \Maatwebsite\Excel\Parsers\CssParser,
             'excel.reader' instanceof \Maatwebsite\Excel\Readers\LaravelExcelReader,
@@ -168,6 +171,9 @@ namespace PHPSTORM_META {
             'view' instanceof \Illuminate\View\Factory,
             'breadcrumbs' instanceof \DaveJamesMiller\Breadcrumbs\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
+            'Lord\Laroute\Generators\GeneratorInterface' instanceof \Lord\Laroute\Generators\TemplateGenerator,
+            'Lord\Laroute\Compilers\CompilerInterface' instanceof \Lord\Laroute\Compilers\TemplateCompiler,
+            'command.laroute.generate' instanceof \Lord\Laroute\Console\Commands\LarouteGeneratorCommand,
             'excel.identifier' instanceof \Maatwebsite\Excel\Classes\FormatIdentifier,
             'excel.parsers.css' instanceof \Maatwebsite\Excel\Parsers\CssParser,
             'excel.reader' instanceof \Maatwebsite\Excel\Readers\LaravelExcelReader,
@@ -295,6 +301,9 @@ namespace PHPSTORM_META {
             'view' instanceof \Illuminate\View\Factory,
             'breadcrumbs' instanceof \DaveJamesMiller\Breadcrumbs\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
+            'Lord\Laroute\Generators\GeneratorInterface' instanceof \Lord\Laroute\Generators\TemplateGenerator,
+            'Lord\Laroute\Compilers\CompilerInterface' instanceof \Lord\Laroute\Compilers\TemplateCompiler,
+            'command.laroute.generate' instanceof \Lord\Laroute\Console\Commands\LarouteGeneratorCommand,
             'excel.identifier' instanceof \Maatwebsite\Excel\Classes\FormatIdentifier,
             'excel.parsers.css' instanceof \Maatwebsite\Excel\Parsers\CssParser,
             'excel.reader' instanceof \Maatwebsite\Excel\Readers\LaravelExcelReader,
@@ -422,6 +431,9 @@ namespace PHPSTORM_META {
             'view' instanceof \Illuminate\View\Factory,
             'breadcrumbs' instanceof \DaveJamesMiller\Breadcrumbs\Manager,
             'image' instanceof \Intervention\Image\ImageManager,
+            'Lord\Laroute\Generators\GeneratorInterface' instanceof \Lord\Laroute\Generators\TemplateGenerator,
+            'Lord\Laroute\Compilers\CompilerInterface' instanceof \Lord\Laroute\Compilers\TemplateCompiler,
+            'command.laroute.generate' instanceof \Lord\Laroute\Console\Commands\LarouteGeneratorCommand,
             'excel.identifier' instanceof \Maatwebsite\Excel\Classes\FormatIdentifier,
             'excel.parsers.css' instanceof \Maatwebsite\Excel\Parsers\CssParser,
             'excel.reader' instanceof \Maatwebsite\Excel\Readers\LaravelExcelReader,

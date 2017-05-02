@@ -15,6 +15,7 @@ use App\User;
 use App\Email;
 use App\MailTexts;
 use App\ScheduleEmailTasks;
+use App\Constructors;
 
 class HomeController extends Controller
 {
@@ -204,6 +205,43 @@ class HomeController extends Controller
     }
 
     /** END Assessor Maintenance ******************************************************/
+
+
+    /**
+     * Officials *******************************************************
+     */
+
+    public function getContructors()
+    {
+        return view('constructors')->withContructors(Constructors::get());
+    }
+    public function getAddContructors()
+    {
+        return view('constructors');
+    }
+
+    public function getDetectors()
+    {
+        return view('detectors');
+    }
+
+    public function getExamCommittee()
+    {
+        return view('exam-comittee');
+    }
+
+    public function getSurveyors()
+    {
+        return view('surveyors');
+    }
+
+    public function getStaffExamOffice()
+    {
+        return view('staff-exam-office');
+    }
+
+    /** END Officials ******************************************************/
+
 
     /** Notificaions ******************************************************/
 

@@ -86,6 +86,30 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('tick/maintenance', 'AssessorMaintenanceController@postTickMaintenance')->name('post_tick_maintenance');
         });
 
+        Route::group(['prefix' => 'officials'], function () {
+            Route::get('/', 'HomeController@getContructors')->name('officials_home');
+            Route::group(['prefix' => 'constructors'], function () {
+                Route::get('/', 'HomeController@getContructors')->name('constructors');
+                Route::get('add', 'HomeController@getAddContructors')->name('add_constructors');
+            });
+
+            Route::group(['prefix' => 'detectors'], function () {
+                Route::get('/', 'HomeController@getDetectors')->name('detectors');
+            });
+
+            Route::group(['prefix' => 'exam-committee'], function () {
+                Route::get('/', 'HomeController@getExamCommittee')->name('exam-comittee');
+            });
+
+            Route::group(['prefix' => 'surveyors'], function () {
+                Route::get('/', 'HomeController@getSurveyors')->name('surveyors');
+            });
+
+            Route::group(['prefix' => 'staff-exam-office'], function () {
+                Route::get('/', 'HomeController@getStaffExamOffice')->name('staff-exam-office');
+            });
+        });
+
         Route::group(['prefix' => 'notifications'], function () {
             Route::get('overview', 'HomeController@getNotifications')->name('notification_overview');
             Route::get('overview/show/{id}', 'HomeController@getNotification')->name('notification_view');
@@ -111,6 +135,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('bookmark/history', 'FunctionalController@makeBookmark')->name('create_bookmark');
 
         /* AJAX INDEPENDENT ROUTES */
+        Route::get('/ajax/search/{search_stroke?}', 'FunctionalController@ajax_search')->name('ajax_search');
         Route::get('/ajax/get/colleges/{option}', 'FunctionalController@ajaxGetColleges')->name('ajax_get_colleges');
         Route::get('/ajax/get/actieve/from/{table}', 'FunctionalController@ajaxGetActieveFrom')->name('ajax_get_actieve_from_table');
         Route::get('/ajax/check/user/password/{password}', 'FunctionalController@ajaxCheckPassword')->name('ajax_check_user_password');

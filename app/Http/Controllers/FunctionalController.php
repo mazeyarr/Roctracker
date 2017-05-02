@@ -11,6 +11,7 @@ use App\Log;
 use App\MailTexts;
 use App\ScheduleEmailTasks;
 use App\Teamleaders;
+use App\Constructors;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -19,6 +20,7 @@ use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
 use DB;
+use TomLingham\Searchy\Facades\Searchy;
 
 class FunctionalController extends Controller
 {
@@ -29,6 +31,20 @@ class FunctionalController extends Controller
     {
         $this->creator = "RocTracker";
         $this->company = "MRG Studios";
+    }
+
+    public function ajax_search($search_stroke)
+    {
+        $assessors = Functions::addUrlTo(Searchy::assessors('name', 'email')->query($search_stroke)->get(), Functions::getTablename($model = new Assessors()));
+        $colleges = Functions::addUrlTo(Searchy::colleges('name')->query($search_stroke)->get(), Functions::getTablename($model = new College()));
+        $teamleaders = Functions::addUrlTo(Searchy::teamleaders('name', 'email')->query($search_stroke)->get(), Functions::getTablename($model = new Teamleaders()));
+        $contructors = Functions::addUrlTo(Searchy::constructors('name', 'email')->query($search_stroke)->get(), Functions::getTablename($model = new Constructors()));
+
+        $searchResults = $assessors->merge($colleges)
+                                    ->merge($teamleaders)
+                                    ->merge($contructors);
+
+        return json_encode($searchResults->sortByDesc('relevance')->take(10));
     }
 
     public function search(Request $request)

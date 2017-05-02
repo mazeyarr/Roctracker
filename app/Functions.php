@@ -9,6 +9,54 @@ use App\College;
 
 class Functions extends Model
 {
+
+    public static function addUrlTo($collections, $table)
+    {
+        $collections->map(function ($collection) use ($table) {
+            $type = "";
+            $url = "";
+            switch ($table) {
+                case "assessors":
+                    $type = "Assessor";
+                    $url = \URL::route('view_assessor_profiel', $collection->id);
+                    break;
+                case "teamleaders":
+                    $type = "Teamleider";
+                    $url = \URL::route('view_teamleaders', $collection->id);
+                    break;
+                case "colleges":
+                    $type = "College";
+                    $url = \URL::route('view_colleges', $collection->id);
+                    break;
+                case "constructors":
+                    $type = "Constructeur";
+                    $url = ""; /*\URL::route('');*/
+                    break;
+                case "detectors":
+                    $type = "Vaststellers";
+                    $url = ""; /*\URL::route('');*/
+                    break;
+                case "surveyors":
+                    $type = "Survianten";
+                    $url = ""; /*\URL::route('');*/
+                    break;
+                case "staff_exam_offices":
+                    $type = "Examencommissie";
+                    $url = ""; /*\URL::route('');*/
+                    break;
+                case "exam_comittees":
+                    $type = "Examenbureau";
+                    $url = ""; /*\URL::route('');*/
+                    break;
+            }
+            $collection->typeOf = $type;
+            $collection->url = $url;
+            return $collection;
+        });
+
+        return $collections;
+    }
+
     /**
      * Simple function that returns the table name of the database based on the Model
      *

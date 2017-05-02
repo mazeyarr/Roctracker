@@ -6,6 +6,7 @@ use App\Exams;
 use App\HistoryData;
 use App\Teamleaders;
 use App\TiC;
+use App\Constructors;
 use Illuminate\Database\Seeder;
 
 class SeedDemoContent extends Seeder
@@ -1896,6 +1897,21 @@ class SeedDemoContent extends Seeder
         ## END ##
 
         /** END ASSESSORS */
+
+        /** Constructors */
+
+        $constructor = new Constructors();
+        $constructor->name = "Test Constructeur";
+        $constructor->email = "Constructeur@test.nl";
+        $constructor->fk_college = College::where('name', "Dienstverlening")->first()->id;
+        $constructor->fk_teamleader = Teamleaders::where('name', "Mark van Knegsel")->first()->id;
+        $constructor->team = "Geüniformeerde beroepen";
+        $constructor->birthdate = \Carbon\Carbon::createFromFormat('d/m/Y', "9/28/1955")->toDateString();
+        $constructor->status = 1;
+        $constructor->log = '{ "log" : {} }';
+        $constructor->save();
+
+        /** END Constructors */
 
         /** HISTORY DEMO SEEDER */
         foreach (College::all() as $college) {

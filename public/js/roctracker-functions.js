@@ -1,9 +1,9 @@
 
 function swalShowLoad(bool) {
-    var $this = $('.confirm');
+    var btn = $('.confirm');
     if (bool) {
-        $this.button('loading');
+        btn.button('loading');
     }else {
-        $this.button('reset');
+        btn.button('reset');
     }
 }

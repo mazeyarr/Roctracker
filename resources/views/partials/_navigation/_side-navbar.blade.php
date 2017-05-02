@@ -23,16 +23,30 @@
                 <a class="waves-effect" href="{{ URL::route('teamleaders') }}"><i class="fa fa-users"></i> Teamleiders</a>
             </li>
             <li>
-                <a class="waves-effect disabled" href="#"><i class="fa fa-book"></i> Instructeurs</a>
-            </li>
-            <li>
-                <a class="waves-effect disabled" href="#"><i class="fa fa-bank"></i> Studenten</a>
-            </li>
-            <li>
                 <a class="waves-effect" href="{{ URL::route('colleges') }}"><i class="fa fa-graduation-cap"></i> Colleges</a>
             </li>
             <li>
                 <a class="waves-effect" href="{{ URL::route('maintenance_assessor') }}"><i class="fa fa-cogs"></i> <span class="hide-menu">Onderhoud</span></a>
+            </li>
+            <li>
+                <a class="waves-effect" href="{{ URL::route('constructors') }}"><i class="fa fa-futbol-o fa-fw" data-icon="a"></i> <span class="hide-menu">Functionarissen<span class="fa arrow"></span></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a class="waves-effect" href="{{ URL::route('constructors') }}"><i class="fa fa-bank"></i> Constructeurs</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="{{ URL::route('detectors') }}"><i class="fa fa-bank"></i> Vaststellers</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="{{ URL::route('exam-comittee') }}"><i class="fa fa-bank"></i> Examencommissie</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="{{ URL::route('surveyors') }}"><i class="fa fa-bank"></i> Surveillanten</a>
+                    </li>
+                    <li>
+                        <a class="waves-effect" href="{{ URL::route('staff-exam-office') }}"><i class="fa fa-bank"></i> Examenbureau</a>
+                    </li>
+                </ul>
             </li>
             <li>
                 <a class="waves-effect" href="{{ URL::route('notification_overview') }}"><i class="fa fa-envelope fa-fw" data-icon="a"></i> <span class="hide-menu">Berichten <span class="fa arrow"></span></span></a>
