@@ -17,11 +17,10 @@
                             <div class="form-group">
                                 <label class="col-sm-12">Op wat/wie wilt u zoeken ?</label>
                                 <div class="col-sm-12">
-                                    {!! Form::select('searchOn', $search_tables, null, array('id' => 'advancedSearchOn', 'class' => 'form-control')) !!}
+                                    {!! Form::select('searchOn', $search_tables, 0, array('id' => 'advancedSearchOn', 'class' => 'form-control')) !!}
                                 </div>
                             </div>
                             <div id="container-advanced-search-options">
-                                @include('partials._advancedSearch._assessors-options')
                             </div>
                         </form>
                         {!! Form::button('<i class="fa fa-search"></i> Zoeken', array('id' => 'btnAdvancedSearch', 'class' => 'btn btn-info waves waves-effect')) !!}
@@ -75,6 +74,7 @@
 
 @section('scripts')
     @include('partials._javascript-alerts')
+    <script src="{!! URL::asset('plugins/bower_components/bootstrap-switch/bootstrap-switch.min.js') !!}"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var btnAdvancedSearch = $('#btnAdvancedSearch'),

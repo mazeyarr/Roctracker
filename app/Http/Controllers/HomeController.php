@@ -41,6 +41,7 @@ class HomeController extends Controller
     public function getAdvancedSearch()
     {
         $searchables = array(
+            'none' => "Geen",
             Functions::getTablename($model = new Assessors()) => "Assessoren",
             Functions::getTablename($model = new Teamleaders()) => 'Teamleiders',
             Functions::getTablename($model = new College()) => 'Colleges',
