@@ -6,6 +6,11 @@ Breadcrumbs::register('dashboard', function($breadcrumbs)
     $breadcrumbs->push('Dashboard', route('dashboard'));
 });
 
+Breadcrumbs::register('advanced_search', function($breadcrumbs)
+{
+    $breadcrumbs->push('Geavanceerd Zoeken', route('advanced_search'));
+});
+
 // Profile
 Breadcrumbs::register('profile', function($breadcrumbs)
 {

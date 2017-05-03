@@ -166,8 +166,6 @@ return [
         DaveJamesMiller\Breadcrumbs\ServiceProvider::class,
         Tremby\LaravelGitVersion\GitVersionServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
-        Lord\Laroute\LarouteServiceProvider::class,
-        TomLingham\Searchy\SearchyServiceProvider::class,
         'Maatwebsite\Excel\ExcelServiceProvider',
 
 
@@ -237,7 +235,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Breadcrumbs' => DaveJamesMiller\Breadcrumbs\Facade::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Searchy' => TomLingham\Searchy\Facades\Searchy::class,
         'Excel' => 'Maatwebsite\Excel\Facades\Excel',
 
     ],

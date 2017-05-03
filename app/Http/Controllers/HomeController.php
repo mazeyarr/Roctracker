@@ -16,6 +16,7 @@ use App\Email;
 use App\MailTexts;
 use App\ScheduleEmailTasks;
 use App\Constructors;
+use App\Functions;
 
 class HomeController extends Controller
 {
@@ -35,6 +36,16 @@ class HomeController extends Controller
     public function getDashboard()
     {
         return view('dashboard')->withColleges(College::all())->withGraph(HistoryData::generate());
+    }
+
+    public function getAdvancedSearch()
+    {
+        $searchables = array(
+            Functions::getTablename($model = new Assessors()) => "Assessoren",
+            Functions::getTablename($model = new Teamleaders()) => 'Teamleiders',
+            Functions::getTablename($model = new College()) => 'Colleges',
+        );
+        return view('advanced-search')->withSearch_tables($searchables);
     }
 
     /**

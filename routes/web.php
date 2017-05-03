@@ -19,6 +19,10 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::group(['prefix' => 'dashboard'], function () {
             Route::get('details/college/{id}', 'CollegeController@getCollegeDetails')->name('view_college_details');
+        });
+
+        Route::group(['prefix' => 'advanced/search'], function () {
+            Route::get('/', 'HomeController@getAdvancedSearch')->name('advanced_search');
             Route::post('search', 'FunctionalController@search')->name('search');
         });
 
@@ -140,6 +144,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/ajax/get/actieve/from/{table}', 'FunctionalController@ajaxGetActieveFrom')->name('ajax_get_actieve_from_table');
         Route::get('/ajax/check/user/password/{password}', 'FunctionalController@ajaxCheckPassword')->name('ajax_check_user_password');
         Route::get('/ajax/get/assessor/{idw}', 'FunctionalController@ajaxGetAssessor')->name('ajax_get_assessor_info');
+        Route::get('/ajax/get/partial/{name}', 'FunctionalController@ajaxGetPartial')->name('ajax_get_partial_view');
         Route::post('/ajax/resend/emails/', 'FunctionalController@ajaxResendMails')->name('ajax_post_resend_mails');
 
     });

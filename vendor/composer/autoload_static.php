@@ -89,6 +89,7 @@ class ComposerStaticInit08ab918f9ba6a78e6b1155acf5b89bc1
             'League\\Flysystem\\Rackspace\\' => 27,
             'League\\Flysystem\\AwsS3v3\\' => 25,
             'League\\Flysystem\\' => 17,
+            'Laravel\\Tinker\\' => 15,
         ),
         'J' => 
         array (
@@ -279,6 +280,10 @@ class ComposerStaticInit08ab918f9ba6a78e6b1155acf5b89bc1
         'League\\Flysystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
+        ),
+        'Laravel\\Tinker\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
         'JmesPath\\' => 
         array (
@@ -3076,6 +3081,9 @@ class ComposerStaticInit08ab918f9ba6a78e6b1155acf5b89bc1
         'JmesPath\\TreeCompiler' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/TreeCompiler.php',
         'JmesPath\\TreeInterpreter' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/TreeInterpreter.php',
         'JmesPath\\Utils' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/Utils.php',
+        'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
+        'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
+        'Laravel\\Tinker\\TinkerServiceProvider' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerServiceProvider.php',
         'League\\Flysystem\\AdapterInterface' => __DIR__ . '/..' . '/league/flysystem/src/AdapterInterface.php',
         'League\\Flysystem\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractAdapter.php',
         'League\\Flysystem\\Adapter\\AbstractFtpAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractFtpAdapter.php',

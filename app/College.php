@@ -6,6 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class College extends Model
 {
+
+    public static function toSelect(){
+        $colleges = College::all();
+        $select = array('none' => 'Geen', 'all' => 'Alle');
+        foreach ($colleges as $college) {
+            $select[$college->id] = $college->name;
+        }
+        return $select;
+    }
+
     /**
      * This function gets all colleges mixes them to with the assigned teamleader(s)
      * (The $id parameter is used for single searches. It then returns a single college)

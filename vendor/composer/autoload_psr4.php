@@ -41,6 +41,7 @@ return array(
     'League\\Flysystem\\Rackspace\\' => array($vendorDir . '/league/flysystem-rackspace/src'),
     'League\\Flysystem\\AwsS3v3\\' => array($vendorDir . '/league/flysystem-aws-s3-v3/src'),
     'League\\Flysystem\\' => array($vendorDir . '/league/flysystem/src'),
+    'Laravel\\Tinker\\' => array($vendorDir . '/laravel/tinker/src'),
     'JmesPath\\' => array($vendorDir . '/mtdowling/jmespath.php/src'),
     'Intervention\\Image\\' => array($vendorDir . '/intervention/image/src/Intervention/Image'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),

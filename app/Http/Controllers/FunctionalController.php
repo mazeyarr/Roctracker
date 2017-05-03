@@ -213,6 +213,11 @@ class FunctionalController extends Controller
         return json_encode($assessor);
     }
 
+    public function ajaxGetPartial($name)
+    {
+        return \View::make('partials.' . $name)->render();
+    }
+
     public function ajaxCheckPassword($password)
     {
         return json_encode(Hash::check($password, Auth::user()->password));

@@ -2,7 +2,7 @@
     <div class="sidebar-nav navbar-collapse slimscrollsidebar">
         <div class="user-profile">
             <div class="dropdown user-pro-body">
-                <a href="{{URL::route('profile')}}" class="btn"><div><img alt="user-img" class="img-circle" src="{{!empty($user->avatar) ? Storage::url($user->avatar) : URL::asset('plugins/images/users/default-user.png')}}"></div>{{ Auth::user()->name }}</a>
+                <a href="{{URL::route('profile')}}" class="btn"><div><img alt="user-img" class="img-circle" src="{{!empty($user->avatar) ? Storage::url($user->avatar) : URL::asset('plugins/images/users/default-user.png')}}"></div><span class="hide-menu">{{ Auth::user()->name }}</span></a>
             </div>
         </div>
         <ul class="nav" id="side-menu">
@@ -14,16 +14,19 @@
             </li>
             <li class="nav-small-cap m-t-10"><span style="font-size: 20px">&#10146;</span> Menu</li>
             <li>
-                <a class="waves-effect" href="{{ URL::route('dashboard') }}"><i class="linea-icon linea-basic fa-fw" data-icon="a"></i> Dashboard</a>
+                <a class="waves-effect" href="{{ URL::route('dashboard') }}"><i class="linea-icon linea-basic fa-fw" data-icon="a"></i> <span class="hide-menu">Dashboard</span></a>
             </li>
             <li>
-                <a class="waves-effect" href="{{ URL::route('assessors') }}"><i class="fa fa-user"></i> Assessoren</a>
+                <a class="waves-effect" href="{{ URL::route('advanced_search') }}"><i class="fa fa-search"></i> <span class="hide-menu">Geavanceerd Zoeken</span></a>
             </li>
             <li>
-                <a class="waves-effect" href="{{ URL::route('teamleaders') }}"><i class="fa fa-users"></i> Teamleiders</a>
+                <a class="waves-effect" href="{{ URL::route('assessors') }}"><i class="fa fa-user"></i> <span class="hide-menu">Assessoren</span></a>
             </li>
             <li>
-                <a class="waves-effect" href="{{ URL::route('colleges') }}"><i class="fa fa-graduation-cap"></i> Colleges</a>
+                <a class="waves-effect" href="{{ URL::route('teamleaders') }}"><i class="fa fa-users"></i> <span class="hide-menu">Teamleiders</span></a>
+            </li>
+            <li>
+                <a class="waves-effect" href="{{ URL::route('colleges') }}"><i class="fa fa-graduation-cap"></i> <span class="hide-menu">Colleges</span></a>
             </li>
             <li>
                 <a class="waves-effect" href="{{ URL::route('maintenance_assessor') }}"><i class="fa fa-cogs"></i> <span class="hide-menu">Onderhoud</span></a>
