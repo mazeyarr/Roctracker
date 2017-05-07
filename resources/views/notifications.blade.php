@@ -119,6 +119,9 @@
             btnResend.click(function (e) {
                 e.preventDefault();
                 e.stopPropagation();
+
+                /* TODO: MAKE THIS FUNCTION REUSEABKLE */
+
                 swal({
                     title: "Emails opnieuw verstuuren",
                     text: "U dient uw wachtwoord intevoeren voordat de emails opnieuw verzonden kunnen worden",

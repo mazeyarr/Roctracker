@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Constructors extends Model
 {
+    public static function getCollegeConstructors($collegeid)
+    {
+        $constructors = self::where('fk_college', $collegeid)->get();
+        foreach ($constructors as $constructor) {
+            $constructor->fk_college = College::find($constructor->fk_college);
+            $constructor->fk_teamleader = Teamleaders::find($constructor->fk_teamleader);
+        }
+
+        return $constructors;
+    }
+
     public static function get($id=null, $json=false)
     {
         if (!empty($id)) {

@@ -63,7 +63,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
         /* Assessors Page */
-        Route::get('assessors', 'HomeController@getAssessors')->name('assessors');
+        Route::get('assessors/{collegeid?}', 'HomeController@getAssessors')->name('assessors');
         Route::group(['prefix' => 'assessor'], function () {
             Route::get('profile/{id}', 'HomeController@getAssessorProfile')->name('view_assessor_profiel');
             Route::get('view/{id}', 'HomeController@getAssessorTimeline')->name('view_assessor');
@@ -93,7 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::group(['prefix' => 'officials'], function () {
             Route::get('/', 'HomeController@getContructors')->name('officials_home');
             Route::group(['prefix' => 'constructors'], function () {
-                Route::get('/', 'HomeController@getContructors')->name('constructors');
+                Route::get('/{collegeid?}', 'HomeController@getContructors')->name('constructors');
                 Route::get('add', 'HomeController@getAddContructors')->name('add_constructors');
             });
 
@@ -123,6 +123,7 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('save/{id}/attachment', 'NotificationController@postSaveAttachment')->name('notification_save_attachment');
             Route::post('remove/{id}/attachment', 'NotificationController@postRemoveAttachment')->name('notification_remove_attachment');
             Route::get('ajax/get/current/receivers/{mail_task_id}', 'NotificationController@ajaxGetCurrentReceivers')->name('ajax_get_current_receivers');
+            Route::get('ajax/reset/mail/{mail_task_id}', 'NotificationController@ajaxResetMail')->name('ajax_reset_mail');
         });
 
         /* Dashboard Page */

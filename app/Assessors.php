@@ -8,6 +8,66 @@ use Illuminate\Support\Collection;
 
 class Assessors extends Model
 {
+    public static function getCollegeAssessors($collegeid)
+    {
+        # SECTOR 1
+        $assessors = array();
+
+        # SECTOR 2
+        if (self::all()->isEmpty()) {
+            return null;
+        }
+
+        # SECTIOR 4
+        /** Loop trough all the Assessors */
+        foreach (self::where('fk_college', $collegeid)->get() as $assessor) {
+            # SECTOR 4.1
+            /** Get college of the assessor by using the bounded foreign key */
+            $college = College::find($assessor->fk_college);
+
+            # SECTOR 4.2
+            /** replace Collection "fk_college" field with a Collection of the college
+             * @note that if college is not found it wil return null
+             */
+            $assessor->fk_college = $college;
+
+            # SECTOR 4.3
+            /** Get teamleader of the assessor by using the bounded foreign key */
+            $teamleader = Teamleaders::find($assessor->fk_teamleader);
+
+            # SECTOR 4.4
+            /** if the $teamleader is not null */
+            if (!empty($teamleader)) {
+                /** replace Assessor Collection "fk_teamleader" field to the teamleader name */
+                $assessor->fk_teamleader = $teamleader->name;
+            }
+
+            # SECTOR 4.5
+            /** find the Exams data that belongs to this assessor
+             * @note that every assessor has exam data
+             */
+            $exams = Exams::find($assessor->fk_exams);
+
+            # SECTOR 4.6
+            /** if $exams does not return a null value */
+            if (!empty($exams)) {
+                # SECTOR 4.6.1
+                /** replace the $exams(Collection) "basictraining" field to a json decoded version*/
+                $exams->basictraining = json_decode($exams->basictraining);
+
+                # SECTOR 4.6.2
+                /** replace the Assessor(Collection) "fk_exams" to the new temporary $exams Collection*/
+                $assessor->fk_exams = $exams;
+            }
+            $assessors[] = $assessor;
+            /** add new (temp) made assessor to array with all the others */
+        }
+
+        return $assessors;
+
+
+    }
+
     /**
      * @param null $id
      * @return if $id was not given it will return Collection of all Assessors

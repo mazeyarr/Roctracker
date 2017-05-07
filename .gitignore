@@ -10,3 +10,4 @@ config/breadcrumbs.php
 config/excel.php
 config/ide-helper.php
 /version
+public/uploads/

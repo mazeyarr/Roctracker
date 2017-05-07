@@ -10,7 +10,7 @@
     <div class="row">
         @foreach($texts as $mail)
             <div class="col-md-12">
-                <div class="panel panel-info">
+                <div id="panel-{{$mail->id}}" class="panel {{ $mail->done ? "panel-success" : "panel-info" }}">
                     <div class="panel-heading"> {{$mail->fk_mail_texts->name}}
                     </div>
                     <div class="panel-body">
@@ -96,6 +96,13 @@
                                 @endif
                             </div>
                         </div>
+                        @if($mail->done)
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button id="{{$mail->id}}" class="resetMail btn btn-warning btn-block">Reset Mail</button>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -157,7 +164,8 @@
                 _table = $('._table'),
                 _multiselect = $('#select-receivers'),
                 _ichecks = $('.check'),
-                _btnRemoveAttachment = $('.btnRemoveAttachment');
+                _btnRemoveAttachment = $('.btnRemoveAttachment'),
+                _btnResetMail = $('.resetMail');
 
             @foreach($texts as $task)
                 Dropzone.options.uploadList{{$task->id}} = {
@@ -248,6 +256,20 @@
                         elementContainer.remove();
                 });
             }
+
+            _btnResetMail.click(function (e) {
+                e.stopPropagation();
+                var url = laroute.route('ajax_reset_mail', { mail_task_id : this.id }),
+                    id = this.id;
+                $.get(url, function (data) {
+                    if (data) {
+                        $('#panel-' + id).attr('class', 'panel panel-info');
+                        ezToast("Mail Reset", "Deze mail is successvol gereset, vul de nieuwe datum in voor deze mail opdracht", 'info', 3000, '#8a9eff')
+                    }else {
+                        ezToast("Fout", "Er ging iets mis met het resetten van de mail probeer het later nog een keer", 'warning', 3000, '#ff9d84')
+                    }
+                });
+            });
 
             _btnRemoveAttachment.click(function () {
                 var taskId = $(this).attr('data-task-id'),

@@ -94,22 +94,17 @@ class UserController extends Controller
         $user->email = $request->email;
         if (!empty($request->file('avatar'))) {
             if (!empty($user->avatar)){
-                Storage::delete('public/'. $user->avatar);
+                \File::delete(public_path($user->avatar));
             }
+            $image = $request->file('avatar');
+            $filename  = md5($image->getClientOriginalName()).time() . '.' . $image->getClientOriginalExtension();
 
-            $destinationPath = storage_path('/app/public/avatars/');
-            $file = $request->file('avatar');
-            $newFilename = md5($file->getClientOriginalName() . time());
+            $path = public_path('uploads/avatars/' . $filename);
 
-            $img = Image::make($file->getRealPath());
-            $img->resize(600, 600)->save($destinationPath . $newFilename . '.'.$file->getClientOriginalExtension());
+            Image::make($image->getRealPath())->resize(600, 600)->save($path);
 
-            $user->avatar = "avatars/" . $newFilename . '.'.$file->getClientOriginalExtension();
-        } else {
-            if (!empty($user->avatar)){
-                Storage::delete('public/'. $user->avatar);
-            }
-            $user->avatar = null;
+            $user->avatar = 'uploads/avatars/'.$filename;
+            $user->save();
         }
 
         $user->save();

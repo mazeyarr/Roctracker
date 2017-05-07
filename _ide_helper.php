@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.3.31 on 2017-05-03.
+ * Generated for Laravel 5.3.31 on 2017-05-07.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -12405,6 +12405,48 @@ namespace Maatwebsite\Excel\Facades {
     }         
 }
     
+namespace TomLingham\Searchy\Facades {
+
+    class Searchy {
+        
+        /**
+         * 
+         *
+         * @param $searchable
+         * @return $this 
+         * @static 
+         */
+        public static function search($searchable)
+        {
+            return \TomLingham\Searchy\SearchBuilder::search($searchable);
+        }
+        
+        /**
+         * 
+         *
+         * @return \TomLingham\Searchy\FuzzySearchDriver 
+         * @static 
+         */
+        public static function fields()
+        {
+            return \TomLingham\Searchy\SearchBuilder::fields();
+        }
+        
+        /**
+         * 
+         *
+         * @param $driverName
+         * @return $this 
+         * @static 
+         */
+        public static function driver($driverName)
+        {
+            return \TomLingham\Searchy\SearchBuilder::driver($driverName);
+        }
+        
+    }         
+}
+    
     
 namespace {
 
@@ -14314,6 +14356,8 @@ namespace {
     class Image extends \Intervention\Image\Facades\Image {}
     
     class Excel extends \Maatwebsite\Excel\Facades\Excel {}
+    
+    class Searchy extends \TomLingham\Searchy\Facades\Searchy {}
     
 }
 

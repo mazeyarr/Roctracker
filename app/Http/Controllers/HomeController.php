@@ -142,8 +142,11 @@ class HomeController extends Controller
     /**
      * @return mixed
      */
-    public function getAssessors()
+    public function getAssessors($collegeid = false)
     {
+        if ($collegeid) {
+            return view('assessoren')->withAssessors(Assessors::getCollegeAssessors($collegeid));
+        }
         return view('assessoren')->withAssessors(Assessors::getAssessors());
     }
 
@@ -223,8 +226,11 @@ class HomeController extends Controller
      * Officials *******************************************************
      */
 
-    public function getContructors()
+    public function getContructors($collegeid = false)
     {
+        if ($collegeid) {
+            return view('constructors')->withContructors(Constructors::getCollegeConstructors($collegeid));
+        }
         return view('constructors')->withContructors(Constructors::get());
     }
     public function getAddContructors()

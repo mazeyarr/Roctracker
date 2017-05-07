@@ -8,10 +8,10 @@
     <div class="row">
         <div class="col-md-12 col-xs-12">
             <div class="white-box">
-                <div class="user-bg"> <img width="100%" alt="user" src="plugins/images/large/img1.jpg">
+                <div class="user-bg"> <img width="100%" alt="user" src="{{URL::asset('plugins/images/large/img1.jpg')}}">
                     <div class="overlay-box">
                         <div class="user-content">
-                            <a href="javascript:void(0)"><img src="{{!empty($user->avatar) ? Storage::url($user->avatar) : URL::asset('plugins/images/users/default-user.png')}}" class="thumb-lg img-circle" alt="img"></a>
+                            <a href="javascript:void(0)"><img src="{{!empty($user->avatar) ? URL::asset($user->avatar) : URL::asset('plugins/images/users/default-user.png')}}" class="thumb-lg img-circle" alt="img"></a>
                             <h4 class="text-white">{{$user->name}}</h4>
                             <h5 class="text-white">{{$user->email}}</h5>
                         </div>
@@ -34,7 +34,7 @@
                         <div class="form-group m-b-40 m-t-20">
                             <div class="white-box">
                                 <h3 class="box-title">Profiel Foto</h3>
-                                {!! Form::file('avatar', array('id'=> 'avatar', 'class' => 'dropify', 'data-allowed-file-extensions' => 'jpeg png jpg', 'data-default-file' => !empty($user->avatar) ? Storage::url($user->avatar) : URL::asset('plugins/images/users/default-user.png'), 'data-max-file-size' => '3M')) !!}
+                                {!! Form::file('avatar', array('id'=> 'avatar', 'class' => 'dropify', 'data-allowed-file-extensions' => 'jpeg png jpg', 'data-default-file' => !empty($user->avatar) ? URL::asset($user->avatar) : URL::asset('plugins/images/users/default-user.png'), 'data-max-file-size' => '3M')) !!}
                             </div>
                         </div>
 

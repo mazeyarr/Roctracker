@@ -73,13 +73,14 @@ class Email extends Model
         if (empty($email)) {
             return false;
         } else {
-
+            $attachments = !empty($email->uploaded_files) ? json_decode($email->uploaded_files) : null;
             $data = array(
                 'to' => $email->to,
                 'type' => 'info',
                 'subject' => $email->subject,
                 'title' => $email->subject,
-                'text' => $email->text
+                'text' => $email->text,
+                'attachments' => $attachments
             );
 
             try {
@@ -87,6 +88,15 @@ class Email extends Model
                     $message->to($data['to'])
                         ->from(self::$from, "ROCTracker")
                         ->subject($data['subject']);
+
+                    if (!empty($data['attachments'])) {
+                        foreach ($data['attachments'] as $key => $id) {
+                            $file = UploadedFiles::find($id);
+                            if (!empty($file)) {
+                                $message->attach(storage_path('app/' . $file->path), ['as' => $file->name]);
+                            }
+                        }
+                    }
                 });
             } catch (\Exception $e) {
                 $email->send = 0;

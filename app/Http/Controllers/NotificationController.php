@@ -269,4 +269,17 @@ class NotificationController extends Controller
 
         return $task->to;
     }
+
+    public function ajaxResetMail($mail_task_id)
+    {
+       $task = ScheduleEmailTasks::find($mail_task_id);
+        if (empty($task)) {
+            return false;
+        }
+
+        $task->done = 0;
+        $task->save();
+
+        return "true";
+    }
 }
