@@ -63,7 +63,7 @@
                                 <td>{{ date_format($teamleader['teamleader']->updated_at, 'd-m-Y | H:i:s') }}</td>
                                 <td>
                                     <a href="{{ URL::route('view_teamleaders', $teamleader['teamleader']->id) }}"
-                                       class="college-row-big btn-xs btn-rounded btn-success">
+                                       class="college-row-big btn-xs btn-rounded btn-info">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                         Teamleider Bekijken
                                     </a>
@@ -72,15 +72,21 @@
                                             id="{{ $teamleader['teamleader']->id }}"
                                             data-name="{{ $teamleader['teamleader']->name }}"
                                             data-team="{{ $teamleader['teamleader']->team }}"
-                                            class="teamleader-row-little btn-xs btn-rounded btn-warning">
+                                            class="teamleader-row-little btn-xs btn-rounded btn-primary">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                         Bewerken
                                     </button>
                                     <a href="{{ URL::route('change_teamleaders', $teamleader['teamleader']->id) }}"
                                        id="{{ $teamleader['teamleader']->id }}"
-                                       class="college-row-big btn-xs btn-rounded btn-danger">
+                                       class="college-row-big btn-xs btn-rounded btn-warning">
                                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                         Grote bewerking
+                                    </a>
+                                    <a href="{{URL::route('delete_teamleader', $teamleader['teamleader']->id)}}"
+                                       id="{{ $teamleader['teamleader']->id }}"
+                                       class="btnDelete college-row-big btn-xs btn-rounded btn-danger">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                        Verwijderen
                                     </a>
                                 </td>
                             </tr>
@@ -171,8 +177,9 @@
                     return
                 }
                 /*Ajax with parameters*/
+                var url = laroute.route('ajax_save_teamleader', { id : _id, name: modal_name_field.val() });
                 $.ajax({
-                    url: '/dashboard/teamleader/save/' + _id + '/' + modal_name_field.val()
+                    url: url
                 }).done(function (data) {
                     $.toast({
                         heading: 'Voltooid'

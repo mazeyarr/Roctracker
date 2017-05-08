@@ -45,9 +45,21 @@ class AssessorMaintenanceController extends Controller
             switch ($request->tick){
                 case "true":
                     $tick = true;
+                    switch ($maintenances_this_year[$check_maintenance['key']]['type']){
+                        case "Onderhoud":
+                            $exam->before_last_maintenance = $exam->last_maintenance;
+                            $exam->last_maintenance = empty($exam->training_next_on) ? Carbon::now()->format('d-m-Y') : $exam->training_next_on;
+                            break;
+                        case "Examen":
+                            $exam->before_last_maintenance = $exam->last_maintenance;
+                            $exam->last_maintenance = empty($exam->exam_next_on) ? Carbon::now()->format('d-m-Y') : $exam->exam_next_on;
+                            break;
+                    }
                     break;
                 case "false":
                     $tick = false;
+                    $exam->last_maintenance = $exam->before_last_maintenance;
+                    $exam->before_last_maintenance = null;
                     break;
                 default:
                     $tick = false;

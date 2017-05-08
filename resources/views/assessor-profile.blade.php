@@ -99,6 +99,10 @@
                         <div class="progress">
                             <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->date2->present) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->date2->present) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
                         </div>
+                        <h5>Examen - '<i>{{ $assessor->fk_exams['basictraining']->graduationday }}</i><span class="pull-right">{{ ($assessor->fk_exams['basictraining']->passed) ? "100%" : "0%" }}</span></h5>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ ($assessor->fk_exams['basictraining']->passed) ? "100" : "0" }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ ($assessor->fk_exams['basictraining']->passed) ? "100%" : "0%" }}"> <span class="sr-only">{{ ($assessor->fk_exams['basictraining']->passed) ? "Voltooid" : "Niet Voltooid" }}</span> </div>
+                        </div>
                     </div>
                 </div>
                 <div class="tab-pane" id="overview">

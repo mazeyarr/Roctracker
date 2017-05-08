@@ -110,6 +110,12 @@ class AssessorController extends Controller
         } elseif ($assessor->fk_college != $request->college) {
             $messages[] = "College gewijzigd van <strong>" . College::find($assessor->fk_college)->name . "</strong> naar <strong>" . College::find($request->college)->name . "</strong>";
         }
+
+        if (!TiC::where('fk_college', $request->college)->get()->isEmpty()){
+            $assessor->fk_teamleader = TiC::where('fk_college', $request->college)->first()->fk_teamleader;
+        } else {
+            $assessor->fk_teamleader = null;
+        }
         $assessor->fk_college = $request->college;
 
         if (empty($assessor->fk_exams)) {
@@ -129,6 +135,7 @@ class AssessorController extends Controller
         $oldLog['date2']['date'] = $basictraining->date2->date;
 
         $oldLog['passed'] = $basictraining->passed;
+        $oldLog['graduationday'] = $basictraining->graduationday;
         $oldLog['graduated'] = $basictraining->graduated;
 
         if (Input::has('Filmpje')) {
@@ -224,6 +231,26 @@ class AssessorController extends Controller
             $basictraining->passed = true;
             if ($basictraining->passed != $oldLog['passed'] && $basictraining->graduated != $oldLog['graduated']) {
                 $messages[] = "Assessor heeft basistraining behaald !";
+            }
+
+            $validator = Validator::make($request->all(), [
+                'graduationday' => 'required'
+            ]);
+            if (!$validator->fails()) {
+                $validator = Validator::make($request->all(), [
+                    'graduationday' => 'required|date_format:"d-m-Y"'
+                ], array(
+                    'graduationday.date_format' => 'Basistraining examen was verkeerd ingevuld,<br> Graag houden aan het dd-mm-yyyy format'
+                ));
+
+                if ($validator->fails()) {
+                    return redirect()->back()->withErrors($validator->getMessageBag()->first());
+                }
+
+                $basictraining->graduationday = $request->graduationday;
+                if ($request->graduationday != $oldLog['graduationday']) {
+                    $messages[] = "Assessor heeft basistraining <strong>examen</strong> behaald op '". $basictraining->graduationday ."' ";
+                }
             }
         } else {
             $basictraining->graduated = false;
@@ -474,6 +501,17 @@ class AssessorController extends Controller
             );
         }
         return json_encode($message);
+    }
+
+    public function getDeleteAssessor($id)
+    {
+        $assessor = Assessors::find($id);
+        if (empty($assessor)) {
+            return redirect()->route('assessors')->withErrors("Assessor niet gevonden");
+        }
+
+        $assessor->delete();
+        return redirect()->route('assessors')->withSuccess("Assessor was successvol verwijderd");
     }
 
     public function postAddAssessorManual($count, Request $request)

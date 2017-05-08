@@ -30,4 +30,32 @@ class Maintenance extends Model
             return "maintenance";
         }
     }
+
+    public static function saveAndRecalculate()
+    {
+        $exams = Exams::all();
+        foreach ($exams as $exam) {
+            $basictraining = json_decode($exam->basictraining);
+            if (!$basictraining->passed) {
+                continue;
+            }
+            if ($basictraining->graduationday == null) {
+                continue;
+            }
+
+            if (empty($exam->last_maintenance)) {
+                $exam->training_done = Exams::calcTrainingDone($basictraining->graduationday, 'd-m-Y');
+            }else{
+                if ($exam->maintenance_this_year) {
+                    if ($exam->training_done == 4) {
+                        $exam->training_done = 1;
+                    }else{
+                        $exam->training_done = $exam->training_done +1;
+                    }
+                    $exam->maintenance_this_year = false;
+                }
+            }
+            $exam->save();
+        }
+    }
 }

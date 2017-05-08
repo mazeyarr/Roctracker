@@ -2016,6 +2016,17 @@ class SeedDemoContent extends Seeder
         } else {
             $date2 = \Carbon\Carbon::now()->format('d-m-Y');
         }
+
+        if (!empty($p_date2)) {
+            $training_done = Exams::calcTrainingDone($p_date2, 'd-m-Y');
+            $graduationday = \Carbon\Carbon::createFromFormat('d-m-Y', $p_date2)->addMonth()->format('d-m-Y');
+        } elseif ($date2 == "") {
+            $graduationday = "";
+        } else {
+            $training_done = Exams::calcTrainingDone(\Carbon\Carbon::now()->addMonth()->format('d-m-Y'), 'd-m-Y');
+            $graduationday = \Carbon\Carbon::now()->addMonth()->format('d-m-Y');
+        }
+
         $passed = ($passed) ? "true" : "false";
         $_vid = ($_vid) ? "true" : "false";
         $_port = ($_port) ? "true" : "false";
@@ -2024,24 +2035,25 @@ class SeedDemoContent extends Seeder
         $present1 = $present1 == true ? "true" : "false";
         $present2 = $present2 == true ? "true" : "false";
         $exam = new Exams();
-        $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
-            {
-              "passed": ' . $passed . ',
-              "requirements": {
-                "video": ' . $_vid . ',
-                "portfolio": ' . $_port . ',
-                "CV": ' . $_cv . '
-              },
-              "date1": {
-                "present": ' . $present1 . ',
-                "date": "' . $date1 . '"
-              },
-              "date2": {
-                "present": ' . $present2 . ',
-                "date": "' . $date2 . '"
-              },
-              "graduated": ' . $graduated . '
-            }'));
+        $exam->basictraining = json_encode(array (
+        'passed' => $passed,
+        'requirements' =>
+            array (
+                'video' => $_vid,
+                'portfolio' => $_port,
+                'CV' => $_cv,
+            ),
+            'date1' => array (
+                    'present' => $present1,
+                    'date' => $date1,
+            ),
+            'date2' => array (
+                    'present' => $present2,
+                    'date' => $date2,
+            ),
+            'graduationday' => $graduationday,
+            'graduated' => $graduated,
+        ));
 
         $exam->exam_next_on = $exam_next;
         $exam->training_next_on = $training_next;

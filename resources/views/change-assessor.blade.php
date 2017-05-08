@@ -86,6 +86,10 @@
                                 <label for="inputName1" class="control-label">Dag 2: (dd-mm-yyyy)</label>
                                 {!! Form::text('day2', $assessor->fk_exams['basictraining']->date2->date, array('class' => 'form-control')) !!}
                             </div>
+                            <div class="form-group">
+                                <label for="inputName1" class="control-label">Examendag (dd-mm-yyyy)</label>
+                                {!! Form::text('graduationday', $assessor->fk_exams['basictraining']->graduationday, array('class' => 'form-control')) !!}
+                            </div>
                         </div>
                         <div class="form-group">
                             <div class="checkbox checkbox-success">

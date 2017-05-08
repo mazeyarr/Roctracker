@@ -163,8 +163,9 @@
                 }
 
                 /*Ajax with parameters*/
+                var url = laroute.route('ajax_save_college', { id : _id, name: modal_name_field.val() });
                 $.ajax({
-                    url: '/dashboard/college/save/' + id + '/' + modal_name_field.val()
+                    url: url
                 }).done(function (data) {
                     $.toast({
                         heading: 'Voltooid'

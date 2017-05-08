@@ -43,6 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
 
             Route::get('save/assessor/{id}/{collegeid}', 'FunctionalController@ajaxSaveAssessorToCollege')->name('ajax_save_college_by_selection');
             Route::get('save/{id}/{name}', 'FunctionalController@ajaxSaveCollege')->name('ajax_save_college');
+
+            Route::get('delete/{id}', 'CollegeController@getDeleteCollege')->name('delete_college');
         });
 
 
@@ -59,6 +61,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::post('add/manual/exchange/save/{count?}', 'TeamleaderController@postChangeTeamleaderManual')->name('add_teamleader_change_save_exchange');
 
             Route::get('save/{id}/{name}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
+
+            Route::get('delete/{id}', 'TeamleaderController@getDeleteTeamleader')->name('delete_teamleader');
         });
 
 
@@ -77,6 +81,8 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('excel/layout/download', 'FunctionalController@downloadExcelAssessorLayout')->name('download_excel_assessor_layout');
             Route::post('add/automatic/save', 'AssessorController@postAddAssessorAutomatic')->name('add_assessor_automatic_save');
             Route::get('add/automatic/undo/{id}', 'AssessorController@getUndoAssessorAutomatic')->name('add_assessor_automatic_undo');
+
+            Route::get('delete/{id}', 'AssessorController@getDeleteAssessor')->name('delete_assessor');
         });
 
         Route::group(['prefix' => 'maintenance'], function () {

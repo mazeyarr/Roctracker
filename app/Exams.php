@@ -54,21 +54,21 @@ class Exams extends Model
             # SECTOR 1.4
             # if the assessor passed his basictraining and does not have a second training date,
             # We cannot calculate if this assessor needs a maintenance.
-            if ($basictraining->date2->date == null) {
+            if ($basictraining->graduationday == null) {
                 continue;
             }
 
             # SECTOR 1.5
             # if the current year is equal the year this assessor received his basictraining certificate
             # In that case this assessor does not require maintenance.
-            if (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date), 'Y')) {
+            if (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->graduationday), 'Y')) {
                 continue;
             }
 
             # SECTOR 1.6
             # if the last basictraining date is equal to the current year + 1 year
             # In that case this assessor does not require maintenance
-            elseif (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->date2->date), 'Y') + 1) {
+            elseif (date('Y') == date_format(date_create_from_format('d-m-Y', $basictraining->graduationday), 'Y') + 1) {
                 continue;
             }
 
@@ -122,6 +122,9 @@ class Exams extends Model
         if (empty($object)) {
             return false;
         }
+        if (empty($exam->last_maintenance)) {
+            $exam->training_done = self::calcTrainingDone($object->graduationday, 'd-m-Y');
+        };
         $exam->basictraining = json_encode($object);
         $exam->save();
 
@@ -145,43 +148,46 @@ class Exams extends Model
         #
         # If this Assessor did not pass his basictraining, this Assessor will get a standard formulated basictraining json
         if ($training) {
-            $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
-            {
-              "passed": true,
-              "requirements": {
-                "video": true,
-                "portfolio": true,
-                "CV": true
-              },
-              "date1": {
-                "present": true,
-                "date": "' . $last_training . '"
-              },
-              "date2": {
-                "present": true,
-                "date": "' . $last_training . '"
-              },
-              "graduated": true
-            }'));
+
+            $exam->basictraining = json_encode(array (
+                'passed' => true,
+                'requirements' =>
+                    array (
+                        'video' => true,
+                        'portfolio' => true,
+                        'CV' => true,
+                    ),
+                'date1' => array (
+                    'present' => true,
+                    'date' => $last_training,
+                ),
+                'date2' => array (
+                    'present' => true,
+                    'date' => $last_training,
+                ),
+                'graduationday' => $last_training,
+                'graduated' => true,
+            ));
         } else {
-            $exam->basictraining = trim(preg_replace('/\s\s+/', ' ', '
-            {
-              "passed": false,
-              "requirements": {
-                "video": false,
-                "portfolio": false,
-                "CV": false
-              },
-              "date1": {
-                "present": false,
-                "date": null
-              },
-              "date2": {
-                "present": false,
-                "date": null
-              },
-              "graduated": false
-            }'));
+            $exam->basictraining = json_encode(array (
+                'passed' => false,
+                'requirements' =>
+                    array (
+                        'video' => false,
+                        'portfolio' => false,
+                        'CV' => false,
+                    ),
+                'date1' => array (
+                    'present' => false,
+                    'date' => null,
+                ),
+                'date2' => array (
+                    'present' => false,
+                    'date' => null,
+                ),
+                'graduationday' => null,
+                'graduated' => false,
+            ));
         }
 
         # The amount a maintenances will be set to 0
@@ -232,6 +238,10 @@ class Exams extends Model
             # (Minus 1 because an assessor is not required to be applied for maintenance, after the first year of the basictraining)
         } else {
             $training_done = $diff - 1;
+        }
+
+        if ($training_done < 0) {
+            $training_done = 0;
         }
         return $training_done;
     }

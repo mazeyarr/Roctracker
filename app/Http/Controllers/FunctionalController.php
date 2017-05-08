@@ -9,6 +9,7 @@ use App\Functions;
 use App\HistoryData;
 use App\Log;
 use App\MailTexts;
+use App\Maintenance;
 use App\ScheduleEmailTasks;
 use App\Teamleaders;
 use App\Constructors;
@@ -336,6 +337,11 @@ class FunctionalController extends Controller
 
     public function CronJobs()
     {
+        if (date('n') == 5 && date('j') == 8) {
+            Maintenance::saveAndRecalculate();
+            return response(200);
+        }
+
         $schedule = ScheduleEmailTasks::where('at_date', '!=', null)->where('done', 0)->get();
         if (!$schedule->isEmpty()) {
             foreach ($schedule as $email) {

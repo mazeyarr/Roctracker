@@ -20,6 +20,8 @@ class CreateExamsTable extends Migration
             $table->date('training_next_on')->nullable(true);
             $table->boolean("maintenance_this_year")->default(false);
             $table->tinyInteger('training_done')->default(0);
+            $table->date('last_maintenance')->nullable(true);
+            $table->date('before_last_maintenance')->nullable(true);
             $table->text('log');
             $table->timestamps();
         });

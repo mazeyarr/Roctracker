@@ -83,16 +83,22 @@
                                     </a>
                                     <span style="margin-left: 5px;"></span>
                                     <a href="{{ URL::route('view_assessor', $assessor->id) }}"
-                                       class="college-row-big btn-xs btn-rounded btn-success">
+                                       class="college-row-big btn-xs btn-rounded btn-info">
                                         <i class="fa fa-eye" aria-hidden="true"></i>
                                         Assessor Geschiedenis
                                     </a>
                                     <span style="margin-left: 5px;"></span>
                                     <a href="{{ URL::route('change_assessor', $assessor->id) }}"
                                        id="{{ $assessor->id }}"
-                                       class="college-row-big btn-xs btn-rounded btn-danger">
+                                       class="college-row-big btn-xs btn-rounded btn-warning">
                                         <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
                                         Grote bewerking
+                                    </a>
+                                    <a href="{{URL::route('delete_assessor', $assessor->id)}}"
+                                       id="{{ $assessor->id }}"
+                                       class="btnDelete college-row-big btn-xs btn-rounded btn-danger">
+                                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+                                        Verwijderen
                                     </a>
                                 </td>
                             </tr>

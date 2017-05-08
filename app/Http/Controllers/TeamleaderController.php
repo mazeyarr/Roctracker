@@ -214,6 +214,34 @@ class TeamleaderController extends Controller
         return redirect()->route('view_teamleaders', $teamleader->id)->withSucces('Wijzeging was succesvol doorgevoerd !');
     }
 
+    public function getDeleteTeamleader($id)
+    {
+        $teamleader = Teamleaders::find($id);
+        if (empty($teamleader)) {
+            return redirect()->back()->withErrors("Teamleader was niet gevonden");
+        }
+        $tic = TiC::where('fk_teamleader', $teamleader->id)->get();
+        if (!$tic->isEmpty()) {
+            foreach ($tic as $id) {
+                $teamleader_in_college = $id->id;
+                $college = College::find($id->fk_college);
+                Log::CollegeLog($college->id, "Teamleider: '" . $teamleader->name . "' is geen teamleider meer van dit college");
+                $assessors = Assessors::where('fk_college', $college->id)->get();
+                foreach ($assessors as $assessor) {
+                    $assessor->fk_teamleader = null;
+                    $assessor->save();
+                    Log::AssessorLog($assessor->id, "Teamleider: '" . $teamleader->name . "' is geen teamleider meer van dit college");
+                }
+                $tic = TiC::find($teamleader_in_college);
+                $tic->delete();
+            }
+        }
+
+        $teamleader->delete();
+
+        return redirect()->back()->withSuccess("Teamleider was successvol verwijderd");
+    }
+
     public function postAddTeamleaderManual ($count, Request $request) {
         # SECTOR 1
         if (empty($count)) {

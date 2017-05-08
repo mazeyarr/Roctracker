@@ -179,6 +179,34 @@ class CollegeController extends Controller
         return view('college-change-selection')->withCollege_current(College::find($id))->withNewname($collegename)->withNewlocation($collegelocation)->withColleges(College::all())->withAssessors(Assessors::where('fk_college', '=', $id)->get());
     }
 
+    public function getDeleteCollege($id)
+    {
+        $college = College::find($id);
+        if (empty($college)) {
+            return redirect()->back()->withErrors("College was niet gevonden om te verwijderen");
+        }
+
+        $tic = TiC::where('fk_college', $college->id)->first();
+        if (!empty($tic)) {
+            $teamleader = Teamleaders::find($tic->fk_teamleader);
+            Log::TeamleaderLog($teamleader->id, "College: '" . $college->name . "' was uit het systeem verwijderd");
+            $tic = TiC::find($tic->id);
+            $tic->delete();
+        }
+
+        $assessors = Assessors::where('fk_college', $college->id)->get();
+        foreach ($assessors as $assessor) {
+            $assessor->fk_college = null;
+            $assessor->fk_teamleader = null;
+            Log::AssessorLog($assessor->id, "College: '" . $college->name . "' was uit het systeem verwijderd");
+            $assessor->save();
+        }
+
+        $college->delete();
+
+        return redirect()->back()->withSuccess("College was successvol verwijderd");
+    }
+
     public function postNewCollege(Request $request)
     {
         $validate = Validator::make($request->all(), array(

@@ -5,7 +5,57 @@ $(document).ready(function (e) {
         },
         idle: 600000
     })*/
-    var searchbar = $('#searchbar');
+    var searchbar = $('#searchbar'),
+        navBtn = $('.btnDoubleClick'),
+        btnDelete = $('.btnDelete');
+
+    btnDelete.click(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var url = $(this).attr('href');
+        swal({
+                title:"Assessor Verwijderen",
+                text: "U dient uw wachtwoord intevoeren voordat deze assessor verwijderd kan worden",
+                type: "input",
+                inputType: "password",
+                showCancelButton: true,
+                closeOnConfirm: false,
+                cancelButtonText: "Annuleren",
+                confirmButtonText: "Bevestigen",
+                animation: "slide-from-top",
+                inputPlaceholder: "Uw Wachtwoord"
+            },
+            function(inputValue){
+                swalShowLoad(true);
+                if (inputValue === "") {
+                    swal.showInputError("U dient een wachtwoord intevoeren");
+                    swalShowLoad(false);
+                }else if (!inputValue) {
+                    ezToast('Attentie !', "Verwijderen Geannuleerd", 'warning', 2000, "#FEC107");
+                    swalShowLoad(false);
+                }else{
+                    swalShowLoad(true);
+                    var routeUrl = laroute.route('ajax_check_user_password', { password : inputValue });
+                    $.getJSON(routeUrl, function (response) {
+                        if (response) {
+                            window.location.href = url;
+                        }else{
+                            swalShowLoad(false);
+                            swal.showInputError("Wachtwoord was incorrect...");
+                        }
+                    });
+                }
+            });
+    });
+
+    navBtn.dblclick(function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var url = $(this).attr('href');
+
+        window.location.href = url;
+    });
+
     searchbar.focus(function () {
         var container = $('#container-search-results');
         $(document).keypress(function(e) {
