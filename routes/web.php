@@ -63,6 +63,14 @@ Route::group(['middleware' => 'auth'], function () {
             Route::get('save/{id}/{name}', 'FunctionalController@ajaxSaveTeamleader')->name('ajax_save_teamleader');
 
             Route::get('delete/{id}', 'TeamleaderController@getDeleteTeamleader')->name('delete_teamleader');
+
+            Route::get('messages/standard', function (){
+                return view('tempPages.message');
+            })->name('assessor_message_standard');
+
+            Route::get('messages/incidenteel', function (){
+                return view('tempPages.message2');
+            })->name('assessor_message_incidenteel');
         });
 
 

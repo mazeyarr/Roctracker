@@ -98,7 +98,7 @@
                     </table>
                     <div class="row">
                         <div class="col-sm-12">
-                            <button id="btnDelete-{{$group->id}}{{$group->year}}" data-group-title="{{$group->title}}" data-group="{{$group->id}}" class="btnDelete btn btn-danger btn-block">Verwijderen</button>
+                            <button id="btnDelete-{{$group->id}}{{$group->year}}" data-group-title="{{$group->title}}" data-group="{{$group->id}}" class="btnDeleteGroup btn btn-danger btn-block">Verwijderen</button>
                         </div>
                     </div>
                 </div>
@@ -137,7 +137,7 @@
                 _fromMaintenances = $('._from'),
                 _tillMaintenances = $('._till'),
                 _btnAdd = $('#btnAdd'),
-                _btnDelete = $('.btnDelete'),
+                _btnDelete = $('.btnDeleteGroup'),
                 deleteGroupID = null;
 
             _btnAdd.click(function (e) {

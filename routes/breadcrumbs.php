@@ -1,6 +1,20 @@
 <?php
 
 // Dashboard
+Breadcrumbs::register('assessor_message_standard', function($breadcrumbs)
+{
+    $breadcrumbs->push('Standaard Assessor Berichten', route('assessor_message_standard'));
+});
+
+// Dashboard
+Breadcrumbs::register('assessor_message_incidenteel', function($breadcrumbs)
+{
+    $breadcrumbs->push('Incidentele Assessor Berichten', route('assessor_message_incidenteel'));
+});
+
+// ----------------------------^ TEMP ^--------------------------------------
+
+// Dashboard
 Breadcrumbs::register('dashboard', function($breadcrumbs)
 {
     $breadcrumbs->push('Dashboard', route('dashboard'));

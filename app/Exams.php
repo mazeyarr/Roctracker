@@ -123,7 +123,9 @@ class Exams extends Model
             return false;
         }
         if (empty($exam->last_maintenance)) {
-            $exam->training_done = self::calcTrainingDone($object->graduationday, 'd-m-Y');
+            if ($object->graduationday != "") {
+                $exam->training_done = self::calcTrainingDone($object->graduationday, 'd-m-Y');
+            }
         };
         $exam->basictraining = json_encode($object);
         $exam->save();

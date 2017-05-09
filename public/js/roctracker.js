@@ -14,8 +14,8 @@ $(document).ready(function (e) {
         e.stopPropagation();
         var url = $(this).attr('href');
         swal({
-                title:"Assessor Verwijderen",
-                text: "U dient uw wachtwoord intevoeren voordat deze assessor verwijderd kan worden",
+                title:"Verwijderen",
+                text: "U dient uw wachtwoord intevoeren voordat dat er een verwijdering kan plaatsvinden",
                 type: "input",
                 inputType: "password",
                 showCancelButton: true,

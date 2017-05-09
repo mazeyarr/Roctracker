@@ -21,6 +21,9 @@
                 <a class="waves-effect" href="{{ URL::route('colleges') }}"><i class="fa fa-graduation-cap fa-fw" data-icon="a"></i> <span class="hide-menu">Colleges{!! \App\College::all()->count() != 0 ? '<span class="fa arrow"></span>' : ""!!}</span></a>
                 <ul class="nav nav-second-level">
                     <li>
+                        <a class="waves-effect" href="{{ URL::route('add_college') }}"><i class="fa fa-plus"></i> <span class="hide-menu">Toevoegen</span></a>
+                    </li>
+                    <li>
                         <a class="waves-effect btnDoubleClick" href="{{ URL::route('colleges') }}"><i class="fa fa-graduation-cap"></i> <span class="hide-menu">Alle Colleges<span class="fa arrow"></span></span></a>
                         <ul class="nav nav-third-level">
                             @if(\App\College::all()->count() != 0)
@@ -44,9 +47,6 @@
                         </ul>
                     </li>
                     <li>
-                        <a class="waves-effect" href="{{ URL::route('add_college') }}"><i class="fa fa-plus"></i> <span class="hide-menu">Toevoegen</span></a>
-                    </li>
-                    <li>
                         <a class="waves-effect btnDoubleClick" href="{{ URL::route('teamleaders') }}"><i class="fa fa-users"></i> <span class="hide-menu">Teamleiders</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-third-level">
                             <li>
@@ -63,6 +63,13 @@
                             <li>
                                 <a class="waves-effect" href="{{ URL::route('maintenance_assessor') }}"><i class="fa fa-cogs"></i> <span class="hide-menu">Onderhoud</span></a>
                             </li>
+                            <li>
+                                <a class="waves-effect" href="/berichten"><i class="fa fa-envelope"></i> Berichten<span class="fa arrow"></span></a>
+                                <ul class="nav nav-fourth-level">
+                                    <li> <a style="padding-left: 60px;" class="waves-effect" href="{{URL::route('assessor_message_standard')}}"><i class="fa fa-envelope-o"></i> Standaard</a> </li>
+                                    <li> <a style="padding-left: 60px;" class="waves-effect" href="{{URL::route('assessor_message_incidenteel')}}"><i class="fa fa-envelope-o"></i> Incidenteel</a> </li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -71,6 +78,13 @@
                             <li>
                                 <a class="waves-effect" href="{{ URL::route('add_constructors') }}"><i class="fa fa-plus"></i> <span class="hide-menu">Toevoegen</span></a>
                             </li>
+
+                            <li>
+                                <a class="waves-effect" href="/berichten"><i class="fa fa-cogs"></i> <span class="hide-menu">Standaard berichten</span></a>
+                            </li>
+                            <li>
+                                <a class="waves-effect" href="/berichten"><i class="fa fa-cogs"></i> <span class="hide-menu">Incidenteele berichten</span></a>
+                            </li>
                         </ul>
                     </li>
                     <li>
@@ -78,6 +92,13 @@
                         <ul class="nav nav-third-level">
                             <li>
                                 <a class="waves-effect" href="/add/detector"><i class="fa fa-plus"></i> <span class="hide-menu">Toevoegen</span></a>
+                            </li>
+
+                            <li>
+                                <a class="waves-effect" href="/berichten"><i class="fa fa-cogs"></i> <span class="hide-menu">Standaard berichten</span></a>
+                            </li>
+                            <li>
+                                <a class="waves-effect" href="/berichten"><i class="fa fa-cogs"></i> <span class="hide-menu">Incidenteele berichten</span></a>
                             </li>
                         </ul>
                     </li>
