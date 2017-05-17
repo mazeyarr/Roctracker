@@ -1,0 +1,37 @@
+Proftaak: Examinering
+contact : w.zijlstra@roc-teraa.nl
+L:3.18
+contact : z.abidar@roc-teraa.nl
+L:1.25 
+bron: http://dashboardpbe.etceteraa.nl/index.php
+bron: autotrack
+
+- Dashboard
+* Keuze menu van onderdelen
+	- Colleges
+	- Teams
+		* binnen het college
+		* koppelen aan college
+	- Assessoren
+		* 
+	- Teamleiders
+		* Kunnen naar andere colleges gaan
+* 
+- Registratie
+* Aleen admins
+
+- Login 
+* Alleen leraren 
+* 2 personen 
+	- Zahra Abidar
+	- Wiebe Zijlstra
+	- eventueel anderen
+
+- Wensen
+* Assessoren krijgen een mutatie overzicht
+	- tijd met gebeurtenis
+	- gebeurtenissen zijn statisch
+* excel import/export
+* zoekfunctie die query kan doen met als uitkomst een lijst met grafiek
+	- Snel zoeken
+	- Uitgebreid zoeken

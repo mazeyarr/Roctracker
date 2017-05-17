@@ -7,6 +7,13 @@
 @section('content')
     <div class="col-md-12">
         <div class="panel panel-info">
+            <div class="panel-heading">Mail Helicon
+            </div>
+            <div class="panel-body">
+                <button onclick="ezToast('Bericht Verstuurd !', 'Het bericht was verstuurd', 'success', 1000, '#91ff7d')" class="btn btn-success btn-block">Bericht Versturen <span class="fa fa-paper-plane"></span></button>
+            </div>
+        </div>
+        <div class="panel panel-info">
             <div class="panel-heading">Planning Assessoren
             </div>
             <div class="panel-body">
